@@ -1,0 +1,817 @@
+/* ===========================================================================
+   BASE — reset, canvas, type primitives, navigation, footer.
+   Every value here resolves through tokens.css.
+   ========================================================================= */
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+}
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+
+body{
+  margin:0;
+  min-height:100svh;
+  /* The scaled wordmark and the offset page titles are allowed to run past
+     the edge; the page is never allowed to scroll sideways because of it.
+     `clip` rather than `hidden` so position:sticky still works. */
+  overflow-x:clip;
+  display:flex;
+  flex-direction:column;
+  background:var(--surface-page);
+  color:var(--text-primary);
+  font-family:var(--font-body);
+  font-size:var(--text-body);
+  font-weight:var(--weight-body);
+  letter-spacing:var(--track-body);
+  line-height:var(--leading-body);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  /* The token controls change family and spacing. Transition the properties
+     that can change without reflowing, so a switch reads as a change rather
+     than a jump. */
+  transition:background-color var(--duration-slow) var(--ease-smooth),
+             color var(--duration-slow) var(--ease-smooth);
+}
+
+/* ---- The canvas grid. Fixed, behind everything, decorative only. -------
+   Two layers on the same cell, not one layer that changes its drawing:
+   background-image cannot be animated, so swapping it would snap. Each layer
+   fades on its own instead, and the Grid control decides which is up. Both
+   sit on --z-grid behind every element and neither takes pointer events, so
+   none of this can reach the content or its readability. --------------- */
+body::before,
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  z-index:var(--z-grid);
+  pointer-events:none;
+  background-size:var(--grid-cell) var(--grid-cell);
+  transition:opacity var(--duration-slow) var(--ease-smooth);
+}
+/* Classic — hairline squares. */
+body::before{
+  background-image:
+    linear-gradient(var(--border-default) var(--hair), transparent var(--hair)),
+    linear-gradient(90deg, var(--border-default) var(--hair), transparent var(--hair));
+  opacity:var(--grid-deco);
+}
+/* Dots — the same spacing, marked at the corners only. */
+body::after{
+  background-image:radial-gradient(
+    var(--border-strong) calc(var(--hair) * 1.1), transparent calc(var(--hair) * 1.1));
+  opacity:0;
+}
+[data-grid="dots"] body::before{ opacity:0; }
+[data-grid="dots"] body::after{ opacity:var(--grid-deco); }
+[data-grid="off"] body::before,
+[data-grid="off"] body::after{ opacity:0; }
+
+/* The pages reached from the header carry long-form content — a case study
+   runs to several thousand words past a sticky rail — and at the full
+   strength the grid rules right through it. They take the same grid at about
+   a sixth of the weight: present as texture, gone as soon as there is type
+   over it. A share of --deco rather than a flat 0.1, so the Opacity control
+   still reaches it, and 0.17 lands on ~0.10 at the default 0.6. */
+[data-dense="yes"]{ --grid-deco:calc(var(--deco) * 0.17); }
+
+/* The page titles are allowed to run past the edge, and body's overflow-x
+   keeps them from being scrolled to. That is enough while nothing tries to
+   scroll there — but an in-page jump does: scrollIntoView moves every
+   ancestor up to the viewport, and on a long case study it would drag the
+   whole page a couple of hundred pixels sideways to chase a letterform that
+   is clipped anyway. Clipping one level lower, at the page itself, takes
+   that area out of the document's scroll range entirely. `clip` again, so
+   the sticky rail inside keeps working. */
+[data-dense="yes"] .page{ overflow-x:clip; }
+
+/* And the root itself. The artefacts on these pages — an allocation sheet
+   three times the column's width, a question matrix wider still — each sit
+   in their own scroll box, which contains them for reading. It does not
+   contain them for *jumping*: scrollIntoView on a section that holds one
+   grows the document's scroll area to reach it, and the page could then be
+   dragged a few hundred pixels sideways into empty space. Clipping at the
+   root takes that axis away from the viewport entirely. The boxes still
+   scroll; the page no longer moves under them. */
+[data-dense="yes"]{ overflow-x:clip; }
+
+img,svg,video{ max-width:100%; display:block; }
+img{ height:auto; }
+
+h1,h2,h3,h4,p,ul,ol,figure,blockquote{ margin:0; }
+ul[role="list"],ol[role="list"]{ list-style:none; padding:0; }
+
+a{ color:inherit; }
+
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+
+::selection{ background:var(--accent); color:var(--text-on-accent); }
+
+/* ---- Focus. One visible ring everywhere, never removed. --------------- */
+:focus-visible{
+  outline:2px solid var(--accent-light);
+  outline-offset:3px;
+  border-radius:var(--radius-sm);
+}
+
+.sr-only{
+  position:absolute; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip-path:inset(50%); white-space:nowrap; border:0;
+}
+
+.skip-link{
+  position:absolute; top:var(--step-2); left:var(--step-2);
+  z-index:calc(var(--z-top) + 1);
+  padding:var(--step-2) var(--step-4);
+  background:var(--accent); color:var(--text-on-accent);
+  border-radius:var(--radius-md);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  text-decoration:none;
+  transform:translateY(-200%);
+}
+.skip-link:focus-visible{ transform:none; }
+
+/* ---- Icons. All stroke-drawn on a 16-unit grid, one shared weight. ----
+   Sized in em so an icon tracks the control it sits inside. */
+.ico{
+  width:1em; height:1em;
+  font-size:1rem;
+  flex:none;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  overflow:visible;
+}
+.sprite{ position:absolute; width:0; height:0; overflow:hidden; }
+
+/* ===========================================================================
+   TYPE PRIMITIVES
+   ========================================================================= */
+.t-h1{
+  font-family:var(--font-display); font-size:var(--text-h1);
+  font-weight:var(--weight-display); letter-spacing:var(--track-display);
+  line-height:var(--leading-heading);
+}
+.t-h2{
+  font-family:var(--font-display); font-size:var(--text-h2);
+  font-weight:var(--weight-heading); letter-spacing:var(--track-heading);
+  line-height:var(--leading-heading);
+}
+.t-h3{
+  font-family:var(--font-display); font-size:var(--text-h3);
+  font-weight:var(--weight-heading); letter-spacing:var(--track-heading);
+  line-height:1.25;
+}
+.t-h4{
+  font-family:var(--font-body); font-size:var(--text-h4);
+  font-weight:var(--weight-emphasis); letter-spacing:var(--track-heading);
+  line-height:1.3;
+}
+.t-lg{ font-size:var(--text-lg); line-height:1.45; color:var(--text-secondary); }
+.t-sm{ font-size:var(--text-sm); color:var(--text-secondary); }
+.t-label{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  font-weight:500; line-height:1.2;
+}
+.t-mono{ font-family:var(--font-mono); font-size:var(--text-mono); letter-spacing:0; }
+.t-dim{ color:var(--text-tertiary); }
+.prose{ max-width:var(--prose-max); color:var(--text-secondary); }
+.prose + .prose{ margin-top:var(--step-4); }
+
+/* ===========================================================================
+   LAYOUT
+   ========================================================================= */
+/* The page container. Every box on the site that spans the page is this
+   class — the navigation, the footer, the page heroes, the home page's
+   canvas — and so is the case-study grid, which computes the same three
+   values rather than an axis of its own. --shell-max already carries the
+   gutter, so the content inside lands on --content-max exactly: 1200px at
+   the 1440px reference, centred, with the first pixel at 120px.
+
+   A page is free to set a NARROWER measure inside it — the work index is
+   60rem, the writing index 54rem — but not a different axis and not a
+   different gutter. That is the whole of the layout contract. */
+.shell{
+  width:100%;
+  max-width:var(--shell-max);
+  margin-inline:auto;
+  padding-inline:var(--page-pad);
+}
+main{ flex:1; display:flex; flex-direction:column; }
+main:focus{ outline:none; }
+
+/* ===========================================================================
+   NAVIGATION
+   ========================================================================= */
+.nav-wrap{
+  position:sticky; top:0; z-index:var(--z-nav);
+  background:color-mix(in srgb, var(--surface-page) 88%, transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:var(--hair) solid var(--border-subtle);
+}
+
+/* The grid, continued up through the header.
+
+   The page's own grid is a fixed layer behind everything, and this band
+   paints over it: a near-opaque plate with a blur under it, which is what
+   keeps the navigation readable once a case study is scrolling past
+   underneath. So the squares are drawn again here, on top of that plate
+   rather than under it.
+
+   background-attachment:fixed is the whole trick. It anchors this layer's
+   cells to the viewport, exactly as the fixed layer below is anchored, so
+   the two are one grid with one origin — no seam at the header's edge, and
+   nothing to keep in step by hand if the cell size changes.
+
+   It follows the Grid control, the Contrast control and the palette for the
+   same reason the layer below does: it is the same grid. */
+.nav-wrap::before{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  background-size:var(--grid-cell) var(--grid-cell);
+  background-attachment:fixed;
+  background-image:
+    linear-gradient(var(--border-default) var(--hair), transparent var(--hair)),
+    linear-gradient(90deg, var(--border-default) var(--hair), transparent var(--hair));
+  opacity:var(--grid-deco);
+  transition:opacity var(--duration-slow) var(--ease-smooth);
+}
+.nav-wrap::after{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  background-size:var(--grid-cell) var(--grid-cell);
+  background-attachment:fixed;
+  background-image:radial-gradient(
+    var(--border-strong) calc(var(--hair) * 1.1), transparent calc(var(--hair) * 1.1));
+  opacity:0;
+  transition:opacity var(--duration-slow) var(--ease-smooth);
+}
+[data-grid="dots"] .nav-wrap::before{ opacity:0; }
+[data-grid="dots"] .nav-wrap::after{ opacity:var(--grid-deco); }
+[data-grid="off"] .nav-wrap::before,
+[data-grid="off"] .nav-wrap::after{ opacity:0; }
+/* The bar's own contents sit over it. */
+.nav{ position:relative; z-index:1; }
+.nav{
+  min-height:var(--nav-height);
+  display:flex; align-items:center; justify-content:space-between;
+  gap:var(--step-4);
+}
+.nav__logo{
+  display:inline-flex; align-items:center;
+  text-decoration:none;
+  flex:none;
+  border-radius:var(--radius-xl);
+}
+/* The portrait, as a square with softened corners — the lg step, so it sits
+   on the same radius scale as every other component and the Radius control
+   still reaches it: square on Sharp, gently round on Soft, rounder still
+   on Round. Never a circle; the crop is framed for a square. */
+.nav__avatar{
+  width:3.6rem; height:3.6rem;
+  border-radius:var(--radius-lg);
+  object-fit:cover;
+  background:var(--ink-5);
+  border:var(--hair) solid var(--border-default);
+  /* Safari drops the border-radius clip on a replaced element once it is
+     composited — and this one is twice over: it sits under the nav's
+     backdrop-filter and it takes a transform on hover. Both of the lines
+     below force WebKit to clip the bitmap to the radius; Chrome and Firefox
+     already did, so they are no-ops there. */
+  -webkit-mask-image:-webkit-radial-gradient(white, black);
+  -webkit-clip-path:inset(0 round var(--radius-lg));
+  clip-path:inset(0 round var(--radius-lg));
+  /* Pinned at the top edge, so the photo swings from a point the way a sign
+     hangs off a nail rather than spinning about its middle. At rest the
+     transform is identity, so this moves nothing. */
+  transform-origin:50% 0%;
+  transition:border-color var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-out);
+}
+
+/* The swing. Out to 14 degrees, back through centre to -8, then a damped
+   pendulum — 5, -3, 1.5 — settling square. It grows to 1.05 on the way out
+   and comes back to 1 with the rotation, so the last frame is the element's
+   own resting state.
+
+   That last point is the whole mechanism for leaving: the animation has no
+   fill, so once it ends the photo is sitting at its base transform, and the
+   moment the pointer leaves there is nothing to unwind. Leaving mid-swing
+   drops the animation and the transform transition above eases the rest.
+
+   Rotation and scale only — both outside layout, so nothing around the photo
+   can be pushed about, and re-hovering restarts the run from the top. */
+@keyframes avatar-swing{
+  0%  { transform:rotate(0deg)    scale(1); }
+  18% { transform:rotate(14deg)   scale(1.05); }
+  42% { transform:rotate(-8deg)   scale(1.05); }
+  62% { transform:rotate(5deg)    scale(1.04); }
+  78% { transform:rotate(-3deg)   scale(1.02); }
+  90% { transform:rotate(1.5deg)  scale(1.01); }
+  100%{ transform:rotate(0deg)    scale(1); }
+}
+.nav__logo:hover .nav__avatar,
+.nav__logo:focus-visible .nav__avatar{
+  border-color:var(--accent);
+  animation:avatar-swing 760ms var(--ease-smooth);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .nav__logo:hover .nav__avatar,
+  .nav__logo:focus-visible .nav__avatar{ animation:none; }
+}
+
+/* One gap for the whole right-hand side. The row used to space its links at
+   --step-5 and everything after them — the divider, the Magic control, the
+   burger — at --step-4, so the last stretch was tighter than the rest of the
+   line. Both are --step-6 now: the spacing between "work" and "strategy" is
+   the spacing between "leadership" and the icon at the end. */
+/* The row's own gap is --step-6, and that is what sits between the words.
+   This one is that minus the Magic button's optical padding: the button is
+   2.25rem around a 1rem icon, so 0.625rem of it is empty on each side, and
+   measuring box to box would leave the mark that much further from
+   "leadership" than the words are from each other. Taking it off here puts
+   the sparkle exactly --step-6 from the word, measured to the mark rather
+   than to its invisible hit area. */
+.nav__right{
+  display:flex; align-items:center;
+  /* Two and a half times the gap between the words. The links are one run of
+     destinations and the sparkle is a control, so it stands apart rather
+     than reading as a fourth link. Measured to the mark: the button is
+     2.25rem around a 1rem icon, so 0.625rem of it is empty on each side and
+     that comes off here, which is why this is not simply a multiple. */
+  gap:calc(var(--step-6) * 2.5 - (2.25rem - 1rem) / 2);
+}
+
+.nav__links{
+  display:flex; align-items:center; gap:var(--step-6);
+  margin:0; padding:0; list-style:none;
+}
+.nav__link{
+  position:relative;
+  /* No gap: the count is out of flow (see .nav__count), so the label is the
+     only thing in here. */
+  display:inline-flex; align-items:baseline;
+  text-decoration:none;
+  font-family:var(--font-label);
+  /* A step above --text-label, which is sized for eyebrows and chips rather
+     than for the only words in the header. Set here rather than by moving
+     the token, which would carry every label on the site with it. */
+  font-size:0.875rem;
+  /* Set as written, not transformed. The row used to be put into capitals
+     here, which made the label in the table above a source string rather
+     than the thing on screen — and once one destination needed its own case
+     that stopped being true anyway. Now each label is spelled the way it is
+     meant to read and this rule stays out of it. */
+  letter-spacing:var(--track-label); text-transform:none;
+  color:var(--text-primary);
+  padding-block:var(--step-2);
+  transition:color var(--duration-base) var(--ease-smooth);
+  white-space:nowrap;
+}
+.nav__link:hover,
+.nav__link:focus-visible{ color:var(--hue-signal); }
+/* No underline anywhere in this row. The page you are on wears the state
+   the others only borrow on hover: the signal green, and its count standing
+   up beside it. Being here is the strongest form of being pointed at, so it
+   gets the strongest form of the same treatment rather than one of its own.
+
+   It briefly carried extra weight instead, because --accent-light resolves
+   to exactly --text-primary in the default palette and colour had nothing
+   left to say once every link went to full strength. Green says it, so the
+   weight is gone again. */
+.nav__link[aria-current="page"]{ color:var(--hue-signal); }
+.nav__link[aria-current="page"] .nav__count{
+  opacity:1;
+  transform:translateY(-0.45em);
+}
+/* The index. It is in the flow at rest with its space already reserved, so
+   revealing it cannot move the row by a pixel — only its opacity changes.
+
+   The lift is a transform rather than vertical-align: .nav__link is an
+   inline-flex row, which makes the <sup> a flex item, and vertical-align has
+   no effect on one. The same transform carries the 2px rise on the way in. */
+/* Out of flow, hung off the end of its own label.
+
+   It used to be a flex item, which meant the two destinations that carry a
+   count reserved room for it permanently — a gap plus the width of a digit —
+   while the two that do not reserved nothing. The spacing between the links
+   was even; the spacing between the words was not, and the words are what
+   anyone is looking at. Absolute takes the count out of the measurement
+   entirely, so every label sits the same distance from its neighbour and the
+   number still appears in the same place on hover. */
+.nav__count{
+  position:absolute;
+  left:100%; top:var(--step-2);
+  margin-left:0.14em;
+  font-size:0.625em;
+  color:var(--hue-signal);
+  opacity:0;
+  transform:translateY(2px);
+  transition:opacity 180ms var(--ease-smooth),
+             transform 180ms var(--ease-out);
+}
+.nav__link:hover .nav__count,
+.nav__link:focus-visible .nav__count{
+  opacity:1;
+  transform:translateY(-0.45em);
+}
+@media (prefers-reduced-motion:reduce){
+  .nav__count{ transition:none; transform:translateY(-0.45em); }
+}
+
+/* ---------------------------------------------------------------------------
+   MAGIC — the one control in the header.
+
+   Everything else up here leaves the page. This one turns five personal
+   details on across the hero, and off again, and does nothing else: it used
+   to also pick a palette, a grid and a corner radius, which meant the whole
+   site changed colour to show you a plant. The colour was never the point.
+   It used to sit at the end of the toolbar under the hero; the toolbar is a
+   timeline now, and the control it was worth keeping came up here with the
+   rest of the navigation.
+
+   The gold is deliberately outside the palette system, for the same reason
+   the navigation's green is: it has to read as "this is a control" in every
+   palette, and the visitor's palette is theirs — this button never touches
+   it. It is also the only warm colour in a row of ivory links, which is the
+   whole of how it is found.
+   ------------------------------------------------------------------------ */
+.magic{
+  --magic:var(--hue-ochre);
+
+  /* The icon's centre, as an offset from the control's own left: half of a
+     2.25rem button. The label is centred on this and the arrow is drawn to
+     it, so the three cannot drift apart. */
+  --magic-ico-c:1.125rem;
+  /* The gap under the button the arrow lives in. It is wider than the
+     label alone would want because of where the arrow now is: swung out to
+     the right, it passes under the burger's column, and the burger is the
+     taller of the two controls by a couple of pixels. The gap is what keeps
+     the whole of the arrow below it. */
+  --magic-gap:1.45rem;
+  /* What the four words come to, rounded up: the guard below is reckoned
+     against this, and a little over is the safe direction — a font still
+     swapping in is wider than the one that replaces it. */
+  --magic-pill:9rem;
+
+  /* ---- The guard ------------------------------------------------------
+     The label is centred under the icon and the icon is the last thing in
+     the row, so on a narrow window half the label wants to be past the edge
+     of the page — which is a horizontal scrollbar, not a label. So: measure
+     what room there actually is to the right of the control, and if the
+     label's overhanging half is wider than that, slide it left by the
+     difference and no more. From about 1180px up the difference is negative
+     and the label sits exactly under the icon; below that it gives up only
+     as much of the centring as the window makes it.
+
+     The room is the shell's own padding plus however much the shell is
+     centred by, less half a rem so that a classic scrollbar — which 100vw
+     counts and the layout does not — cannot eat the margin. */
+  --magic-room:calc(max(0px, (100vw - var(--shell-max)) / 2)
+                    + var(--page-pad) - 0.5rem);
+  --magic-overrun:calc(var(--magic-pill) / 2 + var(--magic-ico-c) - 2.25rem
+                       - var(--magic-room));
+  --magic-shift:max(0px, var(--magic-overrun));
+
+  position:relative;
+  display:inline-flex; align-items:center;
+  flex:none;
+}
+/* A round control, the size of the burger beside it, and the only thing in
+   the header that does not navigate.
+
+   It used to hold still in every state on purpose — the argument being that
+   everything a button does to describe itself competes with the one thing
+   this one exists to show. The half of that still standing is the resting
+   state: at rest it is a gold sparkle in a hairline ring and nothing else,
+   and the five illustrations across the hero remain how its state is read.
+   What has changed is that it now answers a pointer, because a control that
+   gives nothing back on hover reads as a label rather than a thing to press,
+   and this one is already the odd item in a row of links.
+
+   What it answers with is the smallest thing that is still an answer: the
+   gold it is already drawn in, gathered into a glow behind it, and the
+   sparkle swelling by a twelfth. No lift, no colour change, no second icon.
+
+   One face, too. A second icon that said "undo" would be describing the
+   button rather than the page, and the page is already saying it. */
+.magic__btn{
+  position:relative;
+  display:grid; place-items:center;
+  width:2.25rem; height:2.25rem; padding:0;
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-full);
+  background:none;
+  color:var(--text-tertiary);
+  cursor:pointer;
+  transition:border-color var(--duration-base) var(--ease-smooth);
+}
+
+/* The glow, on a layer of its own rather than as a shadow on the button.
+   Two reasons: it can be scaled without the button moving, and it can be
+   faded out on its own clock — so when the pointer leaves, the pulse
+   underneath it stops behind a fade rather than in front of one. Inside the
+   button's own box and behind its contents, so it cannot touch the row. */
+.magic__btn::before{
+  content:"";
+  position:absolute; inset:-5px;
+  border-radius:var(--radius-full);
+  background:radial-gradient(circle closest-side,
+              color-mix(in srgb, var(--magic) 38%, transparent),
+              color-mix(in srgb, var(--magic) 10%, transparent) 62%,
+              transparent 100%);
+  opacity:0;
+  pointer-events:none;
+  z-index:-1;
+  transition:opacity var(--duration-base) var(--ease-smooth);
+}
+
+/* The icon is gold in every state — the one warm colour in a row of ivory
+   links, which is the whole of how the control is found. */
+.magic__btn .ico{ color:var(--magic); }
+.magic__ico{
+  grid-area:1 / 1;
+  /* Transitioned rather than keyframed, so the way back is the way out
+     played backwards and there is nothing to interrupt mid-cycle. */
+  transition:transform var(--duration-base) var(--ease-out);
+}
+
+/* Only where there is a pointer that can hover. On a touch screen :hover
+   sticks to whatever was tapped last, and a control left glowing after the
+   finger has gone is a control that looks stuck. */
+@media (hover:hover) and (pointer:fine){
+  .magic__btn:hover{ border-color:color-mix(in srgb, var(--magic) 42%, var(--border-default)); }
+  .magic__btn:hover .magic__ico{ transform:scale(1.09); }
+  .magic__btn:hover::before{
+    opacity:1;
+    animation:magic-breathe 1900ms var(--ease-smooth) infinite;
+  }
+}
+
+/* Slow enough to read as breathing rather than blinking, and it only ever
+   moves the glow — the button, the icon and the row are all untouched by
+   it. */
+@keyframes magic-breathe{
+  0%, 100%{ transform:scale(0.94); opacity:0.68; }
+  50%     { transform:scale(1.10); opacity:1; }
+}
+
+/* The glow stays, the breathing stops: the one is a state, the other is
+   motion, and only the second is what was asked not to happen. */
+@media (prefers-reduced-motion:reduce){
+  .magic__btn:hover::before{ animation:none; }
+  .magic__ico{ transition:none; }
+}
+
+/* The focus ring is the only state the button draws, and it is the same
+   hairline signal every other control on the page answers a keyboard with.
+   Offset, so it reads as a ring around the pill rather than as a second
+   border on it. */
+.magic__btn:focus-visible{
+  outline:var(--hair) solid var(--hue-signal);
+  outline-offset:3px;
+}
+
+/* The two labels, one slot under the button. Both are out of flow — neither
+   can move the navigation by a pixel.
+
+   The label is a label now, not a hover reward. It used to sit collapsed to
+   the width of the pill and unfurl leftwards on hover, which meant the one
+   control in the header that cannot be read from its own icon explained
+   itself only to a visitor who had already found it and guessed. So it
+   stands under the button the whole time, centred on the icon's own axis,
+   with a drawn arrow in the gap pointing back up at the thing it names.
+
+   It says the same thing whether the set is out or not, because it is true
+   in both: the set coming out and the set going away are the same offer,
+   taken and returned.
+
+   The readout is what the design controls say when one of them changes
+   something, and it takes the slot for as long as it is up. It stays
+   anchored to the right, where there is room for fourteen rems of palette
+   and type names that the label's left anchor has not got. The two never
+   show at once — the readout fades the label and the arrow out while it is
+   up — so the slot still reads as one slot rather than two. */
+.magic__hint,
+.magic__say{
+  position:absolute; top:calc(100% + var(--magic-gap));
+  margin:0;
+  display:flex; align-items:center; gap:0.5em;
+  padding:0.25rem 0.6rem;
+  border-radius:var(--radius-full);
+  border:var(--hair) solid transparent;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  font-family:var(--font-mono); font-size:0.625rem;
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  pointer-events:none;
+  transition:opacity var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-out);
+}
+.magic__hint{
+  /* Centred on the icon rather than on the button: the two share an axis,
+     but the glyph is what the arrow points at, so the glyph is what the
+     label is hung from. The guard rides on the same translate — the
+     centring and the correction added together, so there is no second
+     offset to keep in step with the first. */
+  left:50%; right:auto;
+  width:max-content; max-width:var(--magic-pill);
+  /* Standing, not waiting. */
+  opacity:1;
+  transform:translateX(calc(-50% - var(--magic-shift)));
+  color:var(--text-secondary);
+  /* Set as written — "a little more ME" is the phrase, and the one capital
+     in it is the point. The readout it shares this slot with keeps the
+     uppercase label treatment the rest of the interface labels things in. */
+  text-transform:none;
+  letter-spacing:0.04em;
+  border-color:color-mix(in srgb, var(--magic) 24%, transparent);
+  background:color-mix(in srgb, var(--ink-10) 92%, transparent);
+}
+.magic__say{
+  right:0; left:auto;
+  max-width:14rem;
+  opacity:0;
+  transform:translateY(-3px);
+  color:var(--accent);
+  border-color:color-mix(in srgb, var(--accent) 28%, transparent);
+  background:color-mix(in srgb, var(--ink-10) 92%, transparent);
+}
+/* The sparkle at the head of the label, drawn rather than typed so the
+   label itself stays one plain string. Static: the pulse it used to carry
+   was the button performing, and the button has stopped doing that. */
+.magic__hint::before{
+  content:"";
+  width:0.5rem; height:0.5rem; flex:none;
+  background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c.6 4.4 3.6 7.4 8 8-4.4.6-7.4 3.6-8 8-.6-4.4-3.6-7.4-8-8 4.4-.6 7.4-3.6 8-8z" fill="%23C19A3A"/></svg>') center/contain no-repeat;
+}
+/* The arrow from the label back up to the icon. One sketched stroke and a
+   two-stroke open head, drawn the way the sparkle beside the words is
+   drawn — inline, so there is nothing in the markup that exists only to be
+   decorative, and in the same gold, which is deliberately outside the
+   palette system because this control never takes the visitor's palette.
+
+   It comes up out of the right of the label now rather than the left. With
+   the label centred the two sides were equally available, and the right is
+   the one with something to say: it is the half of the label hanging
+   furthest into open page, and a line that sweeps back in toward the middle
+   reads as pointing rather than as propping.
+
+   It hangs off the control rather than off the label, which is what makes
+   it hold together: wherever the guard has had to nudge the label left, the
+   arrow still points at the icon, and the label — centred, and only ever
+   nudged leftwards — still has width under the foot of it.
+
+   It lives entirely in the gap: the head stops a few pixels short of the
+   button's lower edge, the foot a few short of the label, and the top of
+   the box clears the burger, which is two pixels the taller of the two
+   controls and directly above where this now reaches. So it touches
+   nothing, and the whole of it is inside the header band. */
+.magic::after{
+  content:"";
+  position:absolute;
+  top:calc(100% + 0.22rem); left:1.34rem;
+  width:2.5rem; height:1.125rem;
+  /* Three strokes: the shaft, and the two of an open head. The shaft leaves
+     the label's top right going left, runs almost flat across the middle of
+     the gap, and lifts into the head at the end, so the head arrives at the
+     icon's shoulder on a rising diagonal rather than side-on. The two barbs
+     are a little unequal, which is the whole of the hand-drawn in it. */
+  background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 18" fill="none" stroke="%23C19A3A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M34 16C27 16.5 18 14 11.5 8.5 9.8 7 8 5.4 6.6 4.2"/><path d="M6.6 4.2 7.5 8.7"/><path d="M6.6 4.2 10.6 4.4"/></svg>') center/contain no-repeat;
+  opacity:0.78;
+  pointer-events:none;
+  transition:opacity var(--duration-base) var(--ease-smooth);
+}
+
+.magic__say.is-on{ opacity:1; transform:translateY(0); }
+
+/* The readout wins the slot while it is showing, and the arrow goes with the
+   label it belongs to rather than being left pointing at someone else's
+   words. */
+.magic:has(.magic__say.is-on) .magic__hint,
+.magic:has(.magic__say.is-on)::after{ opacity:0; }
+
+/* The colour chip the palette readout carries. */
+.magic__dot{
+  width:0.5rem; height:0.5rem; flex:none;
+  border-radius:var(--radius-full);
+  box-shadow:0 0 0 var(--hair) color-mix(in srgb, var(--ink-0) 55%, transparent);
+}
+
+.nav__burger{
+  display:none;
+  width:2.5rem; height:2.5rem;
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-full);
+  place-items:center;
+  color:var(--text-secondary);
+  transition:color var(--duration-base) var(--ease-smooth),
+             border-color var(--duration-base) var(--ease-smooth);
+}
+.nav__burger:hover{ color:var(--text-primary); border-color:var(--border-strong); }
+
+
+/* ---- Mobile drawer ---------------------------------------------------- */
+.nav-sheet{
+  position:fixed; inset:0; z-index:var(--z-panel);
+  display:none;
+  background:color-mix(in srgb, var(--surface-page) 96%, transparent);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  padding:var(--page-pad);
+  padding-top:calc(var(--nav-height) + var(--step-6));
+  overflow-y:auto;
+  opacity:0;
+  transition:opacity var(--duration-base) var(--ease-smooth);
+}
+.nav-sheet[data-open="true"]{ display:block; }
+.nav-sheet[data-open="true"].is-in{ opacity:1; }
+.nav-sheet__list{ display:flex; flex-direction:column; gap:var(--step-1); margin:0 0 var(--step-8); padding:0; list-style:none; }
+.nav-sheet__link{
+  display:flex; align-items:baseline; justify-content:space-between; gap:var(--step-4);
+  padding:var(--step-4) var(--step-3);
+  border-bottom:var(--hair) solid var(--border-subtle);
+  text-decoration:none;
+  font-family:var(--font-display);
+  font-size:var(--text-h3); font-weight:var(--weight-heading);
+  letter-spacing:var(--track-heading);
+  color:var(--text-primary);
+}
+.nav-sheet__link[aria-current="page"]{ color:var(--accent-light); }
+.nav-sheet__link span{ font-family:var(--font-label); font-size:var(--text-label); letter-spacing:var(--track-label); color:var(--text-tertiary); text-transform:uppercase; }
+.nav-sheet__close{
+  position:absolute; top:calc(var(--nav-height) / 2 - 1.25rem); right:var(--page-pad);
+  width:2.5rem; height:2.5rem;
+  display:grid; place-items:center;
+  border:var(--hair) solid var(--border-default); border-radius:var(--radius-full);
+  color:var(--text-secondary);
+}
+
+
+@media (max-width:960px){
+  .nav__links{ display:none; }
+  .nav__burger{ display:grid; }
+  /* The burger comes back on the right of the control, so the room the
+     label has is the burger and the gap before it as well as the padding.
+     The shell is full width by here, so there is nothing to centre. */
+  .magic{ --magic-room:calc(var(--page-pad) + 2.5rem + var(--step-4) - 0.5rem); }
+}
+/* On a phone the labels under the pill stand down. There is no room under
+   the button for a hundred and forty pixels of label that is not over the
+   edge of the page, and the readout has the status line to fall back on. The
+   pill itself is unchanged — a round icon at every width, and its accessible
+   name is what carries the label to anyone who cannot see one. */
+@media (max-width:520px){
+  .magic__hint,
+  .magic__say{ display:none; }
+  /* ...and an arrow pointing at nothing goes with them. */
+  .magic::after{ display:none; }
+}
+
+/* ===========================================================================
+   CURTAIN — the page transition. Three stacked layers sweep up on leave and
+   away on arrive. Purely decorative; navigation never waits on it when the
+   visitor has asked for reduced motion.
+   ========================================================================= */
+
+
+/* ===========================================================================
+   FOOTER
+   ========================================================================= */
+.foot{
+  margin-top:var(--step-24);
+  border-top:var(--hair) solid var(--border-subtle);
+  padding-block:var(--step-10) var(--step-8);
+}
+/* The footer is one line now. The grid of link columns it used to sit under
+   is gone, and with it the rule that drew a divider above this row — .foot
+   already carries one. */
+.foot__base{
+  display:flex; flex-wrap:wrap; gap:var(--step-4);
+  align-items:center; justify-content:space-between;
+  color:var(--text-tertiary);
+}
+
+/* ===========================================================================
+   REVEAL — one shared scroll-in. Opt-in per element via [data-reveal].
+   Without JS, or with reduced motion, content is simply visible.
+   ========================================================================= */
+[data-reveal]{ opacity:1; }
+.js [data-reveal]{
+  opacity:0; transform:translateY(12px);
+  transition:opacity var(--duration-enter) var(--ease-out),
+             transform var(--duration-enter) var(--ease-out);
+}
+.js [data-reveal].is-in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce){
+  .js [data-reveal]{ opacity:1; transform:none; }
+}

@@ -1,0 +1,372 @@
+/* ===========================================================================
+   TOKENS — the single source of truth for this site.
+   Every one of the five homepage controls writes into this layer and nowhere
+   else. Nothing downstream hard-codes a colour, a step, a radius or a size.
+
+   The five controls map to:
+     Colour   -> html[data-palette]   swaps the accent + the letter hue ring
+     Type     -> html[data-type]      swaps family / weight / tracking / leading
+                 --type-scale         the draggable selection box on the hero
+     Spacing  -> html[data-density]   scales --step-* through one multiplier
+     Radius   -> html[data-radius]    scales --radius-* through one multiplier
+     Opacity  -> --deco-opacity       one value, read by every decorative layer
+   ========================================================================= */
+
+/* ---------- Faces. Self-hosted, no third-party requests. ---------------- */
+@font-face{
+  font-family:"Inter Tight"; font-style:normal; font-weight:100 900; font-display:swap;
+  src:url("../fonts/inter-tight-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,
+    U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,
+    U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"Inter Tight"; font-style:normal; font-weight:100 900; font-display:swap;
+  src:url("../fonts/inter-tight-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,
+    U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,
+    U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"Geist Mono"; font-style:normal; font-weight:100 900; font-display:swap;
+  src:url("../fonts/geist-mono-latin.woff2") format("woff2");
+}
+
+:root{
+  /* ---------------------------------------------------------------------
+     1 · NEUTRAL RAMP — warm charcoal up to warm ivory.
+     Named by lightness so dark and light reads the same way round.
+     ------------------------------------------------------------------- */
+  --ink-0:#14130F;    /* page */
+  --ink-5:#191814;
+  --ink-10:#1F1D18;   /* raised */
+  --ink-20:#2B2822;   /* default border */
+  --ink-30:#393530;   /* overlay */
+  --ink-40:#56514A;
+  --ink-50:#7E776C;   /* strong border, tertiary ink */
+  --ink-55:#8F887C;
+  --ink-60:#A9A295;
+  --ink-70:#C7C0B2;   /* secondary ink */
+  --ink-80:#E0D9CA;
+  --ink-90:#EFE9DC;
+  --ink-100:#FBF7EF;  /* warm ivory — primary ink */
+
+  /* ---------------------------------------------------------------------
+     2 · HUE RING — the pool the wordmark letters draw from, and the pool
+     the Colour control re-orders. Eight mature hues, each in three steps.
+     Nothing fluorescent; every base sits near 55-65% lightness so it holds
+     against the charcoal without glowing.
+     ------------------------------------------------------------------- */
+  --hue-copper-deep:#6E3C16;   --hue-copper:#C07A42;   --hue-copper-light:#E8BE97;
+  --hue-rust-deep:#6B2D1B;     --hue-rust:#B55C3C;     --hue-rust-light:#E3AC95;
+  --hue-ochre-deep:#6B5410;    --hue-ochre:#C19A3A;    --hue-ochre-light:#E8D49A;
+  --hue-sage-deep:#2F4A2C;     --hue-sage:#7E9B70;     --hue-sage-light:#C5D8BB;
+  /* Sampled from the header reference. Brighter and more saturated than
+     --hue-sage, and deliberately outside the palette system: the navigation
+     hover is the same green whichever palette is active. */
+  --hue-signal:#50AA75;
+  --hue-teal-deep:#1E4642;     --hue-teal:#5E9A93;     --hue-teal-light:#AFD4CF;
+  --hue-slate-deep:#27394C;    --hue-slate:#6E8AA6;    --hue-slate-light:#B8CCDE;
+  --hue-lavender-deep:#3B3159; --hue-lavender:#9A8FC4; --hue-lavender-light:#D3CCE9;
+  --hue-plum-deep:#4A2B45;     --hue-plum:#9A6E95;     --hue-plum-light:#D8BED4;
+
+  /* The editorial tile palette. Seven grounds, each with an ink of the same
+     hue walked down in lightness until body copy clears 4.5:1 — the tightest
+     pair is cobalt at 5.31:1, titles run 6.17 to 7.13:1. Moved here from
+     tiles.css when the Work list started using the same grounds for its
+     hover cards; the colours are a palette, and palettes live in this file.
+
+     Deliberately outside the Colour control, like --hue-signal: the page,
+     the nav and the grid re-tint around these, and these stay put. */
+  --t-lime-bg:#C6D44F;       --t-lime-ink:#373C0C;
+  --t-coral-bg:#E27C5E;      --t-coral-ink:#280D05;
+  --t-pink-bg:#EE92B9;       --t-pink-ink:#550929;
+  --t-cobalt-bg:#7B8DF2;     --t-cobalt-ink:#030C3D;
+  --t-turquoise-bg:#6FCCBD;  --t-turquoise-ink:#113630;
+  --t-lavender-bg:#C3B2EB;   --t-lavender-ink:#391B7E;
+  --t-orange-bg:#EDA23F;     --t-orange-ink:#3D2403;
+
+  /* ---------------------------------------------------------------------
+     3 · SEMANTIC SURFACES
+     ------------------------------------------------------------------- */
+  --surface-page:var(--ink-0);
+  --surface-raised:var(--ink-10);
+  --surface-overlay:var(--ink-30);
+
+  --text-primary:var(--ink-100);
+  --text-secondary:var(--ink-70);
+  --text-tertiary:var(--ink-55);
+  --text-on-accent:var(--ink-0);
+
+  --border-subtle:var(--ink-10);
+  --border-default:var(--ink-20);
+  --border-strong:var(--ink-50);
+
+  /* ---------------------------------------------------------------------
+     4 · ACCENT — written by the Colour control. Mono is the default: the
+     site arrives black and white, and stays that way until a colour is
+     chosen. These values are the neutral ramp, so nothing here is a hue.
+     ------------------------------------------------------------------- */
+  --accent-deep:var(--ink-50);
+  --accent:var(--ink-80);
+  --accent-light:var(--ink-100);
+
+  /* The ring the six letters of ARUSHI take their resting hues from.
+     Re-ordered per palette so a palette change is visible on the wordmark
+     itself, not only on the links. Under Mono it is a ring of values
+     rather than hues — the only variation a monochrome palette has. */
+  --letter-1:var(--ink-100);
+  --letter-2:var(--ink-90);
+  --letter-3:var(--ink-80);
+  --letter-4:var(--ink-70);
+  --letter-5:var(--ink-60);
+  --letter-6:var(--ink-55);
+
+  /* ---------------------------------------------------------------------
+     5 · TYPE — written by the Type control.
+     --type-scale is the hero's draggable selection box. It multiplies the
+     wordmark only, so dragging it never reflows the page around it.
+     ------------------------------------------------------------------- */
+  --font-sans:"Inter Tight",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  /* No serif is self-hosted, so this is a system stack. Iowan and
+     Charter are the handsome ones on macOS; Georgia is everywhere. */
+  --font-serif:"Iowan Old Style","Charter","Georgia","Times New Roman",serif;
+
+  --font-display:var(--font-sans);
+  --font-body:var(--font-sans);
+  --font-label:var(--font-mono);
+
+  --weight-display:700;
+  --weight-heading:600;
+  --weight-body:400;
+  --weight-emphasis:500;
+
+  --track-display:-0.035em;
+  --track-heading:-0.02em;
+  --track-body:-0.005em;
+  --track-label:0.1em;
+
+  --leading-display:0.86;
+  --leading-heading:1.1;
+  --leading-body:1.55;
+
+  --type-scale:1;
+
+  /* Fluid sizes. The wordmark is sized off the stage, not off this ramp. */
+  --text-h1:clamp(2.25rem, 1.4rem + 3.6vw, 4.5rem);
+  --text-h2:clamp(1.65rem, 1.2rem + 1.9vw, 2.75rem);
+  --text-h3:clamp(1.2rem, 1.05rem + 0.65vw, 1.6rem);
+  --text-h4:clamp(1.05rem, 1rem + 0.3vw, 1.25rem);
+  --text-lg:clamp(1.0625rem, 1rem + 0.4vw, 1.3125rem);
+  --text-body:1rem;
+  --text-sm:0.9375rem;
+  --text-label:0.75rem;
+  --text-mono:0.8125rem;
+
+  /* ---------------------------------------------------------------------
+     6 · SPACE — written by the Spacing control through one multiplier.
+     Every component spaces itself from --step-*, never from a raw rem.
+     ------------------------------------------------------------------- */
+  --density:1;
+  --step-1:calc(0.25rem * var(--density));
+  --step-2:calc(0.5rem  * var(--density));
+  --step-3:calc(0.75rem * var(--density));
+  --step-4:calc(1rem    * var(--density));
+  --step-5:calc(1.25rem * var(--density));
+  --step-6:calc(1.5rem  * var(--density));
+  --step-8:calc(2rem    * var(--density));
+  --step-10:calc(2.5rem * var(--density));
+  --step-12:calc(3rem   * var(--density));
+  --step-16:calc(4rem   * var(--density));
+  --step-20:calc(5rem   * var(--density));
+  --step-24:calc(6rem   * var(--density));
+
+  /* ---------------------------------------------------------------------
+     7 · RADIUS — written by the Radius control through one multiplier.
+     --radius-full stays pill at every setting except Sharp, where the
+     multiplier collapses it too, so the change is unmistakable.
+     ------------------------------------------------------------------- */
+  --radius-k:1;
+  --radius-sm:calc(4px  * var(--radius-k));
+  --radius-md:calc(8px  * var(--radius-k));
+  --radius-lg:calc(14px * var(--radius-k));
+  --radius-xl:calc(20px * var(--radius-k));
+  --radius-full:calc(999px * var(--radius-k));
+
+  /* ---------------------------------------------------------------------
+     8 · DECORATIVE OPACITY — written by the Opacity control.
+     Read by: the page grid, card art, hairline dividers, portal notes,
+     the stage leader lines. Never read by body copy or by any control.
+     Clamped 0.15–1 by the control itself; clamped again here so a stale
+     stored value can never make the decoration disappear entirely.
+     ------------------------------------------------------------------- */
+  --deco-opacity:0.6;
+  --deco:clamp(0.15, var(--deco-opacity), 1);
+  /* The canvas grid reads this rather than --deco directly. It is the same
+     value everywhere except on the content-heavy pages, which dim it — see
+     [data-dense] in base.css. Expressed as a share of --deco rather than a
+     number, so the Opacity control still moves it. */
+  /* The grid reads lighter than the rest of the decorative layer: it is the
+     ground everything else is drawn on, and it was competing with what
+     stands on it. Still a share of --deco, so the Opacity control reaches it
+     exactly as before, and so does the hero mesh — that reads the grid's
+     computed opacity rather than carrying its own, so it stays in proportion
+     without being told. Trimmed from 0.8 by eye on the home page, in two passes. */
+  --grid-deco:calc(var(--deco) * 0.74);
+
+  /* ---------------------------------------------------------------------
+     9 · LAYOUT + MOTION — fixed. Not exposed to the controls.
+     ------------------------------------------------------------------- */
+  /* ---- THE PAGE CONTAINER ---------------------------------------------
+     One measure and one gutter, and every full-width box on the site is
+     built out of the two: the navigation, the footer, the page heroes, the
+     home page's canvas and the case-study grid. Those are the only numbers
+     any of them knows, so none of them can drift from the others — which is
+     what had happened: the chrome was centred on a 76rem cap while a case
+     study was anchored to a share of the viewport, and the two axes agreed
+     at one width only.
+
+     --content-max is the MEASURE: the width the content itself occupies,
+     1300px at the 1440px reference. --shell-max is the BOX that carries it,
+     the measure plus one gutter on each side — which is what a centred
+     max-width has to be when the gutter is padding inside the box. At
+     1440px that puts the first pixel of content at 70px and the last at
+     1370px — 70px of margin on each side, equal by construction. It is the
+     same geometry as `max-width:1300px` with
+     `width:calc(100% - 2 * gutter)` and no padding, written this way round
+     so a full-bleed child can still cancel the gutter with
+     `margin-inline:calc(var(--page-pad) * -1)`, which several of them do.
+
+     The gutter is a clamp rather than a stack of breakpoints: 48px from
+     1200px up, 30.7px on a tablet, 20px on a phone. It narrows on its own,
+     so no media query has to remember to narrow it.
+     ------------------------------------------------------------------- */
+  --page-pad:clamp(1.25rem, 4vw, 3rem);
+  --content-max:1300px;
+  --shell-max:calc(var(--content-max) + var(--page-pad) * 2);
+  --prose-max:38rem;
+  /* The bar is two grid cells tall to the pixel, so its bottom border lands
+     on the grid's own third horizontal line instead of three pixels above
+     it. At 5.25rem it missed, and a 1px border with a 1px hairline 3px under
+     it reads as one line that has been printed twice. The border is kept
+     rather than deleted: with the Grid control off it is the only edge the
+     header has. --nav-bar is the whole bar, border included, which is what
+     anything aligning to the outside of it wants. */
+  --grid-cell:44px;
+  --hair:1px;
+  --nav-height:calc(var(--grid-cell) * 2 - var(--hair));
+  --nav-bar:calc(var(--nav-height) + var(--hair));
+
+  --duration-fast:0.15s;
+  --duration-base:0.22s;
+  --duration-slow:0.32s;
+  --duration-enter:0.5s;
+  --ease-smooth:cubic-bezier(.45,0,.55,1);
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --ease-in:cubic-bezier(.4,0,1,1);
+
+  --z-grid:-1;
+  --z-nav:50;
+  --z-panel:60;
+  /* Nothing is drawn at this level any more; it is the ceiling the skip
+     link measures itself against. */
+  --z-top:90;
+
+  color-scheme:dark;
+}
+
+/* ===========================================================================
+   COLOUR CONTROL — three coordinated palettes.
+   A palette re-tints the neutral ramp itself, not just the accent, so the
+   page, the raised surfaces, the text, the borders and the background grid
+   all move together — everything downstream reads --ink-*.
+
+   The tints were computed by holding each step's lightness exactly where it
+   was and turning only hue and saturation, so contrast is identical in all
+   three. Mono keeps the ramp as authored.
+   ========================================================================= */
+[data-palette="mono"]{
+  --accent-deep:var(--ink-50);    --accent:var(--ink-80);  --accent-light:var(--ink-100);
+  --letter-1:var(--ink-100);      --letter-2:var(--ink-90);
+  --letter-3:var(--ink-80);       --letter-4:var(--ink-70);
+  --letter-5:var(--ink-60);       --letter-6:var(--ink-55);
+}
+
+/* Warm Copper — the ramp swung to amber. */
+[data-palette="copper"]{
+  --ink-0:#16110D;   --ink-5:#1B1612;   --ink-10:#221B15;  --ink-20:#2F251E;
+  --ink-30:#3D332C;  --ink-40:#5B4E45;  --ink-50:#867364;  --ink-55:#988373;
+  --ink-60:#B29C8C;  --ink-70:#D0BAA9;  --ink-80:#EAD2C0;  --ink-90:#F2E4D9;
+  --ink-100:#FAF4F0;
+  --accent-deep:var(--hue-copper-deep); --accent:var(--hue-copper); --accent-light:var(--hue-copper-light);
+  --letter-1:var(--hue-copper);   --letter-2:var(--hue-rust);
+  --letter-3:var(--hue-ochre);    --letter-4:var(--hue-sage);
+  --letter-5:var(--hue-lavender); --letter-6:var(--hue-slate);
+}
+
+/* Botanical Green — the same ramp swung to a deep green. */
+[data-palette="botanical"]{
+  --ink-0:#0E150F;   --ink-5:#131A14;   --ink-10:#162118;  --ink-20:#202D22;
+  --ink-30:#2E3B30;  --ink-40:#47594B;  --ink-50:#68836D;  --ink-55:#77947D;
+  --ink-60:#90AE96;  --ink-70:#ADCCB3;  --ink-80:#C4E6CB;  --ink-90:#D9F2DE;
+  --ink-100:#F0FAF2;
+  --accent-deep:var(--hue-sage-deep); --accent:var(--hue-sage); --accent-light:var(--hue-sage-light);
+  --letter-1:var(--hue-sage);     --letter-2:var(--hue-teal);
+  --letter-3:var(--hue-ochre);    --letter-4:var(--hue-slate);
+  --letter-5:var(--hue-copper);   --letter-6:var(--hue-lavender);
+}
+
+/* ===========================================================================
+   TYPE CONTROL — three treatments.
+   All three keep the same fluid size ramp, so switching cannot reflow a
+   page. What changes is family, weight, tracking and leading.
+   ========================================================================= */
+[data-type="editorial"]{
+  --font-display:var(--font-sans); --font-body:var(--font-sans); --font-label:var(--font-mono);
+  --weight-display:700; --weight-heading:600; --weight-body:400;
+  --track-display:-0.035em; --track-heading:-0.02em; --track-body:-0.005em;
+  --leading-display:0.86; --leading-heading:1.1; --leading-body:1.55;
+}
+/* Elegant Serif. Serifs carry their weight differently, so the display
+   weight comes down and the tracking opens up — 700 Georgia at display size
+   is a wall. */
+[data-type="serif"]{
+  --font-display:var(--font-serif); --font-body:var(--font-serif); --font-label:var(--font-mono);
+  --weight-display:600; --weight-heading:600; --weight-body:400;
+  --track-display:-0.012em; --track-heading:-0.008em; --track-body:0;
+  --leading-display:0.92; --leading-heading:1.2; --leading-body:1.62;
+}
+/* Monospaced. */
+[data-type="mono"]{
+  --font-display:var(--font-mono); --font-body:var(--font-sans); --font-label:var(--font-mono);
+  --weight-display:600; --weight-heading:500; --weight-body:400;
+  --track-display:-0.055em; --track-heading:-0.03em; --track-body:0;
+  --leading-display:0.9; --leading-heading:1.15; --leading-body:1.6;
+}
+
+/* ===========================================================================
+   SPACING CONTROL — one multiplier, two settings.
+   ========================================================================= */
+[data-density="compact"]{     --density:0.72; }
+[data-density="comfortable"]{ --density:1; }
+
+/* ===========================================================================
+   RADIUS CONTROL — one multiplier, three settings.
+   ========================================================================= */
+/* The multiplier is read against the 4 / 8 / 14 / 20px steps above, so
+   these land the md step on 0, 6 and 16px exactly. */
+[data-radius="sharp"]{   --radius-k:0; --radius-full:3px; }
+[data-radius="subtle"]{  --radius-k:0.75; }
+[data-radius="rounded"]{ --radius-k:2; }
+
+/* ===========================================================================
+   REDUCED MOTION — collapse every duration at the token layer so no
+   component has to remember to opt out individually.
+   ========================================================================= */
+@media (prefers-reduced-motion:reduce){
+  :root{
+    --duration-fast:0.01ms; --duration-base:0.01ms;
+    --duration-slow:0.01ms; --duration-enter:0.01ms;
+  }
+}

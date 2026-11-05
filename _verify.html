@@ -1,0 +1,378 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>verify</title>
+<style>body{background:#111;color:#ddd;font:13px/1.5 monospace;padding:12px}
+.ok{color:#8ad67a}.bad{color:#ff7a6b}.hd{color:#e0b07a;margin-top:10px}</style>
+<pre id="out">running…</pre>
+<iframe id="f" style="width:1280px;height:900px;border:1px solid #333"></iframe>
+<script>
+/* A throwaway harness. It drives the real pages in an iframe and prints a
+   report, so behaviour is checked rather than appearance. Not shipped. */
+const ROUTES = ['', 'work', 'designops', 'leadership', 'systems', 'fun',
+                'about', 'experiments', 'writing', 'snippets'];
+const lines = [];
+let pass = 0, fail = 0;
+function head(t){ lines.push('\n<span class="hd">'+t+'</span>'); }
+function check(name, cond, extra){
+  if (cond) { pass++; lines.push('<span class="ok">  PASS</span> '+name); }
+  else { fail++; lines.push('<span class="bad">  FAIL</span> '+name+(extra?'  ['+extra+']':'')); }
+}
+function flush(){
+  document.getElementById('out').innerHTML =
+    lines.join('\n') + '\n\n<span class="hd">RESULT</span> pass='+pass+' fail='+fail+
+    (fail? ' <span class="bad">***FAILURES***</span>' : ' <span class="ok">ALL GREEN</span>');
+}
+
+const errors = [];
+window.addEventListener('error', e => errors.push('top: '+e.message));
+
+function freeze(d){
+  const st = d.createElement('style');
+  st.textContent = '*,*::before,*::after{transition:none !important;animation:none !important}';
+  d.head.appendChild(st);
+}
+
+function load(route){
+  return new Promise(res => {
+    const f = document.getElementById('f');
+    f.onload = () => setTimeout(() => res(f.contentWindow), 350);
+    f.src = (route ? route + '/' : './') + 'index.html';
+  });
+}
+
+async function run(){
+  /* ---------------- 1 · every route loads, with assets ---------------- */
+  head('1 · routes, assets and links');
+  const seenLinks = new Set();
+  for (const r of ROUTES){
+    const w = await load(r);
+    const d = w.document;
+    w.addEventListener('error', e => errors.push(r+': '+e.message));
+    check('route "'+(r||'/')+'" renders a <main>', !!d.querySelector('main'));
+    check('route "'+(r||'/')+'" has an h1', !!d.querySelector('h1'));
+    check('route "'+(r||'/')+'" styled (not unstyled fallback)',
+          getComputedStyle(d.body).backgroundColor !== 'rgba(0, 0, 0, 0)',
+          getComputedStyle(d.body).backgroundColor);
+
+    // A lazy image below the fold reports complete===true with no pixels yet,
+    // so ask each one to actually decode instead of reading a flag.
+    const imgs = [...d.images];
+    const broken = [];
+    for (const i of imgs){
+      i.loading = 'eager';
+      // decode() can sit unresolved on an image in a frame that is still
+      // settling, so race it against a timer and judge on the pixels.
+      await Promise.race([
+        i.decode().catch(() => {}),
+        new Promise(r => setTimeout(r, 1500))
+      ]);
+      if (!(i.naturalWidth > 0)) broken.push(i.getAttribute('src'));
+    }
+    check('route "'+(r||'/')+'" images all decode ('+imgs.length+')', broken.length === 0, broken.join(', '));
+
+    [...d.querySelectorAll('a[href]')].forEach(a => {
+      const h = a.getAttribute('href');
+      if (h.startsWith('mailto:') || h.startsWith('#') || h.startsWith('http')) return;
+      seenLinks.add(new URL(a.href).pathname);
+    });
+    // Nothing may look interactive and do nothing.
+    const deadBtns = [...d.querySelectorAll('button')].filter(b =>
+      !b.hasAttribute('data-copy') && !b.hasAttribute('data-tool') && !b.hasAttribute('data-reset') &&
+      !b.hasAttribute('data-node') && !b.hasAttribute('role') && !b.hasAttribute('data-nav-open') &&
+      !b.hasAttribute('data-nav-close') &&
+      !['data-plant-water','data-plant-reset','data-reveal-play','data-hue-step',
+        'data-hue-auto','data-stepper-prev','data-stepper-next','data-ba-handle']
+        .some(a => b.hasAttribute(a))
+    ).map(b => b.className || b.textContent.trim().slice(0,20));
+    check('route "'+(r||'/')+'" no unwired buttons', deadBtns.length === 0, deadBtns.join(' | '));
+  }
+
+  head('2 · internal links resolve');
+  for (const p of [...seenLinks]){
+    let ok = false, status = '';
+    try { const resp = await fetch(p, {method:'GET'}); ok = resp.ok; status = resp.status; }
+    catch(e){ status = e.message; }
+    check('link ' + decodeURI(p).replace(/^.*Portfolio\//,''), ok, status);
+  }
+
+  /* ---------------- 3 · the five controls ---------------- */
+  head('3 · design-token controls');
+  const w = await load('');
+  const d = w.document, T = w.APTokens, root = d.documentElement;
+  freeze(d);
+  const cs = n => getComputedStyle(root).getPropertyValue(n).trim();
+
+  check('token store present', !!T);
+  T.reset();
+
+  // Colour
+  const accent0 = cs('--accent');
+  d.querySelector('.tool[data-tool="colour"]').click();
+  check('Colour tool opens its panel',
+        d.querySelector('.tool-panel[data-panel="colour"]').getAttribute('data-open') === 'true');
+  check('Colour tool is aria-pressed',
+        d.querySelector('.tool[data-tool="colour"]').getAttribute('aria-pressed') === 'true');
+  d.querySelector('[data-group="palette"] [data-value="sage"]').click();
+  check('Colour changes --accent', cs('--accent') !== accent0, accent0 + ' -> ' + cs('--accent'));
+  check('Colour changes the letter ring', cs('--letter-1') === cs('--hue-sage'));
+
+  // Type
+  const wd0 = cs('--weight-display'), ff0 = cs('--font-display');
+  d.querySelector('.tool[data-tool="type"]').click();
+  d.querySelector('[data-group="type"] [data-value="technical"]').click();
+  check('Type changes --font-display', cs('--font-display') !== ff0);
+  check('Type changes --weight-display', cs('--weight-display') !== wd0, wd0+' -> '+cs('--weight-display'));
+
+  // Type scale via the selection box, by keyboard
+  const h = d.querySelector('.sel__h--br');
+  const s0 = T.get().scale;
+  h.dispatchEvent(new w.KeyboardEvent('keydown', {key:'ArrowUp', bubbles:true}));
+  check('selection handle arrow key scales the mark', T.get().scale > s0, s0+' -> '+T.get().scale);
+  const wmBefore = d.querySelector('.stage__lede').getBoundingClientRect().top;
+  for (let i=0;i<8;i++) h.dispatchEvent(new w.KeyboardEvent('keydown', {key:'ArrowUp', bubbles:true}));
+  const wmAfter = d.querySelector('.stage__lede').getBoundingClientRect().top;
+  check('scaling the mark causes NO layout shift below it',
+        Math.abs(wmAfter - wmBefore) < 0.5, 'moved '+(wmAfter-wmBefore).toFixed(2)+'px');
+  h.dispatchEvent(new w.KeyboardEvent('keydown', {key:'Home', bubbles:true}));
+  check('Home returns the scale to 1', Math.abs(T.get().scale - 1) < 0.001);
+
+  // Spacing
+  const step0 = cs('--step-16');
+  d.querySelector('.tool[data-tool="spacing"]').click();
+  d.querySelector('[data-group="density"] [data-value="compact"]').click();
+  check('Spacing changes --step-16', cs('--step-16') !== step0, step0+' -> '+cs('--step-16'));
+
+  // Radius
+  const rad0 = cs('--radius-md');
+  d.querySelector('.tool[data-tool="radius"]').click();
+  d.querySelector('[data-group="radius"] [data-value="sharp"]').click();
+  check('Radius changes --radius-md', cs('--radius-md') !== rad0, rad0+' -> '+cs('--radius-md'));
+  check('Radius reaches a real component',
+        getComputedStyle(d.querySelector('.portal')).borderTopLeftRadius !== '999px',
+        getComputedStyle(d.querySelector('.portal')).borderTopLeftRadius);
+
+  // Opacity
+  d.querySelector('.tool[data-tool="opacity"]').click();
+  const range = d.querySelector('[data-token-input="opacity"]');
+  range.value = '20';
+  range.dispatchEvent(new w.Event('input', {bubbles:true}));
+  range.dispatchEvent(new w.Event('change', {bubbles:true}));
+  check('Opacity writes --deco-opacity', Math.abs(parseFloat(cs('--deco-opacity')) - 0.2) < 0.001, cs('--deco-opacity'));
+  check('Opacity clamps at the floor', (T.set('opacity', -5), T.get().opacity === 0.15), T.get().opacity);
+  check('Opacity clamps at the ceiling', (T.set('opacity', 9), T.get().opacity === 1), T.get().opacity);
+
+  // Live code readout
+  check('live code readout is populated', d.querySelector('[data-code]').textContent.includes('--deco-opacity'),
+        d.querySelector('[data-code]').textContent.slice(0,40));
+
+  // Escape + shortcuts
+  d.dispatchEvent(new w.KeyboardEvent('keydown', {key:'Escape', bubbles:true}));
+  check('Escape closes the open tool', d.querySelector('.stage').getAttribute('data-tool') === 'none');
+  d.dispatchEvent(new w.KeyboardEvent('keydown', {key:'3', bubbles:true}));
+  check('number key opens the matching tool', d.querySelector('.stage').getAttribute('data-tool') === 'spacing');
+
+  // Restart
+  head('4 · restart and persistence');
+  const stageEl = d.querySelector('.stage'), restartBtn = d.querySelector('[data-reset]');
+  check('restart control is enabled while dirty', restartBtn.disabled === false);
+  check('restart control is labelled', restartBtn.getAttribute('aria-label') === 'Restart animation');
+  restartBtn.click();
+  check('restart restores every default', T.isDefault(), JSON.stringify(T.get()));
+  // It used to switch itself off here, which left it dead for the rest of the
+  // visit. It restarts the stage now, and that is always available.
+  check('restart control stays enabled afterwards', restartBtn.disabled === false);
+  check('restart closes any open tool', stageEl.getAttribute('data-tool') === 'none');
+  check('restart replays the intro', stageEl.getAttribute('data-intro') === 'playing',
+        stageEl.getAttribute('data-intro'));
+  // The default is Mono now: restarting must land back on the neutral
+  // ramp, not on a hue.
+  check('restart restores the monochrome accent', cs('--accent') === cs('--ink-80'),
+        cs('--accent') + ' vs ' + cs('--ink-80'));
+  check('and the palette attribute is mono',
+        d.documentElement.getAttribute('data-palette') === 'mono',
+        d.documentElement.getAttribute('data-palette'));
+  // Again, from the completed state, and then interrupted mid-run.
+  await new Promise(r => setTimeout(r, 2000));
+  check('the intro settles on done', stageEl.getAttribute('data-intro') === 'done',
+        stageEl.getAttribute('data-intro'));
+  restartBtn.click();
+  check('it replays a second time', stageEl.getAttribute('data-intro') === 'playing');
+  restartBtn.click();
+  check('an interrupting press keeps one coherent run', stageEl.getAttribute('data-intro') === 'playing');
+  await new Promise(r => setTimeout(r, 2000));
+  check('the interrupted run still finishes', stageEl.getAttribute('data-intro') === 'done');
+
+  // Persistence across a navigation
+  T.set('palette','ochre'); T.set('radius','round');
+  const w2 = await load('work');
+  check('a setting survives navigating to another page',
+        w2.APTokens.get().palette === 'ochre' && w2.APTokens.get().radius === 'round',
+        JSON.stringify(w2.APTokens.get()));
+  check('and is applied to that page\'s DOM',
+        w2.document.documentElement.getAttribute('data-palette') === 'ochre');
+  w2.APTokens.reset();
+
+  /* ---------------- 5 · the letters ---------------- */
+  head('5 · wordmark letters');
+  const w3 = await load('');
+  const d3 = w3.document;
+  const L = [...d3.querySelectorAll('.wm__l')];
+  check('six letters, as real text', L.length === 6 && d3.querySelector('.wm').textContent.trim() === 'ARUSHI',
+        d3.querySelector('.wm').textContent.trim());
+  /* The cursive word is the name now — permanently, at every width, in every
+     state. The capitals behind it are the armature: the text a screen reader
+     is given, the box the portal elbows are aimed at, and nothing to look
+     at. So what is checked here is that they are invisible without being
+     gone, that the script never has to be asked for, and that pointing at
+     the name does nothing whatsoever. */
+  const wmEl = d3.querySelector('.wm');
+  const sc = d3.querySelector('.wm__script');
+  const csL = x => w3.getComputedStyle(x);
+
+  check('the capitals are no longer focus stops', L.every(x => x.tabIndex === -1),
+        L.map(x => x.tabIndex).join(','));
+  check('nor do they advertise a pointer', L.every(x => csL(x).cursor !== 'pointer'),
+        csL(L[0]).cursor);
+  check('they are invisible', L.every(x => csL(x).opacity === '0'), csL(L[0]).opacity);
+  check('but not hidden — the name a screen reader gets is still ARUSHI',
+        L.every(x => csL(x).visibility === 'visible' && csL(x).display !== 'none'),
+        csL(L[0]).visibility + '/' + csL(L[0]).display);
+
+  check('a cursive layer exists and reads arushi', !!sc && sc.textContent === 'arushi',
+        sc && JSON.stringify(sc.textContent));
+  check('it is lowercase, first letter included', sc.textContent === sc.textContent.toLowerCase());
+  check('it is decorative, so the name is not announced twice',
+        sc.getAttribute('aria-hidden') === 'true');
+  check('it is the name on screen, with nothing asked of the visitor',
+        csL(sc).opacity === '1', csL(sc).opacity);
+  check('it is out of flow, so its size moves nothing',
+        csL(sc).position === 'absolute', csL(sc).position);
+  check('set in a script face', /snell|chancery|script|handwriting|cursive/i.test(csL(sc).fontFamily),
+        csL(sc).fontFamily);
+  check('a step heavier than the regular cut', parseInt(csL(sc).fontWeight, 10) >= 600,
+        csL(sc).fontWeight);
+  const ratio = parseFloat(csL(sc).fontSize) / parseFloat(csL(wmEl).fontSize);
+  check('ten per cent up on the 1.1em it was drawn at (1.21em)',
+        Math.abs(ratio - 1.21) < 0.015, ratio.toFixed(4));
+
+  /* Nothing may answer a pointer: the whole appearance of both layers is
+     taken before and after, rather than spot-checking one property. */
+  const faceOf = () => [csL(sc).opacity, csL(sc).fontFamily, csL(sc).fontSize, csL(sc).fontWeight,
+                        csL(sc).color, csL(sc).transform, csL(L[0]).opacity, csL(L[0]).color,
+                        JSON.stringify(sc.getBoundingClientRect()),
+                        JSON.stringify(L[3].getBoundingClientRect())].join(' | ');
+  const face0 = faceOf();
+  L[2].dispatchEvent(new w3.MouseEvent('mouseenter', { bubbles: true }));
+  wmEl.dispatchEvent(new w3.MouseEvent('mouseenter', { bubbles: true }));
+  L[2].dispatchEvent(new w3.MouseEvent('click', { bubbles: true }));
+  await new Promise(r => setTimeout(r, 350));
+  check('pointing at the name changes nothing at all', faceOf() === face0,
+        faceOf() + '  vs  ' + face0);
+  check('no inline hue, as before', L[2].style.getPropertyValue('--h') === '');
+  check('and a tap leaves no state class behind', !wmEl.className.includes('is-script'),
+        wmEl.className);
+
+  check('the hover hint is gone from the markup', !d3.querySelector('.wm__hint'));
+  check('nothing is left standing in its place',
+        [...d3.querySelector('.wm-wrap').children].map(c => c.className.split(' ')[0]).join(',') ===
+        'wm__greet,wm-frame',
+        [...d3.querySelector('.wm-wrap').children].map(c => c.className).join(' / '));
+  check('the name fits the viewport, script and all',
+        sc.getBoundingClientRect().left >= 0 &&
+        sc.getBoundingClientRect().right <= d3.documentElement.clientWidth,
+        Math.round(sc.getBoundingClientRect().left) + '–' + Math.round(sc.getBoundingClientRect().right) +
+        ' of ' + d3.documentElement.clientWidth);
+
+  /* ---------------- 6 · experiments ---------------- */
+  head('6 · experiments');
+  const w4 = await load('experiments');
+  const d4 = w4.document;
+  check('token table rendered rows', d4.querySelectorAll('[data-token-table] tbody tr').length > 10,
+        d4.querySelectorAll('[data-token-table] tbody tr').length);
+  const accentRow = [...d4.querySelectorAll('[data-token-table] tbody tr')]
+    .find(r => r.querySelector('th').textContent === '--accent');
+  const v0 = accentRow.querySelector('td').textContent.trim();
+  d4.querySelector('[data-group="palette"] [data-value="lavender"]').click();
+  const v1 = [...d4.querySelectorAll('[data-token-table] tbody tr')]
+    .find(r => r.querySelector('th').textContent === '--accent').querySelector('td').textContent.trim();
+  check('token table is live', v0 !== v1, v0+' -> '+v1);
+  const ba = d4.querySelector('[data-ba]'), bah = d4.querySelector('[data-ba-handle]');
+  const split0 = ba.style.getPropertyValue('--split');
+  bah.dispatchEvent(new w4.KeyboardEvent('keydown', {key:'ArrowRight', bubbles:true}));
+  check('before/after responds to the keyboard', ba.style.getPropertyValue('--split') !== split0,
+        split0+' -> '+ba.style.getPropertyValue('--split'));
+  check('before/after exposes a slider role', bah.getAttribute('role') === 'slider');
+  w4.APTokens.reset();
+
+  /* ---------------- 7 · snippets ---------------- */
+  head('7 · snippets');
+  const w5 = await load('snippets');
+  const d5 = w5.document;
+  const hs = d5.querySelector('[data-hue-strip] i');
+  const c0 = hs.style.getPropertyValue('--c');
+  d5.querySelector('[data-hue-step]').click();
+  await new Promise(r => setTimeout(r, 450));
+  check('hue strip steps', hs.style.getPropertyValue('--c') !== c0, '"'+c0+'" -> "'+hs.style.getPropertyValue('--c')+'"');
+  const st = d5.querySelector('[data-stepper]');
+  check('stepper starts with Back disabled', d5.querySelector('[data-stepper-prev]').disabled === true);
+  d5.querySelector('[data-stepper-next]').click();
+  check('stepper advances', d5.querySelector('[data-stepper-readout]').textContent.trim() === '2 / 4',
+        d5.querySelector('[data-stepper-readout]').textContent);
+  check('stepper enables Back once moved', d5.querySelector('[data-stepper-prev]').disabled === false);
+  for (let i=0;i<5;i++) d5.querySelector('[data-stepper-next]').click();
+  check('stepper disables Next at the end', d5.querySelector('[data-stepper-next]').disabled === true);
+  d5.querySelector('[data-reveal-play]').click();
+  check('text reveal replays', d5.querySelector('[data-reveal-lines]').classList.contains('is-on'));
+  const ht = d5.querySelector('[data-hover-type]');
+  const r = ht.querySelectorAll('span')[3].getBoundingClientRect();
+  ht.dispatchEvent(new w5.PointerEvent('pointermove', {clientX: r.left + r.width/2, clientY: r.top+2, bubbles:true}));
+  check('hover type responds', !!ht.querySelector('span.is-near'));
+
+  /* ---------------- 8 · fun ---------------- */
+  head('8 · fun stuff');
+  const w6 = await load('fun');
+  const d6 = w6.document;
+  check('plant starts at zero leaves', d6.querySelector('[data-plant-count]').textContent === '0');
+  check('plant reset starts disabled', d6.querySelector('[data-plant-reset]').disabled === true);
+  d6.querySelector('[data-plant-water]').click();
+  check('watering grows a leaf', d6.querySelector('[data-plant-count]').textContent === '1' &&
+        d6.querySelector('[data-leaf="1"]').getAttribute('data-grown') === 'true');
+  for (let i=0;i<6;i++) d6.querySelector('[data-plant-water]').click();
+  check('plant caps at five and disables water',
+        d6.querySelector('[data-plant-count]').textContent === '5' &&
+        d6.querySelector('[data-plant-water]').disabled === true);
+  d6.querySelector('[data-plant-reset]').click();
+  check('plant resets', d6.querySelector('[data-plant-count]').textContent === '0');
+
+  /* ---------------- 9 · accessibility basics ---------------- */
+  head('9 · accessibility');
+  const w7 = await load('');
+  const d7 = w7.document;
+  check('skip link present and first', d7.querySelector('a.skip-link'));
+  check('nav is labelled', d7.querySelector('nav[aria-label]'));
+  check('toolbar has a role and a label',
+        d7.querySelector('[role="toolbar"]')?.getAttribute('aria-label') === 'Design tokens');
+  const unlabelled = [...d7.querySelectorAll('button')].filter(b =>
+    !b.getAttribute('aria-label') && !b.textContent.trim()).map(b=>b.className);
+  check('every button has an accessible name', unlabelled.length === 0, unlabelled.join(' | '));
+  const imgsNoAlt = ROUTES.length; // checked per-route below
+  check('page language set', d7.documentElement.lang === 'en');
+  check('one h1 per page', d7.querySelectorAll('h1').length === 1, d7.querySelectorAll('h1').length);
+
+  for (const r of ['work','leadership','about','fun']){
+    const ww = await load(r);
+    const noAlt = [...ww.document.images].filter(i => !i.hasAttribute('alt')).map(i=>i.src);
+    check('"'+r+'" every image has alt', noAlt.length === 0, noAlt.join(', '));
+    check('"'+r+'" h1 count is 1', ww.document.querySelectorAll('h1').length === 1,
+          ww.document.querySelectorAll('h1').length);
+  }
+
+  head('10 · console');
+  check('no uncaught errors during the run', errors.length === 0, errors.join(' | '));
+
+  flush();
+  document.title = 'verify-done pass=' + pass + ' fail=' + fail;
+}
+
+run().catch(e => { lines.push('<span class="bad">HARNESS THREW</span> ' + e.message + '\n' + e.stack); flush(); document.title='verify-threw'; });
+</script>

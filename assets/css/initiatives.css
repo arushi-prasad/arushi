@@ -1,0 +1,172 @@
+/* ===========================================================================
+   INITIATIVES — the nine working files, as an index.
+
+   A table in shape, a list of links in substance. A real <table> cannot hold
+   a link across a whole row, and full-row clickability is the point here, so
+   this is one grid shared by a header line and nine <li>s: the columns line
+   up exactly as a table's would and every row is a single, focusable target.
+
+   Nothing here is new. The grid, the hairlines, the chip and the arrow are
+   the same pieces the Work index and the Leadership highlights are built
+   from; this file only arranges them in three columns.
+   ========================================================================= */
+
+.ini{
+  margin-top:var(--step-4);
+  --ini-cols:minmax(0,1.15fr) minmax(0,0.8fr) minmax(0,1.15fr) 1.5rem;
+}
+
+.ini__list{ list-style:none; margin:0; padding:0; }
+.ini__row{ border-bottom:var(--hair) solid var(--border-default); }
+
+.ini__link{
+  display:grid; grid-template-columns:var(--ini-cols);
+  gap:var(--step-6);
+  align-items:center;
+  padding-block:var(--step-5);
+  /* Inset the content, not the ground. The padding sits inside the link's
+     own box, so the colour still runs the full width of the row while the
+     text keeps clear of its edges. */
+  padding-inline:var(--step-4);
+  border-radius:var(--radius-sm);
+  text-decoration:none; color:inherit;
+  transition:background-color var(--duration-base) var(--ease-smooth),
+             color var(--duration-base) var(--ease-smooth);
+}
+
+/* One accent per initiative, fixed, cycling five so no two neighbours
+   repeat. The same grounds and inks the Strategy cards and the Work list are
+   built from — tokens.css, contrast already solved. */
+.ini__row--lime    { --ini-bg:var(--t-lime-bg);     --ini-ink:var(--t-lime-ink); }
+.ini__row--orange  { --ini-bg:var(--t-orange-bg);   --ini-ink:var(--t-orange-ink); }
+.ini__row--pink    { --ini-bg:var(--t-pink-bg);     --ini-ink:var(--t-pink-ink); }
+.ini__row--lavender{ --ini-bg:var(--t-lavender-bg); --ini-ink:var(--t-lavender-ink); }
+.ini__row--cobalt  { --ini-bg:var(--t-cobalt-bg);   --ini-ink:var(--t-cobalt-ink); }
+
+.ini__name{
+  display:flex; align-items:baseline; gap:var(--step-3);
+  min-width:0;
+  font-size:var(--text-sm);
+  font-weight:var(--weight-emphasis);
+  line-height:1.4;
+  color:var(--text-primary);
+  overflow-wrap:anywhere;
+  transition:transform var(--duration-base) var(--ease-out);
+}
+.ini__label{ min-width:0; }
+/* The document mark. Sized in em so it tracks the row's type, and quiet
+   enough to read as a file marker rather than as an illustration. */
+.ini__doc{
+  width:1em; height:1em; flex:none;
+  align-self:center;
+  fill:none; stroke:currentColor; stroke-width:1.4;
+  stroke-linecap:round; stroke-linejoin:round;
+  color:var(--text-tertiary);
+  transition:color var(--duration-base) var(--ease-smooth);
+}
+
+.ini__cat{ min-width:0; }
+.ini__cat .chip{
+  white-space:normal;
+  transition:color var(--duration-base) var(--ease-smooth),
+             border-color var(--duration-base) var(--ease-smooth);
+}
+
+.ini__impact{
+  min-width:0;
+  font-size:var(--text-sm);
+  line-height:1.5;
+  color:var(--text-secondary);
+  text-wrap:pretty;
+  transition:color var(--duration-base) var(--ease-smooth);
+}
+
+.ini__arrow{
+  width:1rem; height:1rem;
+  justify-self:end; align-self:center;
+  fill:none; stroke:currentColor; stroke-width:1.4;
+  stroke-linecap:round; stroke-linejoin:round;
+  color:var(--text-tertiary);
+  opacity:0;
+  transform:translate(-3px, 3px);
+  transition:opacity var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-smooth),
+             color var(--duration-base) var(--ease-smooth);
+}
+
+/* ---- Being read -------------------------------------------------------
+   The whole row takes the project's colour, end to end, and everything
+   standing on it turns over with it: the name, the file mark, the chip and
+   its border, the supporting line and the arrow. Anything left in its
+   resting grey would be the one illegible thing on a lit row.
+
+   Focus is the keyboard's hover and gets all of it. The pointer version sits
+   behind a hover query, because a tap leaves :hover stuck and one
+   permanently coloured row is not what this page is for.
+   ------------------------------------------------------------------------ */
+.ini__link:focus-visible{
+  background-color:var(--ini-bg);
+  color:var(--ini-ink);
+  outline-offset:-3px;
+}
+.ini__link:focus-visible .ini__name,
+.ini__link:focus-visible .ini__doc,
+.ini__link:focus-visible .ini__arrow{ color:var(--ini-ink); }
+.ini__link:focus-visible .ini__impact{
+  color:color-mix(in srgb, var(--ini-ink) 85%, transparent);
+}
+.ini__link:focus-visible .chip{
+  color:var(--ini-ink);
+  border-color:color-mix(in srgb, var(--ini-ink) 40%, transparent);
+}
+.ini__link:focus-visible .ini__arrow{ opacity:1; transform:none; }
+.ini__link:focus-visible .ini__name{ transform:translateX(3px); }
+
+@media (hover:hover) and (pointer:fine){
+  .ini__link:hover{ background-color:var(--ini-bg); color:var(--ini-ink); }
+  .ini__link:hover .ini__name,
+  .ini__link:hover .ini__doc,
+  .ini__link:hover .ini__arrow{ color:var(--ini-ink); }
+  .ini__link:hover .ini__impact{
+    color:color-mix(in srgb, var(--ini-ink) 85%, transparent);
+  }
+  .ini__link:hover .chip{
+    color:var(--ini-ink);
+    border-color:color-mix(in srgb, var(--ini-ink) 40%, transparent);
+  }
+  .ini__link:hover .ini__arrow{ opacity:1; transform:none; }
+  .ini__link:hover .ini__name{ transform:translateX(3px); }
+}
+
+/* ---- Tablet: the impact column is the one that can afford to give. ---- */
+@media (max-width:980px){
+  .ini{ --ini-cols:minmax(0,1.2fr) minmax(0,0.7fr) minmax(0,1fr) 1.25rem; }
+  .ini__link{ gap:var(--step-5); }
+}
+
+/* ---- Mobile: one column, still one target. ----------------------------- */
+@media (max-width:720px){
+  .ini{ --ini-cols:minmax(0,1fr); }
+  .ini__link{
+    grid-template-columns:minmax(0,1fr);
+    gap:var(--step-2);
+    padding-block:var(--step-5);
+    align-items:start;
+    position:relative;
+  }
+  .ini__name{ padding-right:1.4rem; }
+  /* The arrow has no column of its own here, so it sits on the first line. */
+  .ini__arrow{
+    position:absolute; right:var(--step-4); top:var(--step-5);
+    justify-self:auto;
+  }
+  /* Nothing slides sideways in a stack — it would only shorten the name. */
+  .ini__link:focus-visible .ini__name{ transform:none; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ini__link,.ini__name,.ini__arrow,.ini__doc,
+  .ini__impact,.ini__cat .chip{ transition:none; }
+  .ini__link:focus-visible .ini__name{ transform:none; }
+  .ini__arrow{ transform:none; }
+}

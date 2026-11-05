@@ -1,0 +1,1208 @@
+/* ============================================================================
+   vidal.css — the page-scoped layer for the Health Claims case study.
+
+   Two visual worlds live on this page and they must not blur into each other:
+
+     THE PAGE    the portfolio's dark editorial theme. Everything outside the
+                 framed demo belongs to it and uses the site's own tokens.
+
+     THE PRODUCT the ClaimFlow interface, which is light: #153D3D on #F6F6F6.
+                 Those are the prototype's own colours and they are reproduced
+                 here rather than restyled, because recolouring a product
+                 screenshot to match a portfolio is a lie about the product.
+
+   Everything under .cf- is the product world. It deliberately opts out of the
+   site's palette tokens and declares its own values, so the home page's Colour
+   control cannot repaint a product interface. It keeps --step-* spacing and
+   the radius scale, because those are layout rather than identity.
+
+   The product world is also the only place on this site where a light surface
+   is correct, so it sets its own text colours explicitly rather than
+   inheriting ink from base.css.
+   ========================================================================= */
+
+
+/* ── the frame ───────────────────────────────────────────────────────────
+   A demo is not a screenshot and must not be mistaken for one. The frame
+   carries a standing label saying what it is, so the claim "this is
+   designed, not shipped" travels with the artefact rather than sitting in a
+   caption three paragraphs away.                                          */
+
+.cf-frame {
+  margin-top: var(--step-8);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: #F6F6F6;
+
+  /* The demo sits inside the case layout, which already spends about 300px on
+     its own sticky rail. So the demo's available width is nowhere near the
+     viewport width, and sizing it against the viewport gives it a three
+     column layout in a box too narrow to hold one. It responds to its own
+     container instead. */
+  container-type: inline-size;
+  container-name: cfdemo;
+}
+
+.cf-frame__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--step-3) var(--step-5);
+  padding: var(--step-4) var(--step-5);
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.cf-frame__k {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.cf-frame__note {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  flex: 1 1 18rem;
+}
+
+.cf-frame__reset {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: none;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: .45em 1em;
+  cursor: pointer;
+}
+
+.cf-frame__reset:hover { color: var(--text-primary); border-color: var(--border-strong); }
+
+
+/* ── the product shell ───────────────────────────────────────────────────
+   Three panels when there is room, mirroring the prototype: a step rail, the
+   work, and the companion. The arrangements are driven by container queries
+   at the end of this file rather than by viewport media queries, because the
+   demo never gets the whole viewport.                                      */
+
+.cf {
+  --cf-ink: #153D3D;
+  --cf-ink-70: #4A6B6B;
+  --cf-ink-45: #7D9595;
+  --cf-bg: #F6F6F6;
+  --cf-surface: #FFFFFF;
+  --cf-line: #E6E9E9;
+  --cf-ok: #0F7B5A;
+  --cf-ok-bg: #ECF7F2;
+  --cf-warn: #9A6212;
+  --cf-warn-bg: #FDF4E6;
+  --cf-stop: #A31F31;
+  --cf-stop-bg: #FBEFF1;
+
+  /* One column by default. The wider arrangements are added back by the
+     container queries below, so the narrowest case needs no overrides. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--step-4);
+  padding: var(--step-4);
+  background: var(--cf-bg);
+  color: var(--cf-ink);
+  font-size: .875rem;
+  line-height: 1.5;
+  min-block-size: 34rem;
+}
+
+.cf *, .cf *::before, .cf *::after { box-sizing: border-box; }
+.cf p, .cf h3, .cf h4, .cf ul, .cf ol { margin: 0; }
+.cf ul, .cf ol { list-style: none; padding: 0; }
+
+/* Grid and flex children default to min-width:auto, which means they refuse
+   to shrink below their own content. The step rail is the widest thing in
+   here, so without this it holds the whole demo open at its natural width
+   and pushes the page sideways on a phone. */
+.cf > *, .cf__rail > *, .cf__work > * { min-inline-size: 0; }
+
+.cf__panel {
+  background: var(--cf-surface);
+  border: 1px solid var(--cf-line);
+  border-radius: 1.25rem;
+  padding: var(--step-5);
+}
+
+.cf__rail   { display: flex; flex-direction: column; gap: var(--step-5); }
+.cf__work   { display: grid; gap: var(--step-4); align-content: start; }
+
+
+/* ── brand and identity ──────────────────────────────────────────────── */
+
+.cf__brand { display: flex; align-items: center; gap: var(--step-3); }
+
+.cf__mark {
+  inline-size: 2.25rem; block-size: 2.25rem;
+  border-radius: .7rem;
+  background: var(--cf-ink);
+  color: #fff;
+  display: grid; place-items: center;
+  font-weight: 700; font-size: .75rem;
+  flex: none;
+}
+
+.cf__brand b { display: block; font-size: .8125rem; }
+
+/* :not(.cf__mark) matters. Without it this rule also matched the mark, whose
+   own display:grid centring was replaced by display:block — which put its
+   two letters in the top-left corner of the square instead of the middle. */
+.cf__brand span:not(.cf__mark) {
+  display: block;
+  font-size: .5625rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--cf-ink-45);
+}
+
+
+/* ── the step rail ───────────────────────────────────────────────────── */
+
+.cf__steps { display: grid; gap: .4rem; }
+
+.cf__step {
+  display: flex; align-items: center; gap: var(--step-3);
+  inline-size: 100%;
+  padding: .75rem .9rem;
+  border: 1px solid transparent;
+  border-radius: .9rem;
+  background: none;
+  color: var(--cf-ink-70);
+  font: inherit;
+  font-size: .8125rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cf__step:hover { background: #EFF2F2; }
+
+.cf__step[aria-selected="true"] {
+  background: var(--cf-ink);
+  color: #fff;
+  font-weight: 600;
+}
+
+.cf__step:focus-visible { outline: 2px solid var(--cf-ink); outline-offset: 2px; }
+.cf__step[aria-selected="true"]:focus-visible { outline-color: #fff; outline-offset: -4px; }
+
+.cf__stepn {
+  inline-size: 1.4rem; block-size: 1.4rem; flex: none;
+  border-radius: .45rem;
+  display: grid; place-items: center;
+  font-size: .6875rem; font-weight: 700;
+  background: #EFF2F2; color: var(--cf-ink-70);
+}
+
+.cf__step[aria-selected="true"] .cf__stepn { background: rgba(255,255,255,.18); color: #fff; }
+.cf__step[data-done="yes"] .cf__stepn { background: var(--cf-ok-bg); color: var(--cf-ok); }
+.cf__step[aria-selected="true"][data-done="yes"] .cf__stepn { background: rgba(255,255,255,.18); color: #fff; }
+
+.cf__who {
+  margin-top: auto;
+  display: flex; align-items: center; gap: var(--step-3);
+  padding: .7rem;
+  border: 1px solid var(--cf-line);
+  border-radius: .9rem;
+  background: #FAFBFB;
+}
+
+.cf__who b { font-size: .75rem; display: block; }
+.cf__who span:not(.cf__mark) { font-size: .625rem; color: var(--cf-ink-45); display: block; }
+
+
+/* ── the work column ─────────────────────────────────────────────────── */
+
+.cf__head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--step-3); align-items: baseline; }
+.cf__head h3 { font-size: 1.25rem; font-weight: 600; }
+.cf__claimno { font-size: .8125rem; color: var(--cf-ink-45); font-weight: 500; }
+.cf__kicker { font-size: .625rem; letter-spacing: .18em; text-transform: uppercase; color: var(--cf-ink-45); font-weight: 700; }
+
+.cf__stagehead {
+  background: var(--cf-ink); color: #fff;
+  margin: calc(var(--step-5) * -1) calc(var(--step-5) * -1) var(--step-5);
+  padding: var(--step-5);
+  border-radius: 1.25rem 1.25rem 0 0;
+  display: flex; flex-wrap: wrap; gap: var(--step-3);
+  justify-content: space-between; align-items: center;
+}
+
+.cf__stagehead h4 { font-size: 1rem; font-weight: 500; }
+.cf__stagehead p { font-size: .625rem; letter-spacing: .18em; text-transform: uppercase; color: #8FD3BB; font-weight: 600; }
+.cf__stagehead .cf__stagen { font-size: 1.75rem; font-weight: 300; line-height: 1; }
+.cf__stagehead > div { display: flex; align-items: center; gap: var(--step-4); }
+
+
+/* ── document grid ───────────────────────────────────────────────────── */
+
+.cf__docs { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--step-3); }
+
+.cf__doc {
+  display: flex; gap: var(--step-3); align-items: flex-start;
+  inline-size: 100%;
+  padding: .8rem;
+  border: 1px solid var(--cf-line);
+  border-radius: .9rem;
+  background: var(--cf-surface);
+  font: inherit; text-align: left; cursor: pointer;
+}
+
+.cf__doc:focus-visible { outline: 2px solid var(--cf-ink); outline-offset: 2px; }
+.cf__doc b { display: block; font-size: .8125rem; font-weight: 500; }
+.cf__doc span { display: block; font-size: .625rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; margin-top: .15rem; }
+
+.cf__doci {
+  inline-size: 2.1rem; block-size: 2.1rem; flex: none;
+  border-radius: .6rem; display: grid; place-items: center;
+  font-size: .8rem; font-weight: 700;
+}
+
+.cf__doc[data-state="ok"]      { border-color: #CFE8DD; background: var(--cf-ok-bg); }
+.cf__doc[data-state="ok"]      .cf__doci { background: #D6EFE4; color: var(--cf-ok); }
+.cf__doc[data-state="ok"]      span { color: var(--cf-ok); }
+
+.cf__doc[data-state="warn"]    { border-color: #F2DFBC; background: var(--cf-warn-bg); }
+.cf__doc[data-state="warn"]    .cf__doci { background: #F8E8CA; color: var(--cf-warn); }
+.cf__doc[data-state="warn"]    span { color: var(--cf-warn); }
+
+.cf__doc[data-state="stop"]    { border-color: #EFD0D6; background: var(--cf-stop-bg); }
+.cf__doc[data-state="stop"]    .cf__doci { background: #F6DCE1; color: var(--cf-stop); }
+.cf__doc[data-state="stop"]    span { color: var(--cf-stop); }
+
+.cf__doc[data-state="idle"]    { border-style: dashed; }
+.cf__doc[data-state="idle"]    .cf__doci { background: #EFF2F2; color: var(--cf-ink-45); }
+.cf__doc[data-state="idle"]    span { color: var(--cf-ink-45); }
+
+
+/* ── rows: policy mapping, coverage lines, settlement lines ───────────── */
+
+.cf__rows { display: grid; gap: .5rem; }
+
+.cf__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .25rem var(--step-4);
+  padding: .8rem .9rem;
+  border: 1px solid var(--cf-line);
+  border-radius: .8rem;
+  background: var(--cf-surface);
+}
+
+.cf__row b { font-size: .8125rem; font-weight: 500; }
+.cf__row small { grid-column: 1 / -1; font-size: .6875rem; color: var(--cf-ink-70); line-height: 1.45; }
+.cf__row--sub { background: #FAFBFB; }
+
+.cf__amt { font-variant-numeric: tabular-nums; font-size: .8125rem; font-weight: 600; white-space: nowrap; }
+.cf__amt--minus { color: var(--cf-stop); }
+
+.cf__tag {
+  display: inline-flex; align-items: center; gap: .35em;
+  font-size: .5625rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+  padding: .3em .6em; border-radius: 999px; white-space: nowrap;
+}
+
+.cf__tag--ok   { background: var(--cf-ok-bg);   color: var(--cf-ok); }
+.cf__tag--warn { background: var(--cf-warn-bg); color: var(--cf-warn); }
+.cf__tag--stop { background: var(--cf-stop-bg); color: var(--cf-stop); }
+.cf__tag--idle { background: #EFF2F2;           color: var(--cf-ink-45); }
+
+
+/* ── the total, and the line that says it is not a decision ──────────── */
+
+.cf__total {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+  gap: var(--step-3);
+  margin-top: var(--step-4);
+  padding: var(--step-5);
+  border-radius: 1rem;
+  background: var(--cf-ink); color: #fff;
+}
+
+.cf__total b { font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.cf__total p { font-size: .625rem; letter-spacing: .18em; text-transform: uppercase; color: #8FD3BB; font-weight: 700; }
+
+.cf__caveat {
+  margin-top: var(--step-3);
+  padding: .8rem .9rem;
+  border: 1px dashed #D8B98A;
+  border-radius: .8rem;
+  background: var(--cf-warn-bg);
+  font-size: .6875rem; line-height: 1.5; color: #6B4A12;
+}
+
+
+/* ── actions ─────────────────────────────────────────────────────────── */
+
+.cf__actions { display: flex; flex-wrap: wrap; gap: var(--step-3); align-items: center; }
+
+.cf__btn {
+  font: inherit; font-size: .75rem; font-weight: 600;
+  padding: .65em 1.2em; border-radius: .7rem; cursor: pointer;
+  border: 1px solid var(--cf-ink);
+  background: var(--cf-ink); color: #fff;
+}
+
+.cf__btn--ghost { background: none; color: var(--cf-ink); }
+.cf__btn:focus-visible { outline: 2px solid var(--cf-ink); outline-offset: 2px; }
+.cf__btn[disabled] { opacity: .4; cursor: not-allowed; }
+
+
+/* ── the companion ───────────────────────────────────────────────────── */
+
+.cf__comp { display: flex; flex-direction: column; gap: var(--step-4); }
+
+.cf__compdoc { flex: 1 1 auto; display: grid; gap: var(--step-3); align-content: start; overflow-y: auto; max-block-size: 24rem; }
+
+.cf__msg {
+  padding: .8rem .9rem;
+  border-radius: .9rem;
+  font-size: .75rem; line-height: 1.55;
+}
+
+.cf__msg--bot  { background: #F4F6F6; border: 1px solid var(--cf-line); color: var(--cf-ink-70); }
+.cf__msg--you  { background: var(--cf-ink); color: #fff; margin-left: var(--step-6); }
+.cf__msg b     { color: var(--cf-ink); font-weight: 600; }
+.cf__msg--you b { color: #fff; }
+
+.cf__src {
+  display: block; margin-top: .5rem;
+  font-size: .5625rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--cf-ink-45); font-weight: 700;
+}
+
+.cf__asks { display: grid; gap: .4rem; }
+
+.cf__ask {
+  font: inherit; font-size: .6875rem; text-align: left;
+  padding: .55rem .7rem;
+  border: 1px solid var(--cf-line); border-radius: .7rem;
+  background: var(--cf-surface); color: var(--cf-ink-70); cursor: pointer;
+}
+
+.cf__ask:hover { border-color: var(--cf-ink-45); color: var(--cf-ink); }
+.cf__ask:focus-visible { outline: 2px solid var(--cf-ink); outline-offset: 2px; }
+
+
+/* ── no-JS ───────────────────────────────────────────────────────────────
+   Without JavaScript the demo shows stage one and nothing else, which is
+   exactly what the real mockup does. The notice says so rather than leaving
+   three dead rows with no explanation.                                   */
+
+.cf__nojs {
+  padding: var(--step-4);
+  border: 1px dashed var(--cf-line);
+  border-radius: .8rem;
+  font-size: .75rem;
+  color: var(--cf-ink-70);
+  background: #FAFBFB;
+}
+
+.js .cf__nojs { display: none; }
+
+
+/* ── responsive ──────────────────────────────────────────────────────────
+   Sized against the demo's own container, not the viewport. Narrowest first,
+   so each query only adds what the extra width pays for.
+
+   Below 34rem the stage rail turns into a horizontal strip. The stage list is
+   the one thing that has to survive at every width, because it is the
+   product's whole idea.                                                     */
+
+@container cfdemo (max-width: 34rem) {
+  .cf__rail { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .cf__brand { flex: 1 1 100%; }
+  .cf__steps {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    overflow-x: auto;
+    inline-size: 100%;
+    padding-bottom: .35rem;
+  }
+  .cf__step { inline-size: auto; white-space: nowrap; }
+  .cf__who { display: none; }          /* identity is not the point this small */
+  .cf__stagehead { margin-inline: calc(var(--step-4) * -1); padding-inline: var(--step-4); }
+  .cf__panel { padding: var(--step-4); }
+}
+
+/* Rail beside the work, companion underneath. */
+@container cfdemo (min-width: 34rem) {
+  .cf { grid-template-columns: 12rem minmax(0, 1fr); }
+  .cf__comp { grid-column: 1 / -1; }
+  .cf__compdoc { max-block-size: none; }
+  .cf__asks { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+}
+
+/* Enough room for all three, which is the arrangement the mockup proposed. */
+@container cfdemo (min-width: 58rem) {
+  .cf { grid-template-columns: 13rem minmax(0, 1fr) 17rem; }
+  .cf__comp { grid-column: auto; }
+  .cf__compdoc { max-block-size: 24rem; }
+  .cf__asks { grid-template-columns: 1fr; }
+}
+
+/* A fallback for engines without container queries: use the viewport, and
+   accept that it is a worse approximation of the demo's real width. */
+@supports not (container-type: inline-size) {
+  @media (min-width: 60rem) { .cf { grid-template-columns: 12rem minmax(0, 1fr); } }
+  @media (min-width: 90rem) { .cf { grid-template-columns: 13rem minmax(0, 1fr) 17rem; } }
+}
+
+
+/* ── old versus new ──────────────────────────────────────────────────────
+   The two halves are different products at different widths, so this is a
+   stack of two framed figures rather than a strict side-by-side. Forcing
+   them into equal columns would imply a screen-for-screen equivalence that
+   does not exist.                                                         */
+
+/* The track has to be minmax(0, 1fr) rather than the default auto. An auto
+   track sizes to its content, the content is a figure wrapping an image, and
+   the image's own width is a percentage of the track — so the track resolves
+   to the image's intrinsic width and the column will not shrink. Pinning the
+   minimum to zero breaks that circle. */
+.vd-ba {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--step-6);
+  margin-top: var(--step-8);
+}
+
+@media (min-width: 60rem) { .vd-ba { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+
+/* A grid item's automatic minimum size is its content's min-content width,
+   and for a figure wrapping an image that is the image's intrinsic width —
+   1816px here. Without this the column refuses to shrink and the section
+   pushes the page sideways on a phone. The max-inline-size is the belt to
+   this braces: it also covers the case where the image fails to load and
+   falls back to its width attribute. */
+.vd-ba__side { margin: 0; display: grid; gap: var(--step-3); align-content: start; min-inline-size: 0; }
+.vd-ba__side img, .vd-shot img { max-inline-size: 100%; }
+
+.vd-ba__k {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .6em;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary); margin: 0;
+}
+
+.vd-ba__k b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+.vd-ba__side img {
+  inline-size: 100%; block-size: auto; display: block;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--ink-5);
+}
+
+.vd-ba__side figcaption {
+  font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body);
+}
+
+
+/* ── annotated screenshots ───────────────────────────────────────────────
+   A numbered marker over the image and a matching numbered note under it.
+   The marker is positioned in percentages so it stays on its target as the
+   image scales.                                                           */
+
+.vd-shot { margin: 0; position: relative; }
+
+.vd-shot img {
+  inline-size: 100%; block-size: auto; display: block;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--ink-5);
+}
+
+.vd-shot__pin {
+  position: absolute;
+  inline-size: 1.65rem; block-size: 1.65rem;
+  margin: -.825rem 0 0 -.825rem;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--accent); color: var(--text-on-accent);
+  font-family: var(--font-label); font-size: .7rem; font-weight: 700;
+  box-shadow: 0 0 0 .22rem var(--surface-page);
+}
+
+.vd-notes { display: grid; gap: var(--step-3); margin-top: var(--step-5); counter-reset: n; }
+
+.vd-note {
+  display: grid; grid-template-columns: 1.65rem minmax(0, 1fr);
+  gap: var(--step-3); align-items: start;
+}
+
+.vd-note__n {
+  inline-size: 1.65rem; block-size: 1.65rem;
+  border-radius: 50%; display: grid; place-items: center;
+  background: var(--ink-10); color: var(--text-primary);
+  font-family: var(--font-label); font-size: .7rem; font-weight: 700;
+}
+
+.vd-note p { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+.vd-note p b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+
+/* ── evidence labels ─────────────────────────────────────────────────────
+   Every claim on this page is one of four things, and the label says which.
+   This is the same discipline as the WorkPerks status words, applied to
+   evidence rather than to build state.                                    */
+
+.vd-ev {
+  display: inline-flex; align-items: center; gap: .5em;
+  padding: .3em .7em;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-secondary); white-space: nowrap;
+}
+
+.vd-ev::before { content: ""; inline-size: .45em; block-size: .45em; border-radius: 50%; background: currentColor; flex: none; }
+
+.vd-ev--seen     { color: var(--hue-sage-deep);  border-color: color-mix(in oklab, var(--hue-sage-deep) 40%, transparent); }
+.vd-ev--obs      { color: var(--hue-slate-deep); border-color: color-mix(in oklab, var(--hue-slate-deep) 40%, transparent); }
+.vd-ev--proposed { color: var(--hue-ochre-deep); border-color: color-mix(in oklab, var(--hue-ochre-deep) 40%, transparent); }
+.vd-ev--none     { color: var(--text-tertiary);  border-style: dashed; }
+
+.vd-legend {
+  display: grid; gap: var(--step-4);
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  margin-top: var(--step-8);
+  padding: var(--step-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+
+.vd-legend__i { display: grid; gap: var(--step-2); align-content: start; }
+.vd-legend__d { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); }
+
+
+/* ── the two-lane journey ────────────────────────────────────────────────
+   The member lane and the adjuster lane, with the handoff between them. The
+   gap in the middle is the finding, so it is drawn rather than described.  */
+
+.vd-lanes {
+  display: grid; gap: var(--step-4);
+  margin-top: var(--step-8);
+  padding: var(--step-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+
+.vd-lane { display: grid; gap: var(--step-3); }
+
+.vd-lane__k {
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary); margin: 0;
+}
+
+.vd-lane__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: var(--step-3); }
+
+.vd-lane__cell {
+  padding: var(--step-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface-page);
+  display: grid; gap: var(--step-2); align-content: start;
+}
+
+.vd-lane__cell b { font-size: var(--text-sm); font-weight: var(--weight-emphasis); }
+.vd-lane__cell span { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+.vd-lane__gap {
+  margin: 0;
+  padding: var(--step-4);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+
+/* ── wide tables ─────────────────────────────────────────────────────────
+   The shared .spec component is a two-column key and value table laid out on
+   a grid track with a 20rem minimum. Most tables on this page carry three,
+   four or five columns, so on a narrow screen the table outgrows that track
+   and pushes its section sideways.
+
+   Below the breakpoint .spec stops being a grid and becomes its own scroll
+   container. The table keeps a minimum width so the columns stay readable
+   rather than collapsing to one word per line.                            */
+
+@media (max-width: 52rem) {
+  .section .spec {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .section .spec__table { min-width: 36rem; }
+  .section .spec__table th,
+  .section .spec__table td { padding-right: var(--step-4); }
+  .section .spec__table th { width: auto; }
+}
+
+
+/* ── decision blocks ─────────────────────────────────────────────────────
+   Problem, options, decision, rationale, trade off, in that order. The same
+   shape the WorkPerks page uses for its decisions, carried here under this
+   page's own prefix rather than by loading that page's stylesheet.        */
+
+.vd-dec {
+  margin-top: var(--step-8);
+  padding-top: var(--step-6);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.vd-dec__h { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--step-3); }
+.vd-dec__n { font-family: var(--font-mono); font-size: var(--text-label); color: var(--text-tertiary); margin: 0; }
+
+.vd-dec__grid {
+  display: grid;
+  gap: var(--step-4) var(--step-6);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  margin-top: var(--step-5);
+}
+
+.vd-dec__f { display: grid; gap: var(--step-2); align-content: start; }
+
+.vd-dec__k {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.vd-dec__v { margin: 0; font-size: var(--text-sm); color: var(--text-body); line-height: var(--leading-body); }
+
+
+/* ── architecture diagrams ───────────────────────────────────────────────
+   Drawn in CSS so they respond to the site's type and spacing controls and
+   stay legible at 200%.                                                   */
+
+.vd-arch {
+  display: grid;
+  gap: var(--step-4);
+  margin-top: var(--step-8);
+  padding: var(--step-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+
+.vd-arch__band { display: grid; gap: var(--step-3); }
+
+.vd-arch__k {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.vd-arch__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: var(--step-3);
+}
+
+.vd-arch__cell {
+  padding: var(--step-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface-page);
+  display: grid;
+  gap: var(--step-2);
+  align-content: start;
+}
+
+.vd-arch__cell b { font-size: var(--text-sm); font-weight: var(--weight-emphasis); }
+.vd-arch__cell span { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+.vd-arch__cell--spine { background: var(--ink-5); border-color: var(--border-strong); }
+
+.vd-arch__rule {
+  margin: 0;
+  padding-top: var(--step-4);
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+
+/* ── the problem chain ───────────────────────────────────────────────────
+   Section 03 argues that the problems are one connected failure rather than
+   a list, so the component is a spine with three links on it. Each link
+   carries its own cluster of problems and then a consequence line, and that
+   consequence is what the next link opens with. The spine is a left border
+   on the whole block rather than a border per item, so the line is
+   continuous through the gaps and reads as one run.                       */
+
+.vd-chain {
+  margin-top: var(--step-8);
+  padding-left: var(--step-8);
+  border-left: 1px solid var(--border-default);
+  display: grid;
+  gap: var(--step-10);
+}
+
+.vd-chain__link { display: grid; gap: var(--step-4); position: relative; }
+
+/* The node on the spine. It is drawn as a ring over the page colour so the
+   spine appears to pass behind it rather than stopping at it. */
+.vd-chain__link::before {
+  content: "";
+  position: absolute;
+  inline-size: .5rem; block-size: .5rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 .3rem var(--surface-page);
+  left: calc(var(--step-8) * -1 - .25rem);
+  top: .45rem;
+}
+
+.vd-chain__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.vd-chain__t { margin: 0; font-size: var(--text-h4); font-weight: var(--weight-emphasis); line-height: var(--leading-heading); }
+
+.vd-chain__set {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--step-3);
+  margin-top: var(--step-2);
+}
+
+.vd-chain__cell {
+  padding: var(--step-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  display: grid;
+  gap: var(--step-2);
+  align-content: start;
+}
+
+.vd-chain__cell b { font-size: var(--text-sm); font-weight: var(--weight-emphasis); }
+.vd-chain__cell span { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+.vd-chain__out {
+  margin: 0;
+  padding-top: var(--step-4);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+.vd-chain__out b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+
+/* ── research methods ────────────────────────────────────────────────────
+   Section 04. A label, what it involved, and the evidence it produced. The
+   point of the third column is that a method with no evidence behind it is
+   visible as such, which is why the not-run rows carry a dashed label.    */
+
+.vd-meth { margin-top: var(--step-8); border-top: 1px solid var(--border-subtle); }
+
+.vd-meth__i {
+  display: grid;
+  gap: var(--step-2);
+  padding: var(--step-5) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  align-items: start;
+}
+
+@media (min-width: 52rem) {
+  .vd-meth__i {
+    grid-template-columns: 13rem minmax(0, 1fr) 9rem;
+    gap: var(--step-4) var(--step-6);
+  }
+}
+
+.vd-meth__k { margin: 0; font-size: var(--text-sm); font-weight: var(--weight-emphasis); }
+.vd-meth__v { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+.vd-meth__e { display: flex; }
+
+
+/* ── findings ────────────────────────────────────────────────────────────
+   Section 05. Six themes, each read as what was difficult, why it mattered
+   and what the opening is. Three of them carry --lead: a heavier rule and a
+   larger heading, because a findings section where everything is equally
+   loud has not actually prioritised anything.                             */
+
+.vd-find { margin-top: var(--step-8); display: grid; }
+
+.vd-find__i {
+  padding: var(--step-8) 0;
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  gap: var(--step-5);
+}
+
+.vd-find__i--lead { border-top-color: var(--border-strong); }
+
+.vd-find__h { display: grid; gap: var(--step-2); }
+
+.vd-find__n {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+  display: flex; flex-wrap: wrap; align-items: center; gap: .75em;
+}
+
+.vd-find__pri {
+  font-family: var(--font-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--hue-ochre);
+}
+
+.vd-find__t { margin: 0; font-size: var(--text-h4); font-weight: var(--weight-emphasis); line-height: var(--leading-heading); }
+.vd-find__i--lead .vd-find__t { font-size: var(--text-h3); }
+
+.vd-find__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--step-4) var(--step-6);
+}
+
+.vd-find__f { display: grid; gap: var(--step-2); align-content: start; }
+
+.vd-find__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.vd-find__v { margin: 0; font-size: var(--text-sm); color: var(--text-body); line-height: var(--leading-body); }
+.vd-find__f--open .vd-find__v { color: var(--text-primary); }
+
+
+/* ── principles ──────────────────────────────────────────────────────────
+   Section 06. Each one states the principle, the observation it answers and
+   where it shows up. Only a top border per item: on a wrapping auto-fit
+   grid, per-side borders leave dangling edges at the end of a short row. */
+
+.vd-prin {
+  margin-top: var(--step-8);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--step-6) var(--step-8);
+}
+
+.vd-prin__i {
+  padding-top: var(--step-5);
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  gap: var(--step-3);
+  align-content: start;
+}
+
+.vd-prin__n { margin: 0; font-family: var(--font-mono); font-size: var(--text-label); color: var(--text-tertiary); }
+.vd-prin__t { margin: 0; font-size: var(--text-body); font-weight: var(--weight-emphasis); line-height: var(--leading-heading); }
+.vd-prin__v { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+.vd-prin__v b {
+  display: block;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  font-weight: var(--weight-emphasis);
+  margin-bottom: var(--step-1);
+}
+
+
+/* ── information architecture ────────────────────────────────────────────
+   Section 07. Two trees side by side, drawn as nested lists so the nesting
+   is real structure rather than indentation. The connector is a left border
+   on the child list plus a short rule per item, which is the cheapest way
+   to get a tree that reflows and scales with the type controls.          */
+
+.vd-ia { margin-top: var(--step-8); display: grid; gap: var(--step-6); }
+
+@media (min-width: 60rem) { .vd-ia { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.vd-ia__col {
+  padding: var(--step-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  display: grid;
+  gap: var(--step-4);
+  align-content: start;
+  min-inline-size: 0;
+}
+
+.vd-ia__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .6em;
+}
+
+.vd-ia__k b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+.vd-tree, .vd-tree ul { list-style: none; margin: 0; padding: 0; }
+
+.vd-tree ul {
+  margin-left: var(--step-3);
+  padding-left: 0;
+  border-left: 1px solid var(--border-default);
+}
+
+.vd-tree li { position: relative; padding: .28rem 0; font-size: var(--text-sm); line-height: var(--leading-body); }
+.vd-tree ul li { padding-left: var(--step-5); }
+
+/* The elbow. 0.8em down is the middle of the first line at this leading, so
+   the rule meets the label rather than its ascender. */
+.vd-tree ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: .95em;
+  inline-size: var(--step-4); block-size: 1px;
+  background: var(--border-default);
+}
+
+.vd-tree b { font-weight: var(--weight-emphasis); color: var(--text-primary); }
+.vd-tree span { color: var(--text-tertiary); }
+.vd-tree li[data-state="new"] > b { color: var(--hue-ochre-light); }
+
+
+/* ── workflow diagrams ───────────────────────────────────────────────────
+   Section 07. Rectangular nodes, thin connectors, no decoration. The nodes
+   are flex items rather than grid tracks so a long journey wraps instead of
+   either overflowing or crushing every node to nothing.                   */
+
+.vd-dia {
+  margin: var(--step-8) 0 0;
+  padding: var(--step-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  display: grid;
+  gap: var(--step-4);
+  /* The flow inside turns horizontal on the width of THIS box, not the
+     viewport. At 1024 the rail is still taking its share, so the reading
+     column is ~613px here while the viewport reads 1024 — a viewport query
+     put six nodes in a row that had room for four and clipped the last two. */
+  container-type: inline-size;
+}
+
+.vd-dia__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.vd-dia__cap {
+  margin: 0;
+  padding-top: var(--step-4);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+/* min-inline-size:0 matters: .vd-flow is a grid item, a grid item's automatic
+   minimum is its min-content width, and for a nowrap flex row that is the sum
+   of every node. Without this the row refuses to shrink and overflows the
+   diagram regardless of what the nodes themselves are allowed to do. */
+.vd-flow { display: flex; flex-direction: column; align-items: stretch; gap: 0; min-inline-size: 0; }
+
+/* 48rem of CONTAINER, which the six-node flows need to stay readable. Below
+   it they stack, which is the same arrangement the phone gets. */
+@container (min-width: 48rem) {
+  .vd-flow { flex-direction: row; align-items: stretch; }
+}
+
+/* Fallback for engines without container queries: fall back to the viewport,
+   and pick 90rem so the rail's share is already accounted for. */
+@supports not (container-type: inline-size) {
+  @media (min-width: 90rem) { .vd-flow { flex-direction: row; align-items: stretch; } }
+}
+
+.vd-flow__n {
+  flex: 1 1 8rem;
+  min-inline-size: 0;
+  padding: var(--step-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface-page);
+  display: grid;
+  gap: var(--step-2);
+  align-content: start;
+}
+
+.vd-flow__n b { font-size: var(--text-sm); font-weight: var(--weight-emphasis); }
+.vd-flow__n span { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+/* The three node states the diagrams need: today's path, the designed path,
+   and the point where the path stops being visible to anyone. */
+.vd-flow__n--new  { border-color: color-mix(in oklab, var(--hue-ochre-deep) 55%, var(--border-default)); }
+.vd-flow__n--new b { color: var(--hue-ochre-light); }
+.vd-flow__n--dark { border-style: dashed; background: none; }
+.vd-flow__n--dark b, .vd-flow__n--dark span { color: var(--text-tertiary); }
+
+/* The connector. Vertical on a phone, horizontal from 52rem, and it is one
+   glyph rotated rather than two different characters, so the arrowhead is
+   identical in both directions. */
+.vd-flow__a {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+  block-size: var(--step-6);
+  transform: rotate(90deg);
+}
+
+@container (min-width: 48rem) {
+  .vd-flow__a { block-size: auto; inline-size: var(--step-6); transform: none; }
+}
+
+@supports not (container-type: inline-size) {
+  @media (min-width: 90rem) {
+    .vd-flow__a { block-size: auto; inline-size: var(--step-6); transform: none; }
+  }
+}
+
+
+/* ── design stories ──────────────────────────────────────────────────────
+   Section 08. Challenge, decision, new experience, impact — in that order,
+   every time. The reasoning column and the evidence column sit side by side
+   so the screen is read against the argument rather than after it.        */
+
+.vd-story {
+  margin-top: var(--step-12);
+  padding-top: var(--step-8);
+  border-top: 1px solid var(--border-default);
+}
+
+.vd-story__h { display: grid; gap: var(--step-2); }
+
+.vd-story__n {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+  display: flex; flex-wrap: wrap; align-items: center; gap: .75em;
+}
+
+.vd-story__body { margin-top: var(--step-6); display: grid; gap: var(--step-6); }
+
+@media (min-width: 64rem) {
+  .vd-story__body { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--step-10); }
+}
+
+.vd-story__fields { display: grid; gap: var(--step-5); align-content: start; min-inline-size: 0; }
+.vd-story__media  { display: grid; gap: var(--step-4); align-content: start; min-inline-size: 0; }
+
+.vd-story__f { display: grid; gap: var(--step-2); align-content: start; }
+
+.vd-story__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.vd-story__v { margin: 0; font-size: var(--text-sm); color: var(--text-body); line-height: var(--leading-body); }
+
+.vd-story__impact {
+  margin-top: var(--step-6);
+  padding-left: var(--step-5);
+  border-left: 2px solid var(--border-strong);
+  display: grid;
+  gap: var(--step-2);
+}
+
+.vd-story__media img {
+  inline-size: 100%; block-size: auto; display: block;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--ink-5);
+}
+
+.vd-story__media figure { margin: 0; display: grid; gap: var(--step-3); min-inline-size: 0; }
+
+.vd-story__media figcaption {
+  font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body);
+}
+
+
+/* ── a stated gap ────────────────────────────────────────────────────────
+   Where a design story has no redesigned screen behind it, this says so in
+   the place the screen would have gone. A dashed edge rather than a solid
+   one, because the block is the absence of a thing and should not read as
+   another artefact.                                                       */
+
+.vd-gap {
+  padding: var(--step-5);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--ink-5);
+  display: grid;
+  gap: var(--step-2);
+  align-content: start;
+}
+
+.vd-gap__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.vd-gap p { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+
+
+/* ── reduced motion ──────────────────────────────────────────────────────
+   The demo's only motion is the stage change. Under reduced motion the new
+   stage simply appears, which is what the switch is for.                  */
+
+@media (prefers-reduced-motion: no-preference) {
+  .cf__work > .cf__panel { animation: cf-in var(--duration-enter) var(--ease-out) both; }
+  @keyframes cf-in { from { opacity: 0; transform: translateY(.4rem); } }
+}

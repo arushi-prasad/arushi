@@ -1,0 +1,44 @@
+<!doctype html><meta charset="utf-8">
+<style>#f{position:fixed;left:0;top:0;width:1440px;height:900px;border:0}
+#out{position:absolute;inset:0;z-index:5;background:rgba(255,255,255,.97);font:13px/1.55 ui-monospace,monospace;white-space:pre;padding:10px}</style>
+<iframe id="f" src="/designops/planning/"></iframe>
+<img src="http://127.0.0.1:8002/slow?s=26" alt="" style="position:fixed;left:-50px;top:-50px;width:1px">
+<pre id="out">…</pre>
+<script>
+const L=[], f=document.getElementById('f');
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+f.onload=()=>f.contentWindow.document.fonts.ready.then(()=>setTimeout(run,600));
+async function run(){
+ try{
+  const d=f.contentDocument, w=f.contentWindow, de=d.documentElement;
+  de.style.scrollBehavior='auto';
+  const sw=()=>de.scrollWidth;
+  const probe=async tag=>{ de.scrollTop=0; w.scrollTo(600,0); await wait(120);
+    L.push(tag.padEnd(34)+' scrollWidth '+String(sw()).padStart(5)+'   scrollX '+w.scrollX);
+    w.scrollTo(0,0); await wait(50); };
+  await probe('on arrival');
+  for(let y=0;y<de.scrollHeight;y+=700){ de.scrollTop=y; await wait(25); }
+  await probe('after scrolling through');
+  const links=[...d.querySelectorAll('[data-case-link]')];
+  for (const a of links){
+    const before=sw();
+    d.getElementById(a.dataset.caseLink).scrollIntoView(); await wait(120);
+    if (sw()!==before){ L.push('   >>> jumping to #'+a.dataset.caseLink+' changed scrollWidth '+before+' → '+sw()); }
+  }
+  await probe('after jumping to every section');
+  const scrollContained=el=>{ let p=el.parentElement;
+    while(p && p!==de){ const o=w.getComputedStyle(p).overflowX;
+      if(o==='auto'||o==='scroll'||o==='hidden'||o==='clip') return true; p=p.parentElement; } return false; };
+  const all=[...d.body.querySelectorAll('*')].map(el=>({el,r:el.getBoundingClientRect()}))
+    .filter(o=>o.r.width>0 && o.r.right>de.clientWidth+1 && w.getComputedStyle(o.el).position!=='fixed')
+    .sort((a,b)=>b.r.right-a.r.right);
+  L.push(''); L.push('widest reaching elements now (contained? = has a clipping/scrolling ancestor):');
+  all.slice(0,6).forEach(o=>L.push('   right '+o.r.right.toFixed(0).padStart(5)+'  w '+o.r.width.toFixed(0).padStart(5)+
+    '  contained '+String(scrollContained(o.el)).padEnd(6)+'  '+
+    (o.el.tagName.toLowerCase()+(o.el.className?'.'+String(o.el.className).split(' ').join('.'):'')).slice(0,46)));
+  const wraps=[...d.querySelectorAll('[class$="__wrap"]')].filter(e=>e.scrollLeft>0);
+  L.push(''); L.push('inner scroll boxes left scrolled: '+wraps.map(e=>e.className+'='+e.scrollLeft).join(', ')||'none');
+  out.textContent=L.join('\n');
+ }catch(e){ out.textContent=L.join('\n')+'\nTHREW '+e.message; }
+}
+</script>

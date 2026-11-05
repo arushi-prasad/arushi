@@ -1,0 +1,103 @@
+<!--meta
+route: writing
+title: Writing
+desc: Notes on design leadership, DesignOps, design systems and AI-assisted product development.
+nav: writing
+sheets: writing
+js: writing
+-->
+
+<header class="w-head shell w-shell">
+  <h1 class="w-title" data-reveal>Writing</h1>
+  <div class="w-intro" data-reveal>
+    <p class="prose">One piece is published. The rest is the real outline &#8212; the drafts that have source material behind them, and no invented ones to pad the shelf.</p>
+    <p class="prose">This index fills from the top as pieces are finished. It stayed empty for a long time on purpose: a portfolio that invents four articles to look prolific has told you something about its author before you read a word of them.</p>
+    <p class="prose"><a class="link-out" href="../about/">Read the positions instead <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg></a></p>
+  </div>
+</header>
+
+<section class="section shell w-shell">
+
+  <!-- Two tabs, the APG pattern: one tab stop for the set, arrows to move
+       inside it. Both panels are in the markup; the inactive one carries
+       [hidden], so switching costs no request and no reflow of the page. -->
+  <div class="w-tabs" role="tablist" aria-label="Kinds of writing">
+    <button class="w-tab" type="button" role="tab" id="w-tab-articles"
+            aria-controls="w-panel-articles" aria-selected="true">
+      <span class="w-tab__label">Articles<sup class="w-tab__count" aria-hidden="true">4</sup></span>
+    </button>
+    <button class="w-tab" type="button" role="tab" id="w-tab-notes"
+            aria-controls="w-panel-notes" aria-selected="false" tabindex="-1">
+      <span class="w-tab__label">Notes<sup class="w-tab__count" aria-hidden="true">1</sup></span>
+    </button>
+  </div>
+
+  <div class="w-panel" id="w-panel-articles" role="tabpanel"
+       aria-labelledby="w-tab-articles" tabindex="0"
+       data-empty="No articles yet.">
+    <ul class="w-list" role="list">
+
+      <li class="w-item">
+        <a class="w-item__link" href="conditions-for-good-work/">
+          <div class="w-item__main">
+            <h2 class="w-item__title">The conditions for good work</h2>
+            <p class="w-item__desc">Eleven years of design work, and what changed each time the thing I was responsible for got bigger. Craft, a team of twenty-four, a quality model, an allocation sheet, a design system, and an app I built myself &#8212; with the evidence for each, and the gaps named.</p>
+            <p class="w-item__tags">Design leadership &middot; DesignOps &middot; Design systems &middot; AI-assisted build</p>
+          </div>
+          <p class="w-item__meta"><time datetime="2026-10">Oct 2026</time></p>
+        </a>
+      </li>
+
+      <li class="w-item">
+        <div class="w-item__main">
+          <h2 class="w-item__title">What &#8220;built the app&#8221; actually means</h2>
+          <p class="w-item__desc">An honest account of AI-assisted development on a 0&#8594;1 product: what I owned, what AI accelerated, and where the line between the two sits. Written against WorkPerks rather than in the abstract.</p>
+          <p class="w-item__tags">AI-assisted build &middot; 0&#8594;1 &middot; Product</p>
+        </div>
+        <p class="w-item__meta">Draft</p>
+      </li>
+
+      <li class="w-item">
+        <div class="w-item__main">
+          <h2 class="w-item__title">A design team doesn't fail on craft</h2>
+          <p class="w-item__desc">It fails on clarity. On the five questions a growing design organisation has to answer in writing &#8212; who does what, how work is allocated, what good means, how someone gets to the next level, and who decides.</p>
+          <p class="w-item__tags">DesignOps &middot; Org design &middot; Career frameworks</p>
+        </div>
+        <p class="w-item__meta">Draft</p>
+      </li>
+
+      <li class="w-item">
+        <div class="w-item__main">
+          <h2 class="w-item__title">Governance is the whole design system</h2>
+          <p class="w-item__desc">Foundations and components are the easy half. Contribution, review and versioning are what decide whether a system is still true a year after launch &#8212; and why Capsule had to be infrastructure rather than a library.</p>
+          <p class="w-item__tags">Design systems &middot; Tokens &middot; Governance</p>
+        </div>
+        <p class="w-item__meta">Draft</p>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="w-panel" id="w-panel-notes" role="tabpanel"
+       aria-labelledby="w-tab-notes" tabindex="0"
+       data-empty="No notes yet." hidden>
+    <ul class="w-list" role="list">
+
+      <li class="w-item">
+        <div class="w-item__main">
+          <h2 class="w-item__title">Three things I stopped defending</h2>
+          <p class="w-item__desc">Figma as the end product. Handoff as the end of design. Knowledge that disappears after launch. What replaced each of them, and what it cost to change my mind.</p>
+          <p class="w-item__tags">Practice &middot; POV</p>
+        </div>
+        <p class="w-item__meta">Draft</p>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="w-notes" data-reveal>
+    <p class="w-notes__p">Everything still marked a draft has material behind it already &#8212; working documents, frameworks, or a product that has actually shipped. None of those four is finished, and all four are labelled as drafts wherever they appear.</p>
+    <p class="w-notes__p"><strong>Why this page existed while it was empty.</strong> The index, the row shape and the date treatment were all built and working before there was anything to put in them. The first finished piece dropped in as content, not as a new page &#8212; which is the same argument this whole site is making about systems.</p>
+  </div>
+
+</section>

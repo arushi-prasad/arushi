@@ -1,0 +1,1502 @@
+/* ===========================================================================
+   STAGE — the homepage canvas.
+   A wordmark you can touch, the destinations arranged around it, and the
+   ruler of years that closes it.
+   ========================================================================= */
+
+.stage{
+  --wm-w:min(68vw, 62svh);
+  --stage-ink:var(--text-tertiary);
+  flex:1;
+  display:flex; flex-direction:column;
+  align-items:center;
+  gap:var(--step-6);
+  padding-block:var(--step-10) var(--step-12);
+  min-height:calc(100svh - var(--nav-height) - var(--step-20));
+  position:relative;
+}
+
+/* ---- The mesh ---------------------------------------------------------
+   mesh.js paints the hero's share of the page grid here when a pointer is
+   over it, and nothing at all otherwise. Full-bleed, because the grid it
+   stands in for is: .stage is a .shell, so its own box stops at the content
+   column. It sits at 0 — under the peek layer at 1, the name at 2, the
+   pills at 3 and the ruler at 4 — and over the page grid, which is the
+   whole point. It takes no pointer events, so nothing on the stage loses
+   a hover or a click to it.
+
+   The element is created by the script, not written in the markup: on a
+   touch screen, or under prefers-reduced-motion, or with JavaScript off,
+   there is no canvas on the page at all. ----------------------------- */
+/* ---------------------------------------------------------------------------
+   THE HEADER, ON THIS PAGE ONLY
+
+   Everywhere else the header is a near-opaque plate with a blur under it and
+   the grid painted again on top, because a case study scrolls underneath it
+   and the navigation has to stay readable through that. The home page is one
+   screen and nothing ever passes behind the bar, so the plate is buying
+   nothing — and it was the one thing standing between the pointer and the
+   grid up there. Take it away and the hero's own grid simply continues to
+   the top of the window, mesh and all.
+
+   This file is loaded by the home page alone, so the rule needs no guard.
+   ------------------------------------------------------------------------ */
+.nav-wrap{
+  background:transparent;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  /* The grid's own line falls exactly here now, so the border would be a
+     second one on the same pixel. */
+  border-bottom-color:transparent;
+}
+/* The band stops painting its own copy of the grid: the fixed layer behind
+   it is already drawing those same cells at the same origin, and the canvas
+   below is what bends them. Two copies would mean only one of them moved. */
+.nav-wrap::before,
+.nav-wrap::after{ display:none; }
+
+.stage__mesh{
+  position:absolute;
+  /* height, not bottom:0. A canvas is a replaced element: left to height:auto
+     it takes its height from the ratio of its width and height attributes
+     and ignores bottom entirely, which pinned it to half its own width —
+     short of the hero at one size, past the bottom of the page at another,
+     where it added scrollable height that was not there before. A definite
+     height is what stops the ratio being consulted at all. */
+  /* Up through the header as well. The stage begins at the foot of the bar,
+     so reaching the top of the window is exactly one bar's height — border
+     included, which is what --nav-bar is. The canvas still sits under the
+     header's z-index, so the navigation's own links stay over the top of it
+     and nothing it draws can touch them. */
+  top:calc(-1 * var(--nav-bar)); height:calc(100% + var(--nav-bar));
+  left:50%; width:100vw;
+  transform:translateX(-50%);
+  display:block;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ---- The canvas the wordmark and the portals share -------------------- */
+.stage__canvas{
+  position:relative;
+  width:100%;
+  flex:1;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:var(--step-8);
+  padding-block:var(--step-12);
+}
+
+/* ---------------------------------------------------------------------------
+   WORDMARK
+   Real, selectable, copyable text, set in a cursive hand.
+
+   Two layers, and only one of them is seen. The six capitals are the <h1>'s
+   content — selectable, copyable, searchable, and what a screen reader is
+   given — and they are what the page measures: the row's width is the budget
+   below, the Type tool's selection box is drawn around it, and each portal's
+   elbow lands on the letter it belongs to. They are held at zero opacity, so
+   they keep every one of those jobs and are simply not looked at.
+
+   The cursive word on top is what is read. It is out of flow, so its size is
+   free of all of that: it can be set for presence without moving a single
+   thing around it.
+   ------------------------------------------------------------------------ */
+.wm{
+  position:relative;
+  margin:0;
+  display:flex;
+  justify-content:center;
+  font-family:var(--font-display);
+  font-weight:var(--weight-display);
+  /* Tracking lives on the letters, not here, so each one can animate on its
+     own clock. --wm-spread is how much airier the resting state is than the
+     type treatment's own display tracking. */
+  --wm-spread:0.05em;
+  line-height:var(--leading-display);
+  /* ARUSHI sets about 3.45em wide at this weight and the treatment's own
+     tracking. The resting state adds --wm-spread after each of the six
+     letters, so it is the wider of the two states and the one the divisor
+     has to clear: 3.45 + 6 x 0.05 = 3.75. Under-budgeting here overflows the
+     page — which on a phone pushes the whole layout sideways and takes the
+     navigation off screen with it. */
+  font-size:calc(var(--wm-w) / 3.75);
+  /* The selection box scales this and only this. A transform is outside
+     layout, so dragging the box cannot move anything else on the page. */
+  transform:scale(var(--type-scale));
+  transform-origin:50% 50%;
+  will-change:transform;
+  align-items:center;
+  user-select:text;
+  transition:transform var(--duration-base) var(--ease-smooth);
+}
+.wm.is-dragging{ transition:none; }
+
+/* ---- arushi ----------------------------------------------------------------
+   The name is the cursive word, at every width, in every state. It used to
+   be a hover: bold capitals that resolved into a script face while the
+   pointer was on them and snapped back when it left. The script is the name
+   now, so there is nothing to reveal and nothing to put back — no :hover, no
+   :focus-within, no class, no transition, and no line of type underneath
+   asking to be hovered.
+
+   Why the capitals are still here rather than set in the script directly: a
+   script face has entirely different advance widths, and six inline-blocks
+   with display tracking between them would break every join the hand makes
+   and resize the row the whole hero is centred on. The cursive layer is
+   absolutely positioned and centred instead, which puts it outside layout —
+   whatever width the resolved face has, nothing around it moves. The
+   capitals keep the box; the script does the talking.
+   -------------------------------------------------------------------------- */
+.wm{
+  /* No script face is self-hosted — the site ships Inter Tight and Geist
+     Mono, neither of which has one — so this is a system stack. Snell
+     Roundhand (macOS) is the face it is designed around; the rest are
+     fallbacks in descending order of how much they look like writing. */
+  --font-script:"Snell Roundhand","Apple Chancery","Segoe Script","Lucida Handwriting","Brush Script MT",cursive;
+  /* Script faces carry a small x-height for their em, so this sets the
+     cursive word's presence against the capitals. One knob — and because the
+     layer it drives is out of flow, turning it up cannot move anything.
+     1.21em is ten per cent above the 1.1em it was drawn at. */
+  --wm-script-size:1.21em;
+}
+
+.wm__l{
+  display:inline-block;
+  letter-spacing:calc(var(--track-display) + var(--wm-spread));
+  text-transform:uppercase;
+  color:var(--accent);
+  /* Not seen, and not hidden either: opacity keeps the text in the
+     accessibility tree and keeps the box on the page, which is what the
+     portal elbows and the selection box are measured against.
+     visibility:hidden or display:none would take both away. */
+  opacity:0;
+}
+
+.wm__script{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%, -50%);
+  font-family:var(--font-script);
+  font-size:var(--wm-script-size);
+  /* One step up from the regular cut, which is what Snell Roundhand has to
+     give: 600 resolves to its Bold, where 500 would fall back to the Regular
+     and change nothing. Enough weight to hold its own at this size and stay
+     a hand rather than a headline. */
+  font-weight:600;
+  font-style:italic;
+  letter-spacing:0;
+  text-transform:lowercase;
+  white-space:nowrap;
+  color:var(--accent);
+  user-select:none;
+  pointer-events:none;
+}
+
+/* ---------------------------------------------------------------------------
+   SELECTION BOX — the Type tool's direct-manipulation handle.
+   Appears around the wordmark when Type is active. Drag any corner or edge,
+   or focus one and use the arrow keys, to change the type scale.
+   ------------------------------------------------------------------------ */
+/* No gap between the greeting and the name: the distance is set on the
+   greeting itself, below, and it is a negative one. */
+.wm-wrap{ display:flex; flex-direction:column; align-items:center; gap:0; }
+
+/* Set in the same mono as the hint below the mark, at the same size, so the
+   two bracket the name as a matched pair rather than introducing a third
+   voice. Small on purpose: it introduces the name, it does not compete with
+   it. The bottom margin keeps it clear of the Type tool's selection box,
+   which sits --step-4 above the mark. */
+.wm__greet{
+  /* Pulled down into the name's own box, so the two read as one heading
+     rather than a label and a logo with air between them.
+
+     It can go there because of what is directly underneath it: the greeting
+     is centred, and the middle of "arushi" is all x-height — the letters
+     that climb (the h, the dot of the i) are away to the right, and the four
+     connectors come down on a, r, h and i, every one of them outside this
+     word's width. So the space it is moving into is genuinely empty.
+
+     Set against the name's own size rather than in rem, so the two stay the
+     same distance apart at every width the mark is fluid across. */
+  margin-bottom:calc(var(--wm-w) / 3.75 * -0.235);
+  font-family:var(--font-mono);
+  font-size:1rem;
+  letter-spacing:0;
+  line-height:1;
+  color:var(--text-tertiary);
+}
+.wm-frame{ position:relative; display:inline-block; }
+
+/* How far the box stands off the name, and how far a handle reaches past the
+   box. Named rather than typed in eight places because on a narrow screen
+   they are the whole problem: the name is set to 94vw down there, which
+   leaves 3vw of margin each side, and a box 1rem out with a handle 7px past
+   that wants 23px of it. The handles are the furthest-left and furthest-right
+   boxes on the page, so whatever they do not fit inside becomes a horizontal
+   scrollbar under the whole site. */
+.sel{
+  --sel-out:var(--step-4);
+  --sel-grab:7px;
+  position:absolute;
+  left:calc((100% - 100% * var(--type-scale)) / 2 - var(--sel-out));
+  width:calc(100% * var(--type-scale) + var(--sel-out) * 2);
+  top:calc((100% - 100% * var(--type-scale)) / 2 - var(--sel-out));
+  height:calc(100% * var(--type-scale) + var(--sel-out) * 2);
+  border:2px solid var(--accent);
+  border-radius:calc(var(--radius-sm) * 0.5);
+  opacity:0; visibility:hidden;
+  pointer-events:none;
+  transition:opacity var(--duration-base) var(--ease-smooth),
+             visibility 0s linear var(--duration-base);
+}
+.stage[data-tool="type"] .sel{
+  opacity:1; visibility:visible; pointer-events:none;
+  transition-delay:0s;
+}
+.stage[data-tool="type"] .sel__h{ pointer-events:auto; }
+
+.sel__h{
+  position:absolute;
+  width:12px; height:12px;
+  padding:0;
+  background:var(--surface-page);
+  border:2px solid var(--accent);
+  border-radius:2px;
+  touch-action:none;
+  transition:transform var(--duration-fast) var(--ease-out);
+}
+.sel__h:hover,.sel__h:focus-visible{ transform:scale(1.35); }
+.sel__h--tl{ top:calc(var(--sel-grab) * -1);    left:calc(var(--sel-grab) * -1);  cursor:nwse-resize; }
+.sel__h--tr{ top:calc(var(--sel-grab) * -1);    right:calc(var(--sel-grab) * -1); cursor:nesw-resize; }
+.sel__h--bl{ bottom:calc(var(--sel-grab) * -1); left:calc(var(--sel-grab) * -1);  cursor:nesw-resize; }
+.sel__h--br{ bottom:calc(var(--sel-grab) * -1); right:calc(var(--sel-grab) * -1); cursor:nwse-resize; }
+.sel__h--t{ top:calc(var(--sel-grab) * -1);    left:50%; transform:translateX(-50%); cursor:ns-resize; }
+.sel__h--b{ bottom:calc(var(--sel-grab) * -1); left:50%; transform:translateX(-50%); cursor:ns-resize; }
+.sel__h--l{ left:calc(var(--sel-grab) * -1);   top:50%;  transform:translateY(-50%); cursor:ew-resize; }
+.sel__h--r{ right:calc(var(--sel-grab) * -1);  top:50%;  transform:translateY(-50%); cursor:ew-resize; }
+.sel__h--t:hover,.sel__h--t:focus-visible,
+.sel__h--b:hover,.sel__h--b:focus-visible{ transform:translateX(-50%) scale(1.35); }
+.sel__h--l:hover,.sel__h--l:focus-visible,
+.sel__h--r:hover,.sel__h--r:focus-visible{ transform:translateY(-50%) scale(1.35); }
+
+/* The scale readout that rides with the box, the way a design tool shows
+   dimensions while you drag. */
+.sel__readout{
+  position:absolute; top:calc(100% + 8px); left:50%;
+  transform:translateX(-50%);
+  padding:2px 8px;
+  background:var(--accent); color:var(--text-on-accent);
+  border-radius:var(--radius-sm);
+  font-family:var(--font-mono); font-size:0.6875rem;
+  white-space:nowrap;
+}
+
+/* While a tool is open the selection box and its readout occupy this space,
+   so the hint stands down rather than printing underneath them. */
+.stage:not([data-tool="none"]) .wm__greet{
+  opacity:0; visibility:hidden;
+  transition:opacity var(--duration-base) var(--ease-in),
+             visibility 0s linear var(--duration-base);
+}
+
+/* ---------------------------------------------------------------------------
+   PORTALS — the destinations, arranged around the wordmark.
+   Pill, hairline, a fill that grows from nothing, and the label rolling up
+   to its own duplicate so the swap reads as one object moving.
+   ------------------------------------------------------------------------ */
+.portals{
+  position:absolute; inset:0;
+  pointer-events:none;
+  display:none;
+}
+@media (min-width:1024px){ .portals{ display:block; } }
+
+/* All four stations sit above the name — two near it, two a step higher —
+   so the navigation grows upward out of the mark.
+
+   The percentages below are a fallback only. stage.js measures the name and
+   writes exact pixel positions, because "just above the name" is not a
+   fraction of the canvas: the mark is fluid, the Type control scales it and
+   a late webfont changes its height. Placement and the connectors are
+   computed from the same measurement, so the two cannot disagree. */
+.portal-slot{
+  position:absolute;
+  pointer-events:auto;
+  display:flex; flex-direction:column; gap:var(--step-1);
+  align-items:center;
+}
+.portal-slot[data-at="ul"]{ top:17%; left:6%; }
+.portal-slot[data-at="ur"]{ top:17%; right:6%; }
+.portal-slot[data-at="ll"]{ top:27%; left:24%; }
+.portal-slot[data-at="lr"]{ top:27%; right:24%; }
+
+/* The line of description over each pill. It used to sit there permanently,
+   four captions in the open ground around the name saying four things at
+   once. Now each one waits for its own pill and arrives with that pill's
+   pictures — the same gesture, two layers of it.
+
+   The state it reads is .is-peeking on its own pill, not :hover on itself,
+   and that is the whole of why this does not flicker: is-peeking is set by
+   the peek, which already holds a 90ms grace period across the gap between
+   two pills, already answers keyboard focus, and already has exactly one
+   section open at a time. A second definition of "being read" would be a
+   second thing to disagree with.
+
+   Opacity only — never display, never height. The slot reserves the note's
+   box from the first frame, so a pill cannot move under the pointer at the
+   moment it is hovered, and the connectors measured against that box stay
+   true whether the note is showing or not. */
+.portal__note{
+  font-family:var(--font-mono); font-size:0.6875rem;
+  padding-inline:var(--step-3);
+  /* Each one in its own colour, drawn from the hue ring the palettes are
+     built out of — the light cut, which is what keeps 11px of mono legible
+     on this background rather than merely tinted. Blended a third of the way
+     back toward the page's own ink so it reads as a quiet aside and not as a
+     fifth navigation item. */
+  color:color-mix(in srgb, var(--note-hue, var(--accent-light)) 68%, var(--text-secondary));
+  opacity:0;
+  transform:translateY(3px);
+  /* Away faster than it arrives, and with no delay either way: the note has
+     to be gone before the next pill's note appears, or two of them overlap
+     on the way across. */
+  transition:opacity 160ms var(--ease-smooth),
+             transform 160ms var(--ease-smooth);
+}
+.portal-slot[data-at="ul"]{ --note-hue:var(--hue-copper-light); }
+.portal-slot[data-at="ll"]{ --note-hue:var(--hue-ochre-light); }
+.portal-slot[data-at="lr"]{ --note-hue:var(--hue-sage-light); }
+.portal-slot[data-at="ur"]{ --note-hue:var(--hue-lavender-light); }
+
+/* Still governed by the Contrast control, exactly as it was when it stood
+   there permanently. */
+.portal-slot:has(.portal.is-peeking) .portal__note{
+  opacity:var(--deco);
+  transform:translateY(0);
+  transition:opacity var(--duration-base) var(--ease-out) 40ms,
+             transform var(--duration-base) var(--ease-out) 40ms;
+}
+@media (prefers-reduced-motion:reduce){
+  .portal__note{ transform:none; transition:opacity 120ms linear; }
+  .portal-slot:has(.portal.is-peeking) .portal__note{
+    transform:none; transition:opacity 120ms linear;
+  }
+}
+
+/* Compact on purpose. The label is a step below the interface label size,
+   the border is half a hairline, and the box is tight around both — four
+   small objects hanging off the name rather than four buttons parked over
+   it. The fill, the word roll and the hues are untouched. */
+.portal{
+  position:relative;
+  display:grid; place-items:center;
+  height:2rem;
+  padding-inline:var(--step-4);
+  /* Half a hairline. On a retina screen that is literally half the line it
+     was; on a 1x one the used width snaps back to a whole pixel, so the
+     border is softened a step as well and the pill reads lighter either
+     way. The hover colour still takes it over whole. */
+  border:var(--hair) solid color-mix(in srgb, var(--border-strong) 74%, transparent);
+  border-width:0.5px;
+  border-radius:var(--radius-full);
+  background:var(--surface-page);
+  color:var(--text-secondary);
+  text-decoration:none;
+  white-space:nowrap;
+  overflow:hidden;
+  isolation:isolate;
+  /* A step under --text-label, which is the interface's own size: these are
+     labels on an object, not controls in a toolbar. */
+  font-family:var(--font-label); font-size:0.6875rem;
+  /* Lowercase, to sit with the name they are arranged around — the mark is
+     lowercase and these are the only other words in the composition.
+     Transformed rather than respelled in the markup, unlike the header row:
+     there one destination needs capitals inside the word, which no transform
+     can produce, and here all four are plainly lowercase. Keeping the source
+     in sentence case also keeps what a screen reader says in sentence case. */
+  letter-spacing:var(--track-label); text-transform:lowercase;
+  transition:color var(--duration-base) var(--ease-smooth),
+             border-color var(--duration-base) var(--ease-smooth),
+             border-radius var(--duration-slow) var(--ease-smooth);
+}
+.portal__fill{
+  position:absolute; inset:0; z-index:-1;
+  border-radius:inherit;
+  background:var(--p-hue,var(--accent));
+  transform:scale(0);
+  transition:transform var(--duration-slow) var(--ease-out);
+}
+.portal:hover,.portal:focus-visible{
+  color:var(--text-on-accent);
+  border-color:var(--p-hue,var(--accent));
+}
+.portal:hover .portal__fill,
+.portal:focus-visible .portal__fill{ transform:scale(1); }
+
+/* Word roll — two stacked copies of the label inside a fixed-height window. */
+.portal__roll{
+  display:block; height:1.2em; overflow:hidden; line-height:1.2em;
+}
+.portal__roll span{
+  display:block;
+  transition:transform var(--duration-slow) var(--ease-out);
+}
+.portal:hover .portal__roll span,
+.portal:focus-visible .portal__roll span{ transform:translateY(-1.2em); }
+@media (prefers-reduced-motion:reduce){
+  .portal__roll span{ transition:none; }
+}
+
+/* The connectors — one hairline elbow from each portal to a letter of the
+   name, so the four read as branches of the mark rather than as four pills
+   that happen to be nearby. Geometry is measured in stage.js; everything
+   about how they look is here.
+
+   Same muted border colour as every other rule on the page, and still under
+   the Contrast control like the rest of the decoration. */
+.portal-wires{
+  position:absolute; inset:0; width:100%; height:100%;
+  overflow:visible; pointer-events:none;
+  opacity:var(--deco);
+  transition:opacity var(--duration-slow) var(--ease-smooth);
+}
+.portal-wires .wire{
+  fill:none;
+  stroke:var(--border-strong);
+  stroke-width:1;
+  stroke-linejoin:round;
+  /* The viewBox is written in pixels, but a resize can land between the
+     layout and the next redraw. This keeps the line a hairline regardless. */
+  vector-effect:non-scaling-stroke;
+}
+/* The marker where a line meets the name. Four of them, one per link, drawn
+   at the same hairline weight as the wire so they read as part of the same
+   drawing rather than as borrowed icons. */
+.portal-wires .mark{
+  fill:none;
+  stroke:var(--border-strong);
+  stroke-width:1;
+  stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+}
+.portal-wires .mark--fill{ fill:var(--border-strong); stroke:none; }
+
+/* The same destinations, as a plain wrapped row, below the large canvas
+   breakpoint. Nothing is hidden behind the arrangement. */
+.portals-flat{
+  display:flex; flex-wrap:wrap; justify-content:center;
+  gap:var(--step-2);
+}
+@media (min-width:1024px){ .portals-flat{ display:none; } }
+
+/* ---------------------------------------------------------------------------
+   LEDE
+   ------------------------------------------------------------------------ */
+.stage__lede{
+  /* 0.766 of the large step: a second ~12.5% off the 0.875 this already
+     carried, so roughly 23% below where the lede started. Still scaled off
+     the token rather than pinned to a size, so it keeps riding the fluid
+     clamp and the Typography control. The measure comes down with it, so the
+     sentence breaks across the same number of lines as before. */
+  max-width:26rem; text-align:center;
+  color:var(--text-secondary);
+  font-size:calc(var(--text-lg) * 0.766); line-height:1.5;
+}
+.stage__years{
+  display:flex; align-items:center; justify-content:center; gap:0.6em;
+  margin-top:var(--step-5);
+  color:var(--text-tertiary);
+}
+/* ---------------------------------------------------------------------------
+   THE ARC — sixteen years on a ruler.
+
+   Seven milestones, placed where they actually fall between 2010 and 2026
+   rather than spread evenly: TCS to Decos is one year, and down here it
+   looks like one year. The fine ticks behind them are the scale that makes
+   that readable — five minor marks to the year, a taller one on each year
+   — and because every position is a percentage of the same span, the ruler
+   stays true at any width.
+
+   Quiet by default: a year and a place under each mark, the current one
+   picked out, and nothing else until a pointer or a key arrives. The role
+   held at that place is kept back and shown above the mark being read, so
+   the row never has to carry two lines of type at once.
+
+   Everything is centred on its own mark — year, place and role, at both
+   ends of the ruler as much as in the middle. A title pinned to the edge
+   of the rail would read as belonging to the rail rather than to the mark
+   under it, so the padding at each end is instead wide enough to hold half
+   of the longest one.
+
+   Nothing in the hover or the selected state changes a box. The stem grows
+   from a fixed baseline, the titles are out of flow, and the labels only
+   change colour — so the row cannot move while it is being used.
+   ------------------------------------------------------------------------ */
+.arc{
+  position:relative;
+  z-index:4;                        /* over the peek layer, as the rig was */
+  width:100%;
+  /* The three bands, top to bottom: the revealed title, the tick zone, and
+     the labels under the line. The baseline is the sum of the first two, and
+     everything else is measured from it. */
+  --arc-tip-band:1.2rem;
+  --arc-zone:1.5rem;
+  --arc-base:calc(var(--arc-tip-band) + var(--arc-zone));
+  --arc-stem:0.95rem;               /* the resting marker */
+  --arc-stem-on:1.4rem;             /* hovered, focused or selected */
+  --arc-pad:4rem;                   /* half of the widest title, centred */
+  --arc-minor:color-mix(in srgb, var(--text-tertiary) 30%, transparent);
+  --arc-major:color-mix(in srgb, var(--text-tertiary) 58%, transparent);
+  /* Warm gold, deliberately outside the palette system — the same constant
+     the Magic control in the header is drawn in, so the two places that
+     invite a visitor to touch something answer in one colour. */
+  --arc-now:var(--hue-ochre);
+  /* How far back an unread milestone sits, and the ruler it stands on.
+
+     These are set against measured contrast, not by eye. The year labels are
+     --text-tertiary on the page ground, which is 5.29:1 at full strength; at
+     0.42 — where this first landed — that falls to 1.92:1, and 1:1 is the
+     background itself. At 0.78 it is about 3.7:1: plainly legible, and still
+     well under the 7.04:1 the selected milestone carries in ochre. Colour
+     and weight do the separating, not disappearance.
+
+     The ruler is held a little above the milestones because it is one
+     continuous object, and at their weight it broke into dashes. */
+  --arc-rest:0.78;
+  --arc-rest-rule:0.88;
+}
+
+/* Narrow screens scroll the ruler rather than crushing it. Wide ones never
+   reach the minimum, so the scroller is inert and costs nothing. */
+.arc__scroll{
+  overflow-x:auto;
+  overflow-y:hidden;
+  overscroll-behavior-inline:contain;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+.arc__scroll::-webkit-scrollbar{ display:none; }
+
+/* The fade at each end, and the only sign there is more of the ruler since
+   the scrollbar is hidden. It is on whenever the rail is actually wider
+   than its strip — stage.js measures and writes that down — rather than at
+   a width guessed in advance: the rail's minimum and the window are two
+   different numbers, and only the first of them is known here. */
+.arc__scroll[data-scroll="yes"]{
+  -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 2.25rem, #000 calc(100% - 2.25rem), transparent 100%);
+  mask-image:linear-gradient(90deg, transparent 0, #000 2.25rem, #000 calc(100% - 2.25rem), transparent 100%);
+}
+
+/* The rail is padded so a mark at either end keeps its label on the page.
+   The ruler itself is the content box — exactly 2010 to 2026 — which is what
+   lets a percentage be a date. */
+.arc__rail{
+  position:relative;
+  /* Below this the pair one year apart stops being two marks. The scroller
+     takes over instead of the type coming down any further. */
+  min-width:50rem;
+  /* Exactly the baseline plus the two label rows beneath it, both of which
+     are set at a known line-height just above — the strip is inside a
+     scroller, and anything taller than this is silently clipped. */
+  height:calc(var(--arc-base) + 2.35rem);
+  /* Half of the widest label at either end of the ruler, so a mark on 2010
+     or 2026 keeps its label without pushing the scroller sideways. */
+  padding-inline:var(--arc-pad);
+}
+
+/* Five minor ticks to the year, a taller mark on the year itself: one year
+   is 100%/16 = 6.25% of the span, one minor tick a fifth of that. Both
+   layers are drawn as a band sitting on the baseline, so every tick rises
+   from the line rather than hanging off it. */
+.arc__ticks{
+  position:absolute; left:var(--arc-pad); right:var(--arc-pad);
+  top:var(--arc-tip-band); height:var(--arc-zone);
+  background-image:
+    repeating-linear-gradient(90deg, var(--arc-major) 0 var(--hair), transparent var(--hair) 6.25%),
+    repeating-linear-gradient(90deg, var(--arc-minor) 0 var(--hair), transparent var(--hair) 1.25%);
+  background-size:100% 0.5625rem, 100% 0.25rem;
+  background-position:left bottom, left bottom;
+  background-repeat:no-repeat, no-repeat;
+}
+
+/* The line runs the full width of the rail, past both ends of the ruler —
+   the years are a span, time is not. */
+.arc__line{
+  position:absolute; left:0; right:0;
+  top:var(--arc-base); height:var(--hair);
+  /* Mixed from the same ink as the ticks rather than taken from
+     --border-default, which is a box's edge and sits too far back to read as
+     the thing every tick is standing on. */
+  background:color-mix(in srgb, var(--text-tertiary) 26%, transparent);
+}
+
+/* ---- What is standing back ---------------------------------------------
+   The ruler had every milestone at the same weight, so the one that is
+   actually selected had only its colour to say so, and at eleven pixels of
+   mono that is not much to go on. Everything rests a little under instead,
+   and whatever is being read comes back to full — selected, hovered or
+   focused, which are the same three levels of commitment the colours
+   already use.
+
+   Opacity on each part rather than on the rail: a child cannot be more
+   opaque than its parent, so a rail at 0.45 would make a selected milestone
+   at 1 impossible. The transitions come off --duration-base, which the
+   reduced-motion block already collapses, so there is nothing to guard. */
+.arc__ticks,
+.arc__line{ opacity:var(--arc-rest-rule); }
+
+.arc__list{ position:relative; height:100%; margin:0; padding:0; list-style:none; }
+
+/* --x is the milestone's own date, as a percentage of the span. */
+/* Zero width on purpose: the item is an anchor on the line, not a column.
+   Anything with a box here would be the widest label's worth of it, and the
+   last one would hang off the end of the scroller. */
+.arc__item{
+  position:absolute; left:var(--x); top:var(--arc-base); width:0;
+  opacity:var(--arc-rest);
+  transition:opacity var(--duration-base) var(--ease-smooth);
+}
+/* The one being read. :has on the item rather than a rule per child, so the
+   stem, the year, the short label and the pip all come up together. */
+.arc__item:has(.arc__btn[aria-pressed="true"]),
+.arc__item:has(.arc__btn:hover),
+.arc__item:has(.arc__btn:focus-visible){ opacity:1; }
+
+.arc__btn{
+  position:relative;
+  display:flex; flex-direction:column; align-items:center;
+  gap:0.3rem;
+  padding:0.5rem 0 0;
+  border:0; background:none;
+  width:max-content;
+  transform:translateX(-50%);
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap;
+}
+/* The hit area, which has to cover the stem and the tick zone above the
+   button as well as the labels below it. 2rem wide — generous for a touch,
+   and still clear of its neighbour at the tightest pair on the narrowest
+   rail. */
+.arc__btn::before{
+  content:"";
+  position:absolute; left:50%; transform:translateX(-50%);
+  top:calc(var(--arc-base) * -1); bottom:0;
+  width:2rem;
+}
+
+/* The marker. It grows upward out of the baseline, so changing its height
+   moves nothing. */
+.arc__stem{
+  position:absolute; bottom:100%; left:50%;
+  width:var(--hair); height:var(--arc-stem);
+  margin-left:calc(var(--hair) / -2);
+  background:var(--text-tertiary);
+  transition:height var(--duration-base) var(--ease-out),
+             background-color var(--duration-base) var(--ease-smooth);
+}
+
+.arc__year{
+  font-family:var(--font-mono); font-size:0.6875rem;
+  line-height:1.1;
+  letter-spacing:0.06em;
+  color:var(--text-tertiary);
+  transition:color var(--duration-base) var(--ease-smooth);
+}
+.arc__short{
+  font-family:var(--font-mono); font-size:0.625rem;
+  line-height:1.1;
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  /* 62% was the right weight when the whole milestone sat at full opacity.
+     It no longer does, and this is the one label whose own alpha compounds
+     with --arc-rest: at 62% it landed on 0.48 of the ink and 2.16:1 against
+     the page, which is where "barely visible" actually lives. 80% of 0.78 is
+     0.62 — the weight it has always had, now reached from under the rest. */
+  color:color-mix(in srgb, var(--text-tertiary) 80%, transparent);
+  transition:color var(--duration-base) var(--ease-smooth),
+             opacity var(--duration-base) var(--ease-smooth);
+}
+
+/* The full title, held back until the milestone is read. Out of flow, so it
+   cannot widen the row or push its neighbours, and centred on its mark like
+   everything else under it — the rail's padding is what keeps the first and
+   the last of them on the page. */
+.arc__tip{
+  --tx:-50%;
+  position:absolute; left:50%; top:calc(var(--arc-base) * -1);
+  font-family:var(--font-mono); font-size:0.6875rem;
+  letter-spacing:0.04em;
+  color:var(--accent-light);
+  opacity:0;
+  pointer-events:none;
+  transform:translate(var(--tx), 4px);
+  transition:opacity var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-out);
+}
+/* ---- Reading one ------------------------------------------------------
+   Hover, keyboard focus and selection are the same state at three levels of
+   commitment: the pointer and the key are a look, the click keeps it. */
+.arc__btn:hover .arc__stem,
+.arc__btn:focus-visible .arc__stem{ height:var(--arc-stem-on); background:var(--hue-signal); }
+.arc__btn:hover .arc__year,
+.arc__btn:focus-visible .arc__year{ color:var(--hue-signal); }
+.arc__btn:hover .arc__short,
+.arc__btn:focus-visible .arc__short{ color:var(--text-secondary); }
+
+.arc__btn[aria-pressed="true"] .arc__stem{ height:var(--arc-stem-on); background:var(--accent-light); }
+.arc__btn[aria-pressed="true"] .arc__year{ color:var(--accent-light); }
+.arc__btn[aria-pressed="true"] .arc__short{ color:var(--text-secondary); }
+
+.arc__btn:hover .arc__tip,
+.arc__btn:focus-visible .arc__tip,
+.arc__btn[aria-pressed="true"] .arc__tip{ opacity:1; transform:translate(var(--tx), 0); }
+
+/* Two titles in the band at once would overlap, so the selected one stands
+   down for as long as something else is being read. */
+.arc__list:has(.arc__btn:hover) .arc__btn[aria-pressed="true"]:not(:hover) .arc__tip,
+.arc__list:has(.arc__btn:focus-visible) .arc__btn[aria-pressed="true"]:not(:focus-visible) .arc__tip{
+  opacity:0; transform:translate(var(--tx), 4px);
+}
+
+/* Where it stands now. The pip is on 2026 whatever is selected — it is not a
+   state, it is the end of the ruler. */
+.arc__item--now .arc__stem::after{
+  content:"";
+  position:absolute; left:50%; top:0;
+  width:0.3125rem; height:0.3125rem;
+  margin:-0.125rem 0 0 -0.15625rem;
+  border-radius:var(--radius-full);
+  background:var(--arc-now);
+}
+.arc__item--now .arc__short{ color:color-mix(in srgb, var(--arc-now) 80%, var(--text-tertiary)); }
+.arc__item--now .arc__btn[aria-pressed="true"] .arc__stem,
+.arc__item--now .arc__btn:hover .arc__stem,
+.arc__item--now .arc__btn:focus-visible .arc__stem{ background:var(--arc-now); }
+.arc__item--now .arc__btn[aria-pressed="true"] .arc__year,
+.arc__item--now .arc__btn:hover .arc__year,
+.arc__item--now .arc__btn:focus-visible .arc__year{ color:var(--arc-now); }
+.arc__item--now .arc__tip{ color:var(--arc-now); }
+
+.arc__btn:focus-visible{ outline:none; }
+.arc__btn:focus-visible::before{
+  outline:var(--hair) solid var(--hue-signal);
+  outline-offset:0;
+  border-radius:var(--radius-sm);
+}
+
+@media (prefers-reduced-motion:reduce){
+  /* Only the travel goes. The reveal itself, the taller mark and the colour
+     are the state rather than the animation, and they stay exactly as they
+     are — the durations around them are already zeroed in tokens.css. */
+  .arc__tip,
+  .arc__list:has(.arc__btn:hover) .arc__btn[aria-pressed="true"]:not(:hover) .arc__tip,
+  .arc__list:has(.arc__btn:focus-visible) .arc__btn[aria-pressed="true"]:not(:focus-visible) .arc__tip{
+    transform:translate(var(--tx), 0);
+  }
+}
+
+/* Tablet: the same row, tighter. */
+@media (max-width:1023px){
+  .arc__year{ font-size:0.625rem; }
+  .arc__short{ font-size:0.5625rem; }
+  .arc__tip{ font-size:0.625rem; }
+}
+
+/* Narrow: the strip bleeds to both edges of the page — a ruler that stops
+   short of the page edge reads as a cut-off, not as a scale. The fade is
+   already on by then, and stage.js opens the rail at 2026. */
+@media (max-width:720px){
+  .arc__scroll{
+    margin-inline:calc(var(--page-pad) * -1);
+    padding-inline:var(--page-pad);
+  }
+}
+
+
+/* ===========================================================================
+   THE STICKERS — the whole of what the Magic control does.
+
+   Five illustrations, one press, and nothing in the layout moves. The layer
+   is absolutely positioned over the canvas and takes no pointer, so every
+   link, letter and pill underneath it behaves exactly as it did before.
+
+   Where each sticker stands is declared here rather than in the script,
+   because it is art direction and not behaviour — and it is one arrangement,
+   not a roll of several: mountain upper-left, bowl upper-right, plant on the
+   left, dumbbell on the right, cursor lower-right. The same five places
+   every press, which is the difference between a composition and a shuffle.
+   They are chosen so the name, the lede, the greeting and the ruler all keep
+   their clear space.
+
+   --x and --y are percentages of the canvas — never of the window — so the
+   composition holds its shape at any width, and every sticker sits inside
+   the shell with its caption: anything that reached past the edge would
+   widen the document and put a scrollbar under the page.
+   ========================================================================= */
+.stickers{
+  position:absolute; inset:0;
+  z-index:1;                        /* with the peek: under the name and the pills */
+  pointer-events:none;              /* decorative, and never in the way */
+}
+
+.sticker{
+  position:absolute;
+  left:var(--x); top:var(--y);
+  width:var(--w, clamp(46px, 4.6vw, 64px));
+  margin:0;
+  /* How far the caption is allowed to reach past the drawing on each side.
+     The figure is as wide as the illustration, and two words are wider than
+     that — this is the only thing standing between a centred caption and a
+     horizontal scrollbar, so it is a declared number rather than whatever
+     the text happens to need. */
+  --tag-bleed:2rem;
+  /* The flight. --fx/--fy are written by stage.js as the vector from where a
+     sticker lands back to the button that threw it, so the set really does
+     come out of the control in the header rather than fading up in place.
+     The resting state is the same four functions with those two at zero —
+     one transform list in both states, which is what lets the browser
+     interpolate it component by component instead of through a matrix. */
+  --fx:0px; --fy:-120px;
+  --r:0deg; --s:.34;
+  transform:translate(-50%, -50%) translate(var(--fx), var(--fy)) rotate(var(--r)) scale(var(--s));
+  opacity:0;
+  transition:transform 180ms var(--ease-in), opacity 180ms linear;
+}
+.sticker__art{
+  display:block; width:100%; height:auto;
+  /* A contact shadow and a soft drop, the same two the peek images use —
+     these are objects lying on the page, not glowing on top of it. */
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.5)) drop-shadow(0 8px 16px rgba(0,0,0,.45));
+}
+
+/* ---- The captions -----------------------------------------------------
+   Two words under each drawing, in the same mono the page labels everything
+   else in, a step smaller and a step quieter than the illustration above
+   them. No plate, no border, no pill: a pill would be a piece of interface,
+   and these are handwriting on a canvas.
+
+   Centred with left/right rather than a translate, so transform is left
+   free for the two things that need it — the lean and the breath — and the
+   caption rides with its drawing instead of drifting off it. The box is the
+   figure plus --tag-bleed on each side, which is what keeps a caption wider
+   than its sticker from reaching off the page. Sentence case, because that
+   is how the words read.
+
+   It keeps about a third of its sticker's angle rather than all of it: a
+   caption set square under a leaning drawing looks printed on, and one that
+   takes the full lean is nine-pixel type at ten degrees, which is a thing
+   to decipher rather than read. The peek layer settles its own figures at
+   the same fraction, for the same reason.
+
+   The shadow is legibility, not decoration: a caption can land over the page
+   grid, and the grid is drawn in the same ink the text is. */
+.sticker__tag{
+  position:absolute;
+  top:calc(100% + 0.4rem);
+  left:calc(var(--tag-bleed) * -1);
+  right:calc(var(--tag-bleed) * -1);
+  --tag-rot:calc(var(--rot, 0deg) * -0.62);     /* undoes most of the figure's */
+  transform:rotate(var(--tag-rot));
+  text-align:center;
+  white-space:nowrap;
+  font-family:var(--font-mono);
+  font-size:0.5625rem;
+  line-height:1.2;
+  letter-spacing:0.02em;
+  color:var(--text-secondary);
+  text-shadow:0 1px 2px rgba(0,0,0,.65);
+  opacity:0;
+  transition:opacity 160ms linear;
+}
+
+/* Landed. Gentle overshoot, no bounce, and a stagger so the five arrive as a
+   handful rather than a row. */
+.stickers.is-in .sticker{
+  --fx:0px; --fy:0px;
+  --r:var(--rot, 0deg); --s:var(--sc, 1);
+  opacity:1;
+  transition:transform 620ms cubic-bezier(.19,1.12,.3,1) var(--d, 0ms),
+             opacity 260ms var(--ease-out) var(--d, 0ms);
+}
+
+/* The caption follows its own drawing in, a beat behind it — the picture is
+   what arrives, and the words are what it turns out to mean. Each one keeps
+   its sticker's stagger and adds the same delay on top, so the pairing is
+   the same five times over rather than five different near-misses. */
+.stickers.is-in .sticker__tag{
+  opacity:1;
+  transition:opacity 260ms var(--ease-out) calc(var(--d, 0ms) + 260ms);
+}
+
+/* Once they are down, almost nothing: a few pixels of drift on a long clock,
+   each on its own, which reads as objects resting on a page rather than as
+   an animation that will not stop. The caption takes the same clock and the
+   same delay as the drawing it belongs to, so the two move as one object. */
+@keyframes sticker-breathe{
+  0%, 100%{ transform:translateY(0) rotate(0deg); }
+  50%     { transform:translateY(-5px) rotate(1.1deg); }
+}
+/* The caption's own, which is the same drift carrying the same counter-lean:
+   an animation replaces the transform it runs on, so the angle has to be
+   inside the keyframes or the first frame would snap the words square. */
+@keyframes sticker-breathe-tag{
+  0%, 100%{ transform:translateY(0) rotate(var(--tag-rot)); }
+  50%     { transform:translateY(-5px) rotate(calc(var(--tag-rot) + 1.1deg)); }
+}
+.stickers.is-in .sticker__art{
+  animation:sticker-breathe var(--fd, 9s) var(--ease-smooth) var(--d, 0ms) infinite;
+}
+.stickers.is-in .sticker__tag{
+  animation:sticker-breathe-tag var(--fd, 9s) var(--ease-smooth) var(--d, 0ms) infinite;
+}
+
+/* ---- The arrangement ---------------------------------------------------
+   Read as: this sticker stands here. The zones are the open ground around
+   the hero — the outer columns, the two upper corners and the band above the
+   ruler — and they are deliberately a long way from the middle, where the
+   name, the lede and the years are. */
+.stickers [data-sticker="mountain"]{ --x:18%; --y:8%;  --rot:-6deg;  --sc:1;    --d:0ms;   --fd:9s; }
+.stickers [data-sticker="plant"]   { --x:8%;  --y:55%; --rot:7deg;   --sc:1.05; --d:80ms;  --fd:12s; }
+.stickers [data-sticker="bowl"]    { --x:90%; --y:14%; --rot:9deg;   --sc:1.04; --d:150ms; --fd:10.5s; }
+.stickers [data-sticker="dumbbell"]{ --x:83%; --y:46%; --rot:-10deg; --sc:.98;  --d:210ms; --fd:8.5s; }
+.stickers [data-sticker="cursor"]  { --x:88%; --y:80%; --rot:5deg;   --sc:.94;  --d:280ms; --fd:11s; }
+
+/* ---- Narrower ----------------------------------------------------------
+   The name takes most of the canvas below the wide breakpoint and the links
+   come down into a row under it, so the outer columns the arrangement above
+   relies on are not there any more. Three stickers instead of five, in the
+   two top corners and the band above the ruler — the only ground that is
+   still open at every one of these widths.
+
+   The positions come in from the edges as well, because the caption is now a
+   larger share of a smaller canvas: at the narrowest width a sticker's words
+   reach further past it than the sticker is wide. */
+@media (max-width:1023px){
+  .stickers [data-sticker="cursor"],
+  .stickers [data-sticker="dumbbell"]{ display:none; }
+
+  .stickers [data-sticker="mountain"]{ --x:17%; --y:7%;  --rot:-6deg; --sc:1;   --d:0ms;  }
+  .stickers [data-sticker="bowl"]    { --x:83%; --y:9%;  --rot:-9deg; --sc:1;   --d:80ms; }
+  .stickers [data-sticker="plant"]   { --x:18%; --y:91%; --rot:6deg;  --sc:.96; --d:150ms;}
+}
+@media (max-width:620px){
+  .sticker{ --w:clamp(38px, 11vw, 50px); --tag-bleed:1.25rem; }
+  .sticker__tag{ font-size:0.5rem; top:calc(100% + 0.3rem); }
+}
+
+/* Asked for stillness: the set is simply there. No flight, no drift, no
+   stagger on the captions — the arrangement and the arrival are two
+   different things, and only the second one is motion. */
+@media (prefers-reduced-motion:reduce){
+  .sticker{
+    --fx:0px; --fy:0px; --r:var(--rot, 0deg); --s:var(--sc, 1);
+    transition:opacity 120ms linear;
+  }
+  .stickers.is-in .sticker{ transition:opacity 160ms linear; }
+  .sticker__tag,
+  .stickers.is-in .sticker__tag{ transition:opacity 120ms linear; }
+  .stickers.is-in .sticker__art,
+  .stickers.is-in .sticker__tag{ animation:none; }
+}
+
+/* ===========================================================================
+   THE HERO, WHILE THE SET IS OUT
+
+   The four secondary destinations stand down for as long as the stickers are
+   up: the pills, the line of description over each one, the hairline elbows
+   that tie them to the name, and the markers where those elbows land. Five
+   illustrations and four pills in the same ring of open ground around the
+   name is two compositions in one frame, and the name stops being the middle
+   of either.
+
+   The career timeline under the hero stands down with them, and for the same
+   reason: it is the other thing on this page asking to be read, and a row of
+   dated milestones under a hero full of stickers is the second composition
+   arriving by a different door. While the set is out, the screen is the name
+   and five true things, and nothing else.
+
+   Visibility and opacity, never display. The flat row below the wide
+   breakpoint is in the flow of the page, and taking it out of the flow would
+   pull the lede and the ruler up by the height of a row of links — the one
+   thing this interaction promises not to do. visibility also takes the links
+   out of the tab order and off the pointer while they are down, so nothing
+   invisible can be followed or focused by accident.
+
+   The timing is a handover, not a crossfade: the pills are gone inside 200ms
+   and the set starts arriving into ground that is already clear. Coming back
+   they wait 160ms for the stickers to finish leaving, so the two never pass
+   through each other.
+   ========================================================================= */
+.stage .portals,
+.stage .portal-wires,
+.stage .portals-flat,
+.stage .arc{
+  transition:opacity 260ms var(--ease-smooth) 160ms,
+             visibility 0s linear 0s;
+}
+.stage.is-magic .portals,
+.stage.is-magic .portal-wires,
+.stage.is-magic .portals-flat,
+.stage.is-magic .arc{
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 200ms var(--ease-smooth) 0s,
+             visibility 0s linear 200ms;
+}
+
+@media (prefers-reduced-motion:reduce){
+  /* The links and the timeline are either there or they are not. */
+  .stage .portals,
+  .stage .portal-wires,
+  .stage .portals-flat,
+  .stage .arc,
+  .stage.is-magic .portals,
+  .stage.is-magic .portal-wires,
+  .stage.is-magic .portals-flat,
+  .stage.is-magic .arc{ transition:none; }
+}
+
+/* ---- Option rows ------------------------------------------------------ */
+.opts{
+  display:flex; flex-wrap:wrap; gap:var(--step-2);
+  margin:var(--step-4) 0 0; padding:0; list-style:none;
+}
+.opt{
+  display:inline-flex; align-items:center; gap:var(--step-2);
+  padding:var(--step-2) var(--step-4);
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-full);
+  background:var(--surface-page);
+  color:var(--text-secondary);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  transition:border-color var(--duration-base) var(--ease-smooth),
+             color var(--duration-base) var(--ease-smooth),
+             background-color var(--duration-base) var(--ease-smooth),
+             border-radius var(--duration-slow) var(--ease-smooth);
+}
+.opt:hover{ border-color:var(--border-strong); color:var(--text-primary); }
+.opt[aria-checked="true"]{
+  border-color:var(--accent);
+  color:var(--text-primary);
+  background:color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.opt__swatches{ display:inline-flex; gap:3px; }
+.opt__swatches i{ width:9px; height:9px; border-radius:var(--radius-full); display:block; }
+.opt__tick{ opacity:0; width:0.75rem; height:0.75rem; fill:var(--accent-light); flex:none; }
+.opt[aria-checked="true"] .opt__tick{ opacity:1; }
+
+/* A preview of the setting, rendered with the setting applied. */
+.opt__prev{ font-size:1rem; text-transform:none; letter-spacing:normal; }
+
+/* ---- Slider ----------------------------------------------------------- */
+.slider{ display:flex; align-items:center; gap:var(--step-4); margin-top:var(--step-4); }
+.slider input[type="range"]{
+  flex:1; min-width:8rem;
+  -webkit-appearance:none; appearance:none;
+  height:2px; background:var(--border-strong); border-radius:var(--radius-full);
+}
+.slider input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none;
+  width:16px; height:16px; border-radius:var(--radius-full);
+  background:var(--accent); border:2px solid var(--surface-page);
+  cursor:pointer;
+}
+.slider input[type="range"]::-moz-range-thumb{
+  width:14px; height:14px; border-radius:var(--radius-full);
+  background:var(--accent); border:2px solid var(--surface-page);
+  cursor:pointer; border-width:2px;
+}
+.slider output{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--accent-light); min-width:3.5ch; text-align:right;
+}
+
+/* ---- Live preview column --------------------------------------------- */
+.preview{
+  display:flex; flex-direction:column; gap:var(--step-3);
+}
+.preview__swatch{
+  display:flex; gap:var(--step-2);
+}
+.preview__swatch i{
+  flex:1; height:2.5rem; display:block;
+  border-radius:var(--radius-md);
+  transition:border-radius var(--duration-slow) var(--ease-smooth);
+}
+
+/* ---------------------------------------------------------------------------
+   CONTACT BAR — pinned to the bottom of the home canvas.
+   ------------------------------------------------------------------------ */
+.icon-btn{
+  display:inline-grid; place-items:center;
+  width:2.25rem; height:2.25rem;
+  border-radius:var(--radius-full);
+  color:var(--text-tertiary);
+  transition:color var(--duration-base) var(--ease-smooth),
+             background-color var(--duration-base) var(--ease-smooth);
+}
+.icon-btn:hover{ color:var(--text-primary); background:var(--surface-overlay); }
+.icon-btn .ico{ font-size:0.9375rem; }
+.icon-btn.is-done{ color:var(--accent-light); }
+
+/* ---------------------------------------------------------------------------
+   SMALL SCREENS — the canvas compresses, nothing is removed.
+   ------------------------------------------------------------------------ */
+@media (max-width:1023px){
+  .stage{ --wm-w:min(92vw, 52svh); }
+  .stage__canvas{ padding-block:var(--step-8); gap:var(--step-6); }
+}
+@media (max-width:600px){
+  .stage{ --wm-w:94vw; }
+  /* 94vw of name leaves 3vw of margin each side — 9.6px on a 320 screen,
+     and the box as it stands on a wide canvas wants 23px of it. So down
+     here the box sits on the name's own box rather than a finger's width
+     outside it, and the handles straddle that edge instead of hanging off
+     it: 6px of reach against 9.6px of room, at the narrowest width this
+     site is built for. Nothing is hidden and nothing is resized — the same
+     eight handles, the same 12px target, moved in by the distance that did
+     not fit. */
+  .sel{ --sel-out:0px; --sel-grab:6px; }
+}
+
+/* ===========================================================================
+   ONE SCREEN
+   The home page ends at the email address. There is no footer beneath it
+   (_build.py omits it on `foot: no`), and at rest the stage is exactly the
+   viewport minus the navigation — so the page has nothing to scroll to and
+   the address is the last thing on it, in view.
+
+   The height is pinned rather than merely suggested: .stage__canvas is
+   flex:1, so the slack lands in the middle of the composition, around the
+   wordmark, instead of collecting under the contact bar.
+
+   Two deliberate exits from one screen:
+
+   · An open tool. The panel and its live readout need real room, and a
+     visitor who opened one has asked for it — so height goes back to auto
+     and the page is allowed to grow.
+   · A short viewport. Below 640px of height there is no honest way to fit
+     this without crushing the wordmark, so it reverts to flowing and
+     scrolling rather than overlapping itself.
+   ------------------------------------------------------------------------ */
+.home .stage{
+  min-height:0;
+  height:calc(100svh - var(--nav-height));
+  /* The dock is the last thing on the page now that the links row and the
+     email pill are gone, so the lower padding carries it clear of the
+     viewport edge instead of merely separating it from what followed.
+     .stage__canvas stays flex:1 and centred, so every pixel freed by those
+     two removals goes back to the hero rather than pooling underneath. */
+  padding-block:var(--step-6) var(--step-6);
+  gap:var(--step-5);
+}
+/* --stage-drop is written by stage.js. The portals sit above the name and are
+   placed from its measured position, so how much headroom they need is not
+   knowable here — it depends on the viewport, the type scale and the density.
+   Doubling it on the top with none at the bottom moves the centred block down
+   by exactly --stage-drop, which is the amount the script asked for. The room
+   comes from the slack that was sitting under the lede. */
+.home .stage__canvas{
+  padding-block:calc(var(--step-4) + var(--stage-drop, 0px) * 2) var(--step-4);
+}
+
+@media (max-height:640px){
+  .home .stage{
+    height:auto;
+    min-height:calc(100svh - var(--nav-height));
+    padding-block:var(--step-8) var(--step-10);
+  }
+  .home .stage__canvas{ padding-block:var(--step-8); }
+}
+
+/* ===========================================================================
+   THE INTRO
+   The stage assembles itself: the greeting, then the six letters, then the
+   leader dots, the portals, the lede and finally the hint. Written as
+   animations rather than transitions for one reason — an animation can be
+   cancelled and run again, which is what the Restart control needs.
+
+   `animation-fill-mode: backwards` holds each element at its `from` frame
+   during its delay, so nothing flashes before its turn, and releases the
+   moment the run ends. Nothing is left frozen afterwards, so the hover and
+   focus transforms further up this file still work when the intro is over.
+
+   No `to` frame anywhere: the end of every run is the element's own
+   stylesheet value, so this section cannot drift from the design above it.
+
+   stage.js cancels a pass by setting data-intro="off" for one frame, which
+   drops every declaration below and lets the next pass start from zero.
+   ------------------------------------------------------------------------ */
+@keyframes stage-rise   { from{ opacity:0; transform:translateY(12px); } }
+/* The name's own rise. It carries the centring translate the script layer is
+   positioned with, because an animation replaces the transform it runs on —
+   a bare translateY here would drop the word off-centre for the length of
+   the run and snap it back at the end. */
+@keyframes stage-script { from{ opacity:0; transform:translate(-50%, calc(-50% + 0.16em)); } }
+@keyframes stage-fade   { from{ opacity:0; } }
+@keyframes stage-pop    { from{ opacity:0; transform:translateY(9px) scale(.96); } }
+
+@media (prefers-reduced-motion:no-preference){
+  .stage:not([data-intro="off"]) .wm__greet{
+    animation:stage-rise 520ms var(--ease-out) backwards;
+  }
+  /* One word, one arrival. The six capitals used to come in on a stagger in
+     this slot; they are invisible now, so the beat belongs to the script —
+     same clock, same delay as the first letter had, so everything after it
+     still lands when it always did. */
+  .stage:not([data-intro="off"]) .wm__script{
+    animation:stage-script 560ms var(--ease-out) 90ms backwards;
+  }
+  .stage:not([data-intro="off"]) .portal-wires{
+    animation:stage-fade 620ms var(--ease-smooth) 620ms backwards;
+  }
+  .stage:not([data-intro="off"]) .portal-slot{
+    animation:stage-pop 520ms var(--ease-out) backwards;
+    animation-delay:calc(700ms + var(--i, 0) * 80ms);
+  }
+  .stage:not([data-intro="off"]) .stage__lede{
+    animation:stage-rise 560ms var(--ease-out) 900ms backwards;
+  }
+  .stage:not([data-intro="off"]) .stage__years{
+    animation:stage-rise 560ms var(--ease-out) 990ms backwards;
+  }
+  .stage:not([data-intro="off"]) .portals-flat .portal{
+    animation:stage-pop 480ms var(--ease-out) backwards;
+    animation-delay:calc(1020ms + var(--i, 0) * 60ms);
+  }
+  /* The ruler arrives last, after the composition it closes. */
+  .stage:not([data-intro="off"]) .arc{
+    animation:stage-rise 620ms var(--ease-out) 1240ms backwards;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   PEEK — the images that come out to meet a link.
+
+   Four groups, one per destination, all of them in the page from the start.
+   Which one is showing is decided by a single attribute on the stage, so two
+   groups can never both believe they are active and a half-finished exit can
+   never strand an image on screen: changing the attribute hands the old group
+   its exit and the new group its entrance in the same frame.
+
+   The geometry of each figure is declared in the markup, next to the image it
+   belongs to. What is here is only how the motion behaves.
+   ------------------------------------------------------------------------ */
+.peek{
+  position:absolute; inset:0;
+  pointer-events:none;
+  z-index:1;                       /* under the name and the pills, over the grid */
+
+  /* Pointer drift. stage.js writes two numbers in the range -1..1 onto this
+     element; each figure multiplies them by its own --par, so the group moves
+     as a set of objects at different depths rather than as one flat plane.
+     Declared here so the first frame has something to read — and so the
+     transform that reads them is valid before the pointer has moved at all,
+     which it would not be otherwise. */
+  --px:0; --py:0;
+
+  /* The column an image stands in. Written by stage.js, which measures it
+     off the laid-out page — against the name at whatever size the Type
+     control has left it, and against the pills, which hang off the ends of
+     the name and are as wide as their labels. stage.js also widens this
+     layer to the window, since the room beside the name is mostly outside
+     the shell: at 1920 there is a third of the screen out there.
+
+     What is declared here is only what holds until that first measurement.
+     Nothing is ever shown before it: the layer has no hover state of its
+     own, so a group only ever opens through the script. */
+  --peek-col:calc((100vw - var(--wm-w) * var(--type-scale, 1)) / 2 - 34px);
+
+  --peek-in:520ms;
+  --peek-out:290ms;
+  --peek-ease-in:cubic-bezier(.18,.89,.26,1.04);   /* a hair of overshoot, no bounce */
+  --peek-ease-out:cubic-bezier(.4,0,.7,.9);
+}
+.peek__group{ position:absolute; inset:0; }
+
+/* Stacking, stated once. The peek layer is positioned and comes early in the
+   canvas, so everything that has to stay in front of it has to say so: the
+   name and the lede, the pills that own the pointer, and the ruler. */
+.wm-wrap,
+.stage__canvas > div:not(.peek):not(.portals):not(.stickers){ position:relative; z-index:2; }
+.portals{ z-index:3; }
+/* .arc declares its own z-index, beside the rest of its geometry. */
+
+/* The resting state is also the exit state: a little short of where it lands,
+   a little under-rotated, a little small. Arriving is this resolving. */
+.peek__item{
+  position:absolute;
+  /* --gx is how far across its column a figure sits: 0 at the edge of the
+     screen, 1 hard against the name. Each is anchored to the edge it is
+     nearest — the right-hand ones from the right — so that the box the
+     browser lays out stays inside the layer even though the figure is then
+     translated half its own width to sit on that line. Anchoring everything
+     from the left instead costs nothing visually and widens the document by
+     half an image, which is a horizontal scrollbar on the home page. */
+  left:calc(12px + var(--gx,.5) * var(--peek-col));
+  top:var(--y);
+  /* Half its own width, towards the edge it is anchored to, so the figure
+     sits centred on its line. Written out per side rather than derived from
+     one: a percentage arrived at through calc() and a custom property is not
+     reliably accepted inside translate(), and the two literals are clearer
+     than the arithmetic was anyway. */
+  --anchor:-50%;
+  /* Never wider than the column it is standing in, whatever --w asks for.
+     Three-quarters, not all of it: an image sitting at a --gx either side of
+     centre still has to fit, and it is rotated, so its corners reach wider
+     than its width. */
+  width:min(var(--w), calc(var(--peek-col) * 0.74));
+  margin:0;
+  z-index:var(--z,1);
+  opacity:0;
+  border-radius:var(--radius-lg);
+  /* Three stacked shadows, all of them soft: a contact shadow, the bulk of
+     the drop, and a wide one that separates the image from the page. No blur,
+     no glow, no glass — the picture stays the brightest thing in the frame. */
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.45),
+    0 10px 22px -8px rgba(0,0,0,.55),
+    0 30px 60px -26px rgba(0,0,0,.6);
+  transform:
+    translate(var(--anchor), -50%)
+    translate(var(--fx,0px), var(--fy,0px))
+    rotate(calc(var(--rot,0deg) * 0.4))
+    scale(.9);
+  /* Leaving is near enough to together: the stagger is cut to a quarter, so a
+     group clears the way for the next one instead of filing out. */
+  transition:
+    transform var(--peek-out) var(--peek-ease-out) calc(var(--d,0ms) * 0.25),
+    opacity calc(var(--peek-out) * 0.8) linear calc(var(--d,0ms) * 0.25);
+}
+.peek__item[data-peek-side="r"]{
+  left:auto;
+  right:calc(12px + var(--gx,.5) * var(--peek-col));
+  --anchor:50%;
+}
+.peek__item img{
+  display:block;
+  width:100%; height:auto;         /* the aspect ratio is the file's own */
+  border-radius:inherit;
+  background:var(--ink-10);        /* so a slow image is a plate, not a hole */
+}
+
+/* The arrival. One selector per destination: the attribute on the stage and
+   the attribute on the group have to agree, which is what makes "only the
+   link you are on" a fact about the markup rather than a promise about the
+   script. */
+.stage[data-peek="fun"]         [data-peek-group="fun"]         .peek__item,
+.stage[data-peek="writing"]     [data-peek-group="writing"]     .peek__item,
+.stage[data-peek="experiments"] [data-peek-group="experiments"] .peek__item,
+.stage[data-peek="about"]       [data-peek-group="about"]       .peek__item{
+  opacity:1;
+  transform:
+    translate(var(--anchor), -50%)
+    translate(calc(var(--px) * var(--par,0px)), calc(var(--py) * var(--par,0px)))
+    rotate(var(--rot,0deg))
+    scale(1);
+  transition:
+    transform var(--peek-in) var(--peek-ease-in) var(--d,0ms),
+    opacity calc(var(--peek-in) * 0.55) var(--ease-out) var(--d,0ms);
+}
+
+/* One small label per group, and only on the image that earns it. */
+.peek__tag{
+  position:absolute; left:50%; bottom:-0.9em;
+  transform:translateX(-50%);
+  padding:0.3em 0.72em;
+  background:var(--surface-page);
+  border:var(--hair) solid var(--border-strong);
+  border-radius:var(--radius-full);
+  font-family:var(--font-mono); font-size:0.625rem;
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+  white-space:nowrap;
+}
+
+/* The link you are on stays where it was; the other three step back. Opacity
+   only — the pill already has a hover state of its own, and this is meant to
+   be the quieter half of the interaction. */
+.stage[data-peek]:not([data-peek-room="no"]) .portal:not(.is-peeking){ opacity:.45; }
+/* Only once the stage has finished arriving. The flat row of links fades in
+   on a keyframe animation, and there is no reason for a transition on the
+   same property to be in the room while that runs. */
+.stage[data-intro="done"] .portal{ transition:opacity var(--duration-base) var(--ease-smooth); }
+
+/* Tablet and below. The arrangement that works around a wide canvas does not
+   survive a narrow one, so the composition moves up into the band above the
+   name — empty at every width — tightens, and drops its third image. */
+@media (max-width:1023px){
+  .peek__item[data-peek-rank="3"]{ display:none; }
+  /* Both selectors, so these outrank the right-hand anchor above. */
+  .peek__item,
+  .peek__item[data-peek-side="r"]{
+    /* There is no column beside the name down here — it runs nearly edge to
+       edge — so the pair moves into the band above it, which is empty at
+       every width. One height for both, because the band is what is scarce;
+       --iar turns that height back into the width the picture's own
+       shape asks for. */
+    --band:min(9.5svh, 132px);
+    --anchor:-50%;                 /* both sit on the same axis down here */
+    left:var(--sx);
+    right:auto;
+    top:var(--sy);
+    width:min(var(--sw,var(--w)), calc(var(--band) * var(--iar,1)));
+    --par:4px;                     /* less depth, less chance of looking loose */
+  }
+  /* Not a row of two. The pair sits at slightly different heights, which is
+     the one bit of the desktop art direction worth keeping down here. */
+  .peek__item[data-peek-rank="1"]{ --sx:19%; --sy:8.5%; }
+  .peek__item[data-peek-rank="2"]{ --sx:81%; --sy:10.5%; }
+
+  /* Where they travel in from, restated rather than adjusted.
+
+     --fx and --fy are written on each figure as inline custom properties, so
+     a rule out here cannot talk them down — an inline declaration outranks a
+     stylesheet one whatever the selector. The transform is restated instead,
+     which needs no fight: it simply stops reading them.
+
+     They are worth losing. Those vectors are ±40px of sideways fling, aimed
+     at a composition that stands in the columns beside the name; down here
+     the pair is in the band above it and there are no columns, so the fling
+     is pointed at nothing. It is also the one thing on a narrow page that
+     still widens the document: the resting state is also the exit state, so
+     every figure sits at its offset while hidden — out of sight, still in
+     the layout, and on a 320 screen about nine pixels past the edge, which
+     is a horizontal scrollbar under the whole site for a picture nobody has
+     asked to see. A short rise says the same thing and stays on the page. */
+  .peek__item,
+  .peek__item[data-peek-side="r"]{
+    transform:
+      translate(var(--anchor), -50%)
+      translate(0, 18px)
+      rotate(calc(var(--rot,0deg) * 0.4))
+      scale(.9);
+  }
+}
+
+/* Too little room beside the name to put anything there — a window that is
+   wide but short, or the Type control dragged most of the way up. stage.js
+   measures it and says so; the links carry on as links. */
+.stage[data-peek-room="no"] .peek{ display:none; }
+
+/* A short phone has no band above the name worth speaking of — the greeting
+   is already close to the navigation. Rather than shrink the images until
+   they are not worth showing, the layer stands down and the links behave as
+   links. Nothing is only reachable through it, so nothing is lost. */
+@media (max-width:1023px) and (max-height:700px){
+  .peek{ display:none; }
+}
+
+/* Reduced motion: the composition is the point, the travel is not. Each image
+   is already at its angle and its size, and only fades. */
+@media (prefers-reduced-motion:reduce){
+  .peek__item,
+  .stage[data-peek="fun"]         [data-peek-group="fun"]         .peek__item,
+  .stage[data-peek="writing"]     [data-peek-group="writing"]     .peek__item,
+  .stage[data-peek="experiments"] [data-peek-group="experiments"] .peek__item,
+  .stage[data-peek="about"]       [data-peek-group="about"]       .peek__item{
+    transform:translate(var(--anchor), -50%) rotate(var(--rot,0deg));
+    transition:opacity 120ms linear;
+  }
+}

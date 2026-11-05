@@ -1,0 +1,157 @@
+<!--meta
+route: experiments
+title: Experiments
+desc: Small working builds — an accent switcher, a type specimen, a radius toggle, a token explorer and a before-and-after.
+nav: experiments
+lab: yes
+word_a: small
+word_b: experiments
+tagline: Five things small enough to finish. Each one is wired to this site's real design tokens, so using it changes the page you are reading it on.
+hero_cards: <div class="page-hero__cards" data-reveal><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-copper)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Live</span></div><div class="card__body"><h2 class="card__name">Accent switcher</h2><p class="card__premise">Four palettes, applied to the whole site.</p></div></article></div><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-lavender)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Live</span></div><div class="card__body"><h2 class="card__name">Token explorer</h2><p class="card__premise">Every token's computed value, read as you change it.</p></div></article></div><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-teal)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Live</span></div><div class="card__body"><h2 class="card__name">Before &amp; after</h2><p class="card__premise">The same interface with and without a system.</p></div></article></div></div>
+-->
+
+<section class="section shell">
+  <p class="note" data-reveal style="margin-bottom:var(--step-8)">
+    <span>These write to the same shared token store as the home page. Whatever you set here follows you around the site and is remembered in this browser — <strong>the Reset on the home page toolbar puts everything back.</strong></span>
+  </p>
+
+  <div class="grid grid--2">
+
+    <!-- 01 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal aria-labelledby="exp-1">
+      <header class="demo__head">
+        <h2 class="demo__name" id="exp-1">Accent-colour switcher</h2>
+        <p class="t-label t-dim">01</p>
+      </header>
+      <div class="demo__stage">
+        <div class="swatches" role="radiogroup" data-group="palette" aria-labelledby="exp-1">
+          <button type="button" class="swatch" role="radio" data-value="mono" aria-checked="true">
+            <span class="swatch__chips" aria-hidden="true"><i style="background:var(--ink-100)"></i><i style="background:var(--ink-70)"></i><i style="background:var(--ink-50)"></i></span>
+            <span class="swatch__name">Mono</span>
+          </button>
+          <button type="button" class="swatch" role="radio" data-value="copper" aria-checked="false" tabindex="-1">
+            <span class="swatch__chips" aria-hidden="true"><i style="background:var(--hue-copper)"></i><i style="background:var(--hue-rust)"></i><i style="background:var(--hue-ochre)"></i></span>
+            <span class="swatch__name">Warm Copper</span>
+          </button>
+          <button type="button" class="swatch" role="radio" data-value="botanical" aria-checked="false" tabindex="-1">
+            <span class="swatch__chips" aria-hidden="true"><i style="background:var(--hue-sage)"></i><i style="background:var(--hue-teal)"></i><i style="background:var(--hue-ochre)"></i></span>
+            <span class="swatch__name">Botanical Green</span>
+          </button>
+        </div>
+      </div>
+      <p class="demo__note">A palette is not a colour, it is a set of relationships. Each option here re-tints the whole neutral ramp as well as the accent, holding every step's lightness exactly where it was — which is why the page, the borders and the grid all move together and text contrast stays constant across all three.</p>
+    </section>
+
+    <!-- 02 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal data-reveal-delay="60" aria-labelledby="exp-2">
+      <header class="demo__head">
+        <h2 class="demo__name" id="exp-2">Typography preview</h2>
+        <p class="t-label t-dim">02</p>
+      </header>
+      <div class="demo__stage">
+        <div class="specimen">
+          <p class="specimen__big">Design leader</p>
+          <p class="specimen__body">Building products, systems and teams — and helping them grow. Eleven years in product and design.</p>
+          <p class="specimen__meta t-label" data-type-readout>Editorial · 700 · −0.035em</p>
+        </div>
+      </div>
+      <div class="demo__controls" role="radiogroup" data-group="type" aria-labelledby="exp-2">
+        <button type="button" class="opt" role="radio" data-value="editorial" aria-checked="true">Editorial</button>
+        <button type="button" class="opt" role="radio" data-value="serif" aria-checked="false" tabindex="-1">Technical</button>
+        <button type="button" class="opt" role="radio" data-value="mono" aria-checked="false" tabindex="-1">Generous</button>
+      </div>
+      <p class="demo__note">Three treatments over one size ramp. The specimen above is set in live tokens, so what you see is exactly what every heading on the site is about to do.</p>
+    </section>
+
+    <!-- 03 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal aria-labelledby="exp-3">
+      <header class="demo__head">
+        <h2 class="demo__name" id="exp-3">Component-radius toggle</h2>
+        <p class="t-label t-dim">03</p>
+      </header>
+      <div class="demo__stage">
+        <div class="radius-demo" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="demo__controls" role="radiogroup" data-group="radius" aria-labelledby="exp-3">
+        <button type="button" class="opt" role="radio" data-value="sharp" aria-checked="false" tabindex="-1">Sharp</button>
+        <button type="button" class="opt" role="radio" data-value="subtle" aria-checked="true">Soft</button>
+        <button type="button" class="opt" role="radio" data-value="rounded" aria-checked="false" tabindex="-1">Round</button>
+        <output class="demo__value" data-radius-readout>×1</output>
+      </div>
+      <p class="demo__note">Four radius steps, one multiplier. Keeping them on a shared multiplier rather than four independent values is what stops a system drifting into nine slightly different corners.</p>
+    </section>
+
+    <!-- 04 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal data-reveal-delay="60" aria-labelledby="exp-4">
+      <header class="demo__head">
+        <h2 class="demo__name" id="exp-4">Design-token explorer</h2>
+        <p class="t-label t-dim">04</p>
+      </header>
+      <div class="demo__stage" style="align-items:start">
+        <div class="tokens-scroll">
+          <table class="tokens" data-token-table>
+            <caption>Computed on this page, right now</caption>
+            <thead><tr><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+            <tbody><tr><td colspan="2">Reading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <p class="demo__note">Not a hard-coded list — these are read back off the document with <code class="t-mono">getComputedStyle</code> each time a token changes. Change a setting anywhere on the site and this table follows.</p>
+    </section>
+
+    <!-- 05 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal style="grid-column:1/-1" aria-labelledby="exp-5">
+      <header class="demo__head">
+        <h2 class="demo__name" id="exp-5">Before and after</h2>
+        <p class="t-label t-dim">05</p>
+      </header>
+      <div class="demo__stage">
+        <div class="ba" data-ba>
+          <div class="ba__pane ba__pane--before">
+            <div class="sample sample--before">
+              <div class="sample__box">
+                <h4>Annual health check</h4>
+                <p>Scheduled for 14 March</p>
+                <div class="sample__row" style="margin-top:10px">
+                  <span class="sample__pill">BOOKED</span><span class="sample__pill">OPD</span>
+                </div>
+              </div>
+              <div class="sample__box">
+                <h4>Reimbursement</h4>
+                <p>₹4,200 submitted</p>
+                <div class="sample__row" style="margin-top:10px">
+                  <span class="sample__pill">IN REVIEW</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ba__pane ba__pane--after">
+            <div class="sample sample--after">
+              <div class="sample__box">
+                <h4 class="t-h4">Annual health check</h4>
+                <p class="t-sm">Scheduled for 14 March</p>
+                <div class="sample__row" style="margin-top:var(--step-3)">
+                  <span class="sample__pill">Booked</span><span class="sample__pill">OPD</span>
+                </div>
+              </div>
+              <div class="sample__box">
+                <h4 class="t-h4">Reimbursement</h4>
+                <p class="t-sm">₹4,200 submitted</p>
+                <div class="sample__row" style="margin-top:var(--step-3)">
+                  <span class="sample__pill">In review</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="ba__tag ba__tag--before">No system</span>
+          <span class="ba__tag ba__tag--after">On tokens</span>
+          <button type="button" class="ba__handle" data-ba-handle
+                  role="slider" aria-label="Comparison split"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50 per cent"></button>
+        </div>
+      </div>
+      <p class="demo__note">Left: hard-coded values — fixed greys, fixed corners, fixed 12px padding. Right: the same two components built on tokens. Drag the handle, or focus it and use the arrow keys. Then change the palette or the radius above and watch only one side move.</p>
+    </section>
+
+  </div>
+</section>

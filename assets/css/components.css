@@ -1,0 +1,1153 @@
+/* ===========================================================================
+   COMPONENTS — the shared layer every page composes from.
+   Section hero · cards · chips · buttons · notes · media · rails.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   SECTION HERO
+   Three showcase cards above a large two-word title and a tagline. The title
+   arrives from a blur; the cards fan in behind it. Same device on every
+   section page, so the pages read as one family.
+   ------------------------------------------------------------------------ */
+.page-hero{
+  padding-block:var(--step-12) var(--step-10);
+  position:relative;
+}
+.page-hero__cards{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--step-5);
+  /* Sits below the title now, so there is no overlap left to reserve for. */
+  margin-top:var(--step-10);
+  position:relative; z-index:0;
+}
+.page-hero__cards .card,
+.page-hero__cards .shot{ padding-bottom:var(--step-10); }
+.page-hero__cards .shot{ padding-bottom:0; }
+.page-hero__card{ display:flex; }
+.page-hero__card > *{ flex:1; }
+
+.page-hero__title{
+  position:relative; z-index:1;
+  font-family:var(--font-display);
+  font-weight:var(--weight-display);
+  letter-spacing:var(--track-display);
+  line-height:var(--leading-display);
+  /* Just over a quarter off the old scale. At 10rem the heading was a poster
+     and the two halves of it could not share a line at any width. The exact
+     figure is set by the DesignOps Framework page: at 7.5rem its heading
+     missed one line by ten pixels, and 7.25rem is where it fits. */
+  font-size:clamp(2.175rem, 0.725rem + 7.975vw, 7.25rem);
+  /* One heading, set as one phrase. It was a column of two forced lines —
+     first with the second word pushed to the right margin, then stacked on
+     the left — and either way it read as two headings rather than one.
+     Now the words simply run on and break where the width makes them, which
+     for most pages is not at all. */
+  display:block;
+  margin:0;
+  pointer-events:none;
+  text-wrap:balance;
+}
+/* inline-block, not inline: the reveal below moves and blurs each half, and
+   an inline box takes neither a transform nor a clean filter. The pair still
+   sits on one line with an ordinary space between them, and the only place
+   the heading can break is that space. */
+.page-hero__word{ display:inline-block; }
+.page-hero__word-a{ color:var(--text-primary); }
+.page-hero__word-b{ color:var(--accent); }
+.js .page-hero__title .page-hero__word{
+  opacity:0; filter:blur(14px); transform:translateY(0.12em);
+  transition:opacity .7s var(--ease-out), filter .7s var(--ease-out), transform .7s var(--ease-out);
+}
+.js .page-hero__title.is-in .page-hero__word{ opacity:1; filter:blur(0); transform:none; }
+.js .page-hero__title.is-in .page-hero__word-b{ transition-delay:.1s; }
+@media (prefers-reduced-motion:reduce){
+  .js .page-hero__title .page-hero__word{ opacity:1; filter:none; transform:none; }
+}
+.page-hero__tagline{
+  max-width:var(--prose-max);
+  margin-top:var(--step-5);
+  color:var(--text-secondary);
+  font-size:var(--text-lg); line-height:1.45;
+}
+
+/* A page's particulars, stood on the end of the title's last line rather
+   than under it or only in the case rail — so they read as part of the
+   heading, which is why there is no rule between them.
+
+   flex-end rather than baseline: the block is a label over a value, and
+   aligning baselines would hang the value below the heading's. Bottom edges
+   instead, so the particulars finish where the type finishes. When the
+   width runs out the dl wraps under the heading and the row-gap takes over,
+   which is the only thing that happens on a phone. */
+.page-hero__titlerow{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  column-gap:var(--step-6);
+  row-gap:var(--step-4);
+}
+.page-hero__meta{
+  margin:0 0 var(--step-2);
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--step-4) var(--step-8);
+}
+.page-hero__meta-row{ display:flex; flex-direction:column; gap:var(--step-1); }
+.page-hero__meta-k{ margin:0; color:var(--text-tertiary); }
+.page-hero__meta-v{
+  margin:0;
+  color:var(--text-secondary);
+  font-size:var(--text-label);
+  line-height:1.5;
+}
+
+@media (max-width:860px){
+  .page-hero__cards{ grid-template-columns:1fr; margin-bottom:var(--step-8); }
+  .page-hero__meta{ gap:var(--step-3); margin-bottom:0; }
+  /* One card at this width, so its art must not become the whole screen. */
+  .page-hero__cards .card__art{ aspect-ratio:16/9; max-height:17rem; }
+  .page-hero__cards > *:nth-child(n+2){ display:none; }
+}
+
+/* ---------------------------------------------------------------------------
+   CARD — one shape, used for projects, essays, pillars and experiments.
+   ------------------------------------------------------------------------ */
+.card{
+  position:relative;
+  display:flex; flex-direction:column;
+  gap:var(--step-4);
+  padding:var(--step-5);
+  background:var(--surface-raised);
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-lg);
+  text-decoration:none;
+  color:inherit;
+  overflow:hidden;
+  isolation:isolate;
+  transition:border-color var(--duration-base) var(--ease-smooth),
+             background-color var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-out),
+             border-radius var(--duration-slow) var(--ease-smooth);
+}
+a.card:hover,a.card:focus-visible,
+button.card:hover,button.card:focus-visible{
+  border-color:var(--accent);
+  background:var(--surface-overlay);
+  transform:translateY(-3px);
+}
+@media (prefers-reduced-motion:reduce){
+  a.card:hover,button.card:hover{ transform:none; }
+}
+
+/* Card art. Generated from tokens — no placeholder photography anywhere.
+   Each card carries --art-hue, so a row of cards reads as a palette. */
+.card__art{
+  position:relative;
+  display:block;
+  aspect-ratio:16/10;
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  background:
+    radial-gradient(120% 110% at 18% 12%,
+      color-mix(in srgb, var(--art-hue,var(--accent)) 42%, transparent) 0%,
+      transparent 62%),
+    linear-gradient(140deg,
+      color-mix(in srgb, var(--art-hue,var(--accent)) 16%, var(--ink-5)) 0%,
+      var(--ink-5) 70%);
+  border:var(--hair) solid var(--border-default);
+}
+.card__art::after{
+  content:"";
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--art-hue,var(--accent)) 30%, transparent) var(--hair), transparent var(--hair)),
+    linear-gradient(90deg, color-mix(in srgb, var(--art-hue,var(--accent)) 30%, transparent) var(--hair), transparent var(--hair));
+  background-size:22px 22px;
+  opacity:var(--deco);
+  transition:opacity var(--duration-slow) var(--ease-smooth),
+             transform var(--duration-slow) var(--ease-out);
+}
+a.card:hover .card__art::after{ transform:scale(1.06); }
+
+/* Art that holds a real screenshot instead of a generated field. */
+.card__art--shot{ background:var(--ink-5); }
+.card__art--shot img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:top left;
+  transition:transform var(--duration-slow) var(--ease-out);
+}
+.card__art--shot::after{ display:none; }
+a.card:hover .card__art--shot img{ transform:scale(1.03); }
+
+.card__meta{
+  display:flex; align-items:center; gap:var(--step-2);
+  color:var(--text-tertiary);
+}
+.card__status{
+  display:inline-flex; align-items:center; gap:0.45em;
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+}
+.card__status::before{
+  content:""; width:0.4em; height:0.4em; border-radius:var(--radius-full);
+  background:var(--art-hue,var(--accent));
+}
+.card__body{ display:flex; flex-direction:column; gap:var(--step-2); flex:1; }
+.card__name{
+  font-family:var(--font-display); font-size:var(--text-h3);
+  font-weight:var(--weight-heading); letter-spacing:var(--track-heading);
+  line-height:1.2;
+  display:flex; align-items:baseline; gap:0.4em; flex-wrap:wrap;
+}
+.card__premise{ font-size:var(--text-sm); color:var(--text-secondary); line-height:1.5; }
+.card__role{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+.card__arrow{
+  margin-left:auto; flex:none;
+  color:var(--text-tertiary);
+  transition:color var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-out);
+}
+a.card:hover .card__arrow{ color:var(--accent-light); transform:translate(2px,-2px); }
+
+/* ---------------------------------------------------------------------------
+   CHIPS
+   ------------------------------------------------------------------------ */
+.chips{ display:flex; flex-wrap:wrap; gap:var(--step-2); margin:0; padding:0; list-style:none; }
+.chip{
+  display:inline-block;
+  padding:var(--step-1) var(--step-3);
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-full);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+  white-space:nowrap;
+  transition:border-radius var(--duration-slow) var(--ease-smooth),
+             border-color var(--duration-base) var(--ease-smooth),
+             color var(--duration-base) var(--ease-smooth);
+}
+a.card:hover .chip{ border-color:var(--border-strong); color:var(--text-secondary); }
+.chip--accent{
+  border-color:color-mix(in srgb, var(--accent) 55%, transparent);
+  color:var(--accent-light);
+}
+
+/* ---------------------------------------------------------------------------
+   BUTTONS AND INLINE LINKS
+   ------------------------------------------------------------------------ */
+.btn{
+  display:inline-flex; align-items:center; gap:var(--step-2);
+  padding:var(--step-3) var(--step-5);
+  border-radius:var(--radius-full);
+  border:var(--hair) solid var(--border-strong);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-primary); text-decoration:none;
+  transition:background-color var(--duration-base) var(--ease-smooth),
+             border-color var(--duration-base) var(--ease-smooth),
+             color var(--duration-base) var(--ease-smooth),
+             border-radius var(--duration-slow) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-out);
+}
+.btn:hover{ background:var(--accent); border-color:var(--accent); color:var(--text-on-accent); transform:translateY(-2px); }
+.btn:disabled,.btn[aria-disabled="true"]{
+  opacity:.45; cursor:not-allowed; transform:none;
+  background:none; border-color:var(--border-default); color:var(--text-tertiary);
+}
+.btn--ghost{ border-color:var(--border-default); color:var(--text-secondary); }
+@media (prefers-reduced-motion:reduce){ .btn:hover{ transform:none; } }
+
+.link-out{
+  display:inline-flex; align-items:baseline; gap:0.35em;
+  color:var(--accent-light); text-decoration:none;
+  border-bottom:var(--hair) solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition:border-color var(--duration-base) var(--ease-smooth), color var(--duration-base) var(--ease-smooth);
+  width:fit-content;
+}
+.link-out:hover{ border-color:var(--accent); color:var(--accent); }
+
+/* ---------------------------------------------------------------------------
+   SECTION SCAFFOLD
+   ------------------------------------------------------------------------ */
+.section{ padding-block:var(--step-16); }
+.page-hero + .section{ padding-block-start:var(--step-10); }
+.section__head{
+  display:flex; flex-direction:column; gap:var(--step-3);
+  margin-bottom:var(--step-10);
+  max-width:var(--prose-max);
+}
+.section__eyebrow{ color:var(--accent-light); }
+.grid{
+  display:grid;
+  gap:var(--step-5);
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,18rem),1fr));
+}
+.grid--2{ grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr)); }
+
+/* ---------------------------------------------------------------------------
+   NUMBERED ROWS — DesignOps pillars, principles, career journey.
+   ------------------------------------------------------------------------ */
+.rows{ display:flex; flex-direction:column; border-top:var(--hair) solid var(--border-default); }
+.row{
+  display:grid;
+  grid-template-columns:3.25rem minmax(0,15rem) minmax(0,1fr);
+  gap:var(--step-5);
+  align-items:start;
+  padding-block:var(--step-6);
+  border-bottom:var(--hair) solid var(--border-default);
+  transition:background-color var(--duration-base) var(--ease-smooth);
+}
+.row:hover{ background:color-mix(in srgb, var(--surface-raised) 60%, transparent); }
+.row__num{ color:var(--text-tertiary); font-family:var(--font-mono); font-size:var(--text-mono); padding-top:0.35em; }
+.row__title{ font-family:var(--font-display); font-size:var(--text-h4); font-weight:var(--weight-emphasis); letter-spacing:var(--track-heading); }
+.row__body{ color:var(--text-secondary); font-size:var(--text-sm); }
+.row__body ul{ margin:var(--step-3) 0 0; padding-left:1.1em; display:flex; flex-direction:column; gap:var(--step-1); }
+@media (max-width:760px){
+  .row{ grid-template-columns:2.5rem minmax(0,1fr); }
+  .row__body{ grid-column:2; }
+}
+
+/* ---------------------------------------------------------------------------
+   STATS
+   ------------------------------------------------------------------------ */
+.stats{
+  display:grid; gap:var(--step-5);
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));
+  padding-block:var(--step-8);
+  border-block:var(--hair) solid var(--border-default);
+}
+.stat__value{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,1.3rem + 2.4vw,3.25rem);
+  font-weight:var(--weight-display); letter-spacing:var(--track-display);
+  line-height:1; color:var(--accent-light);
+  font-variant-numeric:tabular-nums;
+}
+.stat__label{ margin-top:var(--step-2); color:var(--text-tertiary); }
+
+/* ---------------------------------------------------------------------------
+   PANEL — the inset dark block used for quotes and capstones.
+   ------------------------------------------------------------------------ */
+.panel{
+  padding:var(--step-10);
+  background:var(--surface-raised);
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-xl);
+  transition:border-radius var(--duration-slow) var(--ease-smooth);
+}
+.quote{
+  font-family:var(--font-display);
+  font-size:var(--text-h2); font-weight:var(--weight-heading);
+  letter-spacing:var(--track-heading); line-height:1.15;
+  max-width:28ch;
+}
+.quote__cite{ display:block; margin-top:var(--step-5); color:var(--text-tertiary); font-style:normal; }
+
+/* ---------------------------------------------------------------------------
+   NOTE — an aside the Opacity control dims.
+   ------------------------------------------------------------------------ */
+.note{
+  display:flex; gap:var(--step-3);
+  padding:var(--step-4) var(--step-5);
+  border:var(--hair) dashed var(--border-strong);
+  border-radius:var(--radius-md);
+  color:var(--text-tertiary);
+  font-size:var(--text-sm);
+  opacity:var(--deco);
+  transition:opacity var(--duration-slow) var(--ease-smooth),
+             border-radius var(--duration-slow) var(--ease-smooth);
+}
+.note strong{ color:var(--text-secondary); font-weight:var(--weight-emphasis); }
+
+/* ---------------------------------------------------------------------------
+   MEDIA
+   ------------------------------------------------------------------------ */
+.shot{
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  background:var(--ink-5);
+  transition:border-radius var(--duration-slow) var(--ease-smooth);
+}
+.shot img{ width:100%; display:block; }
+.shot figcaption{
+  padding:var(--step-3) var(--step-4);
+  border-top:var(--hair) solid var(--border-default);
+  color:var(--text-tertiary);
+}
+.media-grid{ display:grid; gap:var(--step-4); grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr)); }
+
+/* ---------------------------------------------------------------------------
+   CODE WINDOW — shared by the hero's live token readout and the snippets.
+   ------------------------------------------------------------------------ */
+.win{
+  background:var(--ink-5);
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  margin:0;
+  transition:border-radius var(--duration-slow) var(--ease-smooth);
+}
+.win__bar{
+  display:flex; align-items:center; gap:var(--step-2);
+  padding:var(--step-2) var(--step-3);
+  border-bottom:var(--hair) solid var(--border-default);
+  color:var(--text-tertiary);
+  font-family:var(--font-mono); font-size:0.6875rem;
+}
+.win__dots{ display:inline-flex; gap:4px; }
+.win__dots i{ width:7px; height:7px; border-radius:var(--radius-full); background:var(--border-strong); display:block; }
+.win__pre{
+  margin:0; padding:var(--step-3);
+  font-family:var(--font-mono); font-size:0.75rem; line-height:1.7;
+  color:var(--text-secondary);
+  white-space:pre; overflow-x:auto;
+}
+.win__pre b{ color:var(--accent-light); font-weight:400; }
+.win__pre i{ color:var(--text-tertiary); font-style:normal; }
+
+/* ---------------------------------------------------------------------------
+   EMPTY STATE — used honestly where there is nothing published yet.
+   ------------------------------------------------------------------------ */
+.empty{
+  display:flex; flex-direction:column; gap:var(--step-4);
+  align-items:flex-start;
+  padding:var(--step-12) var(--step-10);
+  border:var(--hair) dashed var(--border-strong);
+  border-radius:var(--radius-lg);
+  background:
+    repeating-linear-gradient(-45deg,
+      color-mix(in srgb, var(--border-default) 70%, transparent) 0 1px,
+      transparent 1px 9px);
+  transition:border-radius var(--duration-slow) var(--ease-smooth);
+}
+
+/* ---------------------------------------------------------------------------
+   TOUCH NOTICE — shown where a demo genuinely needs a pointer.
+   ------------------------------------------------------------------------ */
+.pointer-notice{ display:none; }
+@media (hover:none){
+  .pointer-notice{
+    display:flex; flex-direction:column; gap:var(--step-2);
+    padding:var(--step-5);
+    border:var(--hair) solid var(--border-default);
+    border-radius:var(--radius-lg);
+    background:var(--surface-raised);
+    margin-bottom:var(--step-8);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   FLOW — a connected sequence of stages.
+   Four steps side by side on a wide screen, stacked in reading order on a
+   narrow one. The connector is drawn by the step itself (a ::after that
+   reaches to the next one) rather than by a wrapper, so the line always ends
+   where the next step begins no matter how the row wraps or how long a title
+   runs. The last step has no connector, which is what closes the sequence.
+   ------------------------------------------------------------------------ */
+.flow{
+  display:grid;
+  /* --flow-cols lets a strip of five phases reuse the same component as a
+     sequence of four stages. */
+  grid-template-columns:repeat(var(--flow-cols, 4), 1fr);
+  gap:var(--step-6);
+  margin:0; padding:0;
+  list-style:none;
+  counter-reset:flow;
+}
+.flow__step{
+  position:relative;
+  display:flex; flex-direction:column; gap:var(--step-2);
+  padding-block-start:var(--step-5);
+  border-top:var(--hair) solid var(--border-default);
+}
+/* The rule along the top is the connector: each step draws its own, and the
+   grid gap is bridged by reaching past the step's right edge. */
+.flow__step::after{
+  content:"";
+  position:absolute; top:calc(var(--hair) * -1); left:100%;
+  width:var(--step-6); height:var(--hair);
+  background:var(--border-default);
+}
+.flow__step:last-child::after{ display:none; }
+
+.flow__num{
+  margin:0;
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label);
+  color:var(--accent);
+}
+.flow__title{
+  margin:0;
+  font-size:var(--text-h4);
+  font-weight:var(--weight-heading);
+  line-height:1.2;
+  color:var(--text-primary);
+}
+.flow__note{ margin:0; color:var(--text-secondary); font-size:var(--text-sm); }
+
+/* The title doubles as a jump link to the stage further down the page. */
+.flow__link{
+  color:inherit; text-decoration:none;
+  display:inline-flex; align-items:baseline; gap:0.4em;
+  transition:color var(--duration-base) var(--ease-smooth);
+}
+.flow__link::after{
+  content:"\2193";
+  font-family:var(--font-mono); font-size:0.7em;
+  opacity:0;
+  transform:translateY(-2px);
+  transition:opacity var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-out);
+}
+.flow__link:hover,
+.flow__link:focus-visible{ color:var(--accent-light); }
+.flow__link:hover::after,
+.flow__link:focus-visible::after{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion:reduce){
+  .flow__link::after{ transition:none; transform:none; }
+}
+
+/* Two abreast, then one. The connector turns off once the row can wrap,
+   because a line reaching sideways into a new row is just a stray mark. */
+@media (max-width:900px){
+  .flow{ grid-template-columns:repeat(2, 1fr); gap:var(--step-8) var(--step-6); }
+  .flow__step:nth-child(2n)::after{ display:none; }
+}
+/* A strip whose steps are only labels can stay tighter for longer. */
+.flow--tight{ gap:var(--step-5); }
+.flow--tight .flow__title{ font-size:var(--text-sm); }
+.flow--tight .flow__step::after{ width:var(--step-5); }
+@media (max-width:600px){
+  .flow{ grid-template-columns:1fr; gap:var(--step-6); }
+  .flow__step::after{ display:none; }
+}
+
+/* ---------------------------------------------------------------------------
+   LOOP — a cycle of numbered stages that feeds back into itself.
+   Vertical at every width: six stages read as a sequence, and a sequence that
+   returns is clearer stacked than wrapped. The return path is a bracket drawn
+   down the left of the whole list, so the loop is visible without an arrow
+   graphic that would need its own responsive rules.
+   ------------------------------------------------------------------------ */
+.loop{ position:relative; margin:0; padding:0 0 0 var(--step-8); list-style:none; counter-reset:loop; }
+.loop::before{
+  content:""; position:absolute; left:0; top:1.1rem; bottom:3.2rem;
+  width:var(--hair); background:var(--border-default);
+}
+.loop__stage{ position:relative; padding-block:var(--step-4); }
+.loop__stage + .loop__stage{ border-top:var(--hair) solid var(--border-subtle); }
+/* The tick that joins each stage to the spine. */
+.loop__stage::before{
+  content:""; position:absolute; left:calc(var(--step-8) * -1); top:1.45rem;
+  width:var(--step-6); height:var(--hair); background:var(--border-default);
+}
+.loop__num{
+  margin:0 0 var(--step-1);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); color:var(--accent);
+}
+.loop__title{ margin:0 0 var(--step-2); font-size:var(--text-h4); font-weight:var(--weight-heading); color:var(--text-primary); }
+.loop__note{ margin:0; color:var(--text-secondary); font-size:var(--text-sm); max-width:46rem; }
+/* The feedback leg: a labelled return from the last stage to the first. */
+.loop__return{
+  position:relative; margin:0; padding-block:var(--step-4) 0;
+  /* a sibling of .loop, so it carries the same left offset itself */
+  padding-inline-start:var(--step-8);
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+.loop__return::before{
+  content:""; position:absolute; left:calc(var(--step-8) * -1); top:0; bottom:50%;
+  width:var(--step-6); border-left:var(--hair) solid var(--border-strong);
+  border-bottom:var(--hair) solid var(--border-strong);
+  border-bottom-left-radius:var(--radius-md);
+}
+
+/* ---------------------------------------------------------------------------
+   MATRIX — a data table that stops being a table on a small screen.
+   Below the breakpoint each row becomes a stacked block and every cell shows
+   its own column name from data-label, so the table never needs a sideways
+   scroll of its own and the page never gains one either.
+   ------------------------------------------------------------------------ */
+.matrix{ width:100%; border-collapse:collapse; font-size:var(--text-sm); }
+.matrix caption{
+  caption-side:top; text-align:left; margin-bottom:var(--step-4);
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+.matrix th, .matrix td{
+  padding:var(--step-3) var(--step-3) var(--step-3) 0;
+  text-align:left; vertical-align:top;
+  border-bottom:var(--hair) solid var(--border-subtle);
+}
+.matrix thead th{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary); font-weight:400;
+  border-bottom-color:var(--border-default);
+  white-space:nowrap;
+}
+.matrix tbody th{ font-weight:var(--weight-heading); color:var(--text-primary); }
+.matrix td{ color:var(--text-secondary); }
+.matrix tbody tr:hover th, .matrix tbody tr:hover td{ background:var(--ink-5); }
+.matrix .is-empty{ color:var(--text-tertiary); }
+
+/* A small, flat state marker. No pills, no colour-coding beyond the accent. */
+.tag{
+  display:inline-block; white-space:nowrap;
+  font-family:var(--font-mono); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+.tag--on{ color:var(--accent); }
+
+@media (max-width:760px){
+  .matrix, .matrix tbody, .matrix tr, .matrix td, .matrix th{ display:block; }
+  .matrix thead{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  .matrix tbody tr{
+    padding:var(--step-4) 0;
+    border-bottom:var(--hair) solid var(--border-default);
+  }
+  .matrix th, .matrix td{ border:0; padding:var(--step-1) 0; }
+  .matrix td::before{
+    content:attr(data-label) " ";
+    display:block;
+    font-family:var(--font-label); font-size:var(--text-label);
+    letter-spacing:var(--track-label); text-transform:uppercase;
+    color:var(--text-tertiary);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   GRIDMAP — roles down the side, workstreams across the top.
+   ------------------------------------------------------------------------ */
+.gridmap{ width:100%; border-collapse:collapse; font-size:var(--text-sm); }
+.gridmap th, .gridmap td{
+  padding:var(--step-3) var(--step-2);
+  border:var(--hair) solid var(--border-subtle);
+  text-align:center; vertical-align:middle;
+}
+.gridmap thead th{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary); font-weight:400;
+}
+.gridmap tbody th{ text-align:left; color:var(--text-primary); font-weight:var(--weight-heading); white-space:nowrap; }
+.gridmap td{ color:var(--text-tertiary); }
+.gridmap .on{ color:var(--accent); }
+.legend{
+  display:flex; flex-wrap:wrap; gap:var(--step-2) var(--step-5);
+  margin:var(--step-4) 0 0; padding:0; list-style:none;
+  font-family:var(--font-mono); font-size:var(--text-mono); color:var(--text-tertiary);
+}
+
+/* ---------------------------------------------------------------------------
+   OKR — theme, objective, initiative, measure, as aligned rows.
+   ------------------------------------------------------------------------ */
+.okr{ margin:0; padding:0; list-style:none; }
+.okr__theme{ padding-block:var(--step-6); border-top:var(--hair) solid var(--border-default); }
+.okr__num{
+  margin:0 0 var(--step-1);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); color:var(--accent);
+}
+.okr__name{ margin:0 0 var(--step-4); font-size:var(--text-h4); font-weight:var(--weight-heading); color:var(--text-primary); }
+.okr__line{
+  display:grid; gap:var(--step-2) var(--step-5);
+  grid-template-columns:minmax(0,10rem) minmax(0,1fr) minmax(0,16rem);
+  padding-block:var(--step-3);
+  border-top:var(--hair) solid var(--border-subtle);
+}
+.okr__obj{ font-family:var(--font-mono); font-size:var(--text-mono); color:var(--text-tertiary); letter-spacing:0.02em; }
+.okr__act{ margin:0; color:var(--text-secondary); }
+.okr__measure{ margin:0; color:var(--text-primary); font-size:var(--text-sm); }
+.okr__measure .tag{ display:block; margin-top:var(--step-1); }
+@media (max-width:860px){
+  .okr__line{ grid-template-columns:1fr; gap:var(--step-1); }
+  .okr__measure{ color:var(--text-secondary); }
+}
+
+/* ---------------------------------------------------------------------------
+   QUAD — a two-axis reference matrix. Labels only; it carries no counts.
+   ------------------------------------------------------------------------ */
+.quad{ display:grid; grid-template-columns:auto repeat(3, 1fr); gap:var(--hair); background:var(--border-subtle); border:var(--hair) solid var(--border-subtle); }
+.quad > *{ background:var(--surface-page); padding:var(--step-4); }
+.quad__h{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase; color:var(--text-tertiary);
+}
+.quad__cell{ font-size:var(--text-sm); color:var(--text-secondary); }
+.quad__cell strong{ display:block; color:var(--text-primary); font-weight:var(--weight-heading); margin-bottom:var(--step-1); }
+@media (max-width:760px){
+  .quad{ grid-template-columns:auto 1fr; }
+  .quad__wide{ grid-column:1 / -1; }
+}
+
+/* ===========================================================================
+   PLANNING ARTEFACTS
+   Tables, grids and matrices generated from the planning workbooks by
+   _data/render.py. Everything here stays on the ink ramp so the page is
+   monochrome until a palette is chosen; state is carried by fill and outline
+   rather than by hue, which also keeps it readable to anyone who cannot
+   separate the two.
+   =========================================================================== */
+
+/* --- shared ---------------------------------------------------------------- */
+.sheet__cap, .heatmap caption, .cascade caption, .qm caption{
+  caption-side:top; text-align:left; margin-bottom:var(--step-4);
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  line-height:1.5; color:var(--text-tertiary); max-width:72ch;
+}
+.legend{
+  display:flex; flex-wrap:wrap; gap:var(--step-2) var(--step-5);
+  margin-top:var(--step-4);
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-tertiary);
+}
+.legend__k{ display:inline-flex; align-items:center; gap:var(--step-2); }
+.note{
+  margin-top:var(--step-4); max-width:var(--prose-max);
+  font-size:var(--text-sm); line-height:var(--leading-body);
+  color:var(--text-tertiary);
+}
+
+/* A state marker that survives a monochrome palette: fill for "done-ish",
+   outline for "not started", dashed for "never recorded". */
+.dot{
+  flex:none; display:inline-block; width:.5rem; height:.5rem; margin-right:var(--step-2);
+  border-radius:var(--radius-full); border:1px solid transparent;
+}
+.dot--done{ background:var(--text-primary); }
+.dot--closed{ background:var(--ink-70); }
+.dot--live{ background:var(--ink-50); }
+.dot--review{ border-color:var(--ink-60); }
+.dot--hold{ background:var(--ink-20); border-color:var(--ink-40); }
+.dot--todo{ border-color:var(--ink-30); }
+.dot--none{ border-style:dashed; border-color:var(--ink-30); }
+
+/* --- A. the allocation sheet ---------------------------------------------- */
+.sheet__controls{
+  display:flex; flex-wrap:wrap; align-items:flex-end; gap:var(--step-4);
+  padding-bottom:var(--step-4); margin-bottom:var(--step-5);
+  border-bottom:var(--hair) solid var(--border-default);
+}
+.sheet__filter{ display:flex; flex-direction:column; gap:var(--step-1); }
+.sheet__filter span{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+.sheet__filter select{
+  appearance:none; -webkit-appearance:none;
+  min-width:11ch; padding:var(--step-2) var(--step-6) var(--step-2) var(--step-3);
+  font:inherit; font-size:var(--text-sm); color:var(--text-primary);
+  background:var(--surface-raised); border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-sm); cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),
+                   linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-size:4px 4px, 4px 4px;
+  background-position:calc(100% - 16px) 52%, calc(100% - 12px) 52%;
+  background-repeat:no-repeat;
+  transition:border-color var(--duration-fast) var(--ease-out);
+}
+.sheet__filter select:hover{ border-color:var(--border-strong); }
+.sheet__filter select:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+.sheet__count{
+  margin-left:auto; font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-tertiary);
+}
+
+.sheet__wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.sheet{
+  width:100%; min-width:62rem; border-collapse:collapse;
+  font-size:var(--text-sm);
+}
+.sheet thead th{
+  position:sticky; top:0; z-index:1;
+  padding:var(--step-2) var(--step-4) var(--step-2) 0;
+  text-align:left; white-space:nowrap; font-weight:400;
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+  background:var(--surface-page);
+  border-bottom:var(--hair) solid var(--border-strong);
+}
+.sheet td{
+  padding:var(--step-3) var(--step-4) var(--step-3) 0;
+  vertical-align:top; color:var(--text-secondary);
+  border-bottom:var(--hair) solid var(--border-subtle);
+}
+.sheet tbody tr:hover td{ background:var(--ink-5); }
+.sheet tbody tr[hidden]{ display:none; }
+.sheet__id{ font-family:var(--font-mono); font-size:var(--text-mono); color:var(--text-tertiary); }
+.sheet__story{ color:var(--text-primary); min-width:22rem; }
+.sheet__status{ white-space:nowrap; }
+.sheet__status .dot{ vertical-align:baseline; }
+.sheet__empty{
+  margin-top:var(--step-5); font-size:var(--text-sm); color:var(--text-tertiary);
+}
+
+/* --- fill-rate bars ------------------------------------------------------- */
+.fill{ list-style:none; margin:0; padding:0; max-width:34rem; }
+.fill__row{
+  display:grid; grid-template-columns:14rem 1fr auto; align-items:center;
+  gap:var(--step-4); padding:var(--step-2) 0;
+}
+.fill__name{ font-size:var(--text-sm); color:var(--text-secondary); }
+.fill__bar{ height:2px; background:var(--ink-10); }
+.fill__bar i{ display:block; height:100%; background:var(--text-primary); }
+.fill__num{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-primary); font-variant-numeric:tabular-nums;
+}
+.fill__of{ color:var(--text-tertiary); }
+
+/* --- B. the template ------------------------------------------------------ */
+.spec{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(20rem,1fr));
+  gap:var(--step-10) var(--step-12);
+}
+.spec__title{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-primary); font-weight:400; margin:0;
+}
+.spec__title--gap{ margin-top:var(--step-10); }
+.spec__sub{
+  margin:var(--step-2) 0 var(--step-5);
+  font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-tertiary);
+}
+.spec__table{ width:100%; border-collapse:collapse; font-size:var(--text-sm); }
+.spec__table th{
+  width:48%; padding:var(--step-2) var(--step-4) var(--step-2) 0;
+  text-align:left; font-weight:400; color:var(--text-secondary);
+  border-bottom:var(--hair) solid var(--border-subtle); vertical-align:top;
+}
+.spec__table td{
+  padding:var(--step-2) 0; color:var(--text-primary); vertical-align:top;
+  border-bottom:var(--hair) solid var(--border-subtle);
+}
+.spec__hint{
+  display:block; font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-tertiary); text-transform:lowercase;
+}
+.spec__none{ color:var(--text-tertiary); font-style:italic; }
+
+.pipe{ list-style:none; margin:0; padding:0; border-top:var(--hair) solid var(--border-subtle); }
+.pipe__stage{
+  display:grid; grid-template-columns:2.5rem 1fr auto; align-items:baseline;
+  gap:var(--step-3); padding:var(--step-3) 0;
+  border-bottom:var(--hair) solid var(--border-subtle);
+}
+.pipe__n{
+  font-family:var(--font-mono); font-size:var(--text-mono); color:var(--text-tertiary);
+}
+.pipe__name{ font-size:var(--text-sm); color:var(--text-primary); }
+.pipe__val{
+  font-family:var(--font-mono); font-size:var(--text-mono); color:var(--text-tertiary);
+}
+
+.vocab{ display:grid; gap:var(--step-4); }
+.vocab__set h4{
+  margin:0 0 var(--step-1);
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-tertiary); font-weight:400; text-transform:uppercase;
+  letter-spacing:var(--track-label);
+}
+.vocab__set p{ margin:0; display:flex; flex-wrap:wrap; gap:var(--step-1) var(--step-3); }
+.vocab__set .tag{ color:var(--text-secondary); }
+
+/* --- C. availability heatmap ---------------------------------------------- */
+.heat__wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.heatmap{ border-collapse:collapse; font-size:var(--text-sm); }
+.heatmap thead th{
+  padding:0 0 var(--step-2); font-weight:400;
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-tertiary); text-align:left;
+  border-bottom:var(--hair) solid var(--border-default);
+}
+.heat__corner{ min-width:9rem; }
+.heat__who{
+  position:sticky; left:0; z-index:1;
+  padding:var(--step-1) var(--step-4) var(--step-1) 0; text-align:left;
+  font-family:var(--font-mono); font-size:var(--text-mono); font-weight:400;
+  color:var(--text-primary); background:var(--surface-page); white-space:nowrap;
+}
+.heat__squad{ display:block; color:var(--text-tertiary); }
+.heat__me .heat__who{ color:var(--accent); }
+.heat{
+  width:14px; height:14px; padding:0;
+  border:1px solid var(--surface-page);
+  background:var(--ink-10);
+}
+.heat--partial{ background:var(--ink-40); }
+.heat--leave{ background:var(--ink-80); }
+.heat--blank{ background:transparent; box-shadow:inset 0 0 0 1px var(--ink-10); }
+.swatch{
+  flex:none; display:inline-block; width:.75rem; height:.75rem; background:var(--ink-10);
+}
+.swatch--partial{ background:var(--ink-40); }
+.swatch--leave{ background:var(--ink-80); }
+.swatch--blank{ background:transparent; box-shadow:inset 0 0 0 1px var(--ink-10); }
+.swatch--bar{ width:1.5rem; height:3px; background:var(--text-primary); }
+
+/* --- D. squad spread + timeline ------------------------------------------- */
+.bars{ list-style:none; margin:0; padding:0; max-width:36rem; }
+.bars__row{
+  display:grid; grid-template-columns:8rem 1fr 2.5rem; align-items:center;
+  gap:var(--step-4); padding:var(--step-2) 0;
+}
+.bars__name{ font-size:var(--text-sm); color:var(--text-secondary); }
+.bars__bar{ height:10px; }
+.bars__bar i{ display:block; height:100%; background:var(--ink-40); }
+.bars__row:hover .bars__bar i{ background:var(--text-primary); }
+.bars__n{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-primary); font-variant-numeric:tabular-nums; text-align:right;
+}
+
+.gantt{ --gantt-label:17rem; overflow-x:auto; }
+.gantt__axis, .gantt__row{
+  display:grid; grid-template-columns:var(--gantt-label) 1fr; gap:var(--step-4);
+  align-items:center;
+}
+.gantt__axis{
+  padding-bottom:var(--step-2); margin-bottom:var(--step-2);
+  border-bottom:var(--hair) solid var(--border-default);
+}
+.gantt__axis .gantt__track{ height:1.1em; }
+.gantt__week{
+  position:absolute; top:0; transform:translateX(-50%);
+  font-family:var(--font-mono); font-size:var(--text-mono); color:var(--text-tertiary);
+  white-space:nowrap;
+}
+.gantt__rows{ list-style:none; margin:0; padding:0; }
+.gantt__row{ padding:var(--step-1) 0; }
+.gantt__row:hover{ background:var(--ink-5); }
+.gantt__label{ font-size:var(--text-sm); color:var(--text-primary); min-width:0; }
+.gantt__meta{
+  display:block; font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-tertiary);
+}
+.gantt__track{
+  position:relative; min-width:20rem; height:1.5rem;
+  border-left:var(--hair) solid var(--border-subtle);
+}
+.gantt__bar{
+  position:absolute; top:50%; height:3px; min-width:3px; transform:translateY(-50%);
+  background:var(--ink-50);
+}
+.gantt__bar--done, .gantt__bar--closed{ background:var(--text-primary); }
+.gantt__bar--hold, .gantt__bar--todo{ background:var(--ink-30); }
+.gantt__tick{
+  position:absolute; top:50%; width:2px; height:.75rem; transform:translateY(-50%);
+  background:var(--ink-50);
+}
+.gantt__tick--done, .gantt__tick--closed{ background:var(--text-primary); }
+.gantt__tick--hold, .gantt__tick--todo{ background:var(--ink-30); }
+
+/* --- E. OKRs -------------------------------------------------------------- */
+.fw__pair{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr));
+  gap:var(--step-8) var(--step-10);
+}
+.fw{ padding-top:var(--step-4); border-top:1px solid var(--border-strong); }
+.fw--b{ border-top-style:dashed; }
+.fw__title{
+  margin:0; font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-primary); font-weight:400;
+}
+.fw__src{
+  margin:var(--step-1) 0 var(--step-5);
+  font-family:var(--font-mono); font-size:var(--text-mono); color:var(--text-tertiary);
+}
+.fw__themes{ list-style:none; margin:0; padding:0; counter-reset:fw; }
+.fw__theme{
+  padding:var(--step-3) 0; border-bottom:var(--hair) solid var(--border-subtle);
+}
+.fw__name{
+  display:block; font-size:var(--text-sm); color:var(--text-primary);
+  margin-bottom:var(--step-1);
+}
+.fw__tracks{ display:flex; flex-wrap:wrap; gap:var(--step-1) var(--step-3); }
+
+.cascade__wrap, .qm__wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.cascade, .qm{ border-collapse:collapse; font-size:var(--text-sm); width:100%; }
+.cascade{ min-width:64rem; }
+.qm{ min-width:76rem; }
+.cascade thead th, .qm thead th{
+  padding:0 var(--step-4) var(--step-2) 0; text-align:left; vertical-align:bottom;
+  font-weight:400; font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-primary);
+  border-bottom:var(--hair) solid var(--border-strong);
+}
+.cascade__tracks{
+  display:block; margin-top:var(--step-1); max-width:18rem;
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:0; text-transform:none; color:var(--text-tertiary);
+}
+.cascade tbody th, .qm tbody th{
+  position:sticky; left:0; z-index:1;
+  padding:var(--step-4) var(--step-4) var(--step-4) 0; text-align:left; vertical-align:top;
+  font-family:var(--font-mono); font-size:var(--text-mono); font-weight:400;
+  color:var(--text-primary); background:var(--surface-page); white-space:nowrap;
+  border-bottom:var(--hair) solid var(--border-subtle);
+}
+.cascade td, .qm td{
+  padding:var(--step-4) var(--step-4) var(--step-4) 0; vertical-align:top;
+  color:var(--text-secondary); border-bottom:var(--hair) solid var(--border-subtle);
+  min-width:15rem;
+}
+.cascade__me th, .cascade__me td{ background:var(--ink-5); }
+.cascade__corner, .qm__corner{ min-width:8rem; }
+.cascade__items, .qm__items{ list-style:none; margin:0; padding:0; display:grid; gap:var(--step-2); }
+.cascade__items li, .qm__items li{ line-height:var(--leading-body); }
+.cascade__items li::before, .qm__items li::before{
+  content:"— "; color:var(--text-tertiary);
+}
+.cascade__gap{ color:var(--text-tertiary); }
+.qm thead tr:first-child th{ border-bottom-style:dashed; }
+.qm__track{ color:var(--text-tertiary); max-width:14rem; }
+.qm__q{ font-family:var(--font-mono); }
+
+/* --- responsive ----------------------------------------------------------- */
+@media (max-width:760px){
+  .fill__row{ grid-template-columns:1fr auto; }
+  .fill__bar{ grid-column:1 / -1; order:3; }
+  .bars__row{ grid-template-columns:1fr auto; }
+  .bars__bar{ grid-column:1 / -1; order:3; }
+  .gantt{ --gantt-label:9rem; }
+  .gantt__label{ font-size:var(--text-mono); }
+  .sheet__controls{ gap:var(--step-3); }
+  .sheet__count{ margin-left:0; flex-basis:100%; }
+
+  /* The allocation sheet restacks into one card per record, using the
+     data-label each cell carries, rather than scrolling eight columns. */
+  .sheet{ min-width:0; }
+  .sheet thead{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  .sheet, .sheet tbody, .sheet tr, .sheet td{ display:block; }
+  .sheet tr{
+    padding:var(--step-4) 0; border-bottom:var(--hair) solid var(--border-default);
+  }
+  .sheet td{
+    padding:var(--step-1) 0; border:0;
+    display:grid; grid-template-columns:9rem 1fr; gap:var(--step-3);
+  }
+  .sheet td::before{
+    content:attr(data-label);
+    font-family:var(--font-label); font-size:var(--text-label);
+    letter-spacing:var(--track-label); text-transform:uppercase;
+    color:var(--text-tertiary);
+  }
+  .sheet__story{ min-width:0; }
+  .sheet tbody tr:hover td{ background:none; }
+}
+
+/* The objective themes carry a sentence of their own in the workbook. */
+.fw__blurb{
+  display:block; margin-bottom:var(--step-2); max-width:46ch;
+  font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-tertiary);
+}
+
+/* A row with only one of its two dates gets a tick, not a bar. Which date it is
+   matters, so the two lean opposite ways instead of looking identical. */
+.gantt__tick--start{ border-left:2px solid currentColor; background:none; width:6px;
+  border-top:1px solid currentColor; }
+.gantt__tick--end{ border-right:2px solid currentColor; background:none; width:6px;
+  border-bottom:1px solid currentColor; }
+.gantt__tick--start, .gantt__tick--end{ color:var(--ink-50); height:.6rem; }
+.gantt__tick--done, .gantt__tick--closed{ color:var(--text-primary); }
+.gantt__tick--hold, .gantt__tick--todo{ color:var(--ink-30); }
+
+/* Stated rather than inherited, so the quietest state cannot drift. */
+.heat--available{ background:var(--ink-10); }
+.swatch--available{ background:var(--ink-10); }
+.spec__col{ min-width:0; }
+
+/* ---------------------------------------------------------------------------
+   LEDE HERO
+   A page that opens on a sentence rather than on the two-word display title.
+   One column: eyebrow, claim, lede. Used by DesignOps and by Work, which
+   is why it lives here and not in a page sheet.
+   ------------------------------------------------------------------------ */
+.lede-hero{
+  padding-block:var(--step-16) var(--step-12);
+}
+.lede-hero__eyebrow{ color:var(--accent-light); }
+.lede-hero__title{
+  margin:var(--step-6) 0 0;
+  font-family:var(--font-display);
+  font-weight:var(--weight-display);
+  letter-spacing:var(--track-display);
+  /* Not --leading-display: that is tuned for one word per line. A phrase
+     this long needs the descenders to clear. */
+  line-height:0.98;
+  font-size:clamp(2.4rem, 1rem + 5.2vw, 4.75rem);
+  text-wrap:balance;
+}
+.lede-hero__lede{
+  max-width:34rem;
+  margin:var(--step-8) 0 0;
+  font-size:var(--text-lg);
+  line-height:1.45;
+  color:var(--text-secondary);
+}
+.lede-hero__lede em{
+  font-style:normal;
+  color:var(--text-primary);
+}
+
+@media (max-width:980px){
+  .lede-hero__lede{ max-width:none; }
+}
+
+
+/* --- case-study artefacts --------------------------------------------------
+   A figure with its source named above the caption, and the two-column split
+   that pairs one with an argument. These began life on the design-quality
+   page; they are shared components now, because every case study needs to put
+   a real screen on the page and say what it is looking at. Note that the case
+   layout does not load quality.css, so they have to live here to work there.
+   -------------------------------------------------------------------------- */
+.plate{ margin:0; }
+.plate img{
+  display:block; width:100%; height:auto;
+  border:var(--hair) solid var(--border-default);
+  background:var(--ink-5);
+}
+.plate--hero{ margin-top:var(--step-10); }
+.plate--hero img{ border-color:var(--border-strong); }
+.plate__cap{
+  margin-top:var(--step-3); max-width:52ch;
+  font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-tertiary);
+}
+.plate__src{
+  display:block; margin-bottom:var(--step-1);
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label); text-transform:uppercase; color:var(--text-secondary);
+}
+
+/* A single artefact given its own width, between two full-bleed sections. */
+.plate--narrow{ max-width:46rem; margin-block:var(--step-10); }
+
+.split{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(20rem,1fr));
+  gap:var(--step-8) var(--step-12); align-items:start;
+}
+.split--wide{ grid-template-columns:1.25fr 1fr; }
+.split__text > * + *{ margin-top:var(--step-4); }
+
+@media (max-width:860px){
+  .split--wide{ grid-template-columns:1fr; }
+}

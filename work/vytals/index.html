@@ -1,0 +1,3708 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="mono" data-type="editorial" data-density="comfortable" data-radius="subtle" data-dense="yes">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vytals — Making health data easier to understand — Arushi Prasad</title>
+  <meta name="description" content="A 2024 health innovation initiative at Bajaj Finserv Health. A family of health products, each answering one health question, all resolving into a report a person can understand.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preload" href="../../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=f874ed78">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=c3f7efb8">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=be3cf32e">
+  <link rel="stylesheet" href="../../assets/css/vytals.css?v=5dc77392">
+  <link rel="stylesheet" href="../../assets/css/case.css?v=703795f5">
+  <!-- Loaded before paint so a saved token preference is applied to <html>
+       without a flash of the defaults. -->
+  <script src="../../assets/js/tokens.js?v=a7c3e9c1"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+<defs>
+<symbol id="i-colour" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M8 2.2a5.8 5.8 0 0 1 0 11.6z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-type" viewBox="0 0 16 16"><path d="M3.2 13.6 8 2.6l4.8 11"/><path d="M5.3 9.4h5.4"/></symbol>
+<symbol id="i-spacing" viewBox="0 0 16 16"><path d="M2.2 3.6v8.8M13.8 3.6v8.8"/><path d="M5 8h6"/><path d="m6.6 6.4-1.7 1.6 1.7 1.6M9.4 6.4 11.1 8 9.4 9.6"/></symbol>
+<symbol id="i-radius" viewBox="0 0 16 16"><path d="M2.4 13.6V7.2a4.8 4.8 0 0 1 4.8-4.8h6.4"/><path d="M2.4 2.4h.01M13.6 13.6h.01"/></symbol>
+<symbol id="i-opacity" viewBox="0 0 16 16"><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2a4.6 4.6 0 1 1-9.2 0C3.4 6.8 8 2.2 8 2.2Z"/><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2A4.6 4.6 0 0 1 8 14z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-grid" viewBox="0 0 16 16"><rect x="2.4" y="2.4" width="11.2" height="11.2" rx="1.4"/><path d="M6.13 2.4v11.2M9.87 2.4v11.2M2.4 6.13h11.2M2.4 9.87h11.2"/></symbol>
+  <symbol id="i-surprise" viewBox="0 0 16 16"><path d="M7.1 2.6 8.35 6.05 11.8 7.3 8.35 8.55 7.1 12 5.85 8.55 2.4 7.3 5.85 6.05Z"/><path d="M12.3 10.1v2.9M10.85 11.55h2.9"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 16 16"><path d="M13.4 8a5.4 5.4 0 1 1-1.8-4"/><path d="M13.6 2.6v3.6H10"/></symbol>
+<symbol id="i-bars" viewBox="0 0 16 16"><path d="M2.4 4.6h11.2M2.4 8h11.2M2.4 11.4h11.2"/></symbol>
+<symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
+<symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
+<symbol id="i-tick" viewBox="0 0 16 16"><path d="m3.4 8.4 3 3 6.2-7"/></symbol>
+<!-- Recognition. Stroke-drawn on the same 16-unit grid and at the same
+     weight as the rest, so they sit in a line of text without shouting. -->
+<symbol id="i-trophy" viewBox="0 0 16 16"><path d="M4.9 2.7h6.2v3.5a3.1 3.1 0 0 1-6.2 0Z"/><path d="M4.9 3.7H3.3v.9a2 2 0 0 0 1.6 1.9M11.1 3.7h1.6v.9a2 2 0 0 1-1.6 1.9"/><path d="M8 9.3v2.1"/><path d="M6.5 11.4h3v1.9h-3Z"/></symbol>
+<symbol id="i-star" viewBox="0 0 16 16"><path d="m8 2.5 1.7 3.45 3.8.55-2.75 2.68.65 3.79L8 11.18l-3.4 1.79.65-3.79L2.5 6.5l3.8-.55Z"/></symbol>
+<symbol id="i-medal" viewBox="0 0 16 16"><circle cx="8" cy="10.1" r="3.5"/><path d="M6.1 7.1 4.3 2.6M9.9 7.1l1.8-4.5"/></symbol>
+<!-- Document types. A page outline each, told apart by what is on it: ruled
+     cells for a workbook, a folded corner for a PDF, one wide band for a
+     deck. Same 16-unit grid and weight as everything else. -->
+<symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
+<symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
+<symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
+</defs>
+</svg>
+<header class="nav-wrap">
+  <nav class="nav shell" aria-label="Primary">
+    <a class="nav__logo" href="../../" aria-label="Arushi Prasad, home">
+      <img class="nav__avatar" src="../../assets/img/avatar.png" alt="" width="58" height="58" decoding="async">
+    </a>
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a class="nav__link" href="../../work/" aria-current="page" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../designops/" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../leadership/" aria-label="Leadership">leadership</a></li>
+      </ul>
+
+      <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
+    </div>
+  </nav>
+</header>
+<div class="nav-sheet" id="nav-sheet" data-open="false">
+  <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../../work/" aria-current="page">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../../designops/">Strategy<span>8</span></a></li><li><a class="nav-sheet__link" href="../../leadership/">Leadership<span>—</span></a></li><li><a class="nav-sheet__link" href="../../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../../about/">About<span>—</span></a></li><li><a class="nav-sheet__link" href="../../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../../snippets/">Snippets<span>5</span></a></li></ul>
+  <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
+</div>
+<main id="main" tabindex="-1">
+<div class="page ">
+<header class="page-hero shell">
+  <h1 class="page-hero__title" data-reveal>
+    <span class="page-hero__word page-hero__word-a">health</span>
+    <span class="page-hero__word page-hero__word-b">data</span>
+  </h1>
+  <p class="page-hero__tagline" data-reveal>Your body is constantly telling you something. Vytals turns those signals into a report a person can read.</p>
+  
+</header>
+<div class="case__prog" data-case-prog aria-hidden="true"><span class="case__prog-bar" data-case-prog-bar></span></div>
+<div class="case">
+<aside class="case__rail" data-case-rail data-open="false" aria-labelledby="case-project">
+  <button class="case__toc" type="button" data-case-toc aria-expanded="false" aria-controls="case-toc">
+    <span class="case__toc-eyebrow">
+      <span class="case__toc-word">Contents</span>
+      <span class="case__toc-name">Vytals</span>
+    </span>
+    <span class="case__toc-now" data-case-now>Overview</span>
+    <svg class="ico case__toc-ico" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg>
+  </button>
+  <div class="case__rail-in" id="case-toc">
+    <div class="case__about">
+      <div class="case__titlewrap">
+        <h2 class="case__project" id="case-project">Vytals</h2>
+      </div>
+      <dl class="case__meta"><div class="case__meta-row"><dt class="case__meta-k">Role</dt><dd class="case__meta-v">Design Lead · Innovation team</dd></div><div class="case__meta-row"><dt class="case__meta-k">Year</dt><dd class="case__meta-v">2024</dd></div><div class="case__meta-row"><dt class="case__meta-k">Company</dt><dd class="case__meta-v">Bajaj Finserv Health</dd></div><div class="case__meta-row"><dt class="case__meta-k">Team</dt><dd class="case__meta-v">8 designers · 4 product · 4 technology</dd></div><div class="case__meta-row"><dt class="case__meta-k">Scope</dt><dd class="case__meta-v">Product thinking · experience architecture · UX/UI · report design · design system</dd></div></dl>
+    </div>
+    <nav class="case__nav" aria-label="Sections in this case study">
+      <ol class="case__list" role="list">
+        <li class="case__item"><a class="case__link" href="#vy-overview" data-case-link="vy-overview"><span class="case__count">01</span><span class="case__label">Overview</span></a></li><li class="case__item"><a class="case__link" href="#vy-opportunity" data-case-link="vy-opportunity"><span class="case__count">02</span><span class="case__label">The Opportunity</span></a></li><li class="case__item"><a class="case__link" href="#vy-howitworks" data-case-link="vy-howitworks"><span class="case__count">03</span><span class="case__label">How Vytals Works</span></a></li><li class="case__item"><a class="case__link" href="#vy-ecosystem" data-case-link="vy-ecosystem"><span class="case__count">04</span><span class="case__label">Product Ecosystem</span></a></li><li class="case__item"><a class="case__link" href="#vy-challenge" data-case-link="vy-challenge"><span class="case__count">05</span><span class="case__label">The Design Challenge</span></a></li><li class="case__item"><a class="case__link" href="#vy-approach" data-case-link="vy-approach"><span class="case__count">06</span><span class="case__label">My Approach</span></a></li><li class="case__item"><a class="case__link" href="#vy-system" data-case-link="vy-system"><span class="case__count">07</span><span class="case__label">Design Language & System</span></a></li><li class="case__item"><a class="case__link" href="#vy-report" data-case-link="vy-report"><span class="case__count">08</span><span class="case__label">The Report</span></a></li><li class="case__item"><a class="case__link" href="#vy-trust" data-case-link="vy-trust"><span class="case__count">09</span><span class="case__label">Designing for Trust</span></a></li><li class="case__item"><a class="case__link" href="#vy-leading" data-case-link="vy-leading"><span class="case__count">10</span><span class="case__label">Leading the Work</span></a></li><li class="case__item"><a class="case__link" href="#vy-outcomes" data-case-link="vy-outcomes"><span class="case__count">11</span><span class="case__label">Outcomes & Learnings</span></a></li>
+      </ol>
+    </nav>
+  </div>
+</aside>
+<div class="case__main">
+<!-- The Vytals case study, in the portfolio's case layout. The source page was
+     a standalone design with its own stylesheet; its content is carried across
+     verbatim and its markup rewritten onto the site's components, so the page
+     reads like every other case study here. The source runs twenty-three acts;
+     they group into the eleven sections the rail lists.
+     Generated by _convert_vytals.py from 02. Work/03. Vytals/case-study/. -->
+
+<section aria-labelledby="h-vy-overview" class="section" id="vy-overview" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   01 — Overview
+  </p>
+  <h2 class="t-h2" id="h-vy-overview">
+   What is Vytals?
+  </h2>
+  <p class="prose">
+   Vytals is a family of health products built inside the Innovation team at Bajaj Finserv Health. Each product answers one health question, reads the signals that question needs, and returns a report the person can actually read.
+  </p>
+ </div>
+ <ul class="case__facts" data-reveal="" role="list">
+  <li class="case__fact">
+   <b>
+    Design Lead · Innovation team
+   </b>
+   <span>
+    Role
+   </span>
+  </li>
+  <li class="case__fact">
+   <b>
+    2024
+   </b>
+   <span>
+    Year
+   </span>
+  </li>
+  <li class="case__fact">
+   <b>
+    Bajaj Finserv Health
+   </b>
+   <span>
+    Company
+   </span>
+  </li>
+  <li class="case__fact">
+   <b>
+    8 designers · 4 product · 4 technology
+   </b>
+   <span>
+    Team
+   </span>
+  </li>
+  <li class="case__fact">
+   <b>
+    Product thinking · experience architecture · UX/UI · report design · design system
+   </b>
+   <span>
+    Scope
+   </span>
+  </li>
+ </ul>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="A blood marker on a low-normal-high track with a plain-language explanation beside it" height="210" loading="lazy" src="../../assets/img/vytals/biomarker-detail.png" width="645"/>
+   <figcaption class="vy-rail__cap">
+    Blood
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Fourteen days of glucose readings drawn as a bar chart with best days and tough days marked" height="240" loading="lazy" src="../../assets/img/vytals/met-glucose.png" width="550"/>
+   <figcaption class="vy-rail__cap">
+    Metabolism
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Stress, anxiety and depression scored as dot-density matrices" height="480" loading="lazy" src="../../assets/img/vytals/stress-matrix.png" width="470"/>
+   <figcaption class="vy-rail__cap">
+    Stress
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Biological age and pace of ageing shown as two deep red cards" height="240" loading="lazy" src="../../assets/img/vytals/flow-bioage.png" width="900"/>
+   <figcaption class="vy-rail__cap">
+    Ageing
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A facial scan with a redness overlay and a severity label" height="760" loading="lazy" src="../../assets/img/vytals/skin-face.png" width="720"/>
+   <figcaption class="vy-rail__cap">
+    Skin
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Wearable readings for resting heart rate, heart rate variability, activity, oxygen saturation and daily stress minutes" height="580" loading="lazy" src="../../assets/img/vytals/str-wearable.png" width="420"/>
+   <figcaption class="vy-rail__cap">
+    Wearables
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="An organ risk map rendered as a dot-density field" height="310" loading="lazy" src="../../assets/img/vytals/flow-riskmap.png" width="480"/>
+   <figcaption class="vy-rail__cap">
+    Risk
+   </figcaption>
+  </figure>
+ </div>
+ <p class="plate__cap vy-cap" data-reveal="">
+  <span class="plate__src">
+   Scroll →
+  </span>
+  Seven kinds of signal, seven real artefacts. Every one of them began as a number and ended as a sentence.
+ </p>
+ <div class="split" data-reveal="">
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    Vytals brings health signals together to help people understand their health.
+   </h3>
+   <p class="prose" data-reveal="">
+    The products sit in preventive health: they look for early indicators while there is still time to act on them. A Vytals report reads blood results across nine major body systems, compares each one against what is typical for the reader’s age and sex, and explains what the pattern suggests.
+   </p>
+   <p class="prose" data-reveal="">
+    The product describes itself plainly on its own cover:
+    <em>
+     “decodes your internal health by analysing key body systems, identifying at-risk organs, and revealing real physiological trends.”
+    </em>
+    Everything in this case study serves that sentence.
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="Health Intelligence — The Complete Analysis report cover, dark with a fine linear wave and a short product description" height="950" loading="lazy" src="../../assets/img/vytals/hir-cover.png" width="1440"/>
+   <figcaption class="plate__cap">
+    Health Intelligence · the deepest product in the family
+   </figcaption>
+  </figure>
+ </div>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="How it works: upload your report, biomarkers are auto-detected, insights are returned, missing biomarkers are highlighted" height="440" loading="lazy" src="../../assets/img/vytals/mk-howitworks.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    Four steps, stated on the product’s own page
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Clinical credibility section: lab-certified, doctor-reviewed, early risk detection" height="430" loading="lazy" src="../../assets/img/vytals/mk-credibility.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    Credibility, stated before the purchase
+   </figcaption>
+  </figure>
+ </div>
+</section>
+
+
+<section aria-labelledby="h-vy-opportunity" class="section" id="vy-opportunity" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   02 — The Opportunity
+  </p>
+  <h2 class="t-h2" id="h-vy-opportunity">
+   Health data becomes more useful when people can understand it.
+  </h2>
+ </div>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    01
+   </p>
+   <h3 class="row__title">
+    Volume
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     A modern panel carries a lot of signal.
+    </p>
+    <p>
+     Blood, questionnaires, wearables, scans and continuous readings all describe the same body from different angles.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    02
+   </p>
+   <h3 class="row__title">
+    Context
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Context is what makes a reading readable.
+    </p>
+    <p>
+     A value becomes meaningful next to a range, a cohort, an age, or a plain sentence about what it does.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    03
+   </p>
+   <h3 class="row__title">
+    Action
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Understanding earns its value when it changes a decision.
+    </p>
+    <p>
+     Every finding in a Vytals report carries a response the reader can start this week.
+    </p>
+   </div>
+  </div>
+ </div>
+ <h3 class="t-h3" data-reveal="">
+  The central question:
+  <em>
+   how do we help someone understand their own body better?
+  </em>
+ </h3>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Data
+  </span>
+  <span>
+   Information
+  </span>
+  <span>
+   Understanding
+  </span>
+  <span>
+   Insight
+  </span>
+  <span>
+   Action
+  </span>
+ </p>
+ <p class="plate__cap vy-cap" data-reveal="">
+  <span class="plate__src">
+   The spine
+  </span>
+  Every product in the family runs this sequence. It is the recurring motif of the whole ecosystem, and it returns five more times on this page.
+ </p>
+</section>
+
+
+<section aria-labelledby="h-vy-howitworks" class="section" id="vy-howitworks" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   03 — How Vytals Works
+  </p>
+  <h2 class="t-h2" id="h-vy-howitworks">
+   From a health question to a clearer understanding.
+  </h2>
+  <p class="prose">
+   The product model is the same in every product. A person starts with a question they would say out loud, provides the signals that question needs, and receives a report that answers it.
+  </p>
+ </div>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    Choose
+   </p>
+   <h3 class="row__title">
+    A health question
+   </h3>
+   <div class="row__body">
+    <p>
+     Each product is named for the question it answers, so choosing a product is choosing a question.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    Provide
+   </p>
+   <h3 class="row__title">
+    The signals
+   </h3>
+   <div class="row__body">
+    <p>
+     A home sample collection, an assessment, a wearable connection or a facial scan, depending on the question.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    Analyse
+   </p>
+   <h3 class="row__title">
+    The reading
+   </h3>
+   <div class="row__body">
+    <p>
+     Values are scored against age and sex cohorts, grouped into body systems and reviewed clinically.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    Read
+   </p>
+   <h3 class="row__title">
+    The report
+   </h3>
+   <div class="row__body">
+    <p>
+     One reading experience, ordered so the reader always knows where they are in the argument.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    Act
+   </p>
+   <h3 class="row__title">
+    The next step
+   </h3>
+   <div class="row__body">
+    <p>
+     Four fixed action lanes close every section that raises a concern: diet, activity, lifestyle, other.
+    </p>
+   </div>
+  </div>
+ </div>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="Health Plus+ product page across desktop and mobile, with a phone-number sign-up modal" height="560" loading="lazy" src="../../assets/img/vytals/flowb-01.png" width="2100"/>
+   <figcaption class="vy-rail__cap">
+    Choose
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Welcome back to Health Plus+ with a three-step progress list, and location-search and map-pin modals for choosing a collection address" height="560" loading="lazy" src="../../assets/img/vytals/freemium-flow.png" width="1900"/>
+   <figcaption class="vy-rail__cap">
+    Provide
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="System risk distribution: nine body systems each drawn as a dot-density field with a score and a status" height="490" loading="lazy" src="../../assets/img/vytals/rp-sysrisk.png" width="610"/>
+   <figcaption class="vy-rail__cap">
+    Analyse
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Health Intelligence report section with biological age cards" height="764" loading="lazy" src="../../assets/img/vytals/hir-bioage.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    Read
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Your next best actions: diet, physical activity, lifestyle and miscellaneous" height="250" loading="lazy" src="../../assets/img/vytals/hi-nextbest.png" width="468"/>
+   <figcaption class="vy-rail__cap">
+    Act
+   </figcaption>
+  </figure>
+ </div>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  Membership
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  The journey continues after the result.
+ </h3>
+ <p class="prose" data-reveal="">
+  Health Plus+ is the membership entry point: a yearly plan built around a broad biomarker panel and continuous monitoring. It carries the part of the experience that happens in the world — a collection at your door, an assessment on your phone, a report a few days later.
+ </p>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Join
+  </span>
+  <span>
+   Discover
+  </span>
+  <span>
+   Test
+  </span>
+  <span>
+   Understand
+  </span>
+  <span>
+   Continue
+  </span>
+ </p>
+ <div class="split" data-reveal="">
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    The plan page names exactly what arrives.
+   </h3>
+   <p class="prose" data-reveal="">
+    A number, a price and a promise: 51 biomarkers, continuous monitoring, home collection, a doctor-reviewed plan and a digital report. The proposition is stated in the reader’s units before any money moves.
+   </p>
+   <p class="prose" data-reveal="">
+    Sign-up runs on a phone number and an OTP, then a name and an age. The shortest path that still gives the report enough to personalise itself.
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="Buy the Health Intelligence Test card listing advanced markers, a doctor-reviewed plan, at-home sample collection and a digital report" height="400" loading="lazy" src="../../assets/img/vytals/mk-offer.png" width="1440"/>
+   <figcaption class="plate__cap">
+    What is included, stated before the price
+   </figcaption>
+  </figure>
+ </div>
+ <div class="split" data-reveal="">
+  <figure class="plate" data-reveal="">
+   <img alt="Account and plan screens in the Health Plus+ journey, with a three-step progress list" height="560" loading="lazy" src="../../assets/img/vytals/flowb-02.png" width="2100"/>
+   <figcaption class="plate__cap">
+    Plan active → book → assess → report
+   </figcaption>
+  </figure>
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    The waiting state is a designed state.
+   </h3>
+   <p class="prose" data-reveal="">
+    “Your plan is active”, then three numbered steps: book your lab test, take your health assessment, report generation. The third step names itself openly as automated processing with a time expectation attached.
+   </p>
+   <p class="prose" data-reveal="">
+    Days pass between paying and understanding. Naming that gap, and giving the reader something completable inside it, is what keeps the journey continuous.
+   </p>
+  </div>
+ </div>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="Assessment screens in the Health Plus+ journey" height="560" loading="lazy" src="../../assets/img/vytals/flowb-03.png" width="2100"/>
+   <figcaption class="vy-rail__cap">
+    The assessment earns the report’s personal voice
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Report delivery screens in the Health Plus+ journey, including a download control" height="560" loading="lazy" src="../../assets/img/vytals/flowb-04.png" width="2100"/>
+   <figcaption class="vy-rail__cap">
+    Report generated, ready to download
+   </figcaption>
+  </figure>
+ </div>
+ <p class="plate__cap vy-cap" data-reveal="">
+  <span class="plate__src">
+   Continue
+  </span>
+  Booking details stay visible afterwards, with view, cancel and reschedule in the same place. A yearly plan needs a screen that a person returns to.
+ </p>
+</section>
+
+
+<section aria-labelledby="h-vy-ecosystem" class="section" id="vy-ecosystem" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   04 — Product Ecosystem
+  </p>
+  <h2 class="t-h2" id="h-vy-ecosystem">
+   One platform. Multiple health questions.
+  </h2>
+  <p class="prose">
+   Blood, an assessment, a wearable, a facial scan, a genetic sample. Each signal carries its own economics and its own emotional register, so each health question became a focused product with its own world — connected by one report experience.
+  </p>
+ </div>
+ <div class="rows" data-pc="1" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    01
+   </p>
+   <h3 class="row__title">
+    Health Intelligence
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     “How is my body actually doing?”
+    </p>
+    <p>
+     A whole-body read, resolved into nine body systems with a narrative order.
+    </p>
+    <dl class="vy-defs">
+     <dt>
+      Signals
+     </dt>
+     <dd>
+      A large blood biomarker panel.
+     </dd>
+     <dt>
+      What you learn
+     </dt>
+     <dd>
+      System scores, biological age, pace of ageing, percentile against your cohort, predicted risks.
+     </dd>
+     <dt>
+      Report output
+     </dt>
+     <dd>
+      A long web and print document, with a free preview and an unlockable full analysis.
+     </dd>
+    </dl>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    02
+   </p>
+   <h3 class="row__title">
+    Alcohol Impact
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     “Is my drinking doing damage?”
+    </p>
+    <p>
+     A single impact score, explained organ by organ in the same breath it is delivered.
+    </p>
+    <dl class="vy-defs">
+     <dt>
+      Signals
+     </dt>
+     <dd>
+      Lifestyle answers read against liver and lipid markers.
+     </dd>
+     <dt>
+      What you learn
+     </dt>
+     <dd>
+      An impact score, organ-by-organ consequence, current state and future risk.
+     </dd>
+     <dt>
+      Report output
+     </dt>
+     <dd>
+      A navy print-format report closing on a personalised action plan.
+     </dd>
+    </dl>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    03
+   </p>
+   <h3 class="row__title">
+    Stress Impact
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     “Is stress showing up in my body?”
+    </p>
+    <p>
+     Something felt subjectively, scored against published instruments named on the page.
+    </p>
+    <dl class="vy-defs">
+     <dt>
+      Signals
+     </dt>
+     <dd>
+      The Perceived Stress Scale, the Holmes-Rahe Inventory, wearable readings and biomarkers.
+     </dd>
+     <dt>
+      What you learn
+     </dt>
+     <dd>
+      Domain-by-domain impact — physical, emotional, social, cognitive — with sleep and recovery alongside.
+     </dd>
+     <dt>
+      Report output
+     </dt>
+     <dd>
+      A charcoal report with archetypes, matrices and wearable panels.
+     </dd>
+    </dl>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    04
+   </p>
+   <h3 class="row__title">
+    Metabolic
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     “How well am I processing energy?”
+    </p>
+    <p>
+     Glucose, lipids and energy read as one system over a fortnight of real days.
+    </p>
+    <dl class="vy-defs">
+     <dt>
+      Signals
+     </dt>
+     <dd>
+      Blood markers plus fourteen days of continuous glucose readings.
+     </dd>
+     <dt>
+      What you learn
+     </dt>
+     <dd>
+      A metabolic and food score, what is working well, easy wins, and next steps by time of day.
+     </dd>
+     <dt>
+      Report output
+     </dt>
+     <dd>
+      A green, photographic report built around a fourteen-day analysis.
+     </dd>
+    </dl>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    05
+   </p>
+   <h3 class="row__title">
+    Skin Analysis
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     “Why does my skin look like this?”
+    </p>
+    <p>
+     The finding shown on the reader’s own face, in a dark conversational mobile experience.
+    </p>
+    <dl class="vy-defs">
+     <dt>
+      Signals
+     </dt>
+     <dd>
+      A facial scan.
+     </dd>
+     <dt>
+      What you learn
+     </dt>
+     <dd>
+      A labelled finding, a coach you can question, a projection forward, and a plan.
+     </dd>
+     <dt>
+      Report output
+     </dt>
+     <dd>
+      A mobile result experience, built as a flow.
+     </dd>
+    </dl>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Entry · Health Plus+
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     The membership around the family
+    </p>
+    <p>
+     A yearly plan built on a broad panel with continuous monitoring, and the logistics that make a blood test happen.
+    </p>
+    <dl class="vy-defs">
+     <dt>
+      Signals
+     </dt>
+     <dd>
+      51 biomarkers plus the health assessment.
+     </dd>
+     <dt>
+      What you learn
+     </dt>
+     <dd>
+      The full Health Intelligence read, refreshed over the year.
+     </dd>
+     <dt>
+      Report output
+     </dt>
+     <dd>
+      The same report experience, delivered on a plan.
+     </dd>
+    </dl>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Family · HealthEx · DNA
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     “What am I predisposed to?”
+    </p>
+    <p>
+     Genetic markers, carrying the strictest language rule in the family: predisposition reads as predisposition.
+    </p>
+    <dl class="vy-defs">
+     <dt>
+      Signals
+     </dt>
+     <dd>
+      Genetic markers.
+     </dd>
+     <dt>
+      What you learn
+     </dt>
+     <dd>
+      Inherited tendencies, framed alongside the signals a person can change.
+     </dd>
+     <dt>
+      Evidence
+     </dt>
+     <dd>
+      No design artefact was available for this page, so none is shown.
+     </dd>
+    </dl>
+   </div>
+  </div>
+ </div>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="Health Intelligence report cover in black with amber accents" height="950" loading="lazy" src="../../assets/img/vytals/hir-cover.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    Health Intelligence
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Alcohol Impact Assessment cover in navy and teal" height="800" loading="lazy" src="../../assets/img/vytals/alc-cover.png" width="636"/>
+   <figcaption class="vy-rail__cap">
+    Alcohol Impact
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Stress archetype cards, dark with coloured titles" height="550" loading="lazy" src="../../assets/img/vytals/stress-archetype.png" width="510"/>
+   <figcaption class="vy-rail__cap">
+    Stress Impact
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Metabolic Health Report cover in soft green" height="480" loading="lazy" src="../../assets/img/vytals/met-cover.png" width="762"/>
+   <figcaption class="vy-rail__cap">
+    Metabolic
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Skin analysis result on the user's own face with a redness overlay" height="760" loading="lazy" src="../../assets/img/vytals/skin-face.png" width="720"/>
+   <figcaption class="vy-rail__cap">
+    Skin Analysis
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Your AI Skin Coach with four suggested questions and an ask-me-anything field" height="1240" loading="lazy" src="../../assets/img/vytals/skin-coach.png" width="720"/>
+   <figcaption class="vy-rail__cap">
+    Skin · something to ask
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Metabolic profile and goals section opener over soft food photography" height="700" loading="lazy" src="../../assets/img/vytals/met-scores.png" width="762"/>
+   <figcaption class="vy-rail__cap">
+    Metabolic · a world of its own
+   </figcaption>
+  </figure>
+ </div>
+ <p class="plate__cap vy-cap" data-reveal="">
+  <span class="plate__src">
+   Five worlds, one family
+  </span>
+  Recognisably related, never the same page. The grammar underneath is identical; the temperament changes with the conversation.
+ </p>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  What we test
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  Different questions require different signals.
+ </h3>
+ <p class="prose" data-reveal="">
+  Six kinds of signal run through the family. Each one answers a different part of the same question, and each one needed its own way of being drawn.
+ </p>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Blood biomarkers
+   </h3>
+   <div class="row__body">
+    <p>
+     Lipid panel · Inflammation (hs-CRP) · Kidney function (creatinine, eGFR, BUN, albumin/creatinine ratio) · Liver function (SGOT, SGPT, albumin) · Thyroid (TSH) · Bone and mineral health (calcium, vitamin D) · Complete blood count · Micronutrients (vitamin B12) · Electrolytes (sodium, potassium) · Glucose metabolism (fasting glucose, HbA1c).
+    </p>
+    <p>
+     <strong>
+      What it helps a person understand:
+     </strong>
+     how nine body systems are performing right now, and which of them is carrying the most load.
+    </p>
+    <p class="vy-tags">
+     <span>
+      Health Intelligence
+     </span>
+     <span>
+      Alcohol
+     </span>
+     <span>
+      Metabolic
+     </span>
+     <span>
+      Stress
+     </span>
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Self-reported assessment
+   </h3>
+   <div class="row__body">
+    <p>
+     Lifestyle and habit questions, plus published instruments named openly on the page: the Perceived Stress Scale and the Holmes-Rahe Inventory.
+    </p>
+    <p>
+     <strong>
+      What it helps a person understand:
+     </strong>
+     how daily life connects to what the blood shows, and it earns the report the right to speak in the second person.
+    </p>
+    <p class="vy-tags">
+     <span>
+      Stress
+     </span>
+     <span>
+      Alcohol
+     </span>
+     <span>
+      Health Plus+
+     </span>
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Wearable signals
+   </h3>
+   <div class="row__body">
+    <p>
+     Steps and calories · sleep duration, REM and deep sleep · resting heart rate · heart rate variability · oxygen saturation · daily high-stress minutes and percentage stress score.
+    </p>
+    <p>
+     <strong>
+      What it helps a person understand:
+     </strong>
+     how the last few weeks actually felt, in numbers they can compare to an ideal range for their age group.
+    </p>
+    <p class="vy-tags">
+     <span>
+      Stress
+     </span>
+     <span>
+      Alcohol
+     </span>
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Continuous glucose, fourteen days
+   </h3>
+   <div class="row__body">
+    <p>
+     Daily glucose readings with an average and a range, with best days and tough days marked, read against meal timing.
+    </p>
+    <p>
+     <strong>
+      What it helps a person understand:
+     </strong>
+     how their own food behaves in their own body, on their own days.
+    </p>
+    <p class="vy-tags">
+     <span>
+      Metabolic
+     </span>
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Facial scan
+   </h3>
+   <div class="row__body">
+    <p>
+     A scan of the reader’s own face, returned with an overlay marking the finding and a severity label.
+    </p>
+    <p>
+     <strong>
+      What it helps a person understand:
+     </strong>
+     exactly where the finding sits, because it is drawn on their own face.
+    </p>
+    <p class="vy-tags">
+     <span>
+      Skin Analysis
+     </span>
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Genetic markers
+   </h3>
+   <div class="row__body">
+    <p>
+     Inherited markers, communicated as predisposition and always placed beside the signals a person can change.
+    </p>
+    <p>
+     <strong>
+      What it helps a person understand:
+     </strong>
+     the tendencies they started with, framed so the changeable signals stay in view.
+    </p>
+    <p class="vy-tags">
+     <span>
+      HealthEx · DNA
+     </span>
+    </p>
+   </div>
+  </div>
+ </div>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="The biomarker panel listed by category: lipid panel, inflammation, kidney, liver, thyroid, bone and mineral, complete blood count, micronutrients, electrolytes, glucose metabolism" height="1030" loading="lazy" src="../../assets/img/vytals/mk-panel.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    Blood · the panel, named category by category
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Wearable panel showing steps, calories burned and sleep data including duration, REM and deep sleep" height="560" loading="lazy" src="../../assets/img/vytals/str-sleep.png" width="420"/>
+   <figcaption class="vy-rail__cap">
+    Wearables · a week, as the body recorded it
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Fourteen days of glucose readings with average and range" height="240" loading="lazy" src="../../assets/img/vytals/met-glucose.png" width="550"/>
+   <figcaption class="vy-rail__cap">
+    Glucose · fourteen real days
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A facial scan returned with a redness overlay and a severity label" height="760" loading="lazy" src="../../assets/img/vytals/skin-face.png" width="720"/>
+   <figcaption class="vy-rail__cap">
+    Scan · the finding, on you
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Two named stress instruments drawn at low, moderate and high" height="450" loading="lazy" src="../../assets/img/vytals/stress-states.png" width="660"/>
+   <figcaption class="vy-rail__cap">
+    Assessment · named instruments
+   </figcaption>
+  </figure>
+ </div>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Signal
+  </span>
+  <span>
+   Meaning
+  </span>
+  <span>
+   Health question
+  </span>
+  <span>
+   Report
+  </span>
+ </p>
+</section>
+
+
+<section aria-labelledby="h-vy-challenge" class="section" id="vy-challenge" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   05 — The Design Challenge
+  </p>
+  <h2 class="t-h2" id="h-vy-challenge">
+   Turning complex health data into meaningful understanding.
+  </h2>
+  <p class="prose">
+   Six design goals held across every product. They are the standing brief that the rest of this case study answers.
+  </p>
+ </div>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Density
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Give a hundred readings a reading order.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Literacy
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Write every number in ordinary words.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Context
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Place each value against something already familiar.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Trust
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Match the language to the confidence of the science.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Action
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Attach a response to every concern raised.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Consistency
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Let one reading experience carry every product.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Devices
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Hold the same report on print, web and mobile.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Scale
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Let the second product inherit the first.
+    </p>
+   </div>
+  </div>
+ </div>
+ <h3 class="t-h3" data-reveal="">
+  The spine, shown in real screens.
+ </h3>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Data
+  </span>
+  <span>
+   Information
+  </span>
+  <span>
+   Understanding
+  </span>
+  <span>
+   Insight
+  </span>
+  <span>
+   Action
+  </span>
+ </p>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="A biomarker card: a value with its unit, a low-normal-high track with the reading marked, and a plain-language explanation" height="210" loading="lazy" src="../../assets/img/vytals/biomarker-detail.png" width="645"/>
+   <figcaption class="vy-rail__cap">
+    01 Data → Information
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Percentile ranking card: rank 68 out of 100 for males aged 35 to 44, plotted on a bell curve" height="330" loading="lazy" src="../../assets/img/vytals/flow-percentile.png" width="480"/>
+   <figcaption class="vy-rail__cap">
+    02 Information → Understanding
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Two deep red cards reading biological age 42 and pace of ageing 1.5x" height="240" loading="lazy" src="../../assets/img/vytals/flow-bioage.png" width="900"/>
+   <figcaption class="vy-rail__cap">
+    03 Understanding → Insight
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Your next best actions across diet, physical activity, lifestyle and miscellaneous" height="250" loading="lazy" src="../../assets/img/vytals/hi-nextbest.png" width="468"/>
+   <figcaption class="vy-rail__cap">
+    04 Insight → Action
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A metabolic food score of 68 out of 100 with an explanation of what it indicates" height="340" loading="lazy" src="../../assets/img/vytals/met-foodscore.png" width="550"/>
+   <figcaption class="vy-rail__cap">
+    The same sequence, in Metabolic
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Four illustrated action panels: diet, physical activity, lifestyle, miscellaneous" height="180" loading="lazy" src="../../assets/img/vytals/hi-actions.png" width="468"/>
+   <figcaption class="vy-rail__cap">
+    The same four lanes, everywhere
+   </figcaption>
+  </figure>
+ </div>
+</section>
+
+
+<section aria-labelledby="h-vy-approach" class="section" id="vy-approach" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   06 — My Approach
+  </p>
+  <h2 class="t-h2" id="h-vy-approach">
+   How I approached the product.
+  </h2>
+  <p class="prose">
+   Design entered this initiative at the point where the health question was still being chosen, so the work runs from opportunity through to the component library that let five products ship in parallel.
+  </p>
+ </div>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Understand the health problem
+   </h3>
+   <div class="row__body">
+    <p>
+     Work the health space with product and the business, and learn what each signal can honestly support.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Explore product opportunities
+   </h3>
+   <div class="row__body">
+    <p>
+     Turn health problems into candidate products, and shape the ones we could make understandable.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Define the experience
+   </h3>
+   <div class="row__body">
+    <p>
+     Decide what a person provides, what they receive, and what carries the value.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Structure the information
+   </h3>
+   <div class="row__body">
+    <p>
+     Give the report a fixed argument so detail can nest inside it.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Create the visual language
+   </h3>
+   <div class="row__body">
+    <p>
+     One surface rule, one status scale, one colour world per product.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Build the design system
+   </h3>
+   <div class="row__body">
+    <p>
+     Role-named tokens, three-state components, patterns for data and for reports.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Scale across products
+   </h3>
+   <div class="row__body">
+    <p>
+     Make the second product inherit the first, and the fifth inherit all four.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Enable the team
+   </h3>
+   <div class="row__body">
+    <p>
+     Direction, review and a quality bar that held across work running at the same time.
+    </p>
+   </div>
+  </div>
+ </div>
+ <div class="split" data-reveal="">
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    Design contributed to what the product became.
+   </h3>
+   <p class="prose" data-reveal="">
+    The comprehension question came first and shaped product scope. If a signal could be read but never explained, it stayed out. If a signal could be made meaningful with one good device, it earned its place.
+   </p>
+   <p class="prose" data-reveal="">
+    That is why age equivalence, percentile ranking and the dot-density field appear across the family: each one converts a technical value into a unit a person already owns.
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="A results table with an age equivalent column highlighted, translating each reading into an age band" height="260" loading="lazy" src="../../assets/img/vytals/flow-ageequiv.png" width="500"/>
+   <figcaption class="plate__cap">
+    Age equivalence · a comprehension device that became a product idea
+   </figcaption>
+  </figure>
+ </div>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  Innovation → product design
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  Questions became products.
+ </h3>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Health problem
+  </span>
+  <span>
+   Opportunity
+  </span>
+  <span>
+   Product idea
+  </span>
+  <span>
+   Design exploration
+  </span>
+  <span>
+   Product experience
+  </span>
+  <span>
+   Report
+  </span>
+ </p>
+ <div class="split" data-reveal="">
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    The Innovation team turned health questions into candidate products.
+   </h3>
+   <p class="prose" data-reveal="">
+    The initiative arrived from the Chief Business Officer as a question about the health space, open enough to shape. I led the design front of it, working with product and technology to shape which questions could become products and what each product would return.
+   </p>
+   <p class="prose" data-reveal="">
+    Product decisions and design decisions were the same conversation here. The clearest example is the free preview: the report opens with real scores visible and the depth behind them held back, so a person meets the value before they meet the price.
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="A report page with six additional health systems listed by score behind an unlock panel" height="790" loading="lazy" src="../../assets/img/vytals/rp-unlock6.png" width="610"/>
+   <figcaption class="plate__cap">
+    The preview shows the scores and names what is behind the rest
+   </figcaption>
+  </figure>
+ </div>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="Nine body systems in a risk distribution grid, three revealed and six behind an unlock panel" height="490" loading="lazy" src="../../assets/img/vytals/rp-sysrisk.png" width="610"/>
+   <figcaption class="vy-rail__cap">
+    Three systems open, six named
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Physical indicators page with chronological age shown and biological age and pace of ageing held behind a lock" height="700" loading="lazy" src="../../assets/img/vytals/rp-agelock.png" width="610"/>
+   <figcaption class="vy-rail__cap">
+    Chronological age given, biological age offered
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Top risk contributors with a type 2 diabetes probability card" height="300" loading="lazy" src="../../assets/img/vytals/mk-riskcontrib.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    The proposition, stated on the product page
+   </figcaption>
+  </figure>
+ </div>
+</section>
+
+
+<section aria-labelledby="h-vy-system" class="section" id="vy-system" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   07 — Design Language &amp; System
+  </p>
+  <h2 class="t-h2" id="h-vy-system">
+   Building the visual foundation.
+  </h2>
+  <p class="prose">
+   Multiple health products needed one coherent visual language — tight enough to be recognisable, open enough to let each product keep its own temperament.
+  </p>
+ </div>
+ <div class="split" data-reveal="">
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    Measurement sits on dark. Explanation sits on paper.
+   </h3>
+   <p class="prose" data-reveal="">
+    One rule, applied everywhere. Every score, gauge and instrument lives on a near-black card; everything interpretive lives on warm paper. A reader learns the distinction in the first two pages and carries it for the rest of the document.
+   </p>
+   <p class="prose" data-reveal="">
+    It is a rule about
+    <strong>
+     surfaces
+    </strong>
+    , which means a new instrument can join any product and already know how it should look.
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="A heart health system card: a dark score card beside an overview, a status marker and organ chips on paper" height="330" loading="lazy" src="../../assets/img/vytals/rp-heart.png" width="610"/>
+   <figcaption class="plate__cap">
+    Score on dark, overview on paper, status in a fixed position
+   </figcaption>
+  </figure>
+ </div>
+ <div class="split" data-reveal="">
+  <figure class="plate" data-reveal="">
+   <img alt="A report section at caution level, severity carried by a small marker rather than page colour" height="765" loading="lazy" src="../../assets/img/vytals/hir-amber.png" width="1440"/>
+   <figcaption class="plate__cap">
+    Severity stays findable and quiet
+   </figcaption>
+  </figure>
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    One status scale carries every kind of reading.
+   </h3>
+   <p class="vy-chips" data-reveal="">
+    <span class="vy-chip vy-chip--ok">
+     Low risk
+    </span>
+    <span class="vy-chip vy-chip--warn">
+     Moderate risk
+    </span>
+    <span class="vy-chip vy-chip--bad">
+     High risk
+    </span>
+   </p>
+   <p class="prose" data-reveal="">
+    Three steps, carried by a hue
+    <strong>
+     and
+    </strong>
+    a dot count
+    <strong>
+     and
+    </strong>
+    the same words, used for snapshots, lab results, lifestyle, wearables, organs, instruments and individual biomarkers. Rendered here from the project’s own token values.
+   </p>
+   <p class="prose" data-reveal="">
+    Every report page also carries a persistent identity band — name, sex and age — plus a numbered section title and a page footer, so a reader always knows whose body this is and which part of the argument they are standing in.
+   </p>
+  </div>
+ </div>
+ <h3 class="t-h3" data-reveal="">
+  Each product got its own world.
+ </h3>
+ <p class="prose" data-reveal="">
+  The grammar underneath stays identical. The colour world changes, because a metabolic report and an alcohol report are different conversations.
+ </p>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="Alcohol Impact cover in navy and teal" height="800" loading="lazy" src="../../assets/img/vytals/alc-cover.png" width="636"/>
+   <figcaption class="vy-rail__cap">
+    Alcohol · navy
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A Health Intelligence report section on a dark ground with amber accents" height="757" loading="lazy" src="../../assets/img/vytals/hir-dark.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    Health Intelligence · amber
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A Metabolic report section divider reading Your Food Story over soft food photography" height="570" loading="lazy" src="../../assets/img/vytals/met-foodstory.png" width="550"/>
+   <figcaption class="vy-rail__cap">
+    Metabolic · green
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Skin action plan in dark mode on mobile, with nutrition, lifestyle and routine tabs" height="860" loading="lazy" src="../../assets/img/vytals/skin-plan.png" width="720"/>
+   <figcaption class="vy-rail__cap">
+    Skin · dark
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Stress archetype cards, dark with coloured titles" height="550" loading="lazy" src="../../assets/img/vytals/stress-archetype.png" width="510"/>
+   <figcaption class="vy-rail__cap">
+    Stress · charcoal
+   </figcaption>
+  </figure>
+ </div>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  Design system
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  Building a system that scales across products.
+ </h3>
+ <p class="prose" data-reveal="">
+  One product runs happily without a system. Five products, six kinds of signal and eight designers need one — and they need it by the third launch.
+ </p>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Foundations
+   </h3>
+   <div class="row__body">
+    <p>
+     Type scale, grid, spacing, surfaces, the dark-and-paper rule.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Tokens
+   </h3>
+   <div class="row__body">
+    <p>
+     Named by role — Success/400, Caution/400, Error/600 — so status is decided once.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Components
+   </h3>
+   <div class="row__body">
+    <p>
+     Biomarker card, score card, status chip, organ chip, myth card, FAQ card, action lane.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Patterns
+   </h3>
+   <div class="row__body">
+    <p>
+     Data patterns and report patterns: section openers, identity band, results table, risk field.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Products
+   </h3>
+   <div class="row__body">
+    <p>
+     Five reading experiences, one grammar, on print, web and mobile.
+    </p>
+   </div>
+  </div>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    Every component drawn in all of its states.
+   </h3>
+   <p class="prose" data-reveal="">
+    Low, moderate, high — and the extremes — drawn together, because that is what forces the honest questions. Does the field still read when it is nearly empty? Does the number hold in red? Does the shape carry meaning without colour?
+   </p>
+   <p class="prose" data-reveal="">
+    It also settles the question before it reaches engineering. There is nothing left to interpret at handoff.
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="One biomarker distribution component drawn four times: balanced, medium-weighted, high-weighted, and all twenty-four markers at high risk" height="860" loading="lazy" src="../../assets/img/vytals/str-scenarios.png" width="400"/>
+   <figcaption class="plate__cap">
+    One component, four scenarios, drawn side by side
+   </figcaption>
+  </figure>
+ </div>
+ <div class="split" data-reveal="">
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    The library lived beside the work.
+   </h3>
+   <p class="prose" data-reveal="">
+    The component library sat on the same canvas as the reports consuming it. A designer building page nine could see the component and all its states without leaving the file, which is what kept documentation and shipped work in step.
+   </p>
+   <p class="prose" data-reveal="">
+    Icon sets were built as named sets too — organs for the anatomy layer, action types for the plan layer — so a new report could assemble its own page from parts that already agreed with each other.
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="The component library laid out on the design canvas beside the report pages that use it" height="1650" loading="lazy" src="../../assets/img/vytals/alc-states.png" width="1300"/>
+   <figcaption class="plate__cap">
+    Library and product on one canvas
+   </figcaption>
+  </figure>
+ </div>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="Two named icon sets: action plan types and organ types" height="340" loading="lazy" src="../../assets/img/vytals/ds-icons.png" width="480"/>
+   <figcaption class="vy-rail__cap">
+    Named icon sets
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A myth card and an FAQ card, each with a labelled tag and a cited source" height="320" loading="lazy" src="../../assets/img/vytals/ds-mythfaq.png" width="580"/>
+   <figcaption class="vy-rail__cap">
+    Myth card and FAQ card, with sources
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A nutritional health system card scored 900 out of 1000 at low risk" height="400" loading="lazy" src="../../assets/img/vytals/hi-nutri.png" width="468"/>
+   <figcaption class="vy-rail__cap">
+    One system card · low risk
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="The same system card rendered for heart health at 520 out of 1000, moderate risk" height="320" loading="lazy" src="../../assets/img/vytals/hi-heart.png" width="468"/>
+   <figcaption class="vy-rail__cap">
+    The same card · moderate risk
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="The same risk field repeated across nine body systems" height="490" loading="lazy" src="../../assets/img/vytals/rp-sysrisk.png" width="610"/>
+   <figcaption class="vy-rail__cap">
+    The same field · nine systems
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Metabolic report pages with bar charts and results tables on a pale green ground" height="700" loading="lazy" src="../../assets/img/vytals/met-charts.png" width="762"/>
+   <figcaption class="vy-rail__cap">
+    The same table pattern · another product
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Grouped bar charts comparing metabolic markers" height="700" loading="lazy" src="../../assets/img/vytals/met-bars.png" width="762"/>
+   <figcaption class="vy-rail__cap">
+    The same chart pattern · another signal
+   </figcaption>
+  </figure>
+ </div>
+ <p class="plate__cap vy-cap" data-reveal="">
+  <span class="plate__src">
+   One pattern, many products
+  </span>
+  The clearest test of a system is whether the same component can carry good news and bad news without being redrawn.
+ </p>
+</section>
+
+
+<section aria-labelledby="h-vy-report" class="section" id="vy-report" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   08 — The Report
+  </p>
+  <h2 class="t-h2" id="h-vy-report">
+   The report turns health data into understanding.
+  </h2>
+  <p class="prose">
+   The report is the product every person actually meets. It is a document with an argument, and the order of its sections
+   <strong>
+    is
+   </strong>
+   the argument.
+  </p>
+ </div>
+ <div class="vy-rail vy-rail--stack" data-reveal="">
+  <figure>
+   <img alt="Alcohol Impact Assessment cover, dark navy with a fine network motif" height="800" loading="lazy" src="../../assets/img/vytals/alc-cover.png" width="636"/>
+  </figure>
+  <figure>
+   <img alt="Impact score of 7 out of 10 marked high risk, beside a written overview citing the reader's own values" height="800" loading="lazy" src="../../assets/img/vytals/alc-score.png" width="636"/>
+  </figure>
+  <figure>
+   <img alt="Lifestyle and habit patterns section opener" height="800" loading="lazy" src="../../assets/img/vytals/alc-lifestyle.png" width="640"/>
+  </figure>
+  <figure>
+   <img alt="Biomarker analysis page: a column of readings, each with a plain-language explanation" height="800" loading="lazy" src="../../assets/img/vytals/alc-biomarker.png" width="645"/>
+  </figure>
+  <figure>
+   <img alt="Heart organ card with impact level, evidence, current state and future risk split into contributing and positive factors" height="800" loading="lazy" src="../../assets/img/vytals/alc-organ.png" width="640"/>
+  </figure>
+  <figure>
+   <img alt="Personalised action plan pages with programme goals and quick recovery levers" height="800" loading="lazy" src="../../assets/img/vytals/alc-action.png" width="640"/>
+  </figure>
+ </div>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    01
+   </p>
+   <h3 class="row__title">
+    Raw signal
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     It opens as an assessment.
+    </p>
+    <p>
+     The cover names the product and waits. The reader agrees to read before the report says anything about them, and restraint is the only design decision on this page.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    02
+   </p>
+   <h3 class="row__title">
+    Information
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     One number carries the whole assessment.
+    </p>
+    <p>
+     A single impact score on a dark card, with its explanation immediately beside it, quoting the reader’s own liver-enzyme and cholesterol values back to them. Everything after this page is evidence for this figure.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    03
+   </p>
+   <h3 class="row__title">
+    Context
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Your habits, stated back to you.
+    </p>
+    <p>
+     Before any biology, the report repeats what you told it in the assessment. It earns the right to interpret by first showing that it listened.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    04
+   </p>
+   <h3 class="row__title">
+    Understanding
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Marker by marker, in ordinary words.
+    </p>
+    <p>
+     The biomarker card repeated down the page — value, position on a range, meaning, and the link back to your own life. This is the component the entire system is built around.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    05
+   </p>
+   <h3 class="row__title">
+    Insight
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     What it means for each system.
+    </p>
+    <p>
+     Organ by organ: impact level, markers analysed, why that organ is worth looking at, where you are now, and future risk split into contributing
+     <strong>
+      and
+     </strong>
+     positive factors.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    06
+   </p>
+   <h3 class="row__title">
+    Action
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     It closes on a plan.
+    </p>
+    <p>
+     A personalised action plan ends every report. The structure guarantees it: each concern the document raises arrives with a response attached.
+    </p>
+   </div>
+  </div>
+ </div>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="Section opener: your health snapshot" height="800" loading="lazy" src="../../assets/img/vytals/alc-snapshot.png" width="636"/>
+   <figcaption class="vy-rail__cap">
+    01 Position
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Section opener: lifestyle and habit patterns" height="800" loading="lazy" src="../../assets/img/vytals/alc-lifestyle.png" width="640"/>
+   <figcaption class="vy-rail__cap">
+    02 Cause
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Section opener: physical health indicators" height="800" loading="lazy" src="../../assets/img/vytals/alc-indicators.png" width="640"/>
+   <figcaption class="vy-rail__cap">
+    03 Signal
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Section opener: biomarker analysis" height="800" loading="lazy" src="../../assets/img/vytals/alc-biomarker-div.png" width="640"/>
+   <figcaption class="vy-rail__cap">
+    04 Evidence
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Section opener: organ system, with a myth card at the foot" height="800" loading="lazy" src="../../assets/img/vytals/alc-organ-div.png" width="640"/>
+   <figcaption class="vy-rail__cap">
+    05 Consequence
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Section opener: personalised action plan" height="800" loading="lazy" src="../../assets/img/vytals/alc-action-div.png" width="640"/>
+   <figcaption class="vy-rail__cap">
+    06 Response
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="The closing page of a Health Intelligence report" height="1014" loading="lazy" src="../../assets/img/vytals/hir-close.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    Close
+   </figcaption>
+  </figure>
+ </div>
+ <p class="plate__cap vy-cap" data-reveal="">
+  <span class="plate__src">
+   The order is the argument
+  </span>
+  Six openers in a fixed sequence, in every product. A reader always knows which of the six they are standing in.
+ </p>
+ <h3 class="t-h3" data-reveal="">
+  One experience. Many expressions.
+ </h3>
+ <p class="prose" data-reveal="">
+  The same six-part spine runs through every product — at a different length, on a different device, in a different colour world.
+ </p>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="The Health Intelligence contents page, listing the body systems the report covers" height="640" loading="lazy" src="../../assets/img/vytals/hir-toc.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    Health Intelligence · web, long form
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A report module rendered at a healthy status level" height="765" loading="lazy" src="../../assets/img/vytals/hir-green.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    The same module, reassuring
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="The same report module rendered at a caution status level" height="765" loading="lazy" src="../../assets/img/vytals/hir-amber.png" width="1440"/>
+   <figcaption class="vy-rail__cap">
+    One step more serious
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A personalised metabolic health summary with what's working well, easy wins and next steps" height="520" loading="lazy" src="../../assets/img/vytals/met-summary.png" width="550"/>
+   <figcaption class="vy-rail__cap">
+    Metabolic · the same spine, warmer
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A muscle and bone system scored 900 out of 1000 on mobile, with impacted organs, results table and a flagged condition" height="620" loading="lazy" src="../../assets/img/vytals/hi-system.png" width="468"/>
+   <figcaption class="vy-rail__cap">
+    Health Intelligence · mobile
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Your skin's future: a slider from today through two and four months with projected imagery" height="1120" loading="lazy" src="../../assets/img/vytals/skin-future.png" width="720"/>
+   <figcaption class="vy-rail__cap">
+    Skin · the spine, as a mobile flow
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="A report module in its revealed state" height="200" loading="lazy" src="../../assets/img/vytals/flow-reveal.png" width="1140"/>
+   <figcaption class="vy-rail__cap">
+    The same module, revealed
+   </figcaption>
+  </figure>
+ </div>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Raw signal
+  </span>
+  <span>
+   Information
+  </span>
+  <span>
+   Context
+  </span>
+  <span>
+   Understanding
+  </span>
+  <span>
+   Insight
+  </span>
+  <span>
+   Action
+  </span>
+ </p>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  Information design
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  Making every health signal easier to understand.
+ </h3>
+ <p class="prose" data-reveal="">
+  Seven devices carry the comprehension work across the family. Each one answers the same four questions, and each one leaves the reader holding something after they look away.
+ </p>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    01 · The biomarker card
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    A number becomes readable when it has a position.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The information
+    </dt>
+    <dd>
+     A single laboratory value with its unit, such as 62.33 U/L.
+    </dd>
+    <dt>
+     What the reader needs
+    </dt>
+    <dd>
+     Whether this value is where it should be.
+    </dd>
+    <dt>
+     The mechanism
+    </dt>
+    <dd>
+     A low–normal–high track with the reading marked, and a plain sentence directly beneath.
+    </dd>
+    <dt>
+     The insight it creates
+    </dt>
+    <dd>
+     A place on a scale, which is something a person can hold and repeat.
+    </dd>
+   </dl>
+   <p class="vy-chain" data-reveal="">
+    <span>
+     Raw number
+    </span>
+    <span>
+     Position
+    </span>
+    <span>
+     Meaning
+    </span>
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="Two biomarker cards: a value with its unit, a low-normal-high track with the reading marked, and a plain-language explanation" height="210" loading="lazy" src="../../assets/img/vytals/biomarker-detail.png" width="645"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    02 · Age equivalence
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    An age equivalent gives “normal” something to say.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The information
+    </dt>
+    <dd>
+     A result that sits inside the reference range for the whole adult population.
+    </dd>
+    <dt>
+     What the reader needs
+    </dt>
+    <dd>
+     Whether in-range is the same as ideal for someone their age.
+    </dd>
+    <dt>
+     The mechanism
+    </dt>
+    <dd>
+     An age equivalent column in the results table, translating each reading into an age band.
+    </dd>
+    <dt>
+     The insight it creates
+    </dt>
+    <dd>
+     A technically normal result can still read as
+     <em>
+      this looks like someone older than you
+     </em>
+     , which is the earliest useful signal.
+    </dd>
+   </dl>
+   <p class="vy-chain" data-reveal="">
+    <span>
+     In range
+    </span>
+    <span>
+     Age equivalent
+    </span>
+    <span>
+     Early signal
+    </span>
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="A results table with an age equivalent column highlighted, translating each reading into an age band" height="260" loading="lazy" src="../../assets/img/vytals/flow-ageequiv.png" width="500"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    03 · Biological age
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    Everybody already has intuition for age.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The information
+    </dt>
+    <dd>
+     A whole panel of markers across inflammation, glucose control and liver function.
+    </dd>
+    <dt>
+     What the reader needs
+    </dt>
+    <dd>
+     One figure they can carry out of the report and say out loud.
+    </dd>
+    <dt>
+     The mechanism
+    </dt>
+    <dd>
+     Biological age and pace of ageing, as two cards with a sentence explaining what drives them.
+    </dd>
+    <dt>
+     The insight it creates
+    </dt>
+    <dd>
+     A shareable summary, which is how understanding leaves the page and reaches a conversation.
+    </dd>
+   </dl>
+   <p class="vy-chain" data-reveal="">
+    <span>
+     Many markers
+    </span>
+    <span>
+     One unit
+    </span>
+    <span>
+     Shareable
+    </span>
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="Two deep red cards reading biological age 42 and pace of ageing 1.5x, beside an explanation" height="240" loading="lazy" src="../../assets/img/vytals/flow-bioage.png" width="900"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    04 · Percentile ranking
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    A cohort answers the question people actually ask.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The information
+    </dt>
+    <dd>
+     A health score with no external reference point.
+    </dd>
+    <dt>
+     What the reader needs
+    </dt>
+    <dd>
+     An answer to “is everyone like this?”
+    </dd>
+    <dt>
+     The mechanism
+    </dt>
+    <dd>
+     A percentile against their own age and sex, plotted on a bell curve with the position marked.
+    </dd>
+    <dt>
+     The insight it creates
+    </dt>
+    <dd>
+     Perspective carried by the curve, which keeps health out of a leaderboard.
+    </dd>
+   </dl>
+   <p class="vy-chain" data-reveal="">
+    <span>
+     Your value
+    </span>
+    <span>
+     Your cohort
+    </span>
+    <span>
+     Perspective
+    </span>
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="Percentile ranking card: rank 68 out of 100 for males aged 35 to 44, plotted on a bell curve" height="330" loading="lazy" src="../../assets/img/vytals/flow-percentile.png" width="480"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    05 · The risk field
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    Risk reads well as accumulation.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The information
+    </dt>
+    <dd>
+     Many weak signals pointing in the same direction for one organ or system.
+    </dd>
+    <dt>
+     What the reader needs
+    </dt>
+    <dd>
+     A sense of weight, carried honestly.
+    </dd>
+    <dt>
+     The mechanism
+    </dt>
+    <dd>
+     A dot field that fills as evidence mounts, paired with a score and a status word.
+    </dd>
+    <dt>
+     The insight it creates
+    </dt>
+    <dd>
+     Evidence that reads as accumulation, honest about how much the data supports, and a field that scales down to one figure when space is short.
+    </dd>
+   </dl>
+   <p class="vy-chain" data-reveal="">
+    <span>
+     Many signals
+    </span>
+    <span>
+     Density
+    </span>
+    <span>
+     One score
+    </span>
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="Organ risk map: a grid of dots forming a density field, with a score of 82 out of 100 marked low risk" height="310" loading="lazy" src="../../assets/img/vytals/flow-riskmap.png" width="480"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    06 · Myth and FAQ cards
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    Comprehension includes what someone already believes.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The information
+    </dt>
+    <dd>
+     A correct finding that sits against a widely held belief.
+    </dd>
+    <dt>
+     What the reader needs
+    </dt>
+    <dd>
+     The belief answered in their own words before the finding can land.
+    </dd>
+    <dt>
+     The mechanism
+    </dt>
+    <dd>
+     A recurring card that states the belief as a question, answers it against the reader’s results, and cites a source.
+    </dd>
+    <dt>
+     The insight it creates
+    </dt>
+    <dd>
+     A correction the reader accepts, delivered in the only component that speaks in their voice.
+    </dd>
+   </dl>
+   <p class="vy-chain" data-reveal="">
+    <span>
+     Belief
+    </span>
+    <span>
+     Your data
+    </span>
+    <span>
+     Correction
+    </span>
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="A myth card and an FAQ card, each tagged and citing a published source" height="320" loading="lazy" src="../../assets/img/vytals/ds-mythfaq.png" width="580"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    07 · The four action lanes
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    Four fixed lanes turn a finding into a next step.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The information
+    </dt>
+    <dd>
+     A system, organ or marker that needs attention.
+    </dd>
+    <dt>
+     What the reader needs
+    </dt>
+    <dd>
+     Something specific they can start doing.
+    </dd>
+    <dt>
+     The mechanism
+    </dt>
+    <dd>
+     Diet, physical activity, lifestyle and other — the same four lanes, in the same order, in every product.
+    </dd>
+    <dt>
+     The insight it creates
+    </dt>
+    <dd>
+     A response attached to the concern, which is what makes the report worth finishing.
+    </dd>
+   </dl>
+   <p class="vy-chain" data-reveal="">
+    <span>
+     Finding
+    </span>
+    <span>
+     Lane
+    </span>
+    <span>
+     Next step
+    </span>
+   </p>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="Your next best actions: diet, physical activity, lifestyle and miscellaneous, each with a specific recommendation" height="250" loading="lazy" src="../../assets/img/vytals/hi-nextbest.png" width="468"/>
+  </figure>
+ </div>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Number
+  </span>
+  <span>
+   Context
+  </span>
+  <span>
+   Meaning
+  </span>
+  <span>
+   Insight
+  </span>
+ </p>
+</section>
+
+
+<section aria-labelledby="h-vy-trust" class="section" id="vy-trust" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   09 — Designing for Trust
+  </p>
+  <h2 class="t-h2" id="h-vy-trust">
+   Trust shapes how health information is communicated.
+  </h2>
+  <p class="prose">
+   Showing someone their own body makes trust a design material. Five questions set the rules, and every product in the family follows them.
+  </p>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    01 · Certainty
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    The language matches the confidence of the science.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The design question
+    </dt>
+    <dd>
+     How certain should a prediction sound?
+    </dd>
+    <dt>
+     The design response
+    </dt>
+    <dd>
+     A probability, a named risk level and a time window, written together: 35% chance, moderate risk, potentially the next three to five years.
+    </dd>
+    <dt>
+     Why it matters
+    </dt>
+    <dd>
+     A biomarker indicates. Hedged wording keeps the report accurate, and once the copy hedges the visual system stops shouting too.
+    </dd>
+   </dl>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="A predicted health risk page: type 2 diabetes at 35 per cent, moderate risk, with a time window, affected body parts, a plain-language explanation and the markers analysed" height="680" loading="lazy" src="../../assets/img/vytals/rp-predict.png" width="610"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    02 · Method
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    The report explains how it reached its own conclusions.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The design question
+    </dt>
+    <dd>
+     What does a reader need to know about the method?
+    </dd>
+    <dt>
+     The design response
+    </dt>
+    <dd>
+     A “how we create your score” panel in plain language, a doctor’s summary section, and a clinical review statement.
+    </dd>
+    <dt>
+     Why it matters
+    </dt>
+    <dd>
+     A person accepts a conclusion more readily when they can see how it was reached.
+    </dd>
+   </dl>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="Doctor's summary page with a plain-language explanation of the scoring method, a things-to-remember list, a medical disclaimer and report provenance" height="590" loading="lazy" src="../../assets/img/vytals/rp-doctor.png" width="610"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    03 · Limits
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    The limits sit inside the report, in the same voice as the findings.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The design question
+    </dt>
+    <dd>
+     Where do the boundaries of the analysis belong?
+    </dd>
+    <dt>
+     The design response
+    </dt>
+    <dd>
+     A “things to remember” list stating that the report reads blood tests, that predictions are estimates, that family history sits outside it, and that a doctor still leads the decision.
+    </dd>
+    <dt>
+     Why it matters
+    </dt>
+    <dd>
+     Naming the limits inside the document keeps the reader calibrated while they read, where it counts.
+    </dd>
+   </dl>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="A physical indicators page showing chronological age with biological age and pace of ageing offered behind a lock, plus an explanation of what the pace figure means" height="700" loading="lazy" src="../../assets/img/vytals/rp-agelock.png" width="610"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    04 · Balance
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    Every risk block carries positive factors alongside contributing ones.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The design question
+    </dt>
+    <dd>
+     How does a report stay readable to the end?
+    </dd>
+    <dt>
+     The design response
+    </dt>
+    <dd>
+     Future risk is drawn in two columns: what is adding to it, and what is already protecting against it.
+    </dd>
+    <dt>
+     Why it matters
+    </dt>
+    <dd>
+     A reader who stays with the document reaches the plan, and the plan is where the value sits.
+    </dd>
+   </dl>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="Organ card showing future risk split into contributing and positive factors" height="800" loading="lazy" src="../../assets/img/vytals/alc-organ.png" width="640"/>
+  </figure>
+ </div>
+ <div class="split split--wide" data-reveal="">
+  <div class="split__text">
+   <p class="t-label vy-eyebrow" data-reveal="">
+    05 · Provenance
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    Each report says when it was made and which version made it.
+   </h3>
+   <dl class="vy-defs" data-reveal="">
+    <dt>
+     The design question
+    </dt>
+    <dd>
+     What makes a health document feel accountable?
+    </dd>
+    <dt>
+     The design response
+    </dt>
+    <dd>
+     Generation date, report identifier and report version printed on the page, with clinical review named in its own section.
+    </dd>
+    <dt>
+     Why it matters
+    </dt>
+    <dd>
+     Health reports are kept, compared and shown to a doctor. Provenance is what lets a document be used that way.
+    </dd>
+   </dl>
+  </div>
+  <figure class="plate" data-reveal="">
+   <img alt="A body-system card whose explanatory copy is deliberately measured" height="760" loading="lazy" src="../../assets/img/vytals/hir-system.png" width="1440"/>
+  </figure>
+ </div>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  Product flows
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  The flows that carry the experience.
+ </h3>
+ <p class="prose" data-reveal="">
+  A blood test is a physical event: someone comes to your house. These are the moments that make that happen, designed for desktop and phone together.
+ </p>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    Moment 01
+   </p>
+   <h3 class="row__title">
+    Purchase
+   </h3>
+   <div class="row__body">
+    <p>
+     The offer, a phone number, an OTP, a name and an age. The shortest path that still personalises the report.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    Moment 02
+   </p>
+   <h3 class="row__title">
+    Activation
+   </h3>
+   <div class="row__body">
+    <p>
+     “Your plan is active”, then three numbered steps with the automated one named openly.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    Moment 03
+   </p>
+   <h3 class="row__title">
+    Collection
+   </h3>
+   <div class="row__body">
+    <p>
+     Location search, map pin, saved addresses, then a date and a slot across morning, afternoon, evening and night.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    Moment 04
+   </p>
+   <h3 class="row__title">
+    Assessment
+   </h3>
+   <div class="row__body">
+    <p>
+     The questions that let a biomarker card speak about the reader’s own week.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    Moment 05
+   </p>
+   <h3 class="row__title">
+    Delivery
+   </h3>
+   <div class="row__body">
+    <p>
+     Report generated and downloadable, with booking details, cancel and reschedule kept in the same place.
+    </p>
+   </div>
+  </div>
+ </div>
+ <div class="vy-rail" data-reveal="">
+  <figure>
+   <img alt="Health Plus+ product page across desktop and mobile, with a phone-number sign-up modal" height="560" loading="lazy" src="../../assets/img/vytals/flowb-01.png" width="2100"/>
+   <figcaption class="vy-rail__cap">
+    01 Purchase · desktop and phone, designed together
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Account and plan screens with a three-step progress list" height="560" loading="lazy" src="../../assets/img/vytals/flowb-02.png" width="2100"/>
+   <figcaption class="vy-rail__cap">
+    02 Activation · a plan you can return to
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Location search and map-pin modals for choosing a collection address, on desktop and mobile" height="560" loading="lazy" src="../../assets/img/vytals/freemium-flow.png" width="1900"/>
+   <figcaption class="vy-rail__cap">
+    03 Collection · the step that has to work on a phone
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Assessment screens in the Health Plus+ journey" height="560" loading="lazy" src="../../assets/img/vytals/flowb-03.png" width="2100"/>
+   <figcaption class="vy-rail__cap">
+    04 Assessment · the report’s personal voice, earned here
+   </figcaption>
+  </figure>
+  <figure>
+   <img alt="Report delivery screens with a download control and booking details" height="560" loading="lazy" src="../../assets/img/vytals/flowb-04.png" width="2100"/>
+   <figcaption class="vy-rail__cap">
+    05 Delivery · and the controls that follow it
+   </figcaption>
+  </figure>
+ </div>
+ <div class="split" data-reveal="">
+  <div class="split__text">
+   <h3 class="t-h3" data-reveal="">
+    The assessment earns the report.
+   </h3>
+   <p class="prose" data-reveal="">
+    A report needs the panel and the questionnaire together. That is a product decision with a direct design consequence: a biomarker card can say “since you drink beer and wine a few times a week” only because the assessment asked, two steps earlier.
+   </p>
+   <h3 class="t-h3" data-reveal="">
+    The booking stays live after the booking.
+   </h3>
+   <p class="prose" data-reveal="">
+    Package, time, collection type and address stay on one card, with cancel and reschedule beside them and a confirmation step before either happens. A yearly plan needs a screen a person can come back to.
+   </p>
+  </div>
+ </div>
+</section>
+
+
+<section aria-labelledby="h-vy-leading" class="section" id="vy-leading" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   10 — Leading the Work
+  </p>
+  <h2 class="t-h2" id="h-vy-leading">
+   I led the design direction across the Vytals ecosystem.
+  </h2>
+  <p class="prose">
+   Design Lead in the Innovation team, across five shipping products and eight designers. Most of the work was making sure the second product never had to reinvent the first.
+  </p>
+ </div>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Product thinking
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Which questions could become products
+    </p>
+    <p>
+     Worked the health space with product and the business, and championed the ideas we could make understandable.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Product exploration
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Concepts made concrete early
+    </p>
+    <p>
+     Turned candidate ideas into designed report pages fast, so a product could be judged on what a person would receive.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Experience architecture
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     The six-part spine
+    </p>
+    <p>
+     Defined it, then held it across every product, on print, web and mobile.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Information design
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     The devices themselves
+    </p>
+    <p>
+     Biomarker card, age equivalence, biological age, percentile, risk field, myth card, four action lanes.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    UX and UI
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Journeys and screens
+    </p>
+    <p>
+     Membership, purchase, home collection booking, assessment and report delivery, on desktop and mobile.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Report design
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     The product’s real interface
+    </p>
+    <p>
+     Five report systems, each a different length and device, all one reading experience.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Visual direction
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Measurement dark, explanation paper
+    </p>
+    <p>
+     One surface rule, one status scale, and a distinct colour world for each product inside it.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Design system
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Tokens and multi-state components
+    </p>
+    <p>
+     Kept on the same canvas as the work, so the library and the product stayed in step.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Team
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Eight designers, five products
+    </p>
+    <p>
+     Direction, review and the quality bar, across work running in parallel.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Delivery
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Design into build
+    </p>
+    <p>
+     Scope and pricing with product, data limits with technology, launch order with the business.
+    </p>
+   </div>
+  </div>
+ </div>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Product
+  </span>
+  <span>
+   Design
+  </span>
+  <span>
+   System
+  </span>
+  <span>
+   Team
+  </span>
+  <span>
+   Outcome
+  </span>
+ </p>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  Team &amp; collaboration
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  Designing through a team.
+ </h3>
+ <p class="prose" data-reveal="">
+  Eight designers, four product people and four in technology, with several products moving at once. The job was to make parallel work add up to one ecosystem.
+ </p>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    How work was divided
+   </h3>
+   <div class="row__body">
+    <p>
+     Designers owned a product each, which kept the health question, its signals and its report in one head. Shared devices stayed with me so they stayed shared.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    How consistency was maintained
+   </h3>
+   <div class="row__body">
+    <p>
+     A fixed report spine and a single status vocabulary, expressed as surface rules, so a new instrument already knew how to behave.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    How quality was reviewed
+   </h3>
+   <div class="row__body">
+    <p>
+     Review looked at the reading experience first: does the order argue, does the number carry meaning, does the concern arrive with a response.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    How designers were enabled
+   </h3>
+   <div class="row__body">
+    <p>
+     The library sat on the same canvas as the reports, so a designer could pick up a component and all of its states without leaving the file.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    How work moved into delivery
+   </h3>
+   <div class="row__body">
+    <p>
+     Components were drawn in every state before handoff, and tokens were named by role, so engineering received settled decisions.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    How we worked with product and technology
+   </h3>
+   <div class="row__body">
+    <p>
+     Scope and pricing with product, data availability and processing limits with technology, launch order with the business.
+    </p>
+   </div>
+  </div>
+ </div>
+ <p class="note" data-reveal="">
+  <span>
+   Design and engineering met inside the design file. Tokens were named by role —
+   <strong>
+    Success/400
+   </strong>
+   ,
+   <strong>
+    Caution/400
+   </strong>
+   ,
+   <strong>
+    Error/600
+   </strong>
+   — and at least one already carried a CSS custom property, so status colour was decided once and read the same way on both sides of the handoff.
+  </span>
+ </p>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  Design leadership
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  Design leadership brings clarity to complex decisions.
+ </h3>
+ <p class="prose" data-reveal="">
+  Five decisions shaped the whole family. Each one was settled once and then inherited by every product that followed.
+ </p>
+ <h3 class="t-h3" data-reveal="">
+  “How much should we show at once?”
+ </h3>
+ <dl class="vy-defs" data-reveal="">
+  <dt>
+   Constraint
+  </dt>
+  <dd>
+   A large panel can run to a hundred readings across nine body systems.
+  </dd>
+  <dt>
+   Exploration
+  </dt>
+  <dd>
+   We tested a flat results view, a per-marker drilldown, and a fixed narrative order with detail nested inside it.
+  </dd>
+  <dt>
+   Decision
+  </dt>
+  <dd>
+   A six-part spine — position, cause, signal, evidence, consequence, response — with everything else nested underneath.
+  </dd>
+  <dt>
+   Why
+  </dt>
+  <dd>
+   Progressive disclosure works when the top level is an argument, and the spine gives it one.
+  </dd>
+ </dl>
+ <h3 class="t-h3" data-reveal="">
+  “How do we communicate risk clearly?”
+ </h3>
+ <dl class="vy-defs" data-reveal="">
+  <dt>
+   Constraint
+  </dt>
+  <dd>
+   Severity has to be unmissable and has to stay calm.
+  </dd>
+  <dt>
+   Exploration
+  </dt>
+  <dd>
+   Gauges, needles, traffic-light page washes and dot fields were all drawn at low, moderate and high.
+  </dd>
+  <dt>
+   Decision
+  </dt>
+  <dd>
+   A three-step scale in a fixed position carrying a hue, a dot count and a word, with dot fields in place of needles.
+  </dd>
+  <dt>
+   Why
+  </dt>
+  <dd>
+   A reader who can always find the signal is a reader who is never ambushed by it, and colour stays functional throughout.
+  </dd>
+ </dl>
+ <h3 class="t-h3" data-reveal="">
+  “How do we make a number meaningful?”
+ </h3>
+ <dl class="vy-defs" data-reveal="">
+  <dt>
+   Constraint
+  </dt>
+  <dd>
+   The reader has no clinical training and no intuition for the units.
+  </dd>
+  <dt>
+   Exploration
+  </dt>
+  <dd>
+   Glossaries, appendices, tooltips and in-place explanation were compared on the same page.
+  </dd>
+  <dt>
+   Decision
+  </dt>
+  <dd>
+   Value, range and sentence in one visual unit, plus a translation into age — the one health unit everybody already owns.
+  </dd>
+  <dt>
+   Why
+  </dt>
+  <dd>
+   Comprehension is a function of proximity: a number and its meaning side by side are one fact.
+  </dd>
+ </dl>
+ <h3 class="t-h3" data-reveal="">
+  “How do five products feel like one ecosystem?”
+ </h3>
+ <dl class="vy-defs" data-reveal="">
+  <dt>
+   Constraint
+  </dt>
+  <dd>
+   Five products with different signals, price points and emotional registers, built in parallel by eight designers.
+  </dd>
+  <dt>
+   Exploration
+  </dt>
+  <dd>
+   One identical template, five independent identities, and a shared grammar with local colour were each tried against real pages.
+  </dd>
+  <dt>
+   Decision
+  </dt>
+  <dd>
+   Share the structure and the status vocabulary; give each product its own colour world; enforce it as a surface rule.
+  </dd>
+  <dt>
+   Why
+  </dt>
+  <dd>
+   A reader who has read one Vytals report can read any of them, and every report still sounds like its own conversation.
+  </dd>
+ </dl>
+ <h3 class="t-h3" data-reveal="">
+  “How do we move from information to action?”
+ </h3>
+ <dl class="vy-defs" data-reveal="">
+  <dt>
+   Constraint
+  </dt>
+  <dd>
+   The obvious place to finish is the result, and the result is where the reader’s value is lowest.
+  </dd>
+  <dt>
+   Exploration
+  </dt>
+  <dd>
+   Free-form recommendations, a single closing plan, and fixed lanes repeated per section were compared across products.
+  </dd>
+  <dt>
+   Decision
+  </dt>
+  <dd>
+   Four fixed action lanes — diet, physical activity, lifestyle, other — closing every section that raises a concern, in every product.
+  </dd>
+  <dt>
+   Why
+  </dt>
+  <dd>
+   A changed decision is the deliverable, and a fixed structure guarantees every concern arrives with a response.
+  </dd>
+ </dl>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  DesignOps
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  Making good design repeatable.
+ </h3>
+ <p class="prose" data-reveal="">
+  The question underneath this chapter: how do you create the conditions for a team to deliver consistently across a growing product ecosystem?
+ </p>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Governance
+   </h3>
+   <div class="row__body">
+    <p>
+     Shared devices and the report spine stayed centrally owned. Product-local decisions stayed with the product designer.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Reusable patterns
+   </h3>
+   <div class="row__body">
+    <p>
+     Data patterns and report patterns were named as patterns, so a new product assembled a page from parts that already agreed with each other.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Component organisation
+   </h3>
+   <div class="row__body">
+    <p>
+     Components grouped by job — measurement, explanation, navigation, action — and drawn in every state they could reach.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Documentation in place
+   </h3>
+   <div class="row__body">
+    <p>
+     The library lived beside the reports consuming it, which is what stopped documentation drifting away from shipped work.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Review and critique
+   </h3>
+   <div class="row__body">
+    <p>
+     Reviews ran against the reading experience and the standing design goals, so feedback pointed at the same bar every time.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Quality standards
+   </h3>
+   <div class="row__body">
+    <p>
+     A component was ready when every state read correctly, including the extremes where nothing is normal and everything is.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Engineering collaboration
+   </h3>
+   <div class="row__body">
+    <p>
+     Role-named tokens and state-complete components meant handoff carried settled decisions.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Team allocation
+   </h3>
+   <div class="row__body">
+    <p>
+     One designer per product for depth, with shared surfaces reviewed together so parallel work converged.
+    </p>
+   </div>
+  </div>
+ </div>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Standard
+  </span>
+  <span>
+   Pattern
+  </span>
+  <span>
+   Component
+  </span>
+  <span>
+   Review
+  </span>
+  <span>
+   Shipped
+  </span>
+ </p>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  Quality &amp; evaluation
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  Measuring what good design enables.
+ </h3>
+ <p class="prose" data-reveal="">
+  This is the measurement framework I would hold a health-report ecosystem to. It is presented as a framework because the product and business figures for Vytals sit with the business and are not published here.
+ </p>
+ <h3 class="t-h3" data-reveal="">
+  Product metrics
+ </h3>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Product adoption
+   </h3>
+   <div class="row__body">
+    <p>
+     Which health questions people choose, and which combinations they return for.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Test completion
+   </h3>
+   <div class="row__body">
+    <p>
+     Purchase through to sample collected and assessment finished — the logistics middle.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Report engagement
+   </h3>
+   <div class="row__body">
+    <p>
+     Depth reached, sections opened, and whether the plan at the end is read.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Report comprehension
+   </h3>
+   <div class="row__body">
+    <p>
+     Whether a reader can restate their own result and name one thing to do about it.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Recommendation engagement
+   </h3>
+   <div class="row__body">
+    <p>
+     Interaction with the four action lanes, by lane.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Repeat behaviour
+   </h3>
+   <div class="row__body">
+    <p>
+     Return testing on a plan, and movement between products in the family.
+    </p>
+   </div>
+  </div>
+ </div>
+ <h3 class="t-h3" data-reveal="">
+  Design metrics
+ </h3>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Design-system adoption
+   </h3>
+   <div class="row__body">
+    <p>
+     Share of report pages assembled from library components.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Reusable component coverage
+   </h3>
+   <div class="row__body">
+    <p>
+     How much of a new product is inherited before anything new is drawn.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Consistency
+   </h3>
+   <div class="row__body">
+    <p>
+     Status vocabulary and spine order holding across every product and device.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Delivery efficiency
+   </h3>
+   <div class="row__body">
+    <p>
+     Time from a new health question to a first complete report design.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Iteration cycles
+   </h3>
+   <div class="row__body">
+    <p>
+     Rounds needed to reach the quality bar, tracked as the system matures.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Implementation quality
+   </h3>
+   <div class="row__body">
+    <p>
+     Built pages matching the design intent, checked state by state.
+    </p>
+   </div>
+  </div>
+ </div>
+ <p class="note" data-reveal="">
+  <span>
+   Adoption, conversion, revenue and health outcomes sit with the business and are not published here. Every figure that appears in the screenshots on this page is sample data from the design files. Nothing on this page has been estimated to fill a gap.
+  </span>
+ </p>
+</section>
+
+
+<section aria-labelledby="h-vy-outcomes" class="section" id="vy-outcomes" tabindex="-1">
+ <div class="section__head" data-reveal="">
+  <p class="t-label section__eyebrow">
+   11 — Outcomes &amp; Learnings
+  </p>
+  <h2 class="t-h2" id="h-vy-outcomes">
+   What the work enabled.
+  </h2>
+ </div>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Product
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     A family of health products brought to life
+    </p>
+    <p>
+     Five focused products plus a membership entry point, each answering a distinct health question, shipped one at a time across 2024.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Experience
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     A shared model for reading health data
+    </p>
+    <p>
+     Position, cause, signal, evidence, consequence, response — one order that holds on print, web and mobile.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Information design
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     A reusable comprehension vocabulary
+    </p>
+    <p>
+     Biomarker card, age equivalence, biological age, percentile, risk field, myth card, four action lanes.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    System
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     A design system that scales
+    </p>
+    <p>
+     Role-named tokens and state-complete components that let several products ship inside one design language.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Team
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     Parallel work that converged
+    </p>
+    <p>
+     Eight designers building at the same time, each product inheriting the lessons of the one before it.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Business
+   </h3>
+   <div class="row__body">
+    <p class="vy-q">
+     A design direction for a new health ecosystem
+    </p>
+    <p>
+     A visual language, a report model and a system the business could keep building on. Commercial figures sit with the business.
+    </p>
+   </div>
+  </div>
+ </div>
+ <p class="t-label vy-eyebrow vy-eyebrow--lead" data-reveal="">
+  Learnings
+ </p>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  What Vytals taught me about designing health products.
+ </h3>
+ <div class="rows" data-reveal="">
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Health design is fundamentally information design.
+   </h3>
+   <div class="row__body">
+    <p>
+     The visual craft matters because it carries comprehension. Every decision on this project resolved into the same question: what is the reader left holding?
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    More data creates more value when it arrives with context.
+   </h3>
+   <div class="row__body">
+    <p>
+     A percentile, an age equivalent or a reference range does more for a reader than an extra marker, because it makes the markers they already have legible.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Systems become essential as products multiply.
+   </h3>
+   <div class="row__body">
+    <p>
+     One product can be designed page by page. By the third, a shared grammar is what keeps five products recognisably one family.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Visual consistency and semantic consistency work together.
+   </h3>
+   <div class="row__body">
+    <p>
+     The same colour has to mean the same thing everywhere, or the visual system quietly stops being a system.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Trust shapes how health information should be communicated.
+   </h3>
+   <div class="row__body">
+    <p>
+     Measured language, visible method, named limits and balanced risk are design decisions as much as editorial ones.
+    </p>
+   </div>
+  </div>
+  <div class="row">
+   <p class="row__num">
+    —
+   </p>
+   <h3 class="row__title">
+    Design leadership creates clarity for teams and for products.
+   </h3>
+   <div class="row__body">
+    <p>
+     Settling a decision once, and writing it as a rule the team can apply, is what lets parallel work add up to an ecosystem.
+    </p>
+   </div>
+  </div>
+ </div>
+ <h3 class="t-h3 vy-sub" data-reveal="">
+  Vytals makes health data easier to understand.
+ </h3>
+ <p class="t-label vy-eyebrow" data-reveal="">
+  Your body is constantly telling you something.
+ </p>
+ <p class="vy-chain" data-reveal="">
+  <span>
+   Data
+  </span>
+  <span>
+   Information
+  </span>
+  <span>
+   Understanding
+  </span>
+  <span>
+   Insight
+  </span>
+  <span>
+   Action
+  </span>
+ </p>
+ <div class="case__close" data-reveal="">
+  <p>
+   <a class="link-out" href="../vidal/health-claims/">
+    Vidal — the health claims platform
+    <svg aria-hidden="true" class="ico">
+     <use href="#i-arrow">
+     </use>
+    </svg>
+   </a>
+  </p>
+  <p>
+   <a class="link-out" href="../">
+    Back to selected work
+    <svg aria-hidden="true" class="ico">
+     <use href="#i-arrow">
+     </use>
+    </svg>
+   </a>
+  </p>
+ </div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__base">
+      <p class="t-label">Arushi Prasad — Design leader</p>
+      <p class="t-label t-dim">Pune, India</p>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/site.js?v=8b13f207" defer></script>
+<script src="../../assets/js/case.js?v=fd4fa5e0" defer></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>verify overflow</title>
+<style>body{background:#111;color:#ddd;font:13px/1.5 monospace;padding:12px}
+.ok{color:#8ad67a}.bad{color:#ff7a6b}.hd{color:#e0b07a;margin-top:10px}
+iframe{border:1px solid #333}</style>
+<pre id="out">running…</pre>
+<iframe id="f"></iframe>
+<script>
+/* A throwaway harness. Sweeps the homepage across every width a phone or a
+   tablet actually reports and asserts that nothing widens the document —
+   with the stickers away, with them out, and with the Type tool's selection
+   box on screen. Any failure names the boxes responsible. Not shipped. */
+const lines = [];
+let pass = 0, fail = 0;
+function head(t){ lines.push('\n<span class="hd">'+t+'</span>'); }
+function check(name, cond, extra){
+  if (cond) { pass++; lines.push('<span class="ok">  PASS</span> '+name); }
+  else { fail++; lines.push('<span class="bad">  FAIL</span> '+name+(extra!==undefined?'  ['+extra+']':'')); }
+}
+function post(){
+  const txt = lines.join('\n').replace(/<[^>]+>/g, '') +
+    '\n\nRESULT pass=' + pass + ' fail=' + fail + (fail ? '  ***FAILURES***' : '  ALL GREEN');
+  document.getElementById('out').textContent = txt;
+  navigator.sendBeacon('/report', txt) || fetch('/report', { method:'POST', body: txt });
+}
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const f = document.getElementById('f');
+
+function load(w, h){
+  f.style.width = w + 'px'; f.style.height = h + 'px';
+  return new Promise(res => { f.onload = () => res(f.contentWindow); f.src = 'index.html'; });
+}
+
+/* Every box that reaches past either edge of the document, named. The widest
+   offender first, so the report leads with the cause rather than a list. */
+function culprits(w){
+  const d = w.document, lim = d.documentElement.clientWidth, out = [];
+  /* Anything inside a horizontal scroller — the timeline is one — is allowed
+     to stick out of the viewport: it is scrolled content, not document
+     overflow, and reporting it buries the box that actually did the damage. */
+  function scrolled(el){
+    for (let n = el.parentElement; n && n !== d.documentElement; n = n.parentElement){
+      const ox = w.getComputedStyle(n).overflowX;
+      if (ox !== 'visible') return true;
+    }
+    return false;
+  }
+  d.querySelectorAll('*').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (!r.width && !r.height) return;
+    const over = Math.max(r.right - lim, -r.left);
+    if (over <= 0.5 || scrolled(el)) return;
+    out.push({ over: over, name: el.tagName.toLowerCase() +
+      (typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\s+/).join('.') : '') +
+      ' [' + Math.round(r.left) + '→' + Math.round(r.right) + ']' });
+  });
+  out.sort((a, b) => b.over - a.over);
+  return out.length ? out.slice(0, 5).map(o => o.name).join('  ') : '(no box outside the viewport)';
+}
+
+function wide(w){
+  const d = w.document;
+  return d.documentElement.scrollWidth - d.documentElement.clientWidth;
+}
+
+/* The widths real phones and tablets report, plus the two breakpoint edges
+   either side of where --wm-w changes. */
+const WIDTHS = [320, 360, 375, 390, 393, 412, 414, 428, 430, 480, 540,
+                599, 600, 601, 640, 720, 768, 820, 1023, 1024];
+
+(async function run(){
+  head('1 · nothing widens the document, stickers away');
+  for (const W of WIDTHS){
+    const w = await load(W, 780);
+    await wait(900);
+    check('w=' + W, wide(w) <= 0, '+' + wide(w) + 'px  ' + culprits(w));
+  }
+
+  head('2 · nothing widens the document, stickers out');
+  for (const W of WIDTHS){
+    const w = await load(W, 780);
+    await wait(900);
+    w.document.querySelector('.magic__btn').click();
+    await wait(1100);
+    check('w=' + W, wide(w) <= 0, '+' + wide(w) + 'px  ' + culprits(w));
+  }
+
+  head('3 · the selection box on screen is the same geometry');
+  for (const W of [320, 375, 414, 600, 601, 768]){
+    const w = await load(W, 780);
+    await wait(900);
+    const d = w.document;
+    d.querySelector('.stage').setAttribute('data-tool', 'type');
+    await wait(400);
+    const sel = d.querySelector('.sel');
+    check('w=' + W + ' box visible', w.getComputedStyle(sel).visibility === 'visible');
+    check('w=' + W + ' no overflow with it up', wide(w) <= 0, '+' + wide(w) + 'px  ' + culprits(w));
+    // the eight handles must still be a real target, not a sliver
+    const hs = [...d.querySelectorAll('.sel__h')];
+    check('w=' + W + ' eight handles, 12px each',
+          hs.length === 8 && hs.every(h => Math.round(h.getBoundingClientRect().width) === 12),
+          hs.length + ' / ' + (hs[0] && Math.round(hs[0].getBoundingClientRect().width)));
+    check('w=' + W + ' handles reachable inside the viewport',
+          hs.every(h => { const r = h.getBoundingClientRect();
+                          return r.left >= 0 && r.right <= d.documentElement.clientWidth; }),
+          hs.map(h => Math.round(h.getBoundingClientRect().left)).join(','));
+  }
+
+  head('4 · a type scale carried over from a desktop session');
+  for (const S of [1.0, 1.2, 1.4]){
+    const w = await load(375, 780);
+    await wait(900);
+    const d = w.document;
+    d.documentElement.style.setProperty('--type-scale', String(S));
+    d.querySelector('.stage').setAttribute('data-tool', 'type');
+    await wait(400);
+    check('375 at ' + S + '×', wide(w) <= 0, '+' + wide(w) + 'px  ' + culprits(w));
+  }
+
+  head('5 · the box still reads as a box on a wide canvas');
+  {
+    const w = await load(1280, 900);
+    await wait(900);
+    const d = w.document;
+    d.querySelector('.stage').setAttribute('data-tool', 'type');
+    await wait(400);
+    const frame = d.querySelector('.wm-frame').getBoundingClientRect();
+    const sel = d.querySelector('.sel').getBoundingClientRect();
+    check('box stands 16px off the name on desktop',
+          Math.abs((frame.left - sel.left) - 16) < 1.5, Math.round(frame.left - sel.left));
+    check('no overflow at 1280', wide(w) <= 0, '+' + wide(w) + 'px  ' + culprits(w));
+  }
+
+  post();
+})().catch(e => { lines.push('  THREW ' + e.message); fail++; post(); });
+</script>

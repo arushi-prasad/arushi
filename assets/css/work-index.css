@@ -1,0 +1,241 @@
+/* ===========================================================================
+   WORK INDEX — a record of projects, set as a list rather than a grid.
+
+   Two columns: who and when on the left, what on the right. Nothing else —
+   no card, no thumbnail, no status pill, no figure. Every value comes from
+   the existing token file.
+   ========================================================================= */
+
+/* A measure narrower than the 76rem shell. Two columns pulled to opposite
+   ends of the full width would leave the eye travelling the width of a desk
+   between a company and its project. */
+.wk-shell{ max-width:min(var(--content-max), 60rem); }
+
+.wk-title{ margin-top:var(--step-5); }
+.lede-hero.wk-shell{ padding-block:var(--step-16) var(--step-10); }
+.section.wk-shell{ padding-block:0 var(--step-20); }
+
+/* ---------------------------------------------------------------------------
+   THE LIST
+   ------------------------------------------------------------------------ */
+.wk-list{
+  list-style:none; margin:0; padding:0;
+  border-top:var(--hair) solid var(--border-default);
+}
+.wk-row{ border-bottom:var(--hair) solid var(--border-default); }
+
+/* The row's inside is the grid, and it is either an <a> or a <div> depending
+   on whether there is a case study to open. Both are laid out identically,
+   so a row with somewhere to go is not a different shape from one without —
+   only its behaviour differs. */
+.wk-row__in{
+  display:grid;
+  grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);
+  gap:var(--step-6);
+  /* Centred, not baseline-aligned. On a baseline the title lined up with the
+     company name — the first of the two lines on the left — so it sat high
+     in the row with the year hanging below it, and on the row whose title
+     wraps it sat higher still. Both columns are blocks of different heights;
+     centring them is what makes the row read as one line of information. */
+  align-items:center;
+  padding-block:var(--step-6);
+  /* No horizontal padding. There used to be a step of it on the right only,
+     to hold the arrow before the arrow moved inside the card — which left
+     the company names starting on the shell's left edge and the titles
+     stopping 32px short of its right one. The block read as off-centre
+     because it was. The arrow's room is now the card's own padding. */
+  position:relative;
+  text-decoration:none;
+  color:inherit;
+}
+
+.wk-row__who{ display:flex; flex-direction:column; gap:var(--step-1); min-width:0; }
+.wk-row__company{
+  font-size:var(--text-sm);
+  line-height:1.4;
+  color:var(--text-secondary);
+  /* Long names wrap rather than shrinking the title column. */
+  overflow-wrap:anywhere;
+  text-wrap:pretty;
+}
+.wk-row__year{
+  font-family:var(--font-mono);
+  font-size:var(--text-mono);
+  letter-spacing:0;
+  font-variant-numeric:tabular-nums;
+  color:var(--text-tertiary);
+}
+
+.wk-row__title{
+  min-width:0;
+  /* A flex row, not text-align on a block. The card is an inline-block, and
+     an inline-block sits on its line box's baseline — which left it three
+     pixels above the row's centre however the grid aligned the cell around
+     it. As a flex item there is no line box to sit in, and align-items does
+     what it says. text-align still governs the wrapped lines inside it. */
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  text-align:right;
+  font-family:var(--font-body);
+  font-size:var(--text-h4);
+  font-weight:var(--weight-emphasis);
+  letter-spacing:var(--track-heading);
+  line-height:1.35;
+  color:var(--text-primary);
+  text-wrap:pretty;
+}
+
+/* ---------------------------------------------------------------------------
+   THE HOVER CARD
+
+   At rest this is nothing: no ground, the same light ink the titles always
+   had. On hover a colour field wipes across from the left, the ink turns
+   over behind it, the title steps a few pixels out of the way and the arrow
+   arrives. The page stays minimal until someone looks at it.
+
+   Nothing moves in layout. The padding, the radius and the arrow's slot all
+   exist in the resting state and only paint changes, so a row cannot grow
+   under the pointer and shove the rows below it.
+   ------------------------------------------------------------------------ */
+.wk-row__card{
+  position:relative;
+  display:inline-block;
+  padding:0.45em 2.2em 0.45em 1em;
+  /* Ends exactly on the title column's right edge. It used to carry a
+     negative margin so the text sat flush with that edge, which pushed the
+     coloured field a full em past the column it belongs to. */
+  border-radius:calc(var(--radius-md) * 1.5);
+  /* The wipe below is a scaled rectangle, and scaling a rounded box stretches
+     its corners while it travels. Rounding and clipping here instead means
+     the corners are the card's own and never distort. */
+  overflow:hidden;
+  color:var(--text-primary);
+  transition:color 180ms var(--ease-smooth);
+}
+
+/* The field. Scaled rather than animated in width, so it is one compositor
+   property and never triggers layout. */
+.wk-row__card::before{
+  content:"";
+  position:absolute; inset:0;
+  background:var(--wk-bg);
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform 220ms var(--ease-out);
+}
+.wk-row__label,
+.wk-row__arrow{ position:relative; z-index:1; }
+
+.wk-row__label{
+  display:inline-block;
+  transition:transform 200ms var(--ease-out);
+}
+
+/* The accents. One per project, fixed, so a project is always the same
+   colour. The values are the tile palette in tokens.css — the same grounds
+   and inks the Strategy cards are built from, contrast already solved. */
+.wk-row--lime    { --wk-bg:var(--t-lime-bg);     --wk-ink:var(--t-lime-ink); }
+.wk-row--orange  { --wk-bg:var(--t-orange-bg);   --wk-ink:var(--t-orange-ink); }
+.wk-row--pink    { --wk-bg:var(--t-pink-bg);     --wk-ink:var(--t-pink-ink); }
+.wk-row--lavender{ --wk-bg:var(--t-lavender-bg); --wk-ink:var(--t-lavender-ink); }
+.wk-row--cobalt  { --wk-bg:var(--t-cobalt-bg);   --wk-ink:var(--t-cobalt-ink); }
+
+/* The divider under the row picks up a little of the same colour. Enough to
+   register as related, not enough to read as a second coloured element. */
+.wk-row{ transition:border-bottom-color 220ms var(--ease-smooth); }
+
+.wk-row__arrow{
+  position:absolute; right:1em; top:50%;
+  width:0.8em; height:0.8em;
+  margin-top:-0.4em;
+  fill:none; stroke:currentColor; stroke-width:1.5;
+  stroke-linecap:round; stroke-linejoin:round;
+  opacity:0;
+  transform:translateX(-5px);
+  transition:opacity 180ms var(--ease-smooth),
+             transform 200ms var(--ease-out);
+}
+
+/* ---- Being read -------------------------------------------------------
+   Focus is the keyboard's hover and gets the whole treatment. The pointer
+   version sits behind a hover query: a tap leaves :hover stuck on a touch
+   screen, and one permanently coloured row is the thing this page is not
+   for. The ink is held back a moment on the way in so it turns over behind
+   the field rather than ahead of it; on the way out it leaves immediately,
+   which is why the delay is set here and not on the base rule. -------- */
+.wk-row__in--link:focus-visible .wk-row__card::before,
+.wk-row:has(.wk-row__in--link:focus-visible) .wk-row__card::before{ transform:scaleX(1); }
+.wk-row__in--link:focus-visible .wk-row__card{ color:var(--wk-ink); transition-delay:70ms; }
+.wk-row__in--link:focus-visible .wk-row__label{ transform:translateX(3px); }
+.wk-row__in--link:focus-visible .wk-row__arrow{ opacity:1; transform:translateX(0); }
+.wk-row:has(.wk-row__in--link:focus-visible){
+  border-bottom-color:color-mix(in srgb, var(--wk-bg) 40%, var(--border-default));
+}
+.wk-row__in--link:focus-visible{ outline-offset:-4px; }
+
+@media (hover:hover) and (pointer:fine){
+  .wk-row:hover .wk-row__card::before{ transform:scaleX(1); }
+  .wk-row:hover .wk-row__card{ color:var(--wk-ink); transition-delay:70ms; }
+  .wk-row:hover .wk-row__label{ transform:translateX(3px); }
+  .wk-row:hover .wk-row__in--link .wk-row__arrow{ opacity:1; transform:translateX(0); }
+  .wk-row:hover{
+    border-bottom-color:color-mix(in srgb, var(--wk-bg) 40%, var(--border-default));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   THE NOTE — the two case studies that are not rows.
+   ------------------------------------------------------------------------ */
+.wk-note{
+  margin:var(--step-10) 0 0;
+  max-width:var(--prose-max);
+  font-size:var(--text-sm);
+  line-height:1.6;
+  color:var(--text-tertiary);
+}
+.wk-note .link-out{ color:var(--text-secondary); }
+
+/* ---------------------------------------------------------------------------
+   TABLET — the company column needs more room than the ratio above gives it
+   once the names start wrapping to three lines.
+   ------------------------------------------------------------------------ */
+@media (max-width:860px){
+  .wk-row__in{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:var(--step-5);
+    align-items:center;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   MOBILE — one column. The title moves under its company rather than being
+   right-aligned against it, because at this width a right edge is further
+   from the name than it is useful.
+   ------------------------------------------------------------------------ */
+@media (max-width:620px){
+  .wk-row__in{
+    grid-template-columns:minmax(0,1fr);
+    gap:var(--step-2);
+    padding-block:var(--step-5);
+    /* Stacked: the two groups read top to bottom, so they start together on
+       the left edge rather than centring against each other. */
+    align-items:start;
+  }
+  .wk-row__title{ text-align:left; justify-content:flex-start; }
+  /* Company and year stay together above the title, so the reading order on
+     screen is the same one the markup already has. */
+  .wk-row__who{ flex-direction:row; align-items:baseline; gap:var(--step-3); flex-wrap:wrap; }
+  /* Left-aligned now, so the card's negative right margin would hang it off
+     the wrong edge. The arrow sits inside the card either way. */
+  .wk-row__card{ margin-left:0; }
+}
+
+/* Reduced motion keeps the colour and loses the travel: the field is simply
+   there, the title does not step, the arrow does not slide. */
+@media (prefers-reduced-motion:reduce){
+  .wk-row,.wk-row__card,.wk-row__card::before,
+  .wk-row__label,.wk-row__arrow{ transition:none; }
+  .wk-row__label{ transform:none !important; }
+  .wk-row__arrow{ transform:none; }
+}

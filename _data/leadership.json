@@ -1,0 +1,882 @@
+{
+ "_about": {
+  "purpose": "Evidence inventory for the Leadership page. Every fact rendered on the page is an entry here, and every entry names the file it came from and what kind of claim it is.",
+  "kinds": {
+   "recorded": "a result that happened and is written down in a source",
+   "snapshot": "true on a stated date, not a running total",
+   "target": "a goal set in a source, NOT an achieved result",
+   "proposal": "a model that was proposed; implementation not evidenced here",
+   "voice": "Arushi's own written narrative, first person, not a metric"
+  },
+  "decisions": {
+   "team_size": "Four sources disagree (20 / 22 / 24 / 21-23). Resolved on 2026-10-20 by Arushi: publish dated snapshots, name her actual remit. Never publish a single unqualified headline number.",
+   "frameworks": "The career ladder, competency matrix and RISE are from decks authored by Zia Rahman (dc:creator). Resolved: present as frameworks the design org ran on, with no authorship claim.",
+   "attrition": "32%->12% annual, 1.6->3.2 yr tenure, <5% voluntary conflict with a separate claim of 0% attrition in years 1-3. Resolved: publish NEITHER until Arushi confirms. Not present in this file by instruction."
+  },
+  "restricted": "Individual names, dates of joining, grades, promotion tenure, competency scores, colleges and destination employers appear in Revised_Titles.xlsx and UX_Skill_Mapping_Template.xlsx. None of it is published, and none of it is in this file."
+ },
+ "sources": {
+  "culture": "01. Leadership/Building a Strong Design Culture.html (Arushi, first person)",
+  "journey": "01. Leadership/leadership_journey.html (Arushi, first person)",
+  "retention": "01. Leadership/retention-growth-morale.html (Arushi, first person)",
+  "hiring": "01. Leadership/Hiring & Scaling/Hiring Philosophy & Scaling the Design Team.html (Arushi, first person)",
+  "dor": "01. Leadership/DesignOps Review 17th Aug.pptx (Zia Rahman, created 2023-08-16)",
+  "dt20": "01. Leadership/Hiring & Scaling/Design Team 2.0.pdf (Zia Rahman, 2024-10-04) == Org Structure 2.5.pptx",
+  "orgstruct": "01. Leadership/Hiring & Scaling/OrgStructure.pptx (Zia Rahman, 2024-10-15)",
+  "titles": "01. Leadership/Hiring & Scaling/Revised_Titles.xlsx (Zia Rahman, 2024-10-24)",
+  "ladder": "01. Leadership/Hiring & Scaling/DesignTeam_CareerGrowth 1.2.pdf (Zia Rahman, 2024-12-16)",
+  "growth": "01. Leadership/Hiring & Scaling/Growth Plan - Role & Competency.pptx (2024-08-16)",
+  "skills": "01. Leadership/Hiring & Scaling/UX_Skill_Mapping_Template.xlsx (last modified 2024-10-14)",
+  "engagement": "01. Leadership/Hiring & Scaling/Employee Engagement.pptx (Zia Rahman, 2024-05-29)"
+ },
+ "scope": {
+  "line": "I led the UI competency and a product squad inside a design function that grew to twenty-four.",
+  "detail": "Within the design org I owned the UI competency and ran design for an HRx squad. Title moved from Lead UI Designer to Dy. Design Manager.",
+  "kind": "recorded",
+  "source": "dor, titles, growth"
+ },
+ "chapters_meta": [
+  [
+   "l-start",
+   "Where it started",
+   "01"
+  ],
+  [
+   "l-growth",
+   "Two to twenty-four",
+   "02"
+  ],
+  [
+   "l-model",
+   "Ways of working",
+   "03"
+  ],
+  [
+   "l-culture",
+   "The culture",
+   "04"
+  ],
+  [
+   "l-award",
+   "The award",
+   "05"
+  ],
+  [
+   "l-ladder",
+   "Growing people",
+   "06"
+  ],
+  [
+   "l-numbers",
+   "The evidence",
+   "07"
+  ],
+  [
+   "l-believe",
+   "What I believe",
+   "08"
+  ],
+  [
+   "l-next",
+   "Still building",
+   "09"
+  ]
+ ],
+ "timeline": [
+  {
+   "year": "2019",
+   "size": 2,
+   "head": "Two designers. Zero process.",
+   "body": "Reviews were vibes-based. “Does this look okay?” “Yeah… I think so?” Feedback was nodding until the silence ended — nobody wanted to be the bad guy.",
+   "kind": "voice",
+   "source": "culture"
+  },
+  {
+   "year": "2020",
+   "size": 4,
+   "head": "Doubled the team. Chaos doubled faster.",
+   "body": "Onboarding was a Google Doc and a prayer. Three designers redesigning the same component — none of them knew.",
+   "note": "“Doubled” is the word in the source; 4 is my reading of it, not a counted figure.",
+   "kind": "voice",
+   "source": "culture"
+  },
+  {
+   "year": "2021",
+   "size": 7,
+   "head": "Started building rituals. Accidentally.",
+   "body": "The first structured critique happened because I got frustrated in a meeting. Someone wrote it down. We did it again. Then it was a Thing.",
+   "note": "No headcount is recorded for 2021. The dot is positioned between the 2020 and 2022 figures and is illustrative.",
+   "kind": "voice",
+   "source": "culture"
+  },
+  {
+   "year": "2022",
+   "size": 10,
+   "head": "Ten designers. Culture became visible.",
+   "body": "Juniors started running sessions. Seniors started saying “you’re right.” Design presented directly to leadership. I started sitting in the back row.",
+   "kind": "recorded",
+   "source": "culture"
+  },
+  {
+   "year": "2023",
+   "size": 24,
+   "head": "Twenty-four designers. And the award.",
+   "body": "Fifteen UX and nine UI, split across two competencies. I held the UI side. In the same year the team won Best Team at AOP.",
+   "note": "15 UX + 9 UI counted off the org chart in the DesignOps Review of 17 Aug 2023.",
+   "kind": "snapshot",
+   "source": "dor, culture"
+  },
+  {
+   "year": "2025",
+   "size": 23,
+   "head": "Reshaped around squads.",
+   "body": "A January roster puts twenty-one in seat and twenty-three planned — product-embedded designers, a central floating team, interns, and single owners for the design system and the AI work.",
+   "note": "Jan’25 column in Revised_Titles.xlsx: 21 current, 23 planned, interns included.",
+   "kind": "snapshot",
+   "source": "titles"
+  }
+ ],
+ "squads": {
+  "intro": "By 2023 the function was two competencies. By 2025 it was a hybrid: designers embedded in product squads, with a central team holding the craft.",
+  "competency": {
+   "label": "2023 · By competency",
+   "kind": "snapshot",
+   "source": "dor",
+   "groups": [
+    {
+     "name": "UX competency",
+     "count": 15,
+     "note": "three competency leads, twelve designers"
+    },
+    {
+     "name": "UI competency",
+     "count": 9,
+     "note": "led by me"
+    }
+   ]
+  },
+  "hybrid": {
+   "label": "2025 · By squad",
+   "kind": "snapshot",
+   "source": "titles",
+   "groups": [
+    {
+     "name": "Product-specific teams",
+     "count": 6,
+     "note": "embedded in a squad for 3–6 months"
+    },
+    {
+     "name": "Central UX floating team",
+     "count": 8,
+     "note": "moved to wherever demand was"
+    },
+    {
+     "name": "Interns",
+     "count": 3,
+     "note": "growing to seven"
+    },
+    {
+     "name": "Design system",
+     "count": 1,
+     "note": "standardisation"
+    },
+    {
+     "name": "AI product innovation",
+     "count": 1,
+     "note": ""
+    },
+    {
+     "name": "Design management",
+     "count": 2,
+     "note": ""
+    }
+   ]
+  },
+  "lines": [
+   "Wellness",
+   "HRx · Lab, Pay, Hospital",
+   "HRx · Utilization, Vidal, SFDC",
+   "DRx · PMS, EMR, B2C, SFDC"
+  ],
+  "lines_note": "The four product lines the squads were drawn around.",
+  "lines_source": "dt20"
+ },
+ "model_objectives": {
+  "label": "Design Team 2.0",
+  "status": "proposal",
+  "status_label": "Proposed model — October 2024",
+  "source": "dt20",
+  "items": [
+   [
+    "Expertise around products",
+    "Deep product knowledge, instead of servicing tickets across everything."
+   ],
+   [
+    "Cross-functional by default",
+    "Feasible solutions tied to business metrics, because the designer was in the room."
+   ],
+   [
+    "End-to-end ownership",
+    "Designers lead product design independently, start to finish."
+   ],
+   [
+    "Room to innovate",
+    "An environment where design excellence is possible, not incidental."
+   ],
+   [
+    "Visibility of demand",
+    "See the load coming, and scale up or down without guessing."
+   ],
+   [
+    "No silos, no boredom",
+    "Rotation across squads every three to six months."
+   ]
+  ],
+  "mechanics": [
+   "Designers embedded in a product team for three to six months.",
+   "Reviewed quarterly, to rotate or scale up.",
+   "Reporting into the squad, dotted line to the UX team for mentoring.",
+   "Some dedicated to DesignOps — design system, AI products, design excellence."
+  ]
+ },
+ "rituals": [
+  {
+   "name": "Weekly crits",
+   "cadence": "Every Friday",
+   "line": "Silent sticky notes first. Then talk. No ambushes — honest feedback with a name attached.",
+   "hue": "copper"
+  },
+  {
+   "name": "Design jams",
+   "cadence": "Bi-weekly",
+   "line": "A twenty-minute sketch sprint on a shared problem. Intern and lead drawing side by side.",
+   "hue": "ochre"
+  },
+  {
+   "name": "Share & tell",
+   "cadence": "Monthly",
+   "line": "Not what you made — what you learned. Failures actively encouraged, and usually the most useful.",
+   "hue": "sage"
+  },
+  {
+   "name": "Chaos reviews",
+   "cadence": "Ad-hoc",
+   "line": "Anyone could call one. “I’m stuck, three people, fifteen minutes?” Usually solved it.",
+   "hue": "rust"
+  },
+  {
+   "name": "Know-how sessions",
+   "cadence": "Quarterly",
+   "line": "Deep dives led by the team, not by managers. The best ones ran forty-five minutes over.",
+   "hue": "teal"
+  },
+  {
+   "name": "Design lunch",
+   "cadence": "Monthly",
+   "line": "No work allowed. Someone opened their laptop at minute twenty every single time. We allowed it.",
+   "hue": "plum"
+  }
+ ],
+ "rituals_source": "culture",
+ "sessions": {
+  "stats": [
+   [
+    "24+",
+    "sessions run"
+   ],
+   [
+    "100%",
+    "designer-led"
+   ],
+   [
+    "0",
+    "mandatory attendances"
+   ]
+  ],
+  "rule": "If you figured something out this week — you’re presenting it next month.",
+  "note": "Presenters are named in the source. They are colleagues, so the topics are published and the names are not.",
+  "source": "culture",
+  "items": [
+   [
+    "Motion design 101",
+    "18 attended",
+    "Became a team standard"
+   ],
+   [
+    "Writing for designers",
+    "14 attended",
+    "Changed how we annotate"
+   ],
+   [
+    "Accessibility deep dive",
+    "22 attended",
+    "Added to the design checklist"
+   ],
+   [
+    "Component thinking",
+    "19 attended",
+    "Restructured the design-system process"
+   ],
+   [
+    "Research synthesis",
+    "16 attended",
+    "Adopted across squads"
+   ],
+   [
+    "Figma variables",
+    "21 attended",
+    "Cut handoff time"
+   ]
+  ]
+ },
+ "rule": {
+  "line": "You can disagree here. But you have to explain your thinking.",
+  "no": [
+   "“I don’t like this.”",
+   "“My gut says no.”"
+  ],
+  "yes": [
+   "“This breaks consistency…”",
+   "“This might confuse users…”"
+  ],
+  "source": "culture"
+ },
+ "photos": [
+  {
+   "file": "aop-night.jpg",
+   "cap": "AOP night, 2023",
+   "alt": "The design team together at the AOP awards night, under a lit card-suit backdrop.",
+   "hue": "ochre"
+  },
+  {
+   "file": "diwali-group.jpg",
+   "cap": "Diwali",
+   "alt": "The design team crowded together in festive clothes, raising cups to the camera.",
+   "hue": "copper"
+  },
+  {
+   "file": "karjat.jpg",
+   "pos": "50% 88%",
+   "cap": "Karjat",
+   "alt": "The hills at Karjat on the team trip, with the word TEAM set across the view.",
+   "hue": "sage"
+  },
+  {
+   "file": "diwali-room.jpg",
+   "cap": "Somebody’s living room",
+   "alt": "The team packed into a living room mid-celebration, laughing.",
+   "hue": "rust"
+  },
+  {
+   "file": "stellar.jpg",
+   "pos": "50% 38%",
+   "cap": "Stellar of the Year",
+   "alt": "An award being collected on stage in front of a seated audience.",
+   "hue": "plum"
+  },
+  {
+   "file": "team-selfie.jpg",
+   "pos": "50% 42%",
+   "cap": "No agenda",
+   "alt": "A wide group photo of the team pressed into frame, everyone grinning.",
+   "hue": "teal"
+  },
+  {
+   "file": "pace-setters.jpg",
+   "pos": "50% 30%",
+   "cap": "On stage",
+   "alt": "Five colleagues on stage at a company event under a Pace Setters banner.",
+   "hue": "slate"
+  }
+ ],
+ "photos_note": "Every photograph here is from Arushi’s own files. Nothing is stock and nothing is generated.",
+ "annotations": [
+  "Not everything important happened in a meeting.",
+  "The agenda was optional. Showing up for each other wasn’t.",
+  "Imperfect beat aesthetic. Every time."
+ ],
+ "award": {
+  "name": "Best Team Award",
+  "event": "AOP 2023",
+  "line": "Out of every team in the company, design won.",
+  "why_not": [
+   "Individual brilliance or one big launch.",
+   "The design system, the metrics, the portfolio."
+  ],
+  "why": "People across the org wanted to work with the design team. That’s it.",
+  "second": "Stellar of the Year",
+  "caution": "The source states the award and the team’s reading of why. It does not establish that any one initiative caused it, and the page does not claim that.",
+  "source": "culture",
+  "phases": [
+   [
+    "Survive",
+    "Two designers and startup chaos. We shipped things nobody questioned, because nobody knew how to."
+   ],
+   [
+    "Build",
+    "Rituals formed. Crits got structured. People started saying actual things out loud."
+   ],
+   [
+    "Lead",
+    "Design started driving decisions, presenting to leadership, setting culture cross-functionally."
+   ]
+  ]
+ },
+ "ladder": {
+  "label": "The ladder designers grew through",
+  "attrib": "Career framework operated by the design organisation at Bajaj Finserv Health. Published here in sanitised form — bands and tracks only.",
+  "source": "ladder, growth",
+  "bands": [
+   "GB03",
+   "GB04",
+   "GB05",
+   "GB06",
+   "GB07",
+   "GB08"
+  ],
+  "levels": [
+   [
+    "Foundation",
+    "L1"
+   ],
+   [
+    "Developing",
+    "L2"
+   ],
+   [
+    "Proficient",
+    "L3"
+   ],
+   [
+    "Advanced",
+    "L4"
+   ]
+  ],
+  "tracks": [
+   {
+    "name": "UX Design",
+    "hue": "copper",
+    "blurb": "The overall experience — usability, information architecture, content.",
+    "steps": [
+     [
+      "Learning UX basics",
+      "Understands usability, accessibility, IA and interaction principles."
+     ],
+     [
+      "Designing user flows",
+      "Wireframes and prototypes for end-to-end flows."
+     ],
+     [
+      "Improving user journeys",
+      "High-fidelity prototypes for complex flows."
+     ],
+     [
+      "Establishing standards",
+      "Defines UX guidelines for projects, aligns solutions with business and user needs, advocates for consistency."
+     ]
+    ]
+   },
+   {
+    "name": "UI Design",
+    "hue": "ochre",
+    "blurb": "How it looks and how it responds — the visual and interaction surface.",
+    "steps": [
+     [
+      "Mastering the basics",
+      "Learns colour, typography and layout."
+     ],
+     [
+      "Delivering quality consistently",
+      "Designs screens for usability and consistency."
+     ],
+     [
+      "Contributing to the system",
+      "Complex layouts for multi-platform projects."
+     ],
+     [
+      "Leading standardisation",
+      "Defines visual standards across projects, guides teams, aligns design with business goals."
+     ]
+    ]
+   },
+   {
+    "name": "Product Design",
+    "hue": "sage",
+    "blurb": "Design, tech and strategy together — owning the product outcome.",
+    "steps": [
+     [
+      "Creating basic designs",
+      "Understands core product design principles, tools and workflows."
+     ],
+     [
+      "Designing user-centric features",
+      "High-fidelity designs aligned to user and product goals."
+     ],
+     [
+      "Defining design systems",
+      "Reusable systems and frameworks for scalability, consistent across product workflows."
+     ],
+     [
+      "Leading product strategy",
+      "Long-term strategy, scalable frameworks, anticipating trends to create future-ready solutions."
+     ]
+    ]
+   },
+   {
+    "name": "Design Engineering",
+    "hue": "teal",
+    "blurb": "Design to code — front-end fundamentals, increasingly AI-assisted.",
+    "steps": [
+     [
+      "Mastering principles and tools",
+      "Design principles plus HTML and CSS, enough to collaborate properly with developers."
+     ],
+     [
+      "Applying design-to-code basics",
+      "Builds prototypes and components with AI tools."
+     ],
+     [
+      "Creating advanced scalable designs",
+      "End-to-end front-end through AI."
+     ],
+     [
+      "Shaping AI-driven vision",
+      "Sets the direction for AI-powered design workflows across the organisation."
+     ]
+    ]
+   },
+   {
+    "name": "Design Management",
+    "hue": "plum",
+    "blurb": "Leading the team that does the work.",
+    "steps": [
+     [
+      "Overseeing teams and workflows",
+      "Plans and organises design tasks."
+     ],
+     [
+      "Managing projects and resources",
+      "Leads cross-functional initiatives."
+     ],
+     [
+      "Developing high-performance teams",
+      "Coaches and mentors to scale quality."
+     ],
+     [
+      "Shaping growth and development",
+      "Mentorship programmes, frameworks for hiring, upskilling and retaining talent."
+     ]
+    ]
+   }
+  ]
+ },
+ "rise": {
+  "name": "RISE",
+  "expand": "Re-defining Individual Skills & Expertise",
+  "source": "growth",
+  "attrib": "A company programme spanning Technology, Product and Design.",
+  "cycle": [
+   [
+    "Identify",
+    "The competencies that matter at each band."
+   ],
+   [
+    "Assess & align",
+    "Rate against them, one to four — self and manager."
+   ],
+   [
+    "Plan",
+    "Turn the gap into an individual development plan."
+   ],
+   [
+    "Act",
+    "Training and masterclasses against that plan."
+   ],
+   [
+    "Track",
+    "Monitor progress, then start again."
+   ]
+  ],
+  "scale": [
+   "Basic",
+   "Intermediate",
+   "Advanced",
+   "Exceptional"
+  ],
+  "target": {
+   "value": "50%",
+   "label": "coverage of the eligible population with more than a year’s tenure",
+   "kind": "target",
+   "warn": "The target set in the programme document. No source records whether it was met."
+  }
+ },
+ "skills": {
+  "label": "What “good” meant, by role",
+  "attrib": "Role-level targets from the team’s skill-mapping template. Individual scores exist in the same file and are not published.",
+  "source": "skills",
+  "axes": [
+   "Research",
+   "Information architecture",
+   "Interaction design",
+   "Visual design",
+   "UX writing",
+   "Prototyping",
+   "Usability testing"
+  ],
+  "roles": [
+   {
+    "name": "Jr. UX Designer",
+    "hue": "copper",
+    "vals": [
+     2,
+     2,
+     3,
+     2,
+     2,
+     3,
+     2
+    ]
+   },
+   {
+    "name": "UX Designer",
+    "hue": "copper",
+    "vals": [
+     3,
+     3,
+     4,
+     2,
+     3,
+     4,
+     3
+    ]
+   },
+   {
+    "name": "Sr. UX Designer",
+    "hue": "copper",
+    "vals": [
+     4,
+     4,
+     4,
+     3,
+     3,
+     5,
+     4
+    ]
+   },
+   {
+    "name": "Lead UX Designer",
+    "hue": "copper",
+    "vals": [
+     4,
+     5,
+     5,
+     3,
+     3,
+     5,
+     5
+    ]
+   },
+   {
+    "name": "UI Designer",
+    "hue": "ochre",
+    "vals": [
+     3,
+     2,
+     2,
+     4,
+     2,
+     4,
+     2
+    ]
+   },
+   {
+    "name": "Sr. UI Designer",
+    "hue": "ochre",
+    "vals": [
+     3,
+     3,
+     3,
+     4,
+     3,
+     4,
+     3
+    ]
+   },
+   {
+    "name": "Lead UI Designer",
+    "hue": "ochre",
+    "vals": [
+     3,
+     3,
+     3,
+     5,
+     4,
+     5,
+     3
+    ]
+   }
+  ],
+  "max": 5
+ },
+ "numbers": [
+  {
+   "value": "24",
+   "unit": "",
+   "label": "designers in the function",
+   "qual": "On 17 August 2023 — fifteen UX and nine UI, counted off the org chart.",
+   "kind": "snapshot",
+   "src": "DesignOps Review, 17 Aug 2023",
+   "hue": "copper"
+  },
+  {
+   "value": "12",
+   "unit": "",
+   "label": "promoted internally",
+   "qual": "Designers who moved up a level rather than being replaced from outside.",
+   "kind": "recorded",
+   "src": "retention-growth-morale.html",
+   "hue": "ochre"
+  },
+  {
+   "value": "3",
+   "unit": "",
+   "label": "moved into management",
+   "qual": "Individual contributors who became people leaders — a first for the team.",
+   "kind": "recorded",
+   "src": "retention-growth-morale.html",
+   "hue": "sage"
+  },
+  {
+   "value": "24",
+   "unit": "+",
+   "label": "knowledge sessions run",
+   "qual": "Every one of them led by a designer, none of them mandatory.",
+   "kind": "recorded",
+   "src": "Building a Strong Design Culture.html",
+   "hue": "teal"
+  },
+  {
+   "value": "6",
+   "unit": "",
+   "label": "rituals that held it together",
+   "qual": "Crits, jams, share-and-tell, chaos reviews, know-how sessions, lunch.",
+   "kind": "recorded",
+   "src": "Building a Strong Design Culture.html",
+   "hue": "rust"
+  },
+  {
+   "value": "5",
+   "unit": "",
+   "label": "tracks a designer could grow along",
+   "qual": "UX, UI, product, design engineering, management — across bands GB03 to GB08.",
+   "kind": "recorded",
+   "src": "DesignTeam_CareerGrowth 1.2.pdf",
+   "hue": "plum"
+  }
+ ],
+ "numbers_note": "Each of these is countable and traceable to one named file. Attrition and tenure figures exist in my records but disagree with each other, so they are deliberately absent until I can reconcile them.",
+ "restricted": {
+  "title": "Detailed leadership data — restricted",
+  "line": "The team’s roster, competency scores and promotion records sit behind this. They are real, and they are not mine to publish.",
+  "rows": [
+   [
+    "Designer",
+    "Band",
+    "Tenure",
+    "Competency",
+    "Next step"
+   ],
+   [
+    "——————",
+    "GB04A",
+    "18 mo",
+    "22 / 35",
+    "————"
+   ],
+   [
+    "—————",
+    "GB03",
+    "15 mo",
+    "11 / 35",
+    "—————"
+   ],
+   [
+    "———————",
+    "GB05A",
+    "18 mo",
+    "31 / 35",
+    "———"
+   ],
+   [
+    "————",
+    "GB04A",
+    "18 mo",
+    "15 / 35",
+    "——————"
+   ]
+  ],
+  "note": "Illustrative shape only. No real row, name or score is rendered here or sent to your browser.",
+  "status": "This portfolio is a static site, so there is no server to authenticate against. Nothing confidential is published, blurred or otherwise — the preview above is invented shape, not covered-up data."
+ },
+ "principles": [
+  {
+   "n": "01",
+   "title": "Ownership over micromanagement",
+   "hue": "copper",
+   "body": "Talented people perform best when the work is genuinely theirs. I hire people I believe in, give them real ownership, and hold them to outcomes rather than to process.",
+   "pull": "If I’m the bottleneck, the system is broken.",
+   "source": "journey, hiring"
+  },
+  {
+   "n": "02",
+   "title": "Safety to speak honestly",
+   "hue": "ochre",
+   "body": "The quality of a team’s work tracks how safe people feel being wrong. We built that into critique deliberately: “I don’t know yet” and “I was wrong about this” were normal sentences.",
+   "pull": "Mistakes became conversations, not labels.",
+   "source": "journey, culture"
+  },
+  {
+   "n": "03",
+   "title": "Give the team the spotlight",
+   "hue": "sage",
+   "body": "When the team can shine, I stay in the background. Credit gets attributed correctly, and designers present their own work — including to the people who sign it off.",
+   "pull": "If you designed it, you present it.",
+   "source": "journey, culture"
+  },
+  {
+   "n": "04",
+   "title": "Think in systems",
+   "hue": "teal",
+   "body": "Whether it is one user flow or an organisation: how do the parts interact, where are the dependencies, what breaks under load. The same habit shaped the design system and the shape of the team.",
+   "pull": "Scale exposes weak systems. It doesn’t create them.",
+   "source": "journey, hiring"
+  },
+  {
+   "n": "05",
+   "title": "Hire for slope, not position",
+   "hue": "rust",
+   "body": "Where someone is today matters less than how fast they move. I look for people who can explain why they designed something, who say “I did” rather than “they told me”, and who frame the problem before solving it.",
+   "pull": "I don’t hire for today’s tasks. I hire for tomorrow’s judgement.",
+   "source": "hiring"
+  }
+ ],
+ "closing": {
+  "head": "Still building. Still learning. Still making room.",
+  "body": "What I learned growing this team is the thing I now work on directly: the operating layer underneath design. How work gets planned, how quality gets held, how AI changes what a design team even is. Different problem, same instinct — build the system, then get out of the way.",
+  "links": [
+   [
+    "DesignOps",
+    "../../designops/",
+    "How design works, as its own practice"
+   ],
+   [
+    "Work",
+    "../../work/",
+    "The products the team shipped"
+   ]
+  ],
+  "sign": "Earlier, I measured my value by how much I contributed. Scaling forced me to measure it by how little I needed to.",
+  "sign_source": "hiring",
+  "links_note": "Relative to leadership/team/, which is the only page that renders this block. They were ../ when the chapters lived at /leadership/."
+ }
+}

@@ -1,0 +1,1285 @@
+{
+  "_about": {
+    "purpose": "Evidence inventory and token data for the Capsule design-system case study. Every token rendered on the page is an entry here, copied from the blueprint. Every claim carries its source and status.",
+    "status_kinds": {
+      "verified": "directly supported by the blueprint or the Figma Documentation file",
+      "confirm": "plausible, but the available evidence does not establish it",
+      "future": "a proposal or an opportunity, not an implemented capability"
+    },
+    "sources": {
+      "blueprint": "Bajaj-Design-System-Blueprint 2 1.md — v2.0, last updated 2026-04-07. Complete token reference and component construction spec.",
+      "figma": "Figma · Documentation file qNHzFFW0IuAhgC2ZloLK4b, page 'Storybook' (node 0:1). Read live on 2026-10-20 through the Figma MCP connector.",
+      "resume": "Resume/Arushi-Prasad-Resume.md",
+      "audit": "00.Homepage/md files/01. homepage-audit.md — Arushi's own audit, which already flags the Capsule performance metrics."
+    },
+    "figma_verification": "Spot-checked the blueprint against live Figma variables on node 8285:51565 (Buttons). Confirmed: Rubik is the typeface, Primary/400 = #005dac, Primary/200 = #c9e2f8, Typography Jet Gray #2b2b2b, Gray #575756, Ash Gray #b3b3b3, Surface ExtraLight BluishGray #eff2f4, Borders/Dividers #f2f2f2, Disable/Text #b3b3b3. The variable `--color-primary-400` exists in the file, so a CSS-variable naming convention is real.",
+    "figma_divergences": [
+      "Figma exposes a FOCUS state for every button type; the blueprint's variant table lists only hover, pressed and disabled.",
+      "Figma documents TEN text-input states (default, default-error, active, active-typing, active-error, filled, filled-error, filled-success, disabled, read-only). The blueprint is less granular.",
+      "Figma's `Elements/Icons` resolves to #707070; the blueprint's `icon-gray` is #575756. Not reconciled — the page uses the blueprint value and says so.",
+      "Figma type styles are named per platform (DWeb/Header/H1 36px, App_MWeb/Header/H3 14px, Heading/xl-semibold 40px). The blueprint uses a single platform-neutral scale (display-lg 56px … label-xs 8px). These are two different naming systems over the same typeface; the page shows the blueprint scale and notes the Figma naming."
+    ],
+    "privacy": "The Figma text-input documentation uses a real colleague's name as placeholder content. It is not reproduced; the page uses a neutral placeholder.",
+    "not_published": "The homepage performance metrics (3.75x / 4x faster revamp, 73% design-time reduction, 2mo vs 1.5mo redesign, 20+ designers) are NOT on this page. They conflict across sources and Arushi's own audit marks them VERIFY/RECONCILE. They appear only in the confirmation checklist."
+  },
+  "meta": {
+    "name": "Capsule",
+    "org": "Bajaj Finserv Health",
+    "blueprint_version": "2.0",
+    "blueprint_date": "7 April 2026",
+    "figma_file": "Documentation",
+    "figma_page": "Storybook"
+  },
+  "counts": [
+    {
+      "v": "79",
+      "l": "documented component frames",
+      "q": "Top-level frames on the Storybook page of the Figma Documentation file, counted on 20 October 2026.",
+      "s": "figma",
+      "k": "verified"
+    },
+    {
+      "v": "25",
+      "l": "components specified",
+      "q": "Sections 9.1 to 9.25 of the blueprint, each with anatomy, variants and rules.",
+      "s": "blueprint",
+      "k": "verified"
+    },
+    {
+      "v": "5",
+      "l": "atoms",
+      "q": "Dividers, avatar, badge, star rating, status dot — the pieces that cannot be broken down further.",
+      "s": "blueprint",
+      "k": "verified"
+    },
+    {
+      "v": "4",
+      "l": "patterns",
+      "q": "List item, form section, screen layout, sticky bottom CTA.",
+      "s": "blueprint",
+      "k": "verified"
+    },
+    {
+      "v": "4",
+      "l": "platforms documented",
+      "q": "App, MWeb, DWeb and PWA each have their own header and sizing defaults.",
+      "s": "figma",
+      "k": "verified"
+    },
+    {
+      "v": "3",
+      "l": "products, one language",
+      "q": "Consistent across the resume and the existing portfolio page.",
+      "s": "resume",
+      "k": "verified"
+    }
+  ],
+  "challenge": {
+    "lede": "Three products, built by different teams at different times, each with its own idea of what a button was.",
+    "before": [
+      [
+        "Every screen re-decided the basics",
+        "Colour, spacing and type were settled per screen rather than once, so the same control looked different in two places."
+      ],
+      [
+        "Design and engineering guessed at each other",
+        "Without named values, a handoff was a screenshot and a conversation. The same component got rebuilt per platform."
+      ],
+      [
+        "Four platforms, four answers",
+        "App, MWeb, DWeb and PWA each needed their own sizing — but nothing recorded what was deliberately different and what had simply drifted."
+      ],
+      [
+        "Nothing could be changed centrally",
+        "A brand decision meant finding every instance by hand."
+      ]
+    ],
+    "note": "This is the problem the system was built to answer, described from the specification it produced. Historical before-and-after screenshots are not in my files, so there is no fabricated 'before' UI on this page.",
+    "k": "confirm"
+  },
+  "principles": [
+    [
+      "Trust & clarity",
+      "Blue-dominant palette conveys reliability. Clean layouts with ample whitespace.",
+      "#005DAC"
+    ],
+    [
+      "Hierarchy",
+      "Orange and yellowish-orange accents draw attention to key actions and alerts.",
+      "#FF5500"
+    ],
+    [
+      "Consistency",
+      "Every component shares the same radius scale, spacing grid and colour tokens.",
+      "#64A70B"
+    ],
+    [
+      "Accessibility",
+      "Primary blue on white exceeds WCAG AA (4.65:1). Interactive targets are minimum 44px.",
+      "#FDA416"
+    ],
+    [
+      "Light-first",
+      "Design primarily for light mode — white surfaces, subtle grey borders, minimal shadows.",
+      "#575756"
+    ]
+  ],
+  "layers": [
+    [
+      "Principles",
+      "Five written rules that decide arguments before they start.",
+      "5 principles"
+    ],
+    [
+      "Foundations",
+      "Colour, type, space, elevation, radius, icons.",
+      "6 areas"
+    ],
+    [
+      "Tokens",
+      "The named values the foundations resolve to.",
+      "primitive + semantic"
+    ],
+    [
+      "Atoms",
+      "The pieces that cannot be broken down further.",
+      "5"
+    ],
+    [
+      "Components",
+      "The library, with states and behaviour specified.",
+      "25"
+    ],
+    [
+      "Patterns",
+      "The recurring compositions above component level.",
+      "4"
+    ],
+    [
+      "Products",
+      "App, MWeb, DWeb, PWA.",
+      "4 platforms"
+    ]
+  ],
+  "typography": {
+    "family": "Rubik",
+    "rule": "Rubik is the only permitted typeface. Never substitute with Inter, Manrope, a system font or any other family.",
+    "source": "blueprint §2.1, confirmed in Figma variables",
+    "scale": [
+      [
+        "display-lg",
+        56,
+        500,
+        1.15,
+        "-0.02em",
+        "Hero banners, splash screens"
+      ],
+      [
+        "display-md",
+        44,
+        700,
+        1.2,
+        "-0.02em",
+        "Page-level feature headers"
+      ],
+      [
+        "header-lg",
+        32,
+        700,
+        1.25,
+        "-0.01em",
+        "Section titles, page headers"
+      ],
+      [
+        "header-md",
+        24,
+        700,
+        1.3,
+        "-0.01em",
+        "Card group headers, modal titles"
+      ],
+      [
+        "header-sm",
+        20,
+        600,
+        1.4,
+        "0",
+        "Sub-section headers"
+      ],
+      [
+        "header-xs",
+        18,
+        600,
+        1.4,
+        "0",
+        "App bar titles, navigation headers"
+      ],
+      [
+        "subheading-lg",
+        16,
+        600,
+        1.5,
+        "0",
+        "Card titles, list item primary text"
+      ],
+      [
+        "subheading-md",
+        14,
+        600,
+        1.5,
+        "0",
+        "Inline headings, form section labels"
+      ],
+      [
+        "subheading-sm",
+        12,
+        600,
+        1.5,
+        "0.01em",
+        "Overline text, section labels"
+      ],
+      [
+        "body-lg",
+        16,
+        400,
+        1.5,
+        "0",
+        "Primary body copy"
+      ],
+      [
+        "body-md",
+        14,
+        400,
+        1.5,
+        "0",
+        "Secondary body copy, descriptions"
+      ],
+      [
+        "body-sm",
+        12,
+        400,
+        1.5,
+        "0.01em",
+        "Captions, helper text, timestamps"
+      ],
+      [
+        "body-xs",
+        10,
+        400,
+        1.4,
+        "0.02em",
+        "Fine print, disclaimer text"
+      ],
+      [
+        "label-lg",
+        14,
+        500,
+        1.4,
+        "0.01em",
+        "Button text, form labels"
+      ],
+      [
+        "label-md",
+        12,
+        500,
+        1.4,
+        "0.02em",
+        "Chip text, tag text, tab labels"
+      ],
+      [
+        "label-sm",
+        10,
+        500,
+        1.4,
+        "0.03em",
+        "Badge text, micro-labels"
+      ],
+      [
+        "label-xs",
+        8,
+        500,
+        1.4,
+        "0.04em",
+        "Superscript, annotation marks"
+      ]
+    ]
+  },
+  "colour": {
+    "brand": [
+      [
+        "Primary",
+        "Blue-400",
+        "#005DAC",
+        "CTAs, active states, links, primary actions"
+      ],
+      [
+        "Secondary",
+        "Orange-400",
+        "#FF5500",
+        "Secondary accents, highlights, promotional badges"
+      ],
+      [
+        "Tertiary",
+        "YellowOrange-400",
+        "#FDA416",
+        "Warnings, caution states, star ratings"
+      ]
+    ],
+    "scales": [
+      {
+        "name": "Blue",
+        "role": "Primary",
+        "steps": [
+          [
+            "Blue-100",
+            "#F0F9FF",
+            "ExtraLight primary bg, info tag bg"
+          ],
+          [
+            "Blue-200",
+            "#C9E2F8",
+            "Light blue tint, hover state bg, icon tint"
+          ],
+          [
+            "Blue-300",
+            "#9AC2E4",
+            "Secondary blue icon colour"
+          ],
+          [
+            "Blue-400",
+            "#005DAC",
+            "Primary brand — buttons, links, active states"
+          ],
+          [
+            "Blue-500",
+            "#00437A",
+            "Hover state for primary buttons, dark blue text"
+          ],
+          [
+            "Blue-600",
+            "#002747",
+            "Pressed state, deep blue backgrounds"
+          ]
+        ]
+      },
+      {
+        "name": "Orange",
+        "role": "Secondary",
+        "steps": [
+          [
+            "Orange-100",
+            "#FFEEE5",
+            "ExtraLight orange bg, orange tag bg"
+          ],
+          [
+            "Orange-200",
+            "#FFB899",
+            "Light orange tint"
+          ],
+          [
+            "Orange-300",
+            "#FF7733",
+            "Medium orange accent"
+          ],
+          [
+            "Orange-400",
+            "#FF5500",
+            "Secondary brand — secondary CTAs, highlights"
+          ],
+          [
+            "Orange-500",
+            "#CC4400",
+            "Dark orange for hover/pressed"
+          ],
+          [
+            "Orange-600",
+            "#993300",
+            "Deepest orange"
+          ]
+        ]
+      },
+      {
+        "name": "YellowOrange",
+        "role": "Tertiary / caution",
+        "steps": [
+          [
+            "YellowOrange-100",
+            "#FFF3E0",
+            "ExtraLight tertiary bg, caution tag bg"
+          ],
+          [
+            "YellowOrange-200",
+            "#FEEDAE",
+            "Warm accent tint"
+          ],
+          [
+            "YellowOrange-300",
+            "#FDB848",
+            "Medium warm accent"
+          ],
+          [
+            "YellowOrange-400",
+            "#FDA416",
+            "Tertiary — star ratings, warning icons"
+          ],
+          [
+            "YellowOrange-500",
+            "#CF8612",
+            "ExtraDark yellowish text"
+          ],
+          [
+            "YellowOrange-600",
+            "#9F680E",
+            "Deepest warm accent"
+          ]
+        ]
+      },
+      {
+        "name": "Green",
+        "role": "Success",
+        "steps": [
+          [
+            "Green-100",
+            "#E8FCCF",
+            "ExtraLight success bg, success tag bg"
+          ],
+          [
+            "Green-200",
+            "#87B069",
+            "Medium green tint"
+          ],
+          [
+            "Green-300",
+            "#95C950",
+            "Light success accent"
+          ],
+          [
+            "Green-400",
+            "#64A70B",
+            "Success icon, success badge text"
+          ],
+          [
+            "Green-500",
+            "#568F0A",
+            "Success icon, dark variant"
+          ],
+          [
+            "Green-600",
+            "#3C6407",
+            "ExtraDark green text"
+          ]
+        ]
+      },
+      {
+        "name": "Red",
+        "role": "Error / destructive",
+        "steps": [
+          [
+            "Red-100",
+            "#FCEDEE",
+            "ExtraLight error bg, error tag bg"
+          ],
+          [
+            "Red-200",
+            "#F08F94",
+            "Light red tint"
+          ],
+          [
+            "Red-300",
+            "#E96269",
+            "Medium error accent"
+          ],
+          [
+            "Red-400",
+            "#DA1E28",
+            "Error icons, error borders, destructive actions"
+          ],
+          [
+            "Red-500",
+            "#B31921",
+            "Error text, notification badge bg"
+          ],
+          [
+            "Red-600",
+            "#861319",
+            "Deepest error"
+          ]
+        ]
+      },
+      {
+        "name": "Gray",
+        "role": "Neutral",
+        "steps": [
+          [
+            "Gray-100",
+            "#F2F2F2",
+            "ExtraLight bg, dividers, progress track"
+          ],
+          [
+            "Gray-200",
+            "#DADADA",
+            "Light gray bg, empty star, disabled border"
+          ],
+          [
+            "Gray-300",
+            "#B3B3B3",
+            "Muted text, placeholder, disabled text"
+          ],
+          [
+            "Gray-400",
+            "#575756",
+            "Default text, secondary text, default icons"
+          ],
+          [
+            "Gray-500",
+            "#2B2B2B",
+            "Primary text, headings, high-contrast body"
+          ],
+          [
+            "Gray-600",
+            "#1A1A1A",
+            "Tooltip and snackbar bg, near-black"
+          ]
+        ]
+      },
+      {
+        "name": "BlushGray",
+        "role": "Surfaces & borders",
+        "steps": [
+          [
+            "BlushGray-100",
+            "#EFF2F4",
+            "Card borders, surface bg, chip unselected bg"
+          ],
+          [
+            "BlushGray-200",
+            "#D2DAE0",
+            "Input borders, search bar border"
+          ],
+          [
+            "BlushGray-300",
+            "#B3C2CB",
+            "Stronger border variant"
+          ],
+          [
+            "BlushGray-500",
+            "#9AA8B6",
+            "Muted icon, secondary element"
+          ],
+          [
+            "BlushGray-600",
+            "#495D6A",
+            "Dark blush text"
+          ]
+        ]
+      }
+    ],
+    "semantic": [
+      [
+        "bg-page",
+        "White",
+        "#FFFFFF"
+      ],
+      [
+        "bg-surface",
+        "BlushGray-100",
+        "#EFF2F4"
+      ],
+      [
+        "bg-extralight-primary",
+        "Blue-100",
+        "#F0F9FF"
+      ],
+      [
+        "bg-extralight-success",
+        "Green-100",
+        "#E8FCCF"
+      ],
+      [
+        "bg-extralight-error",
+        "Red-100",
+        "#FCEDEE"
+      ],
+      [
+        "bg-extralight-tertiary",
+        "YellowOrange-100",
+        "#FFF3E0"
+      ],
+      [
+        "bg-overlay",
+        "Black @ 40%",
+        "rgba(0,0,0,0.4)"
+      ],
+      [
+        "border-card",
+        "BlushGray-100",
+        "#EFF2F4"
+      ],
+      [
+        "border-divider",
+        "Gray-100",
+        "#F2F2F2"
+      ],
+      [
+        "border-input",
+        "BlushGray-200",
+        "#D2DAE0"
+      ],
+      [
+        "border-input-focus",
+        "Blue-400",
+        "#005DAC"
+      ],
+      [
+        "border-input-error",
+        "Red-400",
+        "#DA1E28"
+      ]
+    ]
+  },
+  "spacing": [
+    [
+      "space-xs",
+      4,
+      "Inline icon-to-text gap, tight internal padding"
+    ],
+    [
+      "space-sm",
+      8,
+      "Chip gap, compact list spacing, tag padding-y"
+    ],
+    [
+      "space-md",
+      12,
+      "Input internal padding, small card padding"
+    ],
+    [
+      "space-lg",
+      16,
+      "Standard card padding, section spacing, screen margin"
+    ],
+    [
+      "space-xl",
+      24,
+      "Section separation, larger component gaps"
+    ],
+    [
+      "space-2xl",
+      32,
+      "Major section breaks"
+    ],
+    [
+      "space-3xl",
+      48,
+      "Page-level vertical spacing"
+    ],
+    [
+      "space-4xl",
+      64,
+      "Maximum whitespace blocks"
+    ]
+  ],
+  "radius": [
+    [
+      "radius-xs",
+      "4px",
+      4,
+      "Tags, chips, small buttons, badges"
+    ],
+    [
+      "radius-sm",
+      "8px",
+      8,
+      "Medium and large buttons, inputs, dropdowns, search"
+    ],
+    [
+      "radius-md",
+      "12px",
+      12,
+      "Bottom sheet top corners, listing cards, carousel"
+    ],
+    [
+      "radius-lg",
+      "16px",
+      16,
+      "Avatars, segmented buttons"
+    ],
+    [
+      "radius-full",
+      "50%",
+      999,
+      "Circular avatars, dot badges, FABs"
+    ]
+  ],
+  "elevation": [
+    [
+      "elevation-0",
+      "none",
+      "Flat elements, inline components"
+    ],
+    [
+      "elevation-1",
+      "0 1px 3px rgba(0,0,0,0.08)",
+      "Cards, raised surfaces"
+    ],
+    [
+      "elevation-2",
+      "0 4px 12px rgba(0,0,0,0.12)",
+      "Dropdowns, popovers, floating elements"
+    ],
+    [
+      "elevation-3",
+      "0 8px 24px rgba(0,0,0,0.16)",
+      "Modals, bottom sheets, dialogs"
+    ],
+    [
+      "elevation-4",
+      "0 12px 32px rgba(0,0,0,0.20)",
+      "Tooltips, toasts on dark bg"
+    ]
+  ],
+  "elevation_rule": "Shadows are always subtle. Never use coloured shadows or hard drop shadows. Keep opacity low.",
+  "icons": [
+    [
+      "Style",
+      "Outlined — not filled, not two-tone"
+    ],
+    [
+      "Default size",
+      "24px"
+    ],
+    [
+      "Small / large",
+      "20px / 32px"
+    ],
+    [
+      "Stroke width",
+      "1.5px"
+    ],
+    [
+      "Default colour",
+      "#575756 (Gray-400)"
+    ],
+    [
+      "Active colour",
+      "#005DAC (Blue-400)"
+    ],
+    [
+      "Touch target",
+      "Centred in a 44px area"
+    ]
+  ],
+  "platforms": [
+    [
+      "Banners",
+      "24px",
+      "no icon",
+      "8px / 4px",
+      "—"
+    ],
+    [
+      "App / MWeb",
+      "40px",
+      "16px",
+      "12px",
+      "84–320px"
+    ],
+    [
+      "DWeb",
+      "48px",
+      "24px",
+      "12px",
+      "84–320px"
+    ]
+  ],
+  "button_variants": [
+    [
+      "Filled",
+      "Primary",
+      "#005DAC",
+      "none",
+      "#FFFFFF"
+    ],
+    [
+      "Outline",
+      "Secondary",
+      "transparent",
+      "1px #005DAC",
+      "#005DAC"
+    ],
+    [
+      "Ghost",
+      "Medium-low",
+      "transparent",
+      "none",
+      "#005DAC"
+    ],
+    [
+      "Text",
+      "Low",
+      "transparent",
+      "none",
+      "#005DAC"
+    ],
+    [
+      "Text link",
+      "Navigational",
+      "transparent",
+      "none",
+      "#005DAC"
+    ],
+    [
+      "Destructive",
+      "Destructive",
+      "#DA1E28",
+      "none",
+      "#FFFFFF"
+    ]
+  ],
+  "button_states": [
+    "Default",
+    "Focus",
+    "Hover",
+    "Press",
+    "Disabled"
+  ],
+  "button_states_note": "Five states per type, read off the Figma Behaviour frame. The blueprint's variant table lists only hover, pressed and disabled — Figma is the more complete source here.",
+  "input_states": [
+    [
+      "Default",
+      "idle",
+      "Placeholder and helper text, resting border."
+    ],
+    [
+      "Default · error",
+      "error",
+      "Error border and message before the field is touched."
+    ],
+    [
+      "Active",
+      "active",
+      "Focused, caret visible, border darkened."
+    ],
+    [
+      "Active · typing",
+      "active",
+      "Content entered, clear affordance appears."
+    ],
+    [
+      "Active · error",
+      "error",
+      "Validation fires while typing."
+    ],
+    [
+      "Filled",
+      "filled",
+      "Committed value, resting border."
+    ],
+    [
+      "Filled · error",
+      "error",
+      "Committed value that failed validation."
+    ],
+    [
+      "Filled · success",
+      "success",
+      "Validated, confirmation mark and message."
+    ],
+    [
+      "Disabled",
+      "disabled",
+      "Not interactive, muted throughout."
+    ],
+    [
+      "Read only",
+      "readonly",
+      "Value shown, editing not permitted."
+    ]
+  ],
+  "input_states_source": "figma",
+  "tags": [
+    [
+      "Info",
+      "#F0F9FF",
+      "#005DAC"
+    ],
+    [
+      "Success",
+      "#E8FCCF",
+      "#3C6407"
+    ],
+    [
+      "Error",
+      "#FCEDEE",
+      "#B31921"
+    ],
+    [
+      "Caution",
+      "#FFF3E0",
+      "#CF8612"
+    ],
+    [
+      "Neutral",
+      "#F2F2F2",
+      "#575756"
+    ]
+  ],
+  "status_dots": [
+    [
+      "Active",
+      "#64A70B"
+    ],
+    [
+      "Inactive",
+      "#DA1E28"
+    ],
+    [
+      "Warning",
+      "#FDA416"
+    ],
+    [
+      "Info",
+      "#005DAC"
+    ],
+    [
+      "Neutral",
+      "#B3B3B3"
+    ]
+  ],
+  "avatars": [
+    [
+      "xs",
+      32
+    ],
+    [
+      "sm",
+      40
+    ],
+    [
+      "md",
+      48
+    ],
+    [
+      "lg",
+      56
+    ],
+    [
+      "xl",
+      64
+    ]
+  ],
+  "inventory": [
+    [
+      "Actions",
+      [
+        "Buttons",
+        "Segmented buttons",
+        "Chips",
+        "Filter bar"
+      ]
+    ],
+    [
+      "Form",
+      [
+        "Text input",
+        "Text area",
+        "Checkbox",
+        "Radio button",
+        "Dropdown / select",
+        "Search bar",
+        "Slider",
+        "PIN / OTP",
+        "Date picker"
+      ]
+    ],
+    [
+      "Navigation",
+      [
+        "Header / app bar",
+        "Tabs",
+        "Pagination",
+        "Breadcrumb",
+        "Stepper",
+        "Scroll indicator"
+      ]
+    ],
+    [
+      "Feedback",
+      [
+        "Snackbar / toast",
+        "Tooltip / nudge",
+        "Progress bar",
+        "Empty state",
+        "Status",
+        "Badges",
+        "Coach marks"
+      ]
+    ],
+    [
+      "Containers",
+      [
+        "Cards",
+        "Profile cards",
+        "Product cards",
+        "Service cards",
+        "Transaction cards",
+        "Testimonials",
+        "Accordion",
+        "FAQ"
+      ]
+    ],
+    [
+      "Overlays",
+      [
+        "Bottom sheet",
+        "Side sheet",
+        "Pop-ups / dialog"
+      ]
+    ],
+    [
+      "Atoms",
+      [
+        "Divider",
+        "Avatar",
+        "Badge",
+        "Star rating",
+        "Status dot",
+        "Tags"
+      ]
+    ]
+  ],
+  "inventory_note": "Grouped from the 79 documented frames in the Figma file and the blueprint's component sections. A frame exists for each of these; a frame existing is not the same as a product having adopted it.",
+  "handoff": [
+    [
+      "Figma documentation",
+      "Each component has its own frame: anatomy, variants, behaviour, usage.",
+      "verified"
+    ],
+    [
+      "Named variables",
+      "Figma variables carry the colour and type values, including a `--color-primary-400` naming that maps to CSS.",
+      "verified"
+    ],
+    [
+      "Written construction spec",
+      "The blueprint states sizes, padding, radius and state colours as numbers, not pictures.",
+      "verified"
+    ],
+    [
+      "Platform defaults",
+      "App/MWeb 40px, DWeb 48px, banners 24px — the differences are recorded rather than discovered.",
+      "verified"
+    ],
+    [
+      "Automated token pipeline",
+      "No evidence in my sources that tokens are published to code automatically. This is the obvious next step, not something I am claiming exists.",
+      "future"
+    ]
+  ],
+  "governance": [
+    [
+      "Single source file",
+      "One Figma Documentation file, versioned as the blueprint (v2.0, 7 April 2026).",
+      "verified"
+    ],
+    [
+      "Documented do's and don'ts",
+      "The blueprint closes with an explicit cheat sheet of rules.",
+      "verified"
+    ],
+    [
+      "Per-component usage rules",
+      "Each component section states what is and is not permitted — buttons are never pill-shaped, shadows are never coloured.",
+      "verified"
+    ],
+    [
+      "Contribution and review process",
+      "Not documented in the sources I have. Needs confirmation before any claim is published.",
+      "confirm"
+    ],
+    [
+      "Versioning and change log",
+      "The blueprint carries a version and date; a per-component change log is not evidenced.",
+      "confirm"
+    ],
+    [
+      "Adoption tracking",
+      "No evidence of a tracked adoption measure.",
+      "confirm"
+    ]
+  ],
+  "dos": [
+    "Use Rubik for every piece of text.",
+    "Use the documented radius scale — 4px for small controls, 8px for medium and large.",
+    "Keep interactive targets at 44px minimum.",
+    "Use semantic tokens rather than raw hex values.",
+    "Keep shadows subtle and uncoloured."
+  ],
+  "donts": [
+    "Never substitute the typeface.",
+    "Never make buttons pill-shaped.",
+    "Never use coloured or hard drop shadows.",
+    "Never invent a colour outside the documented scales.",
+    "Never go below the 44px touch target."
+  ],
+  "confirm_list": [
+    [
+      "3.75× / 4× faster revamp",
+      "Two different numbers appear in the same homepage section; the resume says 3×. Three values, one claim.",
+      "Which figure is right, and what was measured against what?"
+    ],
+    [
+      "73% design-time reduction",
+      "Appears in homepage copy only. Your own audit marks it VERIFY.",
+      "What was the baseline, the task, and the sample?"
+    ],
+    [
+      "Full redesign in 1.5 vs 2 months",
+      "The homepage tile says 2 months; your master doc says 1.5.",
+      "Which product, and which figure?"
+    ],
+    [
+      "20+ designers on the system",
+      "Homepage tile only, marked VERIFY in your audit.",
+      "Designers with file access, or designers actively building with it?"
+    ],
+    [
+      "~100 screens in the library",
+      "Consistent in the resume and the current page, but still self-reported.",
+      "Screens in the Figma file, or screens shipped in product?"
+    ],
+    [
+      "Product adoption evidence",
+      "I have no product screenshots showing Capsule components in a shipped Bajaj interface.",
+      "Can you export two or three real product screens?"
+    ]
+  ],
+  "learned": [
+    [
+      "Designing for scale",
+      "A system is a product whose users are designers and engineers. The moment I started treating the blueprint as a spec with versions rather than a document, arguments got shorter."
+    ],
+    [
+      "Design and engineering",
+      "Named values are the whole trick. A hex code in a comp is a suggestion; `border-input-focus` is a contract."
+    ],
+    [
+      "Rules beat taste at scale",
+      "Five written principles settle more disagreements than any amount of review, because they are quotable by someone who is not me."
+    ],
+    [
+      "Governance is the hard half",
+      "Launching a library is a project. Keeping one true is an operating commitment, and it is the part I would resource differently next time."
+    ],
+    [
+      "Consistency against product need",
+      "Four platforms needed four button heights. The system's job was to record which differences were deliberate — not to pretend there were none."
+    ]
+  ],
+  "closing": "A design system is the product behind the products. When it works, nobody mentions it — they just ship faster and argue less, and the things they ship look like they came from the same company.",
+  "contrast": {
+    "note": "Computed with the WCAG 2.1 relative-luminance formula against the documented token pairs — not judged by eye. Normal body text needs 4.5:1; large text and UI boundaries need 3:1.",
+    "claim": "The blueprint states that primary blue on white is 4.65:1. Measured, it is 6.64:1 — the system is more accessible than its own documentation claims.",
+    "caveat": "This checks colour contrast only. It is not a full WCAG audit, and the page makes no compliance claim.",
+    "rows": [
+      [
+        "Primary blue on white",
+        "#005DAC",
+        "#FFFFFF",
+        6.64,
+        "Links, headings, primary button labels"
+      ],
+      [
+        "White on primary blue",
+        "#FFFFFF",
+        "#005DAC",
+        6.64,
+        "Filled button label"
+      ],
+      [
+        "Hover blue on white",
+        "#00437A",
+        "#FFFFFF",
+        10.08,
+        "Hover state text"
+      ],
+      [
+        "Primary text on white",
+        "#2B2B2B",
+        "#FFFFFF",
+        14.16,
+        "Body copy, headings"
+      ],
+      [
+        "Default text on white",
+        "#575756",
+        "#FFFFFF",
+        7.23,
+        "Secondary text"
+      ],
+      [
+        "Muted text on white",
+        "#B3B3B3",
+        "#FFFFFF",
+        2.1,
+        "Placeholder, helper, disabled text"
+      ],
+      [
+        "Error text on white",
+        "#B31921",
+        "#FFFFFF",
+        6.82,
+        "Validation messages"
+      ],
+      [
+        "Success text on white",
+        "#3C6407",
+        "#FFFFFF",
+        6.96,
+        "Confirmation messages"
+      ],
+      [
+        "Warning text on white",
+        "#CF8612",
+        "#FFFFFF",
+        2.97,
+        "Warning copy"
+      ],
+      [
+        "Disabled label on grey",
+        "#FFFFFF",
+        "#B3B3B3",
+        2.1,
+        "Disabled filled button"
+      ],
+      [
+        "Info tag",
+        "#005DAC",
+        "#F0F9FF",
+        6.23,
+        "Tag text on its own tint"
+      ],
+      [
+        "Success tag",
+        "#3C6407",
+        "#E8FCCF",
+        6.38,
+        "Tag text on its own tint"
+      ],
+      [
+        "Error tag",
+        "#B31921",
+        "#FCEDEE",
+        6.01,
+        "Tag text on its own tint"
+      ],
+      [
+        "Caution tag",
+        "#CF8612",
+        "#FFF3E0",
+        2.71,
+        "Tag text on its own tint"
+      ]
+    ]
+  }
+}

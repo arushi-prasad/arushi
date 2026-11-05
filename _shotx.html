@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8">
+<style>html,body{margin:0;background:#300}#f{border:0;display:block;width:1440px;height:900px}
+#n{position:fixed;right:4px;bottom:4px;z-index:9;background:#fff;color:#000;font:12px monospace;padding:4px}</style>
+<iframe id="f"></iframe><div id="n">…</div>
+<img src="http://127.0.0.1:8002/slow?s=10" alt="" style="position:fixed;left:-50px;top:-50px;width:1px">
+<script>
+const q=new URLSearchParams(location.search), f=document.getElementById('f');
+f.src=q.get('u');
+f.onload=()=>{ const w=f.contentWindow,d=f.contentDocument,de=d.documentElement;
+  setTimeout(()=>{
+    w.scrollTo(Number(q.get('x')||900), Number(q.get('y')||0));
+    setTimeout(()=>{
+      n.textContent='scrollX '+w.scrollX+' | de.scrollW '+de.scrollWidth+' bodyW '+d.body.scrollWidth+
+        ' | html ovf-x '+getComputedStyle(de).overflowX+' body ovf-x '+getComputedStyle(d.body).overflowX;
+    },300);
+  },1500);
+};
+</script>

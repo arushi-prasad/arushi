@@ -1,0 +1,137 @@
+/* ===========================================================================
+   VYTALS — CASE STUDY
+   Page-scoped. The layout, palette and type all come from the case stylesheet;
+   this adds only the handful of components the source page needed that the
+   portfolio did not already have — an image strip, a definition pair, a
+   sequence, a tag row and a status chip. Each is built from site tokens, so it
+   inherits the palette rather than carrying one of its own.
+   =========================================================================== */
+
+/* --- image strip -----------------------------------------------------------
+   The source used horizontally scrolling rails to show a family of screens at
+   once. Stacking forty of them as full plates would make the page unreadable,
+   so the rail survives as a rail. It scrolls inside itself; the page never
+   scrolls sideways.
+   -------------------------------------------------------------------------- */
+.vy-rail{
+  display:flex; gap:var(--step-4);
+  margin-top:var(--step-8);
+  padding-bottom:var(--step-3);
+  overflow-x:auto; overscroll-behavior-x:contain;
+  scroll-snap-type:x proximity;
+  scrollbar-width:thin;
+}
+.vy-rail figure{
+  margin:0; flex:0 0 clamp(13rem, 24vw, 19rem);
+  scroll-snap-align:start;
+}
+.vy-rail img{
+  display:block; width:100%; height:auto;
+  border:var(--hair) solid var(--border-default);
+  background:var(--ink-5);
+}
+.vy-rail__cap{
+  margin-top:var(--step-2);
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+/* A stack was a crossfade in the source: one frame at a time, swapped on
+   scroll. Here the frames sit side by side, so they read as the sequence they
+   always were. */
+.vy-rail--stack figure{ flex-basis:clamp(11rem, 19vw, 15rem); }
+.vy-rail--stack .vy-rail__cap{ text-transform:none; letter-spacing:0; }
+
+/* --- definition pairs ------------------------------------------------------
+   Used where the source asked and answered a fixed set of questions about one
+   thing: what the signal is, what the reader needs, what the mechanism does.
+   -------------------------------------------------------------------------- */
+.vy-defs{
+  display:grid; grid-template-columns:minmax(7rem, 11rem) minmax(0, 1fr);
+  gap:var(--step-2) var(--step-5);
+  margin:var(--step-5) 0 0;
+  padding-top:var(--step-4);
+  border-top:var(--hair) solid var(--border-default);
+}
+.vy-defs dt{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.vy-defs dd{ margin:0; color:var(--text-secondary); }
+
+/* --- a sequence ------------------------------------------------------------
+   Data, information, understanding, insight, action. The source called this
+   the spine and returned to it six times; the arrows are drawn by CSS so the
+   markup stays a list of words.
+   -------------------------------------------------------------------------- */
+.vy-chain{
+  display:flex; flex-wrap:wrap; align-items:center;
+  gap:var(--step-2) var(--step-3);
+  margin-top:var(--step-6);
+}
+.vy-chain span{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.vy-chain span + span::before{
+  content:"\2192"; margin-right:var(--step-3);
+  color:var(--text-tertiary); text-transform:none;
+}
+
+/* --- tag row ---------------------------------------------------------------
+   Which products a given signal feeds. A label, not a link.
+   -------------------------------------------------------------------------- */
+.vy-tags{ display:flex; flex-wrap:wrap; gap:var(--step-2); margin-top:var(--step-3); }
+.vy-tags span{
+  padding:0.15em 0.6em;
+  border:var(--hair) solid var(--border-default); border-radius:var(--radius-md);
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label);
+  color:var(--text-tertiary);
+}
+
+/* --- status chips ----------------------------------------------------------
+   The three-state scale the reports use. The site is monochrome, so the tones
+   are the only colour on the page and they are doing semantic work: this is
+   the scale a reader is asked to trust.
+   -------------------------------------------------------------------------- */
+.vy-chips{ display:flex; flex-wrap:wrap; gap:var(--step-3); margin-top:var(--step-5); }
+.vy-chip{
+  padding:0.2em 0.7em; border-radius:var(--radius-md);
+  border:var(--hair) solid currentColor;
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label);
+}
+.vy-chip--ok{   color:#568F0A; }
+.vy-chip--warn{ color:#CF8612; }
+.vy-chip--bad{  color:#B31921; }
+.vy-chip--neutral{ color:var(--text-tertiary); }
+
+/* --- the statement that leads a row ---------------------------------------
+   Each row in the source opened with a one-line claim before its explanation.
+   It keeps that job here: emphasis, not another heading level.
+   -------------------------------------------------------------------------- */
+.vy-q{
+  margin:0 0 var(--step-2);
+  color:var(--text-primary); font-size:var(--text-md);
+  line-height:var(--leading-heading); text-wrap:pretty;
+}
+
+/* --- sub-section furniture -------------------------------------------------
+   Eleven rail sections carry twenty-three of the source's acts, so most
+   sections hold more than one. These mark where a new one starts.
+   -------------------------------------------------------------------------- */
+.vy-eyebrow{ margin-top:var(--step-10); color:var(--text-tertiary); }
+.vy-eyebrow--lead{ margin-top:var(--step-14); }
+.vy-eyebrow--lead + .vy-sub{ margin-top:var(--step-2); }
+.vy-sub{ margin-top:var(--step-8); max-width:34ch; }
+.vy-cap{ margin-top:var(--step-4); }
+
+@media (max-width:760px){
+  .vy-defs{ grid-template-columns:1fr; gap:var(--step-1) 0; }
+  .vy-defs dd{ margin-bottom:var(--step-3); }
+  .vy-rail figure{ flex-basis:72vw; }
+  .vy-rail--stack figure{ flex-basis:58vw; }
+}

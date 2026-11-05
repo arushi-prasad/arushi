@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="mono" data-type="editorial" data-density="comfortable" data-radius="subtle">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The conditions for good work — Arushi Prasad</title>
+  <meta name="description" content="Eleven years of design work, and what changed each time the thing I was responsible for got bigger — craft, team, quality, planning, systems, and now AI-assisted build.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preload" href="../../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=f874ed78">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=c3f7efb8">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=be3cf32e">
+  <link rel="stylesheet" href="../../assets/css/article.css?v=f0a984db">
+  <link rel="stylesheet" href="../../assets/css/case.css?v=703795f5">
+  <!-- Loaded before paint so a saved token preference is applied to <html>
+       without a flash of the defaults. -->
+  <script src="../../assets/js/tokens.js?v=a7c3e9c1"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+<defs>
+<symbol id="i-colour" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M8 2.2a5.8 5.8 0 0 1 0 11.6z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-type" viewBox="0 0 16 16"><path d="M3.2 13.6 8 2.6l4.8 11"/><path d="M5.3 9.4h5.4"/></symbol>
+<symbol id="i-spacing" viewBox="0 0 16 16"><path d="M2.2 3.6v8.8M13.8 3.6v8.8"/><path d="M5 8h6"/><path d="m6.6 6.4-1.7 1.6 1.7 1.6M9.4 6.4 11.1 8 9.4 9.6"/></symbol>
+<symbol id="i-radius" viewBox="0 0 16 16"><path d="M2.4 13.6V7.2a4.8 4.8 0 0 1 4.8-4.8h6.4"/><path d="M2.4 2.4h.01M13.6 13.6h.01"/></symbol>
+<symbol id="i-opacity" viewBox="0 0 16 16"><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2a4.6 4.6 0 1 1-9.2 0C3.4 6.8 8 2.2 8 2.2Z"/><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2A4.6 4.6 0 0 1 8 14z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-grid" viewBox="0 0 16 16"><rect x="2.4" y="2.4" width="11.2" height="11.2" rx="1.4"/><path d="M6.13 2.4v11.2M9.87 2.4v11.2M2.4 6.13h11.2M2.4 9.87h11.2"/></symbol>
+  <symbol id="i-surprise" viewBox="0 0 16 16"><path d="M7.1 2.6 8.35 6.05 11.8 7.3 8.35 8.55 7.1 12 5.85 8.55 2.4 7.3 5.85 6.05Z"/><path d="M12.3 10.1v2.9M10.85 11.55h2.9"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 16 16"><path d="M13.4 8a5.4 5.4 0 1 1-1.8-4"/><path d="M13.6 2.6v3.6H10"/></symbol>
+<symbol id="i-bars" viewBox="0 0 16 16"><path d="M2.4 4.6h11.2M2.4 8h11.2M2.4 11.4h11.2"/></symbol>
+<symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
+<symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
+<symbol id="i-tick" viewBox="0 0 16 16"><path d="m3.4 8.4 3 3 6.2-7"/></symbol>
+<!-- Recognition. Stroke-drawn on the same 16-unit grid and at the same
+     weight as the rest, so they sit in a line of text without shouting. -->
+<symbol id="i-trophy" viewBox="0 0 16 16"><path d="M4.9 2.7h6.2v3.5a3.1 3.1 0 0 1-6.2 0Z"/><path d="M4.9 3.7H3.3v.9a2 2 0 0 0 1.6 1.9M11.1 3.7h1.6v.9a2 2 0 0 1-1.6 1.9"/><path d="M8 9.3v2.1"/><path d="M6.5 11.4h3v1.9h-3Z"/></symbol>
+<symbol id="i-star" viewBox="0 0 16 16"><path d="m8 2.5 1.7 3.45 3.8.55-2.75 2.68.65 3.79L8 11.18l-3.4 1.79.65-3.79L2.5 6.5l3.8-.55Z"/></symbol>
+<symbol id="i-medal" viewBox="0 0 16 16"><circle cx="8" cy="10.1" r="3.5"/><path d="M6.1 7.1 4.3 2.6M9.9 7.1l1.8-4.5"/></symbol>
+<!-- Document types. A page outline each, told apart by what is on it: ruled
+     cells for a workbook, a folded corner for a PDF, one wide band for a
+     deck. Same 16-unit grid and weight as everything else. -->
+<symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
+<symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
+<symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
+</defs>
+</svg>
+<header class="nav-wrap">
+  <nav class="nav shell" aria-label="Primary">
+    <a class="nav__logo" href="../../" aria-label="Arushi Prasad, home">
+      <img class="nav__avatar" src="../../assets/img/avatar.png" alt="" width="58" height="58" decoding="async">
+    </a>
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a class="nav__link" href="../../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../designops/" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../leadership/" aria-label="Leadership">leadership</a></li>
+      </ul>
+
+      <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
+    </div>
+  </nav>
+</header>
+<div class="nav-sheet" id="nav-sheet" data-open="false">
+  <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../../designops/">Strategy<span>8</span></a></li><li><a class="nav-sheet__link" href="../../leadership/">Leadership<span>—</span></a></li><li><a class="nav-sheet__link" href="../../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../../about/">About<span>—</span></a></li><li><a class="nav-sheet__link" href="../../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../../writing/" aria-current="page">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../../snippets/">Snippets<span>5</span></a></li></ul>
+  <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
+</div>
+<main id="main" tabindex="-1">
+<div class="page ">
+<header class="page-hero shell">
+  <h1 class="page-hero__title" data-reveal>
+    <span class="page-hero__word page-hero__word-a">conditions</span>
+    <span class="page-hero__word page-hero__word-b">for good work</span>
+  </h1>
+  <p class="page-hero__tagline" data-reveal>Eleven years in, the thing I am responsible for has changed shape twice. Both times the fix had the same shape &mdash; take a judgement that lived in my head and turn it into something other people could apply without me.</p>
+  
+</header>
+<div class="case__prog" data-case-prog aria-hidden="true"><span class="case__prog-bar" data-case-prog-bar></span></div>
+<div class="case">
+<aside class="case__rail" data-case-rail data-open="false" aria-labelledby="case-project">
+  <button class="case__toc" type="button" data-case-toc aria-expanded="false" aria-controls="case-toc">
+    <span class="case__toc-eyebrow">
+      <span class="case__toc-word">Contents</span>
+      <span class="case__toc-name">The conditions for good work</span>
+    </span>
+    <span class="case__toc-now" data-case-now>The question changes</span>
+    <svg class="ico case__toc-ico" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg>
+  </button>
+  <div class="case__rail-in" id="case-toc">
+    <div class="case__about">
+      <div class="case__titlewrap">
+        <h2 class="case__project" id="case-project">The conditions for good work</h2>
+      </div>
+      
+    </div>
+    <nav class="case__nav" aria-label="Sections in this case study">
+      <ol class="case__list" role="list">
+        <li class="case__item"><a class="case__link" href="#a-open" data-case-link="a-open"><span class="case__count">01</span><span class="case__label">The question changes</span></a></li><li class="case__item"><a class="case__link" href="#a-craft" data-case-link="a-craft"><span class="case__count">02</span><span class="case__label">What craft is still for</span></a></li><li class="case__item"><a class="case__link" href="#a-team" data-case-link="a-team"><span class="case__count">03</span><span class="case__label">The team becomes part of the product</span></a></li><li class="case__item"><a class="case__link" href="#a-quality" data-case-link="a-quality"><span class="case__count">04</span><span class="case__label">Quality as a shared instrument</span></a></li><li class="case__item"><a class="case__link" href="#a-planning" data-case-link="a-planning"><span class="case__count">05</span><span class="case__label">Planning makes the trade-off visible</span></a></li><li class="case__item"><a class="case__link" href="#a-system" data-case-link="a-system"><span class="case__count">06</span><span class="case__label">A library is not a system</span></a></li><li class="case__item"><a class="case__link" href="#a-ai" data-case-link="a-ai"><span class="case__count">07</span><span class="case__label">The job is changing again</span></a></li><li class="case__item"><a class="case__link" href="#a-close" data-case-link="a-close"><span class="case__count">08</span><span class="case__label">What I want it to make possible</span></a></li><li class="case__item"><a class="case__link" href="#a-evidence" data-case-link="a-evidence"><span class="case__count">09</span><span class="case__label">Notes on the evidence</span></a></li>
+      </ol>
+    </nav>
+  </div>
+</aside>
+<div class="case__main">
+<!-- A · THE OPENING ------------------------------------------------------- -->
+<section class="section" id="a-open" aria-labelledby="h-open" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">01 &mdash; Where this starts</p>
+    <h2 class="t-h2" id="h-open">The question changes before the job title does</h2>
+  </div>
+
+  <p class="case__lede" data-reveal>When I joined Bajaj Finserv Health in 2019 the design function was two
+  people. There was no process to speak of, and reviews were held together by goodwill. Someone would ask
+  whether a screen looked okay, someone else would say they thought so, and we would all move on.</p>
+
+  <p class="prose">I fixed that the way most senior designers fix it: I looked at everything. If a screen
+  was going out, I had seen it. That is a perfectly good system at two designers and a workable one at
+  four. At ten it is the bottleneck, and by then the bottleneck has a name and it is yours.</p>
+
+  <p class="prose">What changed was not my title. It was the question I was being asked. For years the
+  question had been <em>is this good</em>, and I was reasonably quick at answering it. The question
+  underneath it had quietly become <em>will this be good when I am not in the room</em>, and I had no
+  method for that at all. Everything I have built since &mdash; rituals, a ladder, an evaluation model, an
+  allocation sheet, a design system &mdash; is an attempt to answer the second question instead of
+  repeatedly answering the first.</p>
+
+  <p class="prose">This is what I have learned doing that, including the parts where the evidence is
+  thinner than I would like.</p>
+</section>
+
+<!-- B · CRAFT -------------------------------------------------------------- -->
+<section class="section" id="a-craft" aria-labelledby="h-craft" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">02 &mdash; The years before</p>
+    <h2 class="t-h2" id="h-craft">What craft is still for</h2>
+  </div>
+
+  <p class="prose">I studied at MIT Institute of Design from 2010. My first real exposure to the work was
+  an internship at TCS in 2014, on a visitor-management system &mdash; wireframes, prototypes, usability
+  sessions, the ordinary grammar of the job. Then four years at Decos in the Netherlands, on enterprise
+  software: ERP, document management, workflow automation. Five products, two of which I took from
+  nothing to a shipped interface.</p>
+
+  <p class="prose">Enterprise software is an unglamorous place to learn, and it is a very good one. Nobody
+  is using a document-management workflow because they enjoy it. There is no goodwill to borrow. If a
+  screen makes someone do something twice, they notice immediately and they tell you. You learn to read a
+  flow for where the friction actually is rather than where it looks worst.</p>
+
+  <p class="prose">That is the part of craft that survives into management, and it is not nostalgia. It is
+  a speed advantage in a specific situation: when two people disagree and both have reasonable arguments,
+  craft is what lets you tell which disagreement is worth the meeting.</p>
+
+  <p class="prose">A concrete version. When we specified Capsule, our design system, four platforms wanted
+  four different button heights &mdash; twenty-four pixels inside a banner, forty on app and mobile web,
+  forty-eight on desktop web. A manager reading a spreadsheet sees inconsistency and flattens it. A
+  manager who has built those screens knows that a banner is a different physical target from a desktop
+  form, and that the honest job is not to remove the difference but to record which differences were
+  decided and which ones had simply drifted. The system documents all four. That decision took about a
+  minute, and it took eleven years to be able to make it in a minute.</p>
+
+  <p class="prose">The same instinct showed up on Vytals in 2024, a healthcare ecosystem of seven
+  products. Each product ended up with its own colour world &mdash; teal and navy for alcohol impact,
+  amber and black for health intelligence, a dark mobile treatment for skin analysis. Written down flat,
+  that reads as seven inconsistent products. In practice it was one grammar applied seven times, and the
+  judgement about which layer had to stay fixed and which could move was a craft judgement before it was
+  a management one.</p>
+
+  <p class="prose t-dim">None of this requires the manager to draw the screens. It requires the manager to
+  be able to.</p>
+</section>
+
+<!-- C · THE TEAM ----------------------------------------------------------- -->
+<section class="section" id="a-team" aria-labelledby="h-team" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">03 &mdash; Scale</p>
+    <h2 class="t-h2" id="h-team">The team becomes part of the product</h2>
+  </div>
+
+  <p class="prose">I want to be careful here, because team-growth numbers are the easiest thing in a
+  portfolio to round in your own favour, and I have four internal records that disagree with each other.
+  So here is the version I can source.</p>
+
+  <ul class="case__facts" role="list" data-reveal>
+    <li class="case__fact"><b>2</b><span>Designers in 2019</span></li>
+    <li class="case__fact"><b>10</b><span>In 2022</span></li>
+    <li class="case__fact"><b>24</b><span>On 17 August 2023</span></li>
+    <li class="case__fact"><b>9</b><span>The competency I held</span></li>
+  </ul>
+
+  <p class="prose">On 17 August 2023 the design function was twenty-four people: fifteen in the UX
+  competency and nine in UI, counted off the org chart in that month's DesignOps review. I held the UI
+  competency &mdash; those nine &mdash; and ran design for one of the HRx squads. My title over that
+  period moved from Lead UI Designer to Deputy Design Manager. A function of twenty-four grew around me
+  and I was responsible for a named part of it. Those are two different sentences and I have learned to
+  say the second one.</p>
+
+  <p class="prose">What actually changes at that size is less interesting than it sounds, and more
+  demanding. The design work does not get harder. The distance between a decision and the person
+  affected by it gets longer, and almost every management problem is a version of that.</p>
+
+  <p class="prose">Three things did most of the work.</p>
+
+  <p class="prose"><strong>Feedback had to stop being a personality trait.</strong> Early on, critique
+  quality depended on who was in the room and what kind of week they had had. We ended up with six
+  recurring rituals &mdash; weekly crits, fortnightly jams, a monthly share-and-tell, ad-hoc sessions
+  anyone could call when stuck, quarterly deep dives, and a design lunch where work was theoretically
+  banned. The useful one was the smallest: in a crit you can disagree with anything, but you have to say
+  why. &ldquo;I don't like this&rdquo; is not a contribution. &ldquo;This breaks the consistency we agreed
+  on&rdquo; is. That one rule did more for the quality of our arguments than any framework I have
+  written.</p>
+
+  <p class="prose"><strong>Teaching had to be distributed.</strong> We ran more than twenty-four knowledge
+  sessions, every one led by a designer rather than a manager, none of them mandatory. The topics were
+  ordinary &mdash; motion basics, writing for designers, accessibility, component thinking, research
+  synthesis, Figma variables. The outcomes were not: the accessibility session is why accessibility
+  entered our design checklist, and the component-thinking session is why we restructured how design-system
+  work was picked up. Making attendance optional was deliberate. A session nobody wants to attend is
+  information about the session.</p>
+
+  <p class="prose"><strong>Growth had to be legible before it was requested.</strong> The design
+  organisation ran on a career framework with five tracks &mdash; UX, UI, product design, design
+  engineering and management &mdash; four levels from Foundation to Advanced, mapped across bands GB03 to
+  GB08. I did not author that framework; it was operated across the design organisation and I worked
+  inside it. What I did do was use it as the spine of every growth conversation, so that no development
+  conversation started from a blank page and no promotion decision arrived as a surprise. Over that period
+  twelve designers moved up a level internally rather than being replaced from outside, and three
+  individual contributors became people leaders, which the team had not done before.</p>
+
+  <p class="prose">By October 2024 the organisation proposed a different shape altogether: designers
+  embedded in a product squad for three to six months, reviewed quarterly, reporting into the squad with
+  a dotted line back to the design team for mentoring, plus a few people held centrally for the design
+  system, AI work and design excellence. A January 2025 roster shows twenty-one designers in seat against
+  twenty-three planned, split between product-embedded designers, a central floating team, interns, and
+  single owners for the system and the AI products.</p>
+
+  <p class="prose">I mention the roster because it is the honest picture of what growth looks like from
+  the inside: not a line going up, but a shape being redrawn roughly once a year while the work
+  continues.</p>
+
+  <p class="note" data-reveal><span>In 2023 the design team won Best Team at the company's annual AOP
+  awards, judged across every team in the business, and I was given the Stellar of the Year award in the
+  same period. I can tell you what the team believed won it &mdash; that people across the organisation
+  wanted to work with design &mdash; and I cannot tell you which initiative caused it, because nothing in
+  my records establishes that.</span></p>
+</section>
+
+<!-- D · QUALITY ------------------------------------------------------------ -->
+<section class="section" id="a-quality" aria-labelledby="h-quality" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">04 &mdash; Standards</p>
+    <h2 class="t-h2" id="h-quality">Quality as a shared instrument</h2>
+  </div>
+
+  <p class="prose">The real problem with being the quality bar is not the workload. It is that your
+  judgement is unreviewable. If good means what I think is good, nobody can argue with it, nobody can
+  learn it, and nobody can apply it on a Tuesday when I am in another meeting.</p>
+
+  <p class="prose">So we built an evaluation model. Five dimensions &mdash; discoverability, learnability,
+  engagement, efficiency, and error handling and guidance &mdash; each broken into named parameters, and
+  each rated one to five. The part that matters is not the five; it is that every level has a written
+  definition per dimension. A two on learnability is not a mood. It means users explore the interface
+  before they understand how to complete the task, and there is a sentence on the sheet saying so. Two
+  people rating the same screen are rating against the same words.</p>
+
+  <p class="prose">Underneath the dimensions sit the parameters that actually get fixed: information
+  architecture, information design and searchability under discoverability; content, consistency, visual
+  design, intuitiveness and guidance under learnability. That is the level at which feedback becomes
+  actionable, because a designer can do something about <em>searchability</em> in a way they cannot do
+  something about <em>engagement</em>.</p>
+
+  <p class="prose">Alongside it we kept a UX checklist &mdash; error states handled, design system
+  checked, every element earning its place, the design checked against a persona rather than against
+  taste &mdash; and a structured critique format. The critique method is not mine: it comes from a
+  framework published by Shalini Raghunathan of 3 Big Things, with a timed choreography and a custodian
+  who keeps the conversation in scope. I keep it in the toolkit because it works, and I name it because a
+  governance practice that misattributes its own sources is not a governance practice.</p>
+
+  <p class="prose">Now the part that essays about quality frameworks usually skip.</p>
+
+  <p class="prose">There are three different claims available here, and only two of them are true for me.
+  A framework can be <em>created</em>. It can be <em>adopted</em>. It can produce a <em>measured
+  improvement</em>. I can show you the first: the model, the scale, the definitions. I can show you the
+  second, partially: a completed evaluation exists with per-question ratings whose averages reconcile,
+  and a separate recorded snapshot scoring a product at 3.5 on discoverability, 3.0 on learnability, and
+  2.0 each on engagement, efficiency and guidance. I cannot show you the third. No baseline was recorded
+  before the model existed, so there is no honest before-and-after to publish, and I am not going to
+  manufacture one by pairing two unrelated measurements.</p>
+
+  <p class="prose">There is a smaller, sharper version of the same gap. One of my sheets names four review
+  layers &mdash; design team review, squad review, service, peer review &mdash; and records nothing
+  against any of them. No criteria, no cadence, no results. That is a plan, not a practice, and the
+  distance between those two is where most DesignOps work actually lives.</p>
+
+  <p class="prose t-dim">If I were starting this again, I would record the baseline first and build the
+  framework second. Building the instrument is the enjoyable half, which is exactly why it is the half
+  that gets done.</p>
+</section>
+
+<!-- E · PLANNING ----------------------------------------------------------- -->
+<section class="section" id="a-planning" aria-labelledby="h-planning" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">05 &mdash; Operations</p>
+    <h2 class="t-h2" id="h-planning">Planning makes the trade-off visible</h2>
+  </div>
+
+  <p class="prose">DesignOps gets a bad reputation because it is easy to do badly, and doing it badly
+  looks like doing it. The test I use is simple: does this artefact help a designer make a decision, or
+  does it only help a manager report one?</p>
+
+  <p class="prose">Our allocation sheet is one row per piece of work. Each row carries the story ID and
+  title, the squad and sub-squad, the product manager asking, whether the work needs UX, UI or both,
+  whether it is new design or an enhancement, a complexity rating of low, medium or high, a priority from
+  P0 to P5, a start date, a target design delivery date, a target go-live sprint, the named UX designer,
+  the named UI designer, and then five stage columns: discover, UX design, UI design, tech handoff, and
+  pre-production review and fixes.</p>
+
+  <p class="prose">In the version I have in front of me there are seventy-seven rows and twenty-six
+  different product managers. That second number is the whole argument for the sheet. Twenty-six people,
+  each of whom is correct that their work matters, each of whom would reasonably describe it as P0. No
+  amount of goodwill resolves that in a conversation. A sheet does, not because it decides anything, but
+  because it puts the conflict in one place where a decision can be made on purpose rather than by
+  whoever asked most recently.</p>
+
+  <p class="prose">Next to it sits a weekly availability grid covering April to December 2024 &mdash; one
+  row per designer, one column per week, three states: available, partially available, on leave. It is a
+  dull artefact and it is the one that prevents the most damage, because it converts &ldquo;the team is
+  busy&rdquo; into something specific enough to argue with.</p>
+
+  <p class="prose">A detail I have grown fond of: the grid thins out towards the end of the year. The
+  further out you look, the more blank it gets. That is not an incomplete document. It is the plan being
+  honest about how far ahead anyone could actually see, and I would rather have a planning artefact that
+  admits its horizon than one that fills twelve months with confident fiction.</p>
+
+  <p class="prose">The same discipline applies to goals. Our OKRs ran on five themes &mdash; design-system
+  implementation, transformation of critical journeys, streamlining design processes and tools, delivery
+  excellence, and building the team &mdash; with quarterly commitments under each. Two of those themes
+  carried a &ldquo;5X&rdquo; label. I want to be precise about what that is: a target somebody wrote down
+  at the start of a year, not a result anybody measured at the end of one. I have seen targets like that
+  migrate into portfolios as achievements and I am not doing it here.</p>
+</section>
+
+<!-- F · SYSTEMS ------------------------------------------------------------ -->
+<section class="section" id="a-system" aria-labelledby="h-system" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">06 &mdash; Systems</p>
+    <h2 class="t-h2" id="h-system">A library is not a system</h2>
+  </div>
+
+  <p class="prose">Capsule started from an ordinary problem. Three products, built by different teams at
+  different times, each with its own idea of what a button was. Colour, spacing and type were being
+  re-decided per screen, which meant the same control could look like two controls. Handoff was a
+  screenshot and a conversation. A brand decision meant finding every instance by hand.</p>
+
+  <p class="prose">The countable part of the answer is easy to list. The blueprint specifies twenty-five
+  components with anatomy, variants and rules, five atoms, four recurring patterns and four platforms. The
+  documentation file carries seventy-nine documented component frames, each laid out as a real
+  documentation page &mdash; anatomy, variants, behaviour, usage. Three products, one language.</p>
+
+  <ul class="case__facts" role="list" data-reveal>
+    <li class="case__fact"><b>25</b><span>Components specified</span></li>
+    <li class="case__fact"><b>79</b><span>Documented frames</span></li>
+    <li class="case__fact"><b>4</b><span>Platforms</span></li>
+    <li class="case__fact"><b>3</b><span>Products, one language</span></li>
+  </ul>
+
+  <p class="prose">And none of those numbers tell you whether the system worked.</p>
+
+  <p class="prose">The thing that actually changed how design and engineering talked to each other was
+  smaller than the component count. It was naming the values. A hex code sitting in a comp is a
+  suggestion; a named token is a contract, and you can hold a build to a contract. Once the values had
+  names, arguments stopped being about taste and started being about whether the right token had been
+  used, which is a question with an answer.</p>
+
+  <p class="prose">The second thing was writing the principles down. Five rules, written in plain
+  language, that settle a disagreement before it needs a meeting &mdash; and, crucially, that can be
+  quoted by someone who is not me. A principle only does its job when a mid-level designer can use it to
+  overrule a senior one.</p>
+
+  <p class="prose">Here is where I will be honest about the limits. I can evidence what the system
+  specifies. I cannot evidence what it changed. My own records have no documented contribution-and-review
+  process and no adoption tracking, and I have no exported product screens showing Capsule components in
+  a shipped interface. A frame existing in a documentation file is not the same as a product having
+  adopted it, and the gap between those two is the part of design-systems work that everybody
+  underestimates, including me.</p>
+
+  <p class="prose">That is the lesson I actually took from it. Launching a library is a project with an
+  end date. Keeping one true is an operating commitment with none, and it is the part I would resource
+  properly from the beginning next time rather than treating as the thing you do after launch.</p>
+</section>
+
+<!-- G · AI ----------------------------------------------------------------- -->
+<section class="section" id="a-ai" aria-labelledby="h-ai" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">07 &mdash; What is changing</p>
+    <h2 class="t-h2" id="h-ai">The job is changing again</h2>
+  </div>
+
+  <p class="prose">The most recent thing I have built is WorkPerks, a nought-to-one employee benefits
+  platform that sits on top of an organisation's existing HR systems &mdash; flexible benefits, wellness,
+  rewards, OPD, recognition, reimbursements. I led the product definition, the experience architecture,
+  the interaction design and the quality bar. I also built the employee app, in React Native and
+  TypeScript on Expo, using AI-assisted development.</p>
+
+  <p class="prose">What that produced is countable, so here it is: a hundred and sixty-seven TypeScript
+  files, roughly thirty-six thousand lines, seventy-one routes, twenty-four screen files and
+  twenty-eight shared UI component files. It is in pilot. It is not a product at scale, it has not been
+  through the load a real rollout puts on a system, and I am not going to describe a pilot as a
+  shipped product because the word sounds better.</p>
+
+  <p class="prose">The division of labour was clearer than I expected it to be. What stayed mine: product
+  intent, experience architecture, interaction decisions, component behaviour, the visual language,
+  prioritisation, acceptance criteria, and the judgement about what was good enough to keep. What AI
+  carried: code generation, scaffolding, implementation iterations, debugging support, the repetitive
+  engineering work, exploring technical approaches I would not have had time to try, and documentation.
+  Nothing about that split moved a design decision onto the machine. It moved the distance between a
+  design decision and a working screen from weeks to hours.</p>
+
+  <p class="prose">That shortening is the part with consequences for a design leader, and it is not mainly
+  about speed. When the gap between an idea and something you can actually use is small enough, you stop
+  arguing about what a flow would feel like and go and feel it. Several decisions on WorkPerks changed
+  after I used the thing, and would not have changed on a prototype, because a prototype lets you skip
+  the states where products usually fail &mdash; empty, loading, error, the second visit.</p>
+
+  <p class="prose">There is an uncomfortable version of this for managers, which I will state plainly. The
+  career framework our organisation runs includes a design-engineering track, and at mid-level it expects
+  a designer to be building components and prototypes with AI tools. That expectation was written before
+  I had tested whether it was a reasonable thing to ask of someone. Building the app myself was partly how
+  I found out &mdash; and the honest answer is that the tooling is good enough for it to be fair, and that
+  the skill it actually demands is not coding. It is specifying. People who are precise about behaviour
+  get useful output. People who are vague get confident nonsense very quickly.</p>
+
+  <p class="prose">I have also written a model for how a design organisation might operate with AI
+  properly in the loop, across strategy, product thinking, experience, systems, build, quality and
+  knowledge. It asks the questions I think are the real ones &mdash; what can be shared with these
+  systems, how outputs get verified, how you stop generated experiences drifting from brand and
+  accessibility, and who owns the final decision. It is a model, not an operating system anybody is
+  running, and the site labels it a concept for that reason.</p>
+</section>
+
+<!-- H · CLOSE -------------------------------------------------------------- -->
+<section class="section" id="a-close" aria-labelledby="h-close" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">08 &mdash; Where this goes</p>
+    <h2 class="t-h2" id="h-close">What I want it to make possible</h2>
+  </div>
+
+  <p class="prose">Looking back over all of it, the moves are more similar than they felt at the time.
+  Rituals took feedback out of my personality. The ladder took growth out of my memory. The evaluation
+  model took quality out of my taste. The allocation sheet took prioritisation out of whoever spoke to me
+  last. Tokens took consistency out of individual discipline. Every one of them is the same operation:
+  find a judgement that only exists in my head, and turn it into something other people can apply, argue
+  with, and improve without me.</p>
+
+  <p class="prose">The risk in that sentence is obvious, and I have fallen into it. Turn every judgement
+  into an artefact and you get a design organisation that is very well documented and slightly afraid to
+  decide anything. The correction I use is to ask what a given artefact lets a designer do that they could
+  not do before. Documents that only let me report upward get quietly dropped, and some of mine have
+  been.</p>
+
+  <p class="prose">What I am actually trying to build is narrower than a philosophy. I want a designer on
+  my team to be able to make a decision I would not have made, defend it in vocabulary we both already
+  share, and turn out to be right. That requires a shared definition of good, a system that makes the
+  cheap decisions for them, a plan honest enough to show what is being traded away, and enough room to
+  disagree with me in public. When it works, my judgement stops being the ceiling.</p>
+
+  <p class="prose">The gap I would close first is measurement. I have built frameworks faster than I have
+  built the evidence that they worked, and the honest consequence is this essay &mdash; which can show you
+  what was designed and far less about what it changed. That is the next thing I want to be good at, and
+  it is less fun than building the frameworks, which is exactly why it keeps not happening.</p>
+</section>
+
+<!-- I · EVIDENCE ----------------------------------------------------------- -->
+<section class="section" id="a-evidence" aria-labelledby="h-evidence" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">09 &mdash; Sources</p>
+    <h2 class="t-h2" id="h-evidence">Notes on the evidence</h2>
+    <p class="prose">Every figure above is one of four things, and it is worth saying which.</p>
+  </div>
+
+  <div class="rows" data-reveal>
+    <div class="row">
+      <p class="row__num">01</p>
+      <h3 class="row__title">Dated snapshots</h3>
+      <div class="row__body"><p>Twenty-four designers is true on 17 August 2023, counted off an org
+      chart. Twenty-one in seat against twenty-three planned is a January 2025 roster. Neither is a
+      running total, and I do not publish a single headline growth number because four of my own records
+      disagree about what it would be.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">02</p>
+      <h3 class="row__title">Recorded results</h3>
+      <div class="row__body"><p>Twelve internal promotions, three individual contributors moving into
+      management, more than twenty-four knowledge sessions, six rituals, five career tracks across bands
+      GB03 to GB08, the AOP Best Team award and Stellar of the Year. Each is countable and traceable to
+      one named file.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">03</p>
+      <h3 class="row__title">Targets, not outcomes</h3>
+      <div class="row__body"><p>The &ldquo;5X&rdquo; OKR themes were goals set at the start of a year.
+      Nothing in my records measures them at the end of one, so they appear here as what they are.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">04</p>
+      <h3 class="row__title">Deliberately absent</h3>
+      <div class="row__body"><p>Attrition and average-tenure figures exist in my records but contradict
+      each other, so they stay out until I reconcile them. The same applies to the design-system
+      performance multipliers that appear elsewhere in my material with three different values. Individual
+      personnel data &mdash; names, joining dates, grades, competency scores &mdash; is never published.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">05</p>
+      <h3 class="row__title">Not mine</h3>
+      <div class="row__body"><p>The career framework and the team-structure model described above were
+      operated across the design organisation; I worked inside them rather than authoring them. The
+      structured critique format is published by Shalini Raghunathan of 3 Big Things.</p></div>
+    </div>
+  </div>
+
+  <p class="note" style="margin-top:var(--step-8)" data-reveal><span>Written October 2026. If you want to
+  argue with any of it, <a class="link-out" href="../../about/">the contact details are here</a>.</span></p>
+</section>
+</div>
+</div>
+</div>
+</main>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__base">
+      <p class="t-label">Arushi Prasad — Design leader</p>
+      <p class="t-label t-dim">Pune, India</p>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/site.js?v=8b13f207" defer></script>
+<script src="../../assets/js/case.js?v=fd4fa5e0" defer></script>
+</body>
+</html>

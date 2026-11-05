@@ -1,0 +1,162 @@
+/* ===========================================================================
+   FIGURES — the drawing inside a tile.
+   tiles.css owns the card; this file owns only what is inside .tile__fig.
+   Each figure talks to the card through the four properties the card
+   declares — --tile-ink, --tile-draw, --tile-line, --tile-wash — and through
+   nothing else, so a figure can move between grounds without being retuned.
+
+   No figure is part of the resting card. At rest a tile is type on a flat
+   colour field; hover or focus flips --fig-on and the drawing comes up and
+   plays. On a device that cannot hover, --fig-on is flipped by .is-in — the
+   class site.js adds to each [data-reveal] as it scrolls into view — so a
+   touch user sees the drawing resolve rather than never seeing it at all,
+   and sees it without the card being zoomed at them.
+
+   Two volumes. The three DesignOps figures are diagrams and carry the real
+   numbers behind each case study. The three Work marks are a quarter of
+   that: a shallow mark, one move each, damped in the --fig-depth and
+   --fig-rise they set. tiles.css holds the matching size difference.
+   ========================================================================= */
+
+/* The drawing is held out of the resting card, and comes up travelling a
+   little further than the card underneath it — 0.955 to 1 against the card's
+   1 to 1.04 — so the two do not read as one flat image being enlarged. The
+   slot keeps its space either way, so none of this moves the card. */
+.tile__fig{
+  --fig-depth:0.045;
+  --fig-rise:3px;
+  opacity:var(--fig-on);
+  transform:scale(calc(1 - var(--fig-depth) * (1 - var(--fig-on))))
+            translateY(calc((1 - var(--fig-on)) * var(--fig-rise)));
+  transition:opacity var(--duration-base) var(--ease-smooth),
+             transform var(--tile-zoom-dur) var(--ease-out);
+}
+/* A mark, not a diagram: a third of the depth and a third of the rise. */
+.tile__fig--mini{ --fig-depth:0.014; --fig-rise:1px; }
+
+/* The one selector every figure is driven from. */
+.tile__fig [data-draw]{
+  transition:
+    opacity   var(--duration-slow) var(--ease-smooth),
+    transform var(--duration-slow) var(--ease-out),
+    fill      var(--duration-slow) var(--ease-smooth),
+    stroke-dashoffset var(--duration-enter) var(--ease-out);
+  transition-delay:calc(var(--i,0) * 55ms);
+}
+/* Figures hold a stroke weight rather than a colour, so one rule covers the
+   lot and each shape only says how dark it is. */
+.tile__fig [stroke]{ vector-effect:non-scaling-stroke; }
+/* A fully-offset dashed path still paints its end caps, which shows up as a
+   stray nub where the line is supposed to be invisible. */
+.tile__fig .spine-ink,.tile__fig .read{ stroke-linecap:butt; }
+
+/* The drawing still appears under reduced motion; it just stops travelling
+   to get there, the same bargain the card's zoom makes. */
+@media (prefers-reduced-motion:reduce){
+  .tile__fig{ --fig-depth:0; --fig-rise:0; }
+  .tile__fig [data-draw]{ transition-duration:0.01ms; transition-delay:0ms; }
+}
+
+/* ---------------------------------------------------------------------------
+   01 · WORKPERKS — three panels in a stack.
+   Tucked almost on top of one another, fanning apart as the mark comes up:
+   the catalogue is deeper than the two screens you can see. No rotation —
+   at this size a tilt reads as a mistake rather than as a stack.
+   ------------------------------------------------------------------------ */
+.fig-stack .pnl{ fill:var(--tile-bg); }
+.fig-stack .pnl-c{ transform:translateX(17px); opacity:0.45; }
+.fig-stack .pnl-a{ transform:translateX(-17px); }
+.card--tile:is(:hover,:focus-visible) .fig-stack .pnl-c{ transform:none; opacity:1; }
+.card--tile:is(:hover,:focus-visible) .fig-stack .pnl-a{ transform:none; }
+
+/* ---------------------------------------------------------------------------
+   02 · VYTALS — a pulse.
+   The trace is there; the reading runs across it in full ink and the marker
+   arrives at the end. One move, which is the whole mark.
+   ------------------------------------------------------------------------ */
+.fig-pulse .read{ stroke-dasharray:1000; stroke-dashoffset:1000; }
+.fig-pulse .dot{ opacity:0; }
+.card--tile:is(:hover,:focus-visible) .fig-pulse .read{ stroke-dashoffset:0; }
+.card--tile:is(:hover,:focus-visible) .fig-pulse .dot{ opacity:1; }
+
+/* ---------------------------------------------------------------------------
+   03 · CAPSULE — five swatches.
+   Outlines, because an unadopted system is a set of empty shapes. They fill
+   one after another, and the stagger is the point: adoption arrives in
+   order, not all at once.
+   ------------------------------------------------------------------------ */
+.fig-swatches .cell{ fill:transparent; }
+.card--tile:is(:hover,:focus-visible) .fig-swatches .cell{ fill:currentColor; }
+
+/* ---------------------------------------------------------------------------
+   04 · THE FRAMEWORK — four stages on a spine.
+   The faint spine and the hollow nodes are the resting state. Hover draws
+   the ink spine left to right and fills each node as the line reaches it,
+   so the sequence reads as a sequence. The bar under each node is that
+   stage's real activity count.
+   ------------------------------------------------------------------------ */
+.fig-stages .spine-ink{ stroke-dasharray:1000; stroke-dashoffset:1000; }
+.fig-stages .node{ fill:var(--tile-bg); }
+/* Held back, not crushed: these bars are the real activity counts, so their
+   proportions have to survive the resting state. */
+.fig-stages .bar{ opacity:0.5; transform:scaleY(0.82); transform-origin:center bottom; transform-box:fill-box; }
+.card--tile:is(:hover,:focus-visible) .fig-stages .spine-ink{ stroke-dashoffset:0; }
+.card--tile:is(:hover,:focus-visible) .fig-stages .node{ fill:currentColor; }
+.card--tile:is(:hover,:focus-visible) .fig-stages .bar{ opacity:1; transform:scaleY(1); }
+
+/* ---------------------------------------------------------------------------
+   05 · PLANNING — the availability matrix.
+   Seven people across eighteen weeks, every cell carrying its real state:
+   available, partial, on leave, or outside the engagement. At rest the whole
+   grid reads evenly. On hover one row lifts to full ink and the rest fall
+   back, which is the move the real tracker exists to support — finding who
+   has room.
+   ------------------------------------------------------------------------ */
+.fig-matrix .cell{ fill:currentColor; }
+.fig-matrix .s3{ opacity:0.92; }   /* available */
+.fig-matrix .s2{ opacity:0.48; }   /* partial   */
+.fig-matrix .s1{ opacity:0.20; }   /* on leave  */
+.fig-matrix .s0{ opacity:0.07; }   /* outside the engagement */
+.card--tile:is(:hover,:focus-visible) .fig-matrix .row{ opacity:0.3; }
+.card--tile:is(:hover,:focus-visible) .fig-matrix .row-pick{ opacity:1; }
+.fig-matrix .row{ transition:opacity var(--duration-slow) var(--ease-smooth); }
+.fig-matrix .scan{ opacity:0; transform:translateX(-14px); }
+.card--tile:is(:hover,:focus-visible) .fig-matrix .scan{ opacity:1; transform:translateX(150px); }
+
+/* ---------------------------------------------------------------------------
+   06 · AI DESIGN OS — seven layers.
+   Loose bars at rest. Hover runs a spine down the left edge and brings each
+   layer up as it passes, so the drawing performs the argument the case study
+   makes: the layers are only worth anything once they are connected.
+   ------------------------------------------------------------------------ */
+.fig-layers .spine-ink{ stroke-dasharray:1000; stroke-dashoffset:1000; }
+.fig-layers .bar{ opacity:0.4; transform:translateX(-6px); }
+.fig-layers .tick{ fill:var(--tile-bg); }
+.card--tile:is(:hover,:focus-visible) .fig-layers .spine-ink{ stroke-dashoffset:0; }
+.card--tile:is(:hover,:focus-visible) .fig-layers .bar{ opacity:1; transform:none; }
+.card--tile:is(:hover,:focus-visible) .fig-layers .tick{ fill:currentColor; }
+
+/* ---------------------------------------------------------------------------
+   TOUCH
+   No hover means --fig-on would never be flipped and none of the states
+   above would ever fire. .is-in flips it on scroll instead, and the end
+   states are repeated against the same class so the drawings resolve rather
+   than fade in half-played.
+   ------------------------------------------------------------------------ */
+@media (hover:none){
+  /* --fig-on itself is flipped in tiles.css, which owns the switch. These are
+     the end states the drawings would otherwise never reach. */
+  .card--tile.is-in .fig-stack .pnl-c{ transform:none; opacity:1; }
+  .card--tile.is-in .fig-stack .pnl-a{ transform:none; }
+  .card--tile.is-in .fig-pulse .read{ stroke-dashoffset:0; }
+  .card--tile.is-in .fig-pulse .dot{ opacity:1; }
+  .card--tile.is-in .fig-swatches .cell{ fill:currentColor; }
+  .card--tile.is-in .fig-stages .spine-ink{ stroke-dashoffset:0; }
+  .card--tile.is-in .fig-stages .node{ fill:currentColor; }
+  .card--tile.is-in .fig-stages .bar{ opacity:1; transform:scaleY(1); }
+  .card--tile.is-in .fig-matrix .row{ opacity:0.3; }
+  .card--tile.is-in .fig-matrix .row-pick{ opacity:1; }
+  .card--tile.is-in .fig-layers .spine-ink{ stroke-dashoffset:0; }
+  .card--tile.is-in .fig-layers .bar{ opacity:1; transform:none; }
+  .card--tile.is-in .fig-layers .tick{ fill:currentColor; }
+}

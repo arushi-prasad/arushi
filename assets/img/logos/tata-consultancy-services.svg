@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Tata Consultancy Services">
+  <rect width="64" height="64" fill="#fff"/>
+  <g fill="#1B1B1B" font-family="Inter Tight, Helvetica, Arial, sans-serif" font-size="6" font-weight="600" lengthAdjust="spacingAndGlyphs">
+    <text x="10" y="20.5" textLength="17">TATA</text>
+    <text x="10" y="28" textLength="44">CONSULTANCY</text>
+    <text x="10" y="35.5" textLength="32">SERVICES</text>
+  </g>
+  <text x="10" y="53" fill="#1B1B1B" font-family="Inter Tight, Helvetica, Arial, sans-serif" font-size="18" font-weight="500" textLength="30" lengthAdjust="spacingAndGlyphs">tcs</text>
+</svg>

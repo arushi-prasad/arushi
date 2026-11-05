@@ -1,0 +1,865 @@
+/* ===========================================================================
+   LEADERSHIP & CULTURE
+   Page-scoped. This page is a story, not a case study, so it is allowed more
+   warmth than the rest of the site: chapter accents are taken straight from
+   the hue ring in tokens.css rather than from --accent, which the Colour
+   control re-points. A reader who switches the palette to Mono still gets a
+   monochrome site and a warm Leadership page, and that is deliberate.
+
+   Every block sets --lead-hue inline (render_leadership.py), so the rules
+   below never name a colour themselves — they only ever read the three
+   custom properties that come with the element.
+   ========================================================================= */
+
+.page{
+  --lead-hue:var(--hue-copper);
+  --lead-hue-deep:var(--hue-copper-deep);
+  --lead-hue-light:var(--hue-copper-light);
+  /* Tint strengths, named once. A photograph can carry far more colour than
+     a panel of type, which is why these are not one value. */
+  --lead-wash:color-mix(in srgb, var(--lead-hue) 7%, transparent);
+  --lead-edge:color-mix(in srgb, var(--lead-hue) 34%, transparent);
+}
+
+.lead-chapter{ position:relative; }
+
+/* A shared sub-heading for the places a chapter needs a second level without
+   starting a new numbered section. */
+.lead-sub{
+  margin:var(--step-16) 0 var(--step-3);
+  font-family:var(--font-display); font-size:var(--text-h3);
+  line-height:var(--leading-heading); letter-spacing:var(--track-display);
+  color:var(--text-primary);
+}
+
+/* The provenance tag. It appears beside every number, model and target on the
+   page, and it is the reason the page can carry figures at all: a tag that
+   says "target" cannot be misread as a result. */
+.lead-tag{
+  display:inline-flex; align-items:center; gap:var(--step-2);
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+.lead-tag::before{
+  content:""; width:5px; height:5px; border-radius:50%;
+  background:var(--lead-hue); opacity:.8;
+}
+.lead-tag--target{ color:var(--hue-ochre-light); }
+.lead-tag--target::before{ background:var(--hue-ochre); opacity:1; }
+.lead-tag--proposal::before{ background:none; box-shadow:inset 0 0 0 1px var(--lead-hue); }
+
+/* A caption that speaks for the page rather than for one figure — the honest
+   small print under a visualisation. */
+.lead-caption{
+  margin-top:var(--step-5); max-width:62ch;
+  font-size:var(--text-sm); line-height:var(--leading-body);
+  color:var(--text-tertiary);
+}
+.lead-caption--wide{ max-width:none; }
+
+
+/* ---------------------------------------------------------------------------
+   01 · OPENING
+   ------------------------------------------------------------------------- */
+.lead-open{ max-width:var(--prose-max); }
+.lead-open__lede{
+  margin:0 0 var(--step-6);
+  font-family:var(--font-display); font-size:var(--text-h3);
+  line-height:var(--leading-heading); letter-spacing:var(--track-display);
+  color:var(--text-primary);
+  text-wrap:balance;
+}
+
+.lead-markers{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+  gap:var(--step-1); margin:var(--step-12) 0 0; padding:0; list-style:none;
+  border-block:var(--hair) solid var(--border-default);
+}
+.lead-marker{
+  display:flex; flex-direction:column; gap:var(--step-2);
+  padding:var(--step-6) var(--step-4) var(--step-6) 0;
+}
+.lead-marker__v{
+  font-family:var(--font-display); font-size:var(--text-h3);
+  line-height:1; color:var(--lead-hue-light);
+}
+.lead-marker__l{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary); line-height:1.3;
+}
+
+/* The scope note. It is the most important paragraph on the page for honesty,
+   so it is set apart rather than buried in the prose. */
+.lead-scope{
+  margin-top:var(--step-10); max-width:66ch;
+  border-left:2px solid var(--lead-edge);
+  padding:var(--step-4) 0 var(--step-4) var(--step-6);
+  font-size:var(--text-sm); line-height:var(--leading-body);
+  color:var(--text-secondary);
+}
+
+
+/* ---------------------------------------------------------------------------
+   02 · GROWTH — the constellation
+   ------------------------------------------------------------------------- */
+.lead-years{ margin:0; padding:0; list-style:none; }
+.lead-year{
+  position:relative;
+  display:grid; grid-template-columns:minmax(96px, 128px) 1fr;
+  gap:var(--step-8);
+  padding:var(--step-8) 0;
+  border-top:var(--hair) solid var(--border-subtle);
+}
+.lead-year:first-child{ border-top:0; }
+
+/* The measure of the year: a left column that is itself a bar chart. */
+.lead-year__mark{
+  position:relative;
+  display:flex; flex-direction:column; gap:var(--step-1);
+  padding-left:var(--step-4);
+}
+.lead-year__mark::before{
+  content:""; position:absolute; left:0; top:.2em; bottom:.2em; width:2px;
+  background:var(--border-default);
+}
+.lead-year__mark::after{
+  content:""; position:absolute; left:0; top:.2em; width:2px;
+  height:var(--fill); max-height:calc(100% - .4em);
+  background:var(--lead-hue);
+  transition:height var(--duration-enter) var(--ease-out);
+}
+.lead-year__num{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  letter-spacing:var(--track-label); color:var(--text-tertiary);
+}
+.lead-year__size{
+  font-family:var(--font-display); font-size:var(--text-h2);
+  line-height:1; color:var(--text-primary); font-variant-numeric:tabular-nums;
+}
+.lead-year__unit{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+
+.lead-year__head{
+  margin:0 0 var(--step-2);
+  font-size:var(--text-h4); line-height:var(--leading-heading);
+  color:var(--text-primary);
+}
+.lead-year__text{ margin:0; max-width:58ch; color:var(--text-secondary); line-height:var(--leading-body); }
+.lead-year__note{
+  margin:var(--step-3) 0 0; max-width:58ch;
+  font-size:var(--text-sm); color:var(--text-tertiary); font-style:italic;
+}
+
+/* One dot per designer. They land in sequence when the row scrolls in, which
+   is the only animation on the page that carries meaning: you watch the team
+   get bigger. */
+.lead-year__dots{
+  display:flex; flex-wrap:wrap; gap:6px;
+  margin-top:var(--step-5); max-width:34ch;
+}
+.lead-dot{
+  width:9px; height:9px; border-radius:50%;
+  background:var(--lead-hue-light); opacity:.85;
+}
+.js .lead-year:not(.is-in) .lead-dot{ opacity:0; transform:scale(.4); }
+.js .lead-dot{
+  transition:opacity 320ms var(--ease-out), transform 320ms var(--ease-out);
+  transition-delay:calc(var(--d) * 26ms);
+}
+
+/* What the job turned into. */
+.lead-shift{ margin-top:var(--step-16); }
+.lead-shift__head{
+  margin:0 0 var(--step-6);
+  font-size:var(--text-h3); line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-shift__cols{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+  gap:var(--step-8);
+}
+.lead-shift__col p:last-child{ margin:var(--step-3) 0 0; color:var(--text-secondary); line-height:var(--leading-body); }
+.lead-shift__col .t-label{ color:var(--lead-hue-light); }
+.lead-shift__pull{
+  margin:var(--step-10) 0 0; padding-left:var(--step-6);
+  border-left:2px solid var(--lead-edge);
+  max-width:46ch;
+  font-family:var(--font-display); font-size:var(--text-h4);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+
+
+/* ---------------------------------------------------------------------------
+   03 · WAYS OF WORKING — two shapes, and the model behind the second
+   ------------------------------------------------------------------------- */
+.lead-shapes{
+  display:grid; grid-template-columns:1fr auto 1fr; gap:var(--step-6);
+  align-items:start;
+}
+.lead-org{
+  border:var(--hair) solid var(--border-default);
+  background:var(--lead-wash);
+  padding:var(--step-6);
+}
+.lead-org__label{ color:var(--lead-hue-light); margin:0; }
+.lead-org__total{
+  margin:var(--step-3) 0 var(--step-5);
+  font-family:var(--font-display); font-size:var(--text-h2); line-height:1;
+  color:var(--text-primary); font-variant-numeric:tabular-nums;
+}
+.lead-org__rows{ margin:0; padding:0; list-style:none; display:grid; gap:var(--step-4); }
+.lead-org__row{
+  display:grid; grid-template-columns:1fr auto; gap:var(--step-1) var(--step-3);
+  align-items:baseline;
+}
+.lead-org__name{ font-size:var(--text-sm); color:var(--text-primary); }
+.lead-org__n{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--lead-hue-light); font-variant-numeric:tabular-nums;
+}
+.lead-org__bar{
+  grid-column:1 / -1; order:3;
+  display:block; height:3px; background:var(--border-subtle);
+}
+.lead-org__bar i{
+  display:block; height:100%;
+  width:calc(var(--n) / var(--of) * 100%);
+  background:var(--lead-hue);
+}
+.lead-org__note{
+  grid-column:1 / -1; order:4;
+  font-size:var(--text-sm); color:var(--text-tertiary);
+}
+.lead-org .lead-tag{ margin-top:var(--step-5); }
+
+.lead-shapes__arrow{ align-self:center; display:flex; justify-content:center; }
+.lead-shapes__arrow span{
+  display:block; width:34px; height:var(--hair);
+  background:var(--border-strong); position:relative;
+}
+.lead-shapes__arrow span::after{
+  content:""; position:absolute; right:0; top:-3px;
+  border:3px solid transparent; border-left-color:var(--border-strong);
+}
+
+.lead-lines{ margin-top:var(--step-10); }
+.lead-lines__label{ color:var(--text-tertiary); margin:0 0 var(--step-4); }
+.lead-lines__list{
+  margin:0; padding:0; list-style:none;
+  display:flex; flex-wrap:wrap; gap:var(--step-2);
+}
+.lead-line{
+  display:inline-flex; align-items:center; gap:var(--step-2);
+  border:var(--hair) solid var(--border-default);
+  padding:var(--step-2) var(--step-4);
+  font-size:var(--text-sm); color:var(--text-secondary);
+}
+.lead-line__dot{ width:6px; height:6px; border-radius:50%; background:var(--lead-hue); }
+
+.lead-model{ margin-top:var(--step-16); }
+.lead-model__head{
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:var(--step-4);
+  margin-bottom:var(--step-3);
+}
+.lead-model__title{
+  margin:0; font-family:var(--font-display); font-size:var(--text-h3);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-model__intro{ margin:0 0 var(--step-8); max-width:var(--prose-max); color:var(--text-secondary); line-height:var(--leading-body); }
+
+.lead-objs{
+  margin:0; padding:0; list-style:none;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+  gap:var(--hair); background:var(--border-subtle);
+  border:var(--hair) solid var(--border-subtle);
+}
+.lead-obj{
+  background:var(--surface-page); padding:var(--step-6);
+  transition:background var(--duration-quick) var(--ease-out);
+}
+.lead-obj:hover{ background:var(--lead-wash); }
+.lead-obj__head{
+  margin:0 0 var(--step-2); font-size:var(--text-h4);
+  line-height:var(--leading-heading); color:var(--lead-hue-light);
+}
+.lead-obj__body{ margin:0; font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-secondary); }
+
+.lead-mech{ margin-top:var(--step-8); }
+.lead-mech__label{ color:var(--text-tertiary); margin:0 0 var(--step-3); }
+.lead-mech__list{ margin:0; padding:0; list-style:none; display:grid; gap:var(--step-3); max-width:68ch; }
+.lead-mech__list li{
+  position:relative; padding-left:var(--step-6);
+  font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-secondary);
+}
+.lead-mech__list li::before{
+  content:""; position:absolute; left:0; top:.62em;
+  width:var(--step-4); height:var(--hair); background:var(--lead-edge);
+}
+
+
+/* ---------------------------------------------------------------------------
+   04 · CULTURE — collage, rituals, sessions
+   The collage is an asymmetric grid rather than a tidy gallery: the brief is
+   a scrapbook, and a scrapbook has one big photograph and several small ones.
+   ------------------------------------------------------------------------- */
+.lead-collage{
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
+  gap:var(--step-3);
+}
+.lead-shot{
+  position:relative; margin:0; overflow:hidden;
+  background:var(--ink-5);
+  border:var(--hair) solid var(--border-subtle);
+}
+.lead-shot img{
+  display:block; width:100%; height:100%; object-fit:cover;
+  object-position:var(--pos, 50% 50%);
+  transition:transform var(--duration-enter) var(--ease-out),
+             filter var(--duration-enter) var(--ease-out);
+}
+.lead-shot:hover img, .lead-shot:focus-within img{ transform:scale(1.04); }
+
+/* The caption sits on the photograph, revealed on hover — but it is always
+   present for assistive technology and always visible on touch, where there
+   is no hover to reveal it with. */
+.lead-shot__cap{
+  position:absolute; inset:auto 0 0 0;
+  padding:var(--step-8) var(--step-4) var(--step-3);
+  background:linear-gradient(to top, rgba(0,0,0,.78), transparent);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:#fff;
+  opacity:0; transform:translateY(6px);
+  transition:opacity var(--duration-quick) var(--ease-out),
+             transform var(--duration-quick) var(--ease-out);
+}
+.lead-shot:hover .lead-shot__cap,
+.lead-shot:focus-within .lead-shot__cap{ opacity:1; transform:none; }
+@media (hover:none){ .lead-shot__cap{ opacity:1; transform:none; } }
+
+/* The asymmetry. One hero, two tall, the rest filling in. */
+.lead-shot--0{ grid-column:span 4; aspect-ratio:16/10; }
+.lead-shot--1{ grid-column:span 2; aspect-ratio:3/4; }
+.lead-shot--2{ grid-column:span 2; aspect-ratio:3/4; }
+.lead-shot--3{ grid-column:span 4; aspect-ratio:16/9; }
+.lead-shot--4{ grid-column:span 3; aspect-ratio:4/3; }
+.lead-shot--5{ grid-column:span 3; aspect-ratio:4/3; }
+.lead-shot--6{ grid-column:span 6; aspect-ratio:21/9; }
+
+/* The handwritten-style notes. A real hand is not available as a webfont here,
+   so this is the next honest thing: the mono face, rotated, in the chapter
+   hue — an annotation rather than an imitation of handwriting. */
+.lead-scrawl{
+  position:absolute; z-index:2;
+  max-width:16ch; padding:var(--step-2) var(--step-3);
+  background:var(--surface-page);
+  border:var(--hair) solid var(--lead-edge);
+  font-family:var(--font-mono); font-size:var(--text-mono); line-height:1.35;
+  color:var(--lead-hue-light);
+}
+.lead-scrawl--a{ right:-6px; top:var(--step-4); transform:rotate(2.5deg); }
+.lead-scrawl--b{ left:-6px; bottom:var(--step-6); transform:rotate(-2deg); }
+
+/* Rituals. */
+.lead-rituals{
+  margin:var(--step-6) 0 0; padding:0; list-style:none;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+  gap:var(--hair); background:var(--border-subtle);
+  border:var(--hair) solid var(--border-subtle);
+}
+.lead-ritual{
+  background:var(--surface-page); padding:var(--step-6);
+  border-top:2px solid var(--lead-hue);
+  transition:background var(--duration-quick) var(--ease-out);
+}
+.lead-ritual:hover{ background:var(--lead-wash); }
+.lead-ritual__cadence{ color:var(--lead-hue-light); }
+.lead-ritual__name{
+  margin:var(--step-2) 0 var(--step-2);
+  font-size:var(--text-h4); line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-ritual__line{ margin:0; font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-secondary); }
+
+/* The one rule. */
+.lead-rule{ margin-top:var(--step-12); border:var(--hair) solid var(--border-default); padding:var(--step-8); }
+.lead-rule__label{ color:var(--text-tertiary); margin:0; }
+.lead-rule__quote{
+  margin:var(--step-4) 0 var(--step-8); max-width:34ch;
+  font-family:var(--font-display); font-size:var(--text-h3);
+  line-height:var(--leading-heading); letter-spacing:var(--track-display);
+  color:var(--text-primary);
+}
+.lead-rule__cols{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:var(--step-8); }
+.lead-rule__col ul{ margin:var(--step-3) 0 0; padding:0; list-style:none; display:grid; gap:var(--step-2); }
+.lead-rule__col li{ font-size:var(--text-sm); color:var(--text-secondary); }
+.lead-rule__col--no .t-label{ color:var(--hue-rust-light); }
+.lead-rule__col--no li{ text-decoration:line-through; text-decoration-color:var(--hue-rust); color:var(--text-tertiary); }
+.lead-rule__col--yes .t-label{ color:var(--hue-sage-light); }
+
+/* Sessions. */
+.lead-sessions{ margin-top:var(--step-6); }
+.lead-sessions__stats{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+  gap:var(--step-6); padding-bottom:var(--step-8);
+  border-bottom:var(--hair) solid var(--border-default);
+}
+.lead-stat__v{
+  margin:0; font-family:var(--font-display); font-size:var(--text-h2);
+  line-height:1; color:var(--hue-teal-light); font-variant-numeric:tabular-nums;
+}
+.lead-stat__l{ margin:var(--step-2) 0 0; color:var(--text-tertiary); }
+.lead-sessions__rule{
+  margin:var(--step-8) 0; max-width:40ch; padding-left:var(--step-6);
+  border-left:2px solid var(--hue-teal);
+  font-family:var(--font-display); font-size:var(--text-h4);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-sessions__list{
+  margin:0; padding:0; list-style:none;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:var(--step-5);
+}
+.lead-session{
+  border-top:var(--hair) solid var(--border-default); padding-top:var(--step-4);
+}
+.lead-session__name{ margin:0; font-size:var(--text-body); color:var(--text-primary); }
+.lead-session__att{ display:block; margin-top:var(--step-1); color:var(--text-tertiary); }
+.lead-session__out{
+  margin:var(--step-3) 0 0; font-size:var(--text-sm);
+  color:var(--hue-teal-light); line-height:var(--leading-body);
+}
+
+.lead-normal{ margin-top:var(--step-12); border-left:2px solid var(--lead-edge); padding-left:var(--step-6); }
+.lead-normal .t-label{ color:var(--text-tertiary); margin:0 0 var(--step-3); }
+.lead-normal ul{ margin:0; padding:0; list-style:none; display:grid; gap:var(--step-2); max-width:56ch; }
+.lead-normal li{ color:var(--text-secondary); line-height:var(--leading-body); }
+
+
+/* ---------------------------------------------------------------------------
+   05 · THE AWARD
+   ------------------------------------------------------------------------- */
+.lead-award{
+  --lead-hue:var(--hue-ochre); --lead-hue-light:var(--hue-ochre-light);
+  display:grid; grid-template-columns:1.1fr .9fr; gap:var(--step-8);
+  align-items:stretch;
+}
+.lead-award__plate{
+  border:var(--hair) solid var(--lead-edge);
+  background:var(--lead-wash);
+  padding:var(--step-10);
+  display:flex; flex-direction:column; justify-content:center;
+}
+.lead-award__event{ color:var(--lead-hue-light); margin:0; }
+.lead-award__name{
+  margin:var(--step-3) 0 var(--step-5);
+  font-family:var(--font-display);
+  font-size:clamp(2rem, 1.2rem + 3.4vw, 3.4rem);
+  line-height:1.02; letter-spacing:var(--track-display);
+  color:var(--text-primary); text-wrap:balance;
+}
+.lead-award__line{ margin:0; font-size:var(--text-lg); color:var(--text-secondary); line-height:var(--leading-body); }
+.lead-award__second{ margin:var(--step-4) 0 0; font-size:var(--text-sm); color:var(--text-tertiary); }
+.lead-award__shot{ margin:0; overflow:hidden; border:var(--hair) solid var(--border-subtle); }
+.lead-award__shot img{
+  display:block; width:100%; height:100%; object-fit:cover; min-height:260px;
+  transition:transform var(--duration-enter) var(--ease-out);
+}
+.lead-award__shot:hover img{ transform:scale(1.03); }
+
+.lead-phases{
+  margin:var(--step-10) 0 0; padding:0; list-style:none;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:var(--step-6);
+  counter-reset:phase;
+}
+.lead-phase{ border-top:2px solid var(--hue-ochre); padding-top:var(--step-4); }
+.lead-phase__n{
+  font-family:var(--font-mono); font-size:var(--text-mono); color:var(--hue-ochre-light);
+}
+.lead-phase__name{
+  margin:var(--step-2) 0 var(--step-2);
+  font-size:var(--text-h4); line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-phase__body{ margin:0; font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-secondary); }
+
+.lead-why{
+  margin-top:var(--step-10);
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:var(--step-8);
+  border-top:var(--hair) solid var(--border-default); padding-top:var(--step-8);
+}
+.lead-why__col ul{ margin:var(--step-3) 0 0; padding:0; list-style:none; display:grid; gap:var(--step-2); }
+.lead-why__col li{ font-size:var(--text-sm); color:var(--text-tertiary); text-decoration:line-through; text-decoration-color:var(--hue-rust); }
+.lead-why__col--no .t-label{ color:var(--hue-rust-light); }
+.lead-why__col--yes .t-label{ color:var(--hue-sage-light); }
+.lead-why__line{
+  margin:var(--step-3) 0 0; max-width:36ch;
+  font-family:var(--font-display); font-size:var(--text-h4);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+
+
+/* ---------------------------------------------------------------------------
+   06 · GROWING PEOPLE — the career map
+   The tracks are an accordion. Everything is in the markup and open by
+   default; leadership.js collapses all but the first once it runs, so the
+   page is complete without JavaScript and tidier with it.
+   ------------------------------------------------------------------------- */
+.lead-ladder__head{
+  display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between;
+  gap:var(--step-4); padding-bottom:var(--step-4);
+  border-bottom:var(--hair) solid var(--border-default);
+}
+.lead-ladder__title{
+  margin:0; font-family:var(--font-display); font-size:var(--text-h3);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-bands{ display:flex; gap:var(--step-2); flex-wrap:wrap; }
+.lead-band{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-tertiary);
+  border:var(--hair) solid var(--border-subtle);
+  padding:2px var(--step-2);
+}
+.lead-ladder__attrib{
+  margin:var(--step-4) 0 var(--step-8); max-width:68ch;
+  font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-tertiary);
+}
+
+.lead-tracks{ display:grid; gap:var(--hair); background:var(--border-subtle); border:var(--hair) solid var(--border-subtle); }
+.lead-track{ background:var(--surface-page); }
+.lead-track__head{
+  width:100%; display:grid; grid-template-columns:auto 1fr auto;
+  align-items:center; gap:var(--step-4);
+  padding:var(--step-5) var(--step-6);
+  background:none; border:0; border-left:3px solid var(--lead-hue);
+  font:inherit; color:inherit; text-align:left; cursor:pointer;
+  transition:background var(--duration-quick) var(--ease-out);
+}
+.lead-track__head:hover{ background:var(--lead-wash); }
+.lead-track__head:focus-visible{ outline:2px solid var(--lead-hue-light); outline-offset:-2px; }
+.lead-track__name{
+  font-family:var(--font-display); font-size:var(--text-h4);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-track__blurb{ font-size:var(--text-sm); color:var(--text-tertiary); }
+.lead-track__chev{
+  width:10px; height:10px; border-right:1.5px solid var(--lead-hue-light);
+  border-bottom:1.5px solid var(--lead-hue-light);
+  transform:rotate(45deg); transition:transform var(--duration-quick) var(--ease-out);
+}
+.lead-track__head[aria-expanded="true"] .lead-track__chev{ transform:rotate(-135deg); }
+
+.lead-track__steps{
+  margin:0; padding:0 var(--step-6) var(--step-6) calc(var(--step-6) + 3px);
+  list-style:none;
+  /* Four rungs want four columns: the levels read as a progression across the
+     track, and a lone L4 on a second row breaks that reading. 160px is the
+     widest minimum the reading column still fits four of. */
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+  gap:var(--step-5);
+}
+.lead-track__steps[hidden]{ display:none; }
+.lead-step{ border-top:var(--hair) solid var(--border-subtle); padding-top:var(--step-4); }
+.lead-step__lvl{ color:var(--lead-hue-light); display:block; }
+.lead-step__lvl i{ font-style:normal; color:var(--text-tertiary); }
+.lead-step__name{
+  margin:var(--step-2) 0 var(--step-2);
+  font-size:var(--text-body); line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-step__body{ margin:0; font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-secondary); }
+
+/* The role-target matrix. It is wider than the reading column on purpose and
+   scrolls inside its own box — the `__wrap` suffix is what case.css contains,
+   so this can never drag the page sideways. */
+.lead-skills{ margin-top:var(--step-16); }
+.lead-skills__title{
+  margin:0; font-family:var(--font-display); font-size:var(--text-h3);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-skills__wrap{
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+  /* The table is wider than a phone and scrolls inside this box. `contain`
+     stops its width reaching the document: without it Chrome counts the
+     un-scrolled extent and the whole page can be dragged sideways. This used
+     to come from case.css, which the page no longer loads now that it runs
+     full width, so it belongs here. */
+  contain:paint;
+}
+.lead-matrix{ border-collapse:collapse; width:100%; min-width:620px; }
+.lead-matrix th, .lead-matrix td{
+  padding:var(--step-3); text-align:left; vertical-align:middle;
+  border-bottom:var(--hair) solid var(--border-subtle);
+}
+.lead-matrix thead th{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary); font-weight:500;
+  border-bottom:var(--hair) solid var(--border-default);
+  vertical-align:bottom;
+}
+.lead-matrix thead th span{ display:block; max-width:9ch; line-height:1.25; }
+.lead-matrix tbody th{
+  font-size:var(--text-sm); font-weight:500; color:var(--text-primary); white-space:nowrap;
+}
+.lead-matrix td{ width:1%; }
+.lead-pip{
+  display:inline-block; width:46px; height:4px;
+  background:var(--border-subtle); vertical-align:middle; margin-right:var(--step-2);
+}
+.lead-pip i{ display:block; height:100%; width:calc(var(--v) / var(--max) * 100%); background:var(--lead-hue); }
+.lead-matrix td b{
+  font-family:var(--font-mono); font-size:var(--text-mono); font-weight:400;
+  color:var(--text-tertiary); font-variant-numeric:tabular-nums;
+}
+
+/* RISE. */
+.lead-rise{ margin-top:var(--step-16); --lead-hue:var(--hue-lavender); --lead-hue-light:var(--hue-lavender-light); }
+.lead-rise__head{ display:flex; flex-wrap:wrap; align-items:baseline; gap:var(--step-4); }
+.lead-rise__title{
+  margin:0; font-family:var(--font-display); font-size:var(--text-h3);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-rise__expand{ margin:0; font-size:var(--text-sm); color:var(--lead-hue-light); }
+.lead-rise__cycle{
+  margin:var(--step-6) 0 0; padding:0; list-style:none;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:var(--step-5);
+}
+.lead-rise__step{ border-top:2px solid var(--lead-hue); padding-top:var(--step-4); }
+.lead-rise__n{ font-family:var(--font-mono); font-size:var(--text-mono); color:var(--lead-hue-light); }
+.lead-rise__name{ margin:var(--step-2) 0 var(--step-2); font-size:var(--text-body); color:var(--text-primary); }
+.lead-rise__body{ margin:0; font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-secondary); }
+.lead-rise__foot{
+  margin-top:var(--step-10); display:grid; grid-template-columns:1fr 1fr; gap:var(--step-8);
+  align-items:start;
+}
+.lead-scale{ margin:0; padding:0; list-style:none; display:grid; gap:var(--step-2); }
+.lead-scale li{ display:flex; gap:var(--step-3); align-items:baseline; font-size:var(--text-sm); color:var(--text-secondary); }
+.lead-scale__n{
+  font-family:var(--font-mono); font-size:var(--text-mono); color:var(--text-tertiary);
+  border:var(--hair) solid var(--border-subtle); padding:0 var(--step-2);
+}
+/* A target is styled so it can never be mistaken for a result: dashed edge,
+   ochre, and the word "target" in the tag beneath it. */
+.lead-target{
+  border:var(--hair) dashed var(--hue-ochre); padding:var(--step-6);
+  background:color-mix(in srgb, var(--hue-ochre) 6%, transparent);
+}
+.lead-target__v{
+  margin:0; font-family:var(--font-display); font-size:var(--text-h2); line-height:1;
+  color:var(--hue-ochre-light);
+}
+.lead-target__l{ margin:var(--step-2) 0 var(--step-3); font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-body); }
+.lead-target__warn{ margin:var(--step-3) 0 0; font-size:var(--text-sm); color:var(--text-tertiary); line-height:var(--leading-body); }
+
+.lead-howfelt{ margin-top:var(--step-12); border-left:2px solid var(--lead-edge); padding-left:var(--step-6); max-width:66ch; }
+.lead-howfelt .t-label{ color:var(--text-tertiary); margin:0 0 var(--step-3); }
+.lead-howfelt p{ color:var(--text-secondary); line-height:var(--leading-body); }
+.lead-howfelt blockquote{
+  margin:var(--step-5) 0 0; font-family:var(--font-display); font-size:var(--text-h4);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+
+
+/* ---------------------------------------------------------------------------
+   07 · THE EVIDENCE
+   ------------------------------------------------------------------------- */
+.lead-nums{
+  margin:0; padding:0; list-style:none;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+  gap:var(--hair); background:var(--border-subtle);
+  border:var(--hair) solid var(--border-subtle);
+}
+.lead-num{
+  background:var(--surface-page); padding:var(--step-6);
+  display:flex; flex-direction:column; gap:var(--step-2);
+  transition:background var(--duration-quick) var(--ease-out);
+}
+.lead-num:hover{ background:var(--lead-wash); }
+.lead-num__v{
+  margin:0; display:flex; align-items:baseline;
+  font-family:var(--font-display);
+  font-size:clamp(2.4rem, 1.6rem + 3vw, 3.6rem); line-height:.95;
+  color:var(--lead-hue-light); font-variant-numeric:tabular-nums;
+}
+.lead-num__v i{ font-style:normal; font-size:.5em; margin-left:.08em; }
+.lead-num__l{ margin:0; font-size:var(--text-body); color:var(--text-primary); }
+.lead-num__q{ margin:0; font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-secondary); }
+.lead-num__s{
+  margin:auto 0 0; padding-top:var(--step-4);
+  display:flex; flex-direction:column; gap:var(--step-1);
+}
+.lead-num__src{ font-family:var(--font-mono); font-size:var(--text-mono); color:var(--text-tertiary); }
+
+/* The restricted preview. There is no server to authenticate against, so this
+   does not pretend to be a gate — it shows the *shape* of what is withheld,
+   made of em dashes, and says plainly that nothing real is behind it. */
+.lead-locked{
+  margin-top:var(--step-12);
+  border:var(--hair) dashed var(--border-strong);
+  padding:var(--step-8);
+  background:var(--ink-5);
+}
+.lead-locked__head{ display:flex; flex-direction:column; gap:var(--step-3); }
+.lead-locked__pill{
+  align-self:flex-start;
+  border:var(--hair) solid var(--border-strong); padding:var(--step-1) var(--step-3);
+  color:var(--text-secondary);
+}
+.lead-locked__line{ margin:0; max-width:60ch; color:var(--text-secondary); line-height:var(--leading-body); }
+.lead-locked__plate{
+  margin:var(--step-6) 0 0; overflow:hidden; position:relative;
+  border:var(--hair) solid var(--border-subtle);
+  /* The blur is an aesthetic for "withheld", never a security measure — the
+     table under it is invented shape, so there is nothing to recover. */
+  filter:blur(3px); opacity:.5; user-select:none;
+}
+.lead-locked__table{ border-collapse:collapse; width:100%; font-size:var(--text-sm); }
+.lead-locked__table th, .lead-locked__table td{
+  padding:var(--step-3); text-align:left; color:var(--text-tertiary);
+  border-bottom:var(--hair) solid var(--border-subtle); white-space:nowrap;
+}
+.lead-locked__note{ margin:var(--step-4) 0 0; font-size:var(--text-sm); color:var(--text-tertiary); }
+.lead-locked__status{
+  margin:var(--step-3) 0 0; max-width:68ch;
+  font-size:var(--text-sm); line-height:var(--leading-body); color:var(--text-secondary);
+}
+
+
+/* ---------------------------------------------------------------------------
+   08 · PRINCIPLES — editorial statements, not a card grid
+   ------------------------------------------------------------------------- */
+.lead-prins{ margin:0; padding:0; list-style:none; }
+.lead-prin{
+  display:grid; grid-template-columns:auto 1fr; gap:var(--step-6);
+  padding:var(--step-10) 0;
+  border-top:var(--hair) solid var(--border-subtle);
+}
+.lead-prin:first-child{ border-top:0; padding-top:0; }
+.lead-prin__n{
+  font-family:var(--font-display);
+  font-size:clamp(2rem, 1.4rem + 2.2vw, 3rem); line-height:.9;
+  color:var(--lead-edge);
+}
+.lead-prin__title{
+  margin:0 0 var(--step-3);
+  font-family:var(--font-display); font-size:var(--text-h3);
+  line-height:var(--leading-heading); letter-spacing:var(--track-display);
+  color:var(--text-primary); text-wrap:balance;
+}
+.lead-prin__text{ margin:0; max-width:58ch; color:var(--text-secondary); line-height:var(--leading-body); }
+.lead-prin__pull{
+  margin:var(--step-5) 0 0; padding-left:var(--step-5);
+  border-left:2px solid var(--lead-hue);
+  max-width:44ch;
+  font-family:var(--font-display); font-size:var(--text-h4);
+  line-height:var(--leading-heading); color:var(--lead-hue-light);
+}
+
+
+/* ---------------------------------------------------------------------------
+   09 · CLOSING
+   ------------------------------------------------------------------------- */
+.lead-close{ display:grid; grid-template-columns:.85fr 1.15fr; gap:var(--step-10); align-items:stretch; }
+.lead-close__shot{ margin:0; overflow:hidden; border:var(--hair) solid var(--border-subtle); min-height:340px; }
+.lead-close__shot img{
+  display:block; width:100%; height:100%; object-fit:cover; object-position:50% 40%;
+  transition:transform var(--duration-enter) var(--ease-out);
+}
+.lead-close__shot:hover img{ transform:scale(1.03); }
+.lead-close__head{
+  margin:0 0 var(--step-4);
+  font-family:var(--font-display); font-size:var(--text-h2);
+  line-height:var(--leading-heading); letter-spacing:var(--track-display);
+  color:var(--text-primary); text-wrap:balance;
+}
+.lead-close__text{ margin:0; max-width:52ch; color:var(--text-secondary); line-height:var(--leading-body); }
+.lead-close__sign{
+  margin:var(--step-6) 0 var(--step-8); padding-left:var(--step-5);
+  border-left:2px solid var(--lead-edge); max-width:46ch;
+  font-family:var(--font-display); font-size:var(--text-h4);
+  line-height:var(--leading-heading); color:var(--text-primary);
+}
+.lead-close__links{ display:flex; flex-wrap:wrap; gap:var(--step-3); }
+.lead-next{
+  display:grid; grid-template-columns:1fr auto; align-items:center;
+  gap:var(--step-1) var(--step-4); flex:1 1 230px;
+  border:var(--hair) solid var(--border-default);
+  padding:var(--step-4) var(--step-5);
+  text-decoration:none;
+  transition:background var(--duration-quick) var(--ease-out),
+             border-color var(--duration-quick) var(--ease-out);
+}
+.lead-next:hover{ background:var(--lead-wash); border-color:var(--lead-edge); }
+.lead-next__name{ grid-area:1 / 1; font-size:var(--text-body); color:var(--text-primary); }
+.lead-next__note{ grid-area:2 / 1; font-size:var(--text-sm); color:var(--text-tertiary); line-height:var(--leading-body); }
+.lead-next__arrow{ grid-area:1 / 2 / span 2 / 2; color:var(--lead-hue-light); font-size:var(--text-h4); }
+
+
+/* ---------------------------------------------------------------------------
+   WIDE
+   The chapters run the full content width now rather than a reading column.
+   The four grids that hold exactly six things are pinned to three columns:
+   auto-fit would fit five across and strand the sixth alone on a second row.
+   ------------------------------------------------------------------------- */
+@media (min-width:1000px){
+  .lead-nums,
+  .lead-rituals,
+  .lead-objs,
+  .lead-sessions__list{ grid-template-columns:repeat(3, 1fr); }
+
+  /* The dots were capped at 34ch to sit beside a narrow reading column. With
+     the full width available, let the constellation actually spread — it is
+     the one picture in the chapter and twenty-four of them should look like
+     more than twelve. The prose above keeps its own measure. */
+  .lead-year__dots{ max-width:none; gap:8px; }
+  .lead-dot{ width:10px; height:10px; }
+}
+
+
+/* ---------------------------------------------------------------------------
+   NARROW
+   The collage stops being asymmetric below two columns — at phone width an
+   editorial grid is just a stack, and pretending otherwise makes every
+   photograph a letterbox.
+   ------------------------------------------------------------------------- */
+@media (max-width:900px){
+  .lead-shapes{ grid-template-columns:1fr; }
+  .lead-shapes__arrow{ justify-content:flex-start; }
+  .lead-shapes__arrow span{ transform:rotate(90deg); }
+  .lead-award{ grid-template-columns:1fr; }
+  .lead-close{ grid-template-columns:1fr; gap:var(--step-8); }
+  .lead-rise__foot{ grid-template-columns:1fr; }
+}
+
+@media (max-width:620px){
+  .lead-collage{ grid-template-columns:1fr 1fr; gap:var(--step-2); }
+  .lead-shot--0, .lead-shot--3, .lead-shot--6{ grid-column:span 2; aspect-ratio:16/10; }
+  .lead-shot--1, .lead-shot--2, .lead-shot--4, .lead-shot--5{ grid-column:span 1; aspect-ratio:3/4; }
+  /* The figure is a fixed aspect ratio with overflow:hidden, so a static
+     annotation is simply clipped away. Keep it absolute and bring it inside
+     the frame instead of hanging off the edge. */
+  .lead-scrawl{ max-width:13ch; font-size:11px; padding:4px 6px; }
+  .lead-scrawl--a{ right:4px; top:4px; }
+  .lead-scrawl--b{ left:4px; bottom:4px; }
+  .lead-year{ grid-template-columns:1fr; gap:var(--step-4); }
+  .lead-prin{ grid-template-columns:1fr; gap:var(--step-3); }
+  .lead-track__head{ grid-template-columns:1fr auto; }
+  .lead-track__blurb{ grid-column:1; }
+}
+
+
+/* ---------------------------------------------------------------------------
+   REDUCED MOTION — nothing here carries meaning that motion alone supplies,
+   so all of it simply arrives.
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion:reduce){
+  .js .lead-year:not(.is-in) .lead-dot{ opacity:.85; transform:none; }
+  .js .lead-dot{ transition:none; }
+  .lead-shot img, .lead-award__shot img, .lead-close__shot img{ transition:none; }
+  .lead-shot:hover img, .lead-shot:focus-within img,
+  .lead-award__shot:hover img, .lead-close__shot:hover img{ transform:none; }
+  .lead-year__mark::after{ transition:none; }
+}

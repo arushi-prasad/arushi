@@ -1,0 +1,88 @@
+<!--meta
+route: fun
+title: Fun stuff
+desc: Altitude, distance, colour — and the things built for no reason at all.
+nav: fun
+lab: yes
+word_a: outside
+word_b: the brief
+tagline: Altitude, distance, colour. Three nouns, three things I keep going back to — and one more that is just curiosity with a keyboard attached.
+-->
+
+<section class="section shell">
+  <div class="grid grid--2">
+
+    <!-- ALTITUDE ------------------------------------------------------- -->
+    <article class="card" style="--art-hue:var(--hue-slate)" data-reveal>
+      <span class="card__art card__art--shot" style="aspect-ratio:4/3">
+        <img src="../assets/img/ops/07.jpg" alt="High on the Everest Base Camp trail with Ama Dablam behind." loading="lazy" style="object-position:center 35%">
+      </span>
+      <div class="card__meta"><span class="card__status">Altitude</span></div>
+      <div class="card__body">
+        <h2 class="card__name">Everest Base Camp &#8212; 5,380&#8239;m</h2>
+        <p class="card__premise">Days of walking uphill at a pace that has nothing to do with fitness and everything to do with patience. The useful lesson was the same one every long project teaches: the summit is not the hard part, the altitude you sleep at is.</p>
+      </div>
+      <!-- A small, honest altitude gauge. It reads the real number. -->
+      <div class="gauge" aria-hidden="true">
+        <span class="gauge__fill"></span>
+        <span class="gauge__marks"><i>0</i><i>2,500</i><i>5,380&#8239;m</i></span>
+      </div>
+    </article>
+
+    <!-- DISTANCE ------------------------------------------------------- -->
+    <article class="card" style="--art-hue:var(--hue-ochre)" data-reveal data-reveal-delay="60">
+      <span class="card__art"></span>
+      <div class="card__meta"><span class="card__status">Distance</span></div>
+      <div class="card__body">
+        <h2 class="card__name">110&#8239;km &#8212; Pune to Mulshi and back</h2>
+        <p class="card__premise">Out along the lake and home again. The second half is the one that counts, which is also true of most of the work on this site.</p>
+      </div>
+      <ul class="chips" role="list"><li class="chip">One day</li><li class="chip">Out and back</li></ul>
+    </article>
+
+    <!-- COLOUR — the plant ---------------------------------------------- -->
+    <article class="card" style="--art-hue:var(--hue-sage)" data-reveal>
+      <div class="card__meta"><span class="card__status">Colour</span></div>
+      <div class="card__body">
+        <h2 class="card__name">100+ plants, and counting</h2>
+        <p class="card__premise">The collection has outgrown the windowsills it started on. Here is one of them &#8212; it grows when you water it, and it does not mind being watered by a keyboard.</p>
+      </div>
+
+      <div class="plant" data-plant>
+        <svg class="plant__svg" viewBox="0 0 120 130" role="img" aria-labelledby="plant-title">
+          <title id="plant-title">A small potted plant</title>
+          <!-- pot -->
+          <path class="plant__pot" d="M36 100h48l-5 24a4 4 0 0 1-4 3H45a4 4 0 0 1-4-3z"/>
+          <rect class="plant__rim" x="32" y="93" width="56" height="9" rx="2"/>
+          <!-- stem -->
+          <path class="plant__stem" d="M60 100V58"/>
+          <!-- leaves, revealed one at a time -->
+          <g class="plant__leaves">
+            <path class="plant__leaf" data-leaf="1" d="M60 92c-12 0-19-6-19-13 8-3 19 2 19 13z"/>
+            <path class="plant__leaf" data-leaf="2" d="M60 84c12 0 19-6 19-13-8-3-19 2-19 13z"/>
+            <path class="plant__leaf" data-leaf="3" d="M60 74c-13 0-21-7-21-15 9-3 21 3 21 15z"/>
+            <path class="plant__leaf" data-leaf="4" d="M60 65c13 0 21-7 21-15-9-3-21 3-21 15z"/>
+            <path class="plant__leaf" data-leaf="5" d="M60 57c-7-7-8-17-3-23 7 4 10 15 3 23z"/>
+          </g>
+        </svg>
+
+        <div class="plant__side">
+          <p class="t-label t-dim">Leaves <output data-plant-count>0</output> / 5</p>
+          <button type="button" class="btn btn--ghost" data-plant-water>Water it</button>
+          <button type="button" class="btn btn--ghost" data-plant-reset>Start again</button>
+          <p class="sr-only" role="status" aria-live="polite" data-plant-status></p>
+        </div>
+      </div>
+    </article>
+
+    <!-- CURIOSITY ------------------------------------------------------- -->
+    <a class="card" href="../experiments/" style="--art-hue:var(--hue-lavender)" data-reveal data-reveal-delay="60">
+      <span class="card__art"></span>
+      <div class="card__meta"><span class="card__status">Curiosity</span></div>
+      <div class="card__body">
+        <h2 class="card__name">Things built for no reason <svg class="ico card__arrow" aria-hidden="true"><use href="#i-arrow"></use></svg></h2>
+        <p class="card__premise">Small working builds — a colour switcher, a type specimen, a token explorer, a before-and-after. Each one exists because it was faster to build the thing than to argue about it.</p>
+      </div>
+    </a>
+  </div>
+</section>

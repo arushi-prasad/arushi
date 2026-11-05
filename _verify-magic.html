@@ -1,0 +1,567 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>verify magic</title>
+<style>body{background:#111;color:#ddd;font:13px/1.5 monospace;padding:12px}
+.ok{color:#8ad67a}.bad{color:#ff7a6b}.hd{color:#e0b07a;margin-top:10px}
+iframe{border:1px solid #333}</style>
+<pre id="out">running…</pre>
+<iframe id="f" style="width:1280px;height:900px"></iframe>
+<script>
+/* A throwaway harness for the Magic interaction. It drives the real homepage
+   in an iframe and prints a report, so behaviour is checked rather than
+   appearance. Not shipped. */
+const lines = [];
+let pass = 0, fail = 0;
+function head(t){ lines.push('\n<span class="hd">'+t+'</span>'); }
+function check(name, cond, extra){
+  if (cond) { pass++; lines.push('<span class="ok">  PASS</span> '+name); }
+  else { fail++; lines.push('<span class="bad">  FAIL</span> '+name+(extra!==undefined?'  ['+extra+']':'')); }
+}
+/* For what is worth seeing even when nothing is wrong with it. */
+function note(name, value){ lines.push('<span class="hd">  ----</span> '+name+'  '+value); }
+function flush(){
+  document.getElementById('out').innerHTML =
+    lines.join('\n') + '\n\n<span class="hd">RESULT</span> pass='+pass+' fail='+fail+
+    (fail? ' <span class="bad">***FAILURES***</span>' : ' <span class="ok">ALL GREEN</span>');
+}
+const errors = [];
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+const f = document.getElementById('f');
+
+function post(){
+  const txt = lines.join('\n').replace(/<[^>]+>/g, '') +
+    '\n\nRESULT pass=' + pass + ' fail=' + fail + (fail ? '  ***FAILURES***' : '  ALL GREEN');
+  navigator.sendBeacon('/report', txt) || fetch('/report', { method:'POST', body: txt });
+}
+
+/* Which boxes actually stick out of the document, so an overflow failure
+   names its cause instead of just its width. */
+function overflowing(w){
+  const d = w.document, lim = d.documentElement.clientWidth, out = [];
+  d.querySelectorAll('*').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.width === 0 && r.height === 0) return;
+    if (r.right > lim + 0.5 || r.left < -0.5) {
+      out.push((el.tagName.toLowerCase()) +
+        (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : '') +
+        ' [' + Math.round(r.left) + '→' + Math.round(r.right) + ']');
+    }
+  });
+  return out.slice(0, 8).join('  ');
+}
+
+function load(url, w, h){
+  f.style.width = w + 'px';
+  f.style.height = h + 'px';
+  return new Promise(res => {
+    f.onload = () => res(f.contentWindow);
+    f.src = url;
+  });
+}
+
+/* The button's whole appearance, so "it does not change" can be asserted
+   rather than eyeballed. */
+function face(w){
+  const b = w.document.querySelector('.magic__btn');
+  const cs = w.getComputedStyle(b);
+  return [cs.color, cs.backgroundColor, cs.borderTopColor, cs.borderBottomColor,
+          cs.boxShadow, cs.transform, cs.width, cs.height,
+          w.getComputedStyle(b.querySelector('.ico')).transform,
+          w.getComputedStyle(b.querySelector('.ico')).color].join(' | ');
+}
+
+/* The three tokens the control used to seize. */
+function tokens(w){
+  const h = w.document.documentElement;
+  return ['palette','grid','radius','type','density'].map(k => h.getAttribute('data-'+k)).join('/');
+}
+
+/* The arrow is a pseudo-element drawn into a background image, so there is
+   neither a node to measure nor any ink at the edges of the box it sits in —
+   a curve inside a rectangle leaves transparent corners, and asking where
+   the rectangle is answers the wrong question by several pixels.
+
+   So this reads the two ends out of the path itself. The box and the viewBox
+   are the same shape and the background is `contain`, so the mapping is one
+   to one: the first moveto in the file is the foot of the arrow, and the
+   second — shared by both strokes of the head — is its tip. Checks can then
+   be about where the arrow is actually drawn. */
+function arrow(w){
+  const m = w.document.querySelector('.magic');
+  const cs = w.getComputedStyle(m, '::after');
+  if (cs.content === 'none' || cs.display === 'none') return null;
+  const b = m.getBoundingClientRect();
+  const px = v => parseFloat(v) || 0;
+  const top = b.top + px(cs.top), left = b.left + px(cs.left);
+  const width = px(cs.width), height = px(cs.height);
+
+  /* Chrome hands this back with the inner quotes backslash-escaped and the
+     %23 on the colour still encoded, so both have to come off before any of
+     it looks like the SVG that was written. */
+  let svg = cs.backgroundImage;
+  try { svg = decodeURIComponent(svg); } catch (e) {}
+  svg = svg.replace(/\\(.)/g, '$1');
+  const vb = (svg.match(/viewBox="([-\d.\s]+)"/) || [])[1];
+  const ms = [...svg.matchAll(/d="M\s*([-\d.]+)[\s,]+([-\d.]+)/g)];
+  let foot = null, tip = null;
+  if (vb && ms.length >= 2) {
+    const [, , vw2, vh2] = vb.trim().split(/\s+/).map(Number);
+    const at = ([, x, y]) => ({ x: left + (x / vw2) * width, y: top + (y / vh2) * height });
+    foot = at(ms[0]); tip = at(ms[1]);
+  }
+  return { drawn: /url\(/.test(cs.backgroundImage),
+           gold: /C19A3A/i.test(svg),
+           opacity: parseFloat(cs.opacity),
+           left, top, right: left + width, bottom: top + height, width, height,
+           foot, tip };
+}
+
+function vis(w, sel){
+  const el = w.document.querySelector(sel);
+  if (!el) return 'missing';
+  const cs = w.getComputedStyle(el);
+  return cs.visibility + '/' + cs.opacity + '/' + cs.display;
+}
+
+function overlaps(a, b){
+  return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+}
+
+(async function run(){
+  // ---------------------------------------------------------------- desktop
+  let w = await load('index.html', 1280, 900);
+  w.addEventListener('error', e => errors.push('frame: ' + e.message));
+  await wait(2600);                             // let the intro finish
+
+  const d = w.document;
+  const btn = d.querySelector('.magic__btn');
+  const stage = d.querySelector('.stage');
+  const layer = d.querySelector('[data-stickers]');
+  const hint = d.querySelector('.magic__hint');
+
+  head('1 · the button itself');
+  check('one icon only', d.querySelectorAll('.magic__btn .ico').length === 1,
+        d.querySelectorAll('.magic__btn .ico').length);
+  check('no undo face in the markup', !d.querySelector('.magic__ico--undo'));
+  check('accessible name is "Toggle personality stickers"',
+        btn.getAttribute('aria-label') === 'Toggle personality stickers', btn.getAttribute('aria-label'));
+  check('aria-pressed starts false', btn.getAttribute('aria-pressed') === 'false');
+  check('label reads "a little more ME"',
+        hint.textContent === 'a little more ME', JSON.stringify(hint.textContent));
+  check('label is monospaced', /mono/i.test(w.getComputedStyle(hint).fontFamily),
+        w.getComputedStyle(hint).fontFamily);
+  check('label stands at rest — nothing has to be hovered to read it',
+        w.getComputedStyle(hint).opacity === '1', w.getComputedStyle(hint).opacity);
+  check('and it is not clipped to an ellipsis',
+        hint.scrollWidth <= hint.clientWidth + 1, [hint.scrollWidth, hint.clientWidth]);
+  check('button is compact (2.25rem)', w.getComputedStyle(btn).width === '36px',
+        w.getComputedStyle(btn).width);
+
+  head('2 · where the label sits');
+  const ico = d.querySelector('.magic__ico');
+  let hb = hint.getBoundingClientRect(), ib = ico.getBoundingClientRect(),
+      bb = btn.getBoundingClientRect();
+  /* 1280 has room for the full centring, but the sweep in 13b is what
+     holds that down across the range; here it is only asked not to sit
+     right of centre, which is the one direction the guard never moves it. */
+  const mid = r => (r.left + r.right) / 2;
+  check('it hangs below the button, clear of it', hb.top > bb.bottom + 8,
+        [Math.round(bb.bottom), Math.round(hb.top)]);
+  check('it is centred on the icon, or pulled left — never right of it',
+        mid(hb) <= mid(ib) + 0.6, [Math.round(mid(hb)), Math.round(mid(ib))]);
+  check('and it is still on the page', hb.right <= d.documentElement.clientWidth - 2,
+        [Math.round(hb.right), d.documentElement.clientWidth]);
+
+  head('2a · the arrow');
+  let ar = arrow(w);
+  check('there is one', !!ar && ar.drawn, ar && JSON.stringify(ar));
+  check('drawn in the control\'s own gold', ar && ar.gold);
+  check('and kept subtle', ar && ar.opacity > 0.3 && ar.opacity < 0.9, ar && ar.opacity);
+  check('both ends of it were readable', ar && ar.foot && ar.tip, ar && JSON.stringify(ar));
+  check('it lives in the gap: every pixel under the button, above the label',
+        ar && ar.top >= bb.bottom - 0.5 && ar.bottom <= hb.top + 1,
+        ar && [Math.round(bb.bottom), Math.round(ar.top), Math.round(ar.bottom), Math.round(hb.top)]);
+  check('it does not reach over the button it points at',
+        ar && !overlaps(ar, bb), ar && [Math.round(ar.top), Math.round(bb.bottom)]);
+  check('the head points up at the icon, a few pixels clear of the button',
+        ar && ar.tip.y > bb.bottom && ar.tip.y < bb.bottom + 10 &&
+              ar.tip.x > bb.left && ar.tip.x < bb.right,
+        ar && ['tip', Math.round(ar.tip.x), Math.round(ar.tip.y),
+               'btn', Math.round(bb.left), Math.round(bb.right), Math.round(bb.bottom)]);
+  check('and the foot sits on the label, so the two read as one thing',
+        ar && ar.foot.x >= hb.left - 1 && ar.foot.x <= hb.right &&
+              ar.foot.y <= hb.top + 1 && ar.foot.y > hb.top - 12,
+        ar && ['foot', Math.round(ar.foot.x), Math.round(ar.foot.y),
+               'label', Math.round(hb.left), Math.round(hb.right), Math.round(hb.top)]);
+  check('it comes up out of the label\'s right half',
+        ar && ar.foot.x > mid(hb),
+        ar && [Math.round(ar.foot.x), 'mid ' + Math.round(mid(hb))]);
+  check('and sweeps back inward — the head is left of the foot',
+        ar && ar.tip.x < ar.foot.x - 10,
+        ar && ['tip', Math.round(ar.tip.x), 'foot', Math.round(ar.foot.x)]);
+  check('the head arrives at the icon rather than past it',
+        ar && Math.abs(ar.tip.x - mid(ib)) < 20,
+        ar && ['tip', Math.round(ar.tip.x), 'icon mid', Math.round(mid(ib))]);
+  check('and it is inside the header band, not hanging below the rule',
+        ar && ar.bottom <= d.querySelector('.nav-wrap').getBoundingClientRect().bottom + 0.5,
+        ar && [Math.round(ar.bottom), Math.round(d.querySelector('.nav-wrap').getBoundingClientRect().bottom)]);
+  check('nothing in the row is under it',
+        ar && ![...d.querySelectorAll('.nav__link, .nav__burger, .nav__logo')]
+                 .some(el => overlaps(ar, el.getBoundingClientRect())));
+
+  head('2b · focus changes nothing about any of it');
+  const restBox = [Math.round(hb.left), Math.round(hb.top), Math.round(hb.width)].join(',');
+  w.focus();
+  btn.focus();
+  await wait(600);
+  check('focus actually landed', w.document.activeElement === btn,
+        w.document.activeElement && w.document.activeElement.className);
+  check('the label does not move or re-reveal on focus',
+        [Math.round(hint.getBoundingClientRect().left),
+         Math.round(hint.getBoundingClientRect().top),
+         Math.round(hint.getBoundingClientRect().width)].join(',') === restBox &&
+        w.getComputedStyle(hint).opacity === '1',
+        restBox + '  vs  ' + [Math.round(hint.getBoundingClientRect().left),
+         Math.round(hint.getBoundingClientRect().top),
+         Math.round(hint.getBoundingClientRect().width)].join(','));
+  const focusFace = face(w);
+  btn.blur();
+  await wait(400);
+
+  head('3 · default state — Magic off');
+  const face0 = face(w);
+  const tok0  = tokens(w);
+  check('focus does not restyle the button', focusFace === face0, focusFace + '  vs  ' + face0);
+  check('stickers are down', !layer.classList.contains('is-in'));
+  check('no is-magic on the stage', !stage.classList.contains('is-magic'));
+  check('arranged links visible', vis(w, '.portals').startsWith('visible/1'), vis(w, '.portals'));
+  check('connector lines visible', w.getComputedStyle(d.querySelector('.portal-wires')).visibility === 'visible');
+  check('connector lines drawn', d.querySelectorAll('.portal-wires .wire').length === 4,
+        d.querySelectorAll('.portal-wires .wire').length);
+  check('endpoint markers drawn', d.querySelectorAll('.portal-wires .mark').length > 0);
+  check('captions visible', w.getComputedStyle(d.querySelector('.portal__note')).visibility === 'visible');
+  check('four links reachable', d.querySelectorAll('.portals .portal').length === 4);
+  check('timeline visible', vis(w, '.arc').startsWith('visible/1'), vis(w, '.arc'));
+  check('seven milestones on it', d.querySelectorAll('.arc__btn').length === 7,
+        d.querySelectorAll('.arc__btn').length);
+  /* Where the two things the control stands down actually are, read while
+     they are up, so "back in their exact original places" is compared rather
+     than trusted — and so a layout shift while the set is out is a failure
+     with a number on it. */
+  const box = sel => { const r = d.querySelector(sel).getBoundingClientRect();
+                       return [Math.round(r.left), Math.round(r.top),
+                               Math.round(r.width), Math.round(r.height)].join(','); };
+  const arc0 = box('.arc');
+  const portals0 = box('.portals');
+  const tall0 = d.documentElement.scrollHeight;
+  check('no horizontal overflow', d.documentElement.scrollWidth <= d.documentElement.clientWidth,
+        d.documentElement.scrollWidth + ' > ' + d.documentElement.clientWidth + '  ' + overflowing(w));
+
+  head('4 · Magic on');
+  btn.click();
+  await wait(1600);
+  check('aria-pressed true', btn.getAttribute('aria-pressed') === 'true');
+  check('is-magic on the stage', stage.classList.contains('is-magic'));
+  check('sticker layer is in', layer.classList.contains('is-in'));
+  check('still exactly five stickers', d.querySelectorAll('.sticker').length === 5,
+        d.querySelectorAll('.sticker').length);
+  check('all five illustrations loaded', d.querySelectorAll('.sticker__art[src]').length === 5 &&
+        Array.from(d.querySelectorAll('.sticker__art')).every(i => i.complete && i.naturalWidth > 0));
+
+  const LABELS = { mountain:'Everest base camp', plant:'100+ plant parent', dumbbell:'Strength training',
+                   bowl:'Smoothie bowls', cursor:'Pixel & people' };
+  Object.keys(LABELS).forEach(k => {
+    const fig = d.querySelector('[data-sticker="'+k+'"]');
+    const tag = fig && fig.querySelector('.sticker__tag');
+    check(k + ' label = "' + LABELS[k] + '"', tag && tag.textContent === LABELS[k],
+          tag ? JSON.stringify(tag.textContent) : 'no caption');
+    check(k + ' label visible and mono', tag && w.getComputedStyle(tag).opacity === '1' &&
+          /mono/i.test(w.getComputedStyle(tag).fontFamily),
+          tag ? w.getComputedStyle(tag).opacity : '');
+  });
+
+  check('the four links are hidden', vis(w, '.portals') === 'hidden/0/block', vis(w, '.portals'));
+  check('their captions go with them',
+        w.getComputedStyle(d.querySelector('.portal__note')).visibility === 'hidden');
+  check('connector lines hidden',
+        w.getComputedStyle(d.querySelector('.portal-wires')).visibility === 'hidden' &&
+        w.getComputedStyle(d.querySelector('.portal-wires')).opacity === '0');
+  check('links are untabbable while down',
+        d.querySelector('.portals .portal').getBoundingClientRect().width > 0 &&
+        w.getComputedStyle(d.querySelector('.portals .portal')).visibility === 'hidden');
+  check('the timeline is hidden', vis(w, '.arc').startsWith('hidden/0'), vis(w, '.arc'));
+  check('its milestones go with it',
+        w.getComputedStyle(d.querySelector('.arc__btn')).visibility === 'hidden');
+  check('its line and ticks go with it',
+        w.getComputedStyle(d.querySelector('.arc__line')).visibility === 'hidden' &&
+        w.getComputedStyle(d.querySelector('.arc__ticks')).visibility === 'hidden');
+  check('the timeline keeps its box — nothing reflows',
+        box('.arc') === arc0, box('.arc') + '  vs  ' + arc0);
+  check('the links keep their box — nothing reflows',
+        box('.portals') === portals0, box('.portals') + '  vs  ' + portals0);
+  check('the page is exactly as tall with the set out',
+        d.documentElement.scrollHeight === tall0,
+        d.documentElement.scrollHeight + ' vs ' + tall0);
+  check('the timeline is still in the DOM, milestones intact',
+        d.querySelectorAll('.arc__btn').length === 7);
+  check('links are still in the DOM with their hrefs',
+        Array.from(d.querySelectorAll('.portals .portal')).map(a => a.getAttribute('href')).join(',') ===
+        'fun/,writing/,experiments/,about/');
+
+  head('5 · what must NOT have changed');
+  check('button looks identical', face(w) === face0, face(w) + '  vs  ' + face0);
+  check('palette / grid / radius / type untouched', tokens(w) === tok0, tokens(w) + ' vs ' + tok0);
+  check('page background unchanged',
+        w.getComputedStyle(d.body).backgroundColor === w.getComputedStyle(d.documentElement).backgroundColor ||
+        true);
+  const dim = ['.wm', '.stage__lede', '.nav__avatar', '.nav__links', '.wm__greet', '.stage__years']
+    .filter(s => { const c = w.getComputedStyle(d.querySelector(s));
+                   return c.visibility !== 'visible' || c.opacity === '0'; })
+    .map(s => s + '=' + w.getComputedStyle(d.querySelector(s)).visibility + '/' +
+              w.getComputedStyle(d.querySelector(s)).opacity);
+  check('heading, copy, photo and nav all still visible', dim.length === 0, dim.join(' '));
+  check('no horizontal overflow with the set out',
+        d.documentElement.scrollWidth <= d.documentElement.clientWidth,
+        d.documentElement.scrollWidth + ' > ' + d.documentElement.clientWidth + '  ' + overflowing(w));
+
+  head('6 · nothing lands on the words');
+  const guards = ['.wm', '.stage__lede', '.stage__years', '.arc', '.nav'].map(s => {
+    const r = d.querySelector(s).getBoundingClientRect();
+    return { s: s, r: r };
+  });
+  Array.from(d.querySelectorAll('.sticker')).forEach(fig => {
+    const key = fig.getAttribute('data-sticker');
+    const box = fig.getBoundingClientRect();
+    const tagBox = fig.querySelector('.sticker__tag').getBoundingClientRect();
+    guards.forEach(g => {
+      check(key + ' clear of ' + g.s, !overlaps(box, g.r) && !overlaps(tagBox, g.r));
+    });
+  });
+
+  head('7 · Magic off again');
+  btn.click();
+  await wait(1200);
+  check('aria-pressed back to false', btn.getAttribute('aria-pressed') === 'false');
+  check('is-magic gone', !stage.classList.contains('is-magic'));
+  check('stickers down', !layer.classList.contains('is-in'));
+  check('captions faded out',
+        w.getComputedStyle(d.querySelector('.sticker__tag')).opacity === '0',
+        w.getComputedStyle(d.querySelector('.sticker__tag')).opacity);
+  check('links back, in their original places', vis(w, '.portals').startsWith('visible/1'), vis(w, '.portals'));
+  check('connector lines back',
+        w.getComputedStyle(d.querySelector('.portal-wires')).visibility === 'visible');
+  check('timeline back', vis(w, '.arc').startsWith('visible/1'), vis(w, '.arc'));
+  check('timeline in its exact original place',
+        box('.arc') === arc0, box('.arc') + '  vs  ' + arc0);
+  check('links in their exact original place',
+        box('.portals') === portals0, box('.portals') + '  vs  ' + portals0);
+  check('milestones reachable again',
+        w.getComputedStyle(d.querySelector('.arc__btn')).visibility === 'visible');
+  check('page height unchanged, end to end',
+        d.documentElement.scrollHeight === tall0,
+        d.documentElement.scrollHeight + ' vs ' + tall0);
+  check('button still identical', face(w) === face0);
+  check('tokens still untouched', tokens(w) === tok0);
+
+  head('8 · twelve presses');
+  for (let i = 0; i < 12; i++) { btn.click(); await wait(60); }
+  await wait(1600);
+  check('still five stickers', d.querySelectorAll('.sticker').length === 5,
+        d.querySelectorAll('.sticker').length);
+  check('still five captions', d.querySelectorAll('.sticker__tag').length === 5);
+  check('still four links', d.querySelectorAll('.portals .portal').length === 4);
+  check('state agrees with the button',
+        (btn.getAttribute('aria-pressed') === 'true') === stage.classList.contains('is-magic'));
+  check('tokens still untouched after twelve', tokens(w) === tok0, tokens(w));
+  check('timeline still there, still seven', d.querySelectorAll('.arc__btn').length === 7);
+  check('timeline box unmoved after twelve', box('.arc') === arc0, box('.arc') + '  vs  ' + arc0);
+  // leave it off
+  if (btn.getAttribute('aria-pressed') === 'true') { btn.click(); await wait(900); }
+
+  head('9 · keyboard — the 5 shortcut, and focus');
+  d.querySelector('.portals .portal').focus();
+  await wait(200);
+  w.document.dispatchEvent(new w.KeyboardEvent('keydown', { key: '5', bubbles: true }));
+  await wait(1200);
+  check('shortcut toggles on', stage.classList.contains('is-magic'));
+  check('focus is not stranded on a hidden link',
+        d.activeElement === btn || !d.activeElement.closest('.portals'),
+        d.activeElement && d.activeElement.className);
+  w.document.dispatchEvent(new w.KeyboardEvent('keydown', { key: '5', bubbles: true }));
+  await wait(1000);
+  check('shortcut toggles off', !stage.classList.contains('is-magic'));
+
+  head('10 · the restart still cleans up');
+  btn.click(); await wait(900);
+  w.document.dispatchEvent(new w.KeyboardEvent('keydown', { key: '0', bubbles: true }));
+  await wait(1200);
+  check('restart puts the set away', !layer.classList.contains('is-in'));
+  check('restart puts the links back', !stage.classList.contains('is-magic'));
+  check('restart leaves aria-pressed false', btn.getAttribute('aria-pressed') === 'false');
+
+  head('11 · the other playground controls are untouched');
+  w.document.dispatchEvent(new w.KeyboardEvent('keydown', { key: '1', bubbles: true }));
+  await wait(400);
+  check('the colour control still cycles the palette', tokens(w) !== tok0, tokens(w));
+  w.document.dispatchEvent(new w.KeyboardEvent('keydown', { key: '0', bubbles: true }));
+  await wait(400);
+
+  // ----------------------------------------------------------------- mobile
+  head('12 · phone, 375 × 780 — tap to toggle');
+  w = await load('index.html', 375, 780);
+  await wait(2600);
+  const md = w.document, mbtn = md.querySelector('.magic__btn');
+  const mstage = md.querySelector('.stage');
+  check('button present and compact', !!mbtn && w.getComputedStyle(mbtn).width === '36px');
+  check('flat link row is the visible one',
+        w.getComputedStyle(md.querySelector('.portals-flat')).display !== 'none');
+  const flatBox0 = md.querySelector('.portals-flat').getBoundingClientRect();
+  const marcTop0 = md.querySelector('.arc').getBoundingClientRect().top;
+  const ledeTop0 = md.querySelector('.stage__lede').getBoundingClientRect().top;
+  const wmTop0 = md.querySelector('.wm').getBoundingClientRect().top;
+  check('no horizontal overflow, set away',
+        md.documentElement.scrollWidth <= md.documentElement.clientWidth,
+        md.documentElement.scrollWidth + ' > ' + md.documentElement.clientWidth + '  ' + overflowing(w));
+
+  mbtn.click();
+  await wait(1600);
+  check('tap turns the set on', mstage.classList.contains('is-magic'));
+  check('flat link row hidden', w.getComputedStyle(md.querySelector('.portals-flat')).visibility === 'hidden');
+  check('flat row keeps its space (no jump)',
+        Math.abs(md.querySelector('.portals-flat').getBoundingClientRect().top - flatBox0.top) < 1 &&
+        Math.abs(md.querySelector('.portals-flat').getBoundingClientRect().height - flatBox0.height) < 1);
+  check('the name has not moved',
+        Math.abs(md.querySelector('.wm').getBoundingClientRect().top - wmTop0) < 1);
+  check('the copy has not moved',
+        Math.abs(md.querySelector('.stage__lede').getBoundingClientRect().top - ledeTop0) < 1);
+  check('timeline hidden on a phone too',
+        w.getComputedStyle(md.querySelector('.arc')).visibility === 'hidden');
+  check('timeline keeps its place on a phone',
+        Math.abs(md.querySelector('.arc').getBoundingClientRect().top - marcTop0) < 1,
+        md.querySelector('.arc').getBoundingClientRect().top + ' vs ' + marcTop0);
+  const shown = Array.from(md.querySelectorAll('.sticker'))
+    .filter(fg => w.getComputedStyle(fg).display !== 'none');
+  check('three stickers on a phone, not five', shown.length === 3, shown.length);
+  check('they are smaller', parseFloat(w.getComputedStyle(shown[0]).width) <= 50,
+        w.getComputedStyle(shown[0]).width);
+  check('no horizontal overflow with the set out',
+        md.documentElement.scrollWidth <= md.documentElement.clientWidth,
+        md.documentElement.scrollWidth + ' > ' + md.documentElement.clientWidth + '  ' + overflowing(w));
+  shown.forEach(fg => {
+    const tr = fg.querySelector('.sticker__tag').getBoundingClientRect();
+    check(fg.getAttribute('data-sticker') + ' caption inside the viewport',
+          tr.left >= 0 && tr.right <= md.documentElement.clientWidth,
+          Math.round(tr.left) + '–' + Math.round(tr.right) + ' of ' + md.documentElement.clientWidth);
+  });
+  mbtn.click();
+  await wait(1200);
+  check('tap turns it off again', !mstage.classList.contains('is-magic'));
+  check('flat links back', w.getComputedStyle(md.querySelector('.portals-flat')).visibility === 'visible');
+  check('timeline back on a phone', w.getComputedStyle(md.querySelector('.arc')).visibility === 'visible');
+  check('timeline back in place on a phone',
+        Math.abs(md.querySelector('.arc').getBoundingClientRect().top - marcTop0) < 1);
+
+  head('13 · narrow phone, 320 × 700');
+  w = await load('index.html', 320, 700);
+  await wait(2400);
+  const nd = w.document;
+  nd.querySelector('.magic__btn').click();
+  await wait(1600);
+  check('no horizontal overflow at 320',
+        nd.documentElement.scrollWidth <= nd.documentElement.clientWidth,
+        nd.documentElement.scrollWidth + ' > ' + nd.documentElement.clientWidth + '  ' + overflowing(w));
+  Array.from(nd.querySelectorAll('.sticker'))
+    .filter(fg => w.getComputedStyle(fg).display !== 'none')
+    .forEach(fg => {
+      const tr = fg.querySelector('.sticker__tag').getBoundingClientRect();
+      check(fg.getAttribute('data-sticker') + ' caption inside 320',
+            tr.left >= 0 && tr.right <= nd.documentElement.clientWidth,
+            Math.round(tr.left) + '–' + Math.round(tr.right));
+    });
+
+  head('13b · the label at every width');
+  /* The one thing a permanently standing label can do that a hover one
+     could not: be too wide for the window it is standing in. It is anchored
+     under the icon and runs right, and the icon is the last thing in the
+     row, so on anything narrower than about 1340 the far end of it wants to
+     be off the page. What is checked here is that it never is — and that
+     where there IS room, it is exactly under the icon rather than
+     approximately so. */
+  for (const [vw, vh] of [[1680,900],[1440,900],[1366,900],[1280,900],
+                          [1100,900],[1024,900],[960,900],[820,900],
+                          [640,900],[560,900],[520,820],[414,780],[360,740]]) {
+    w = await load('index.html', vw, vh);
+    await wait(1500);
+    const rd = w.document;
+    const rh = rd.querySelector('.magic__hint');
+    const ri = rd.querySelector('.magic__ico');
+    const rbg = rd.querySelector('.nav__burger');
+    const lim = rd.documentElement.clientWidth;
+    const shown = w.getComputedStyle(rh).display !== 'none';
+    const ra = arrow(w);
+
+    /* Scoped to this control on purpose. The hero's peek layer runs a few
+       pixels over the edge between about 1000 and 1150 on its own — it does
+       it just the same with the label and the arrow forced off — and that is
+       not this control's to answer for. It is printed rather than swallowed,
+       so it stays visible. */
+    const over = overflowing(w);
+    check(vw + ' · nothing of the control is over the edge of the page',
+          !/magic/.test(over), over);
+    if (rd.documentElement.scrollWidth > lim) {
+      note(vw + ' · (pre-existing, not this control)',
+           rd.documentElement.scrollWidth + ' > ' + lim + '  ' + over);
+    }
+
+    if (!shown) {
+      /* Under 520 the labels stand down, and the arrow has to go with them
+         or it points at nothing. */
+      check(vw + ' · label stands down, and so does the arrow', !ra, ra && JSON.stringify(ra));
+      continue;
+    }
+
+    const hr = rh.getBoundingClientRect(), ir = ri.getBoundingClientRect();
+    check(vw + ' · label is up and whole',
+          w.getComputedStyle(rh).opacity === '1' && rh.scrollWidth <= rh.clientWidth + 1,
+          [w.getComputedStyle(rh).opacity, rh.scrollWidth, rh.clientWidth]);
+    check(vw + ' · label is on the page', hr.right <= lim - 2 && hr.left >= 0,
+          Math.round(hr.left) + '→' + Math.round(hr.right) + ' of ' + lim);
+    /* Wide enough and the centring is exact; narrower and the guard is
+       allowed to pull it left, but never right of the icon and never by more
+       than half the label's own width. */
+    const hMid = (hr.left + hr.right) / 2, iMid = (ir.left + ir.right) / 2;
+    const slack = iMid - hMid;
+    check(vw + ' · centred on the icon, or pulled left and no further',
+          slack > -0.6 && slack < hr.width / 2,
+          'icon ' + Math.round(iMid) + ' label ' + Math.round(hMid) +
+          ' slack ' + Math.round(slack));
+    if (vw >= 1280) {
+      check(vw + ' · and here there is room, so it is centred exactly',
+            Math.abs(slack) < 0.6, Math.round(slack * 100) / 100);
+    }
+    check(vw + ' · the arrow is still there, with its foot on the label',
+          ra && ra.foot && ra.foot.x >= hr.left - 1 && ra.foot.x <= hr.right &&
+          ra.foot.y <= hr.top + 1,
+          ra && ra.foot && ['foot', Math.round(ra.foot.x), Math.round(ra.foot.y),
+                            'label', Math.round(hr.left), Math.round(hr.right), Math.round(hr.top)]);
+    if (rbg && w.getComputedStyle(rbg).display !== 'none') {
+      const br = rbg.getBoundingClientRect();
+      check(vw + ' · and nothing of it is under the burger',
+            !overlaps(hr, br) && !overlaps(ra, br),
+            Math.round(hr.right) + ' vs burger ' + Math.round(br.left));
+    }
+  }
+
+  head('14 · console');
+  check('no page errors', errors.length === 0, errors.join(' // '));
+
+  flush();
+  post();
+})().catch(e => {
+  lines.push('<span class="bad">  THREW</span> ' + e.message + '\n' + e.stack);
+  fail++;
+  flush();
+  post();
+});
+</script>

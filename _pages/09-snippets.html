@@ -1,0 +1,129 @@
+<!--meta
+route: snippets
+title: Snippets
+desc: Small interaction demonstrations — hover-responsive type, text reveal, colour transitions, card hover and an animated stepper.
+nav: snippets
+lab: yes
+word_a: interaction
+word_b: snippets
+tagline: Five behaviours, taken apart. Each one has a working preview, a sentence on what it is for, and the rule that does the work. All five respond to touch as well as a pointer.
+hero_cards: <div class="page-hero__cards" data-reveal><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-copper)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Type</span></div><div class="card__body"><h2 class="card__name">Proximity weight</h2><p class="card__premise">Letters respond to how close the pointer is.</p></div></article></div><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-sage)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Motion</span></div><div class="card__body"><h2 class="card__name">Masked reveal</h2><p class="card__premise">Lines arriving from behind their own edge.</p></div></article></div><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-teal)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Colour</span></div><div class="card__body"><h2 class="card__name">Hue transition</h2><p class="card__premise">Crossing between palette hues on a timer you control.</p></div></article></div></div>
+-->
+
+<section class="section shell">
+  <div class="grid grid--2">
+
+    <!-- 01 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal aria-labelledby="sn-1">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-1">Hover-responsive typography</h2>
+        <p class="t-label t-dim">01</p>
+      </header>
+      <div class="demo__stage">
+        <p class="hover-type" data-hover-type aria-label="Systems">
+          <span aria-hidden="true">S</span><span aria-hidden="true">y</span><span aria-hidden="true">s</span><span aria-hidden="true">t</span><span aria-hidden="true">e</span><span aria-hidden="true">m</span><span aria-hidden="true">s</span>
+        </p>
+      </div>
+      <p class="demo__note">Each letter measures its distance to the pointer and takes one of three weights. On a touch screen the nearest letter to a tap lights instead, so the behaviour is demonstrated rather than disabled. The label is on the paragraph, so a screen reader hears one word rather than seven letters.</p>
+      <figure class="win" style="border:0;border-radius:0;border-top:var(--hair) solid var(--border-default)">
+        <pre class="win__pre"><i>/* Three bands, not a continuous curve: a discrete</i>
+<i>   response is readable, a continuous one is noise. */</i>
+.hover-type span.<b>is-near</b>  { <i>font-weight</i>: <b>700</b>; <i>color</i>: <b>var(--accent-light)</b>; }
+.hover-type span.<b>is-close</b> { <i>font-weight</i>: <b>500</b>; <i>color</i>: <b>var(--text-primary)</b>; }</pre>
+      </figure>
+    </section>
+
+    <!-- 02 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal data-reveal-delay="60" aria-labelledby="sn-2">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-2">Text reveal</h2>
+        <p class="t-label t-dim">02</p>
+      </header>
+      <div class="demo__stage">
+        <div class="reveal-lines" data-reveal-lines>
+          <span class="reveal-line"><span>Products,</span></span>
+          <span class="reveal-line"><span>systems,</span></span>
+          <span class="reveal-line"><span>and teams.</span></span>
+        </div>
+      </div>
+      <div class="demo__controls">
+        <button type="button" class="btn btn--ghost" data-reveal-play>Play again</button>
+      </div>
+      <p class="demo__note">Three masked lines, each arriving from behind its own bottom edge with an 80&#8239;ms offset. The mask is the parent's <code class="t-mono">overflow:hidden</code>, so no clip path is needed and it stays crisp at any size. Under reduced motion the lines are simply already in place.</p>
+    </section>
+
+    <!-- 03 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal aria-labelledby="sn-3">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-3">Colour transition</h2>
+        <p class="t-label t-dim">03</p>
+      </header>
+      <div class="demo__stage">
+        <div class="hue-strip" data-hue-strip aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="demo__controls">
+        <button type="button" class="btn btn--ghost" data-hue-step>Next hue</button>
+        <button type="button" class="btn btn--ghost" data-hue-auto aria-pressed="false">Auto</button>
+        <output class="demo__value" data-hue-readout>—</output>
+      </div>
+      <p class="demo__note">Five swatches crossing to the next hue in the active palette on a staggered delay. Auto is off by default and stops itself after one full cycle — a decorative loop that runs forever is a tax on every visitor who is not watching it.</p>
+    </section>
+
+    <!-- 04 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal data-reveal-delay="60" aria-labelledby="sn-4">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-4">Card hover behaviour</h2>
+        <p class="t-label t-dim">04</p>
+      </header>
+      <div class="demo__stage">
+        <a class="card" href="../work/" style="--art-hue:var(--accent);max-width:20rem">
+          <span class="card__art"></span>
+          <div class="card__meta"><span class="card__status">Try me</span></div>
+          <div class="card__body">
+            <h3 class="card__name">A real card <svg class="ico card__arrow" aria-hidden="true"><use href="#i-arrow"></use></svg></h3>
+            <p class="card__premise">Hover or focus it. Four properties move together; the link underneath still works.</p>
+          </div>
+          <ul class="chips" role="list"><li class="chip">Border</li><li class="chip">Lift</li><li class="chip">Art</li></ul>
+        </a>
+      </div>
+      <p class="demo__note">The border takes the accent, the surface lifts one step, the card rises 3&#8239;px and the art field scales 6%. Four small changes read as one object responding. It is the same component class the Work page uses — not a copy of it.</p>
+      <figure class="win" style="border:0;border-radius:0;border-top:var(--hair) solid var(--border-default)">
+        <pre class="win__pre">a.card:<b>hover</b>, a.card:<b>focus-visible</b> {
+  <i>border-color</i>: <b>var(--accent)</b>;
+  <i>background</i>:   <b>var(--surface-overlay)</b>;
+  <i>transform</i>:    <b>translateY(-3px)</b>;
+}
+<i>/* focus-visible is in the same rule, so the keyboard</i>
+<i>   gets the behaviour rather than a consolation outline. */</i></pre>
+      </figure>
+    </section>
+
+    <!-- 05 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal style="grid-column:1/-1" aria-labelledby="sn-5">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-5">Animated stepper</h2>
+        <p class="t-label t-dim">05</p>
+      </header>
+      <div class="demo__stage">
+        <div class="stepper" data-stepper>
+          <div class="stepper__track"><span class="stepper__fill"></span></div>
+          <div class="stepper__dots">
+            <span class="stepper__dot" data-on="true" data-current="true"></span>
+            <span class="stepper__dot"></span>
+            <span class="stepper__dot"></span>
+            <span class="stepper__dot"></span>
+          </div>
+          <p class="stepper__label t-label" data-stepper-label>Define</p>
+        </div>
+      </div>
+      <div class="demo__controls">
+        <button type="button" class="btn btn--ghost" data-stepper-prev disabled>Back</button>
+        <button type="button" class="btn btn--ghost" data-stepper-next>Next</button>
+        <output class="demo__value" data-stepper-readout>1 / 4</output>
+        <p class="sr-only" role="status" aria-live="polite" data-stepper-status></p>
+      </div>
+      <p class="demo__note">Four states — Define, Design, Build, Ship. The fill is a width transition, the dots scale, and the disabled state at each end is real rather than decorative: Back is actually disabled on the first step. The label is announced to assistive technology on every change.</p>
+    </section>
+
+  </div>
+</section>

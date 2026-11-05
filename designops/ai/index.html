@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="mono" data-type="editorial" data-density="comfortable" data-radius="subtle" data-dense="yes">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Design Operating System — Arushi Prasad</title>
+  <meta name="description" content="Rethinking how design teams work when AI becomes part of the product lifecycle — a seven-layer operating model, a responsibility matrix, and a 35,718-line product I helped build.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preload" href="../../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=f874ed78">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=c3f7efb8">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=be3cf32e">
+  <link rel="stylesheet" href="../../assets/css/ai.css?v=ff740028">
+  <link rel="stylesheet" href="../../assets/css/case.css?v=703795f5">
+  <!-- Loaded before paint so a saved token preference is applied to <html>
+       without a flash of the defaults. -->
+  <script src="../../assets/js/tokens.js?v=a7c3e9c1"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+<defs>
+<symbol id="i-colour" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M8 2.2a5.8 5.8 0 0 1 0 11.6z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-type" viewBox="0 0 16 16"><path d="M3.2 13.6 8 2.6l4.8 11"/><path d="M5.3 9.4h5.4"/></symbol>
+<symbol id="i-spacing" viewBox="0 0 16 16"><path d="M2.2 3.6v8.8M13.8 3.6v8.8"/><path d="M5 8h6"/><path d="m6.6 6.4-1.7 1.6 1.7 1.6M9.4 6.4 11.1 8 9.4 9.6"/></symbol>
+<symbol id="i-radius" viewBox="0 0 16 16"><path d="M2.4 13.6V7.2a4.8 4.8 0 0 1 4.8-4.8h6.4"/><path d="M2.4 2.4h.01M13.6 13.6h.01"/></symbol>
+<symbol id="i-opacity" viewBox="0 0 16 16"><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2a4.6 4.6 0 1 1-9.2 0C3.4 6.8 8 2.2 8 2.2Z"/><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2A4.6 4.6 0 0 1 8 14z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-grid" viewBox="0 0 16 16"><rect x="2.4" y="2.4" width="11.2" height="11.2" rx="1.4"/><path d="M6.13 2.4v11.2M9.87 2.4v11.2M2.4 6.13h11.2M2.4 9.87h11.2"/></symbol>
+  <symbol id="i-surprise" viewBox="0 0 16 16"><path d="M7.1 2.6 8.35 6.05 11.8 7.3 8.35 8.55 7.1 12 5.85 8.55 2.4 7.3 5.85 6.05Z"/><path d="M12.3 10.1v2.9M10.85 11.55h2.9"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 16 16"><path d="M13.4 8a5.4 5.4 0 1 1-1.8-4"/><path d="M13.6 2.6v3.6H10"/></symbol>
+<symbol id="i-bars" viewBox="0 0 16 16"><path d="M2.4 4.6h11.2M2.4 8h11.2M2.4 11.4h11.2"/></symbol>
+<symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
+<symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
+<symbol id="i-tick" viewBox="0 0 16 16"><path d="m3.4 8.4 3 3 6.2-7"/></symbol>
+<!-- Recognition. Stroke-drawn on the same 16-unit grid and at the same
+     weight as the rest, so they sit in a line of text without shouting. -->
+<symbol id="i-trophy" viewBox="0 0 16 16"><path d="M4.9 2.7h6.2v3.5a3.1 3.1 0 0 1-6.2 0Z"/><path d="M4.9 3.7H3.3v.9a2 2 0 0 0 1.6 1.9M11.1 3.7h1.6v.9a2 2 0 0 1-1.6 1.9"/><path d="M8 9.3v2.1"/><path d="M6.5 11.4h3v1.9h-3Z"/></symbol>
+<symbol id="i-star" viewBox="0 0 16 16"><path d="m8 2.5 1.7 3.45 3.8.55-2.75 2.68.65 3.79L8 11.18l-3.4 1.79.65-3.79L2.5 6.5l3.8-.55Z"/></symbol>
+<symbol id="i-medal" viewBox="0 0 16 16"><circle cx="8" cy="10.1" r="3.5"/><path d="M6.1 7.1 4.3 2.6M9.9 7.1l1.8-4.5"/></symbol>
+<!-- Document types. A page outline each, told apart by what is on it: ruled
+     cells for a workbook, a folded corner for a PDF, one wide band for a
+     deck. Same 16-unit grid and weight as everything else. -->
+<symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
+<symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
+<symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
+</defs>
+</svg>
+<header class="nav-wrap">
+  <nav class="nav shell" aria-label="Primary">
+    <a class="nav__logo" href="../../" aria-label="Arushi Prasad, home">
+      <img class="nav__avatar" src="../../assets/img/avatar.png" alt="" width="58" height="58" decoding="async">
+    </a>
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a class="nav__link" href="../../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../designops/" aria-current="page" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../leadership/" aria-label="Leadership">leadership</a></li>
+      </ul>
+
+      <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
+    </div>
+  </nav>
+</header>
+<div class="nav-sheet" id="nav-sheet" data-open="false">
+  <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../../designops/" aria-current="page">Strategy<span>8</span></a></li><li><a class="nav-sheet__link" href="../../leadership/">Leadership<span>—</span></a></li><li><a class="nav-sheet__link" href="../../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../../about/">About<span>—</span></a></li><li><a class="nav-sheet__link" href="../../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../../snippets/">Snippets<span>5</span></a></li></ul>
+  <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
+</div>
+<main id="main" tabindex="-1">
+<div class="page ">
+<header class="page-hero shell">
+  <h1 class="page-hero__title" data-reveal>
+    <span class="page-hero__word page-hero__word-a">ai design</span>
+    <span class="page-hero__word page-hero__word-b">operating system</span>
+  </h1>
+  <p class="page-hero__tagline" data-reveal>Rethinking how design teams work when AI becomes part of the product lifecycle. Every framework here is labelled for what it is — verified, experiment, or concept.</p>
+  
+</header>
+<div class="case__prog" data-case-prog aria-hidden="true"><span class="case__prog-bar" data-case-prog-bar></span></div>
+<div class="case">
+<aside class="case__rail" data-case-rail data-open="false" aria-labelledby="case-project">
+  <button class="case__toc" type="button" data-case-toc aria-expanded="false" aria-controls="case-toc">
+    <span class="case__toc-eyebrow">
+      <span class="case__toc-word">Contents</span>
+      <span class="case__toc-name">AI Design Operating System</span>
+    </span>
+    <span class="case__toc-now" data-case-now>The premise</span>
+    <svg class="ico case__toc-ico" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg>
+  </button>
+  <div class="case__rail-in" id="case-toc">
+    <div class="case__about">
+      <div class="case__titlewrap">
+        <h2 class="case__project" id="case-project">AI Design Operating System</h2>
+      </div>
+      
+    </div>
+    <nav class="case__nav" aria-label="Sections in this case study">
+      <ol class="case__list" role="list">
+        <li class="case__item"><a class="case__link" href="#a-intro" data-case-link="a-intro"><span class="case__count">01</span><span class="case__label">The premise</span></a></li><li class="case__item"><a class="case__link" href="#a-shift" data-case-link="a-shift"><span class="case__count">02</span><span class="case__label">The shift</span></a></li><li class="case__item"><a class="case__link" href="#a-thesis" data-case-link="a-thesis"><span class="case__count">03</span><span class="case__label">The thesis</span></a></li><li class="case__item"><a class="case__link" href="#a-os" data-case-link="a-os"><span class="case__count">04</span><span class="case__label">Seven layers</span></a></li><li class="case__item"><a class="case__link" href="#a-matrix" data-case-link="a-matrix"><span class="case__count">05</span><span class="case__label">Accountability</span></a></li><li class="case__item"><a class="case__link" href="#a-wp" data-case-link="a-wp"><span class="case__count">06</span><span class="case__label">WorkPerks</span></a></li><li class="case__item"><a class="case__link" href="#a-loop" data-case-link="a-loop"><span class="case__count">07</span><span class="case__label">The build loop</span></a></li><li class="case__item"><a class="case__link" href="#a-scale" data-case-link="a-scale"><span class="case__count">08</span><span class="case__label">The working tree</span></a></li><li class="case__item"><a class="case__link" href="#a-capsule" data-case-link="a-capsule"><span class="case__count">09</span><span class="case__label">Design intelligence</span></a></li><li class="case__item"><a class="case__link" href="#a-team" data-case-link="a-team"><span class="case__count">10</span><span class="case__label">Team model</span></a></li><li class="case__item"><a class="case__link" href="#a-gov" data-case-link="a-gov"><span class="case__count">11</span><span class="case__label">Seven questions</span></a></li><li class="case__item"><a class="case__link" href="#a-measure" data-case-link="a-measure"><span class="case__count">12</span><span class="case__label">Measurement</span></a></li><li class="case__item"><a class="case__link" href="#a-bp" data-case-link="a-bp"><span class="case__count">13</span><span class="case__label">How I would start</span></a></li><li class="case__item"><a class="case__link" href="#a-leader" data-case-link="a-leader"><span class="case__count">14</span><span class="case__label">The design leader</span></a></li>
+      </ol>
+    </nav>
+  </div>
+</aside>
+<div class="case__main">
+<!-- 01 · HERO --------------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-intro">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">DesignOps / 03</p>
+    <h2 class="t-h2" id="a-intro">AI should not simply make designers faster</h2>
+    <p class="prose">It should change how the design organisation operates. I don't see AI as another tool bolted onto an existing process &mdash; I see it as a reason to rethink how product thinking, design, engineering, knowledge, quality and delivery fit together.</p>
+    <p class="prose">This page is part evidence and part argument, and it keeps the two apart. Where I have built something, there is a count or a screenshot. Where I am proposing something, it says so.</p>
+  </div>
+
+  <dl class="meta" data-reveal>
+    <div><dt>Role</dt><dd>Design Manager / Product Design Leader</dd></div>
+    <div><dt>Focus</dt><dd>Product thinking, DesignOps, AI-assisted development, design systems</dd></div>
+    <div><dt>Evidence</dt><dd>WorkPerks, Capsule, hands-on AI experiments</dd></div>
+    <div><dt>Status</dt><dd>Evolving framework and real-world experiments</dd></div>
+  </dl>
+
+  <ul class="keys" role="list" data-reveal>
+    <li class="key key--v"><span class="key__k">Verified</span>Built, measured, or screenshotted</li>
+    <li class="key key--e"><span class="key__k">Experiment</span>Tried hands-on</li>
+    <li class="key key--c"><span class="key__k">Concept</span>Proposed, not in place</li>
+  </ul>
+</section>
+
+<!-- 02 · THE SHIFT ---------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-shift">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">02 &mdash; The shift</p>
+    <h2 class="t-h2" id="a-shift">From artefacts to working experiences</h2>
+    <p class="prose">The sequential model exists because iteration used to be expensive. When a change costs a handoff, a sprint and a QA cycle, you front-load the certainty. When it costs an afternoon, that logic stops holding.</p>
+  </div>
+  <div data-reveal><div class="flows" data-flows>
+  <div class="flows__switch" role="group" aria-label="Choose a workflow model">
+    <button type="button" class="fswitch is-on" data-flow="old" aria-pressed="true">Sequential</button>
+    <button type="button" class="fswitch" data-flow="new" aria-pressed="false">AI-native</button>
+  </div>
+  <div class="flows__pair"><article class="rail rail--old" data-flow="old"><h3 class="rail__title">Sequential</h3><ol class="rail__steps"><li class="rail__step"><span class="rail__n">01</span><span class="rail__name">Brief</span></li><li class="rail__step"><span class="rail__n">02</span><span class="rail__name">Research</span></li><li class="rail__step"><span class="rail__n">03</span><span class="rail__name">Design</span></li><li class="rail__step"><span class="rail__n">04</span><span class="rail__name">Review</span></li><li class="rail__step"><span class="rail__n">05</span><span class="rail__name">Handoff</span></li><li class="rail__step"><span class="rail__n">06</span><span class="rail__name">Build</span></li><li class="rail__step"><span class="rail__n">07</span><span class="rail__name">QA</span></li></ol><ul class="chips" role="list"><li class="chip">sequential</li><li class="chip">handoff-heavy</li><li class="chip">artifact-oriented</li><li class="chip">expensive iteration</li><li class="chip">design separated from implementation</li></ul></article><article class="rail rail--new" data-flow="new"><h3 class="rail__title">AI-native</h3><ol class="rail__steps"><li class="rail__step"><span class="rail__n">01</span><span class="rail__name">Context</span></li><li class="rail__step"><span class="rail__n">02</span><span class="rail__name">Define</span></li><li class="rail__step"><span class="rail__n">03</span><span class="rail__name">Explore</span></li><li class="rail__step"><span class="rail__n">04</span><span class="rail__name">Prototype</span></li><li class="rail__step"><span class="rail__n">05</span><span class="rail__name">Build</span></li><li class="rail__step"><span class="rail__n">06</span><span class="rail__name">Test</span></li><li class="rail__step"><span class="rail__n">07</span><span class="rail__name">Learn</span></li><li class="rail__step"><span class="rail__n">08</span><span class="rail__name">Repeat</span></li></ol><ul class="chips" role="list"><li class="chip">continuous</li><li class="chip">collaborative</li><li class="chip">system-oriented</li><li class="chip">faster iteration</li><li class="chip">design closer to implementation</li><li class="chip">knowledge continuously reused</li></ul></article></div>
+</div>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">The AI-native model is a proposed operating approach</span></p>
+<p class="note">Both models are drawn from the source document. The second is an
+operating model I am arguing for, not a description of how every project I touch runs
+today &mdash; and the first is not wrong, it is what works when iteration is expensive.
+What changes is where the loop closes.</p></div>
+</section>
+
+<!-- 03 · THESIS ------------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-thesis">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">03 &mdash; The thesis</p>
+    <h2 class="t-h2" id="a-thesis">AI is an operating layer, not a feature</h2>
+  </div>
+  <div data-reveal><div class="eq">
+  <ol class="eq__row"><li class="eq__part"><span class="eq__n">01</span><h3 class="eq__name">Human judgment</h3><p class="eq__note">Deciding what matters, and owning the outcome.</p></li><li class="eq__part"><span class="eq__n">02</span><h3 class="eq__name">AI acceleration</h3><p class="eq__note">Generating, exploring, scaffolding, drafting.</p></li><li class="eq__part"><span class="eq__n">03</span><h3 class="eq__name">Systemised knowledge</h3><p class="eq__note">Components, rules, context and decisions that persist.</p></li><li class="eq__part"><span class="eq__n">04</span><h3 class="eq__name">Continuous feedback</h3><p class="eq__note">What shipped, what broke, what the next cycle inherits.</p></li></ol>
+  <p class="eq__sum">Each one is weaker without the others. AI without systemised
+  knowledge regenerates the same decisions forever; knowledge without feedback goes
+  stale; neither replaces the judgment call.</p>
+</div>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span></p></div>
+</section>
+
+<!-- 04 · THE SEVEN LAYERS --------------------------------------------------- -->
+<section class="section" aria-labelledby="a-os">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">04 &mdash; The model</p>
+    <h2 class="t-h2" id="a-os">Seven layers</h2>
+    <p class="prose">Select a layer to see what AI can contribute to it and what stays a human call.</p>
+  </div>
+  <div data-reveal><div class="os" data-layers>
+  <div class="os__stack" role="group" aria-label="Choose a layer of the operating system">
+    <button type="button" class="stack__layer is-on" data-layer="1" aria-pressed="true"><span class="stack__n">01</span><span class="stack__name">Strategy</span><span class="stack__bar" aria-hidden="true"></span></button><button type="button" class="stack__layer" data-layer="2" aria-pressed="false"><span class="stack__n">02</span><span class="stack__name">Product Thinking</span><span class="stack__bar" aria-hidden="true"></span></button><button type="button" class="stack__layer" data-layer="3" aria-pressed="false"><span class="stack__n">03</span><span class="stack__name">Experience Design</span><span class="stack__bar" aria-hidden="true"></span></button><button type="button" class="stack__layer" data-layer="4" aria-pressed="false"><span class="stack__n">04</span><span class="stack__name">Design Systems</span><span class="stack__bar" aria-hidden="true"></span></button><button type="button" class="stack__layer" data-layer="5" aria-pressed="false"><span class="stack__n">05</span><span class="stack__name">Build</span><span class="stack__bar" aria-hidden="true"></span></button><button type="button" class="stack__layer" data-layer="6" aria-pressed="false"><span class="stack__n">06</span><span class="stack__name">Quality</span><span class="stack__bar" aria-hidden="true"></span></button><button type="button" class="stack__layer" data-layer="7" aria-pressed="false"><span class="stack__n">07</span><span class="stack__name">Knowledge</span><span class="stack__bar" aria-hidden="true"></span></button>
+  </div>
+  <div class="os__detail"><section class="lay" data-layer="1"><header class="lay__head"><p class="lay__n">Layer 01</p><h3 class="lay__name">Strategy</h3><ul class="chips" role="list"><li class="chip">business problem</li><li class="chip">user problem</li><li class="chip">product opportunity</li><li class="chip">success criteria</li><li class="chip">constraints</li><li class="chip">strategic priorities</li></ul></header><div class="lay__cols"><div class="lay__col lay__col--ai"><h4 class="lay__ch">AI role</h4><ul class="lay__list"><li>synthesise information</li><li>identify patterns</li><li>challenge assumptions</li><li>generate hypotheses</li><li>structure ambiguous information</li></ul></div><div class="lay__col lay__col--human"><h4 class="lay__ch">Human owns</h4><ul class="lay__list"><li>deciding what matters</li><li>prioritisation</li><li>strategic trade-offs</li><li>business judgment</li></ul></div></div></section>
+<section class="lay" data-layer="2" hidden><header class="lay__head"><p class="lay__n">Layer 02</p><h3 class="lay__name">Product Thinking</h3></header><div class="lay__cols"><div class="lay__col lay__col--ai"><h4 class="lay__ch">AI can support</h4><ul class="lay__list"><li>product definition</li><li>user journeys</li><li>problem decomposition</li><li>opportunity mapping</li><li>edge-case discovery</li><li>feature exploration</li><li>hypothesis generation</li></ul></div><div class="lay__col lay__col--human"><h4 class="lay__ch">Human owns</h4><ul class="lay__list"><li>defining the actual problem</li><li>deciding scope</li><li>prioritising customer value</li><li>understanding organisational constraints</li></ul></div></div></section>
+<section class="lay" data-layer="3" hidden><header class="lay__head"><p class="lay__n">Layer 03</p><h3 class="lay__name">Experience Design</h3></header><div class="lay__cols"><div class="lay__col lay__col--ai"><h4 class="lay__ch">Potential applications</h4><ul class="lay__list"><li>user-flow exploration</li><li>IA alternatives</li><li>interaction patterns</li><li>content variations</li><li>visual directions</li><li>prototype generation</li><li>conversational interfaces</li><li>recommendation experiences</li><li>AI-assisted usability review</li></ul></div></div><p class="lay__quote">More meaningful exploration before committing to a direction.</p></section>
+<section class="lay" data-layer="4" hidden><header class="lay__head"><p class="lay__n">Layer 04</p><h3 class="lay__name">Design Systems</h3></header><div class="lay__cols"><div class="lay__col lay__col--ai"><h4 class="lay__ch">AI can help</h4><ul class="lay__list"><li>identify repeated patterns</li><li>generate component variants</li><li>document usage</li><li>detect inconsistencies</li><li>suggest token usage</li><li>map patterns across products</li><li>assist developers with implementation</li><li>identify design-system gaps</li></ul></div><div class="lay__col lay__col--human"><h4 class="lay__ch">Human owns</h4><ul class="lay__list"><li>principles</li><li>governance</li><li>quality</li><li>accessibility</li><li>brand decisions</li><li>component standards</li><li>exceptions</li></ul></div></div><p class="lay__arrow"><span>Components</span> <span>Documentation</span> <span>Handoff</span></p><p class="lay__arrow"><span>Components</span> <span>Rules</span> <span>Context</span> <span>Variants</span> <span>Usage</span> <span>Feedback</span> <span>Evolution</span></p></section>
+<section class="lay" data-layer="5" hidden><header class="lay__head"><p class="lay__n">Layer 05</p><h3 class="lay__name">Build</h3></header><div class="lay__cols"><div class="lay__col lay__col--ai"><h4 class="lay__ch">AI-assisted</h4><ul class="lay__list"><li>code generation</li><li>scaffolding</li><li>implementation iterations</li><li>debugging support</li><li>repetitive engineering work</li><li>exploration of technical approaches</li><li>documentation</li><li>transformation of design decisions into working interfaces</li></ul></div><div class="lay__col lay__col--human"><h4 class="lay__ch">Human owns</h4><ul class="lay__list"><li>product intent</li><li>experience architecture</li><li>interaction decisions</li><li>design quality</li><li>component behaviour</li><li>visual language</li><li>prioritisation</li><li>acceptance criteria</li><li>product judgment</li></ul></div></div><p class="gap"><span class="gap__k">Input needed</span>The source document deliberately leaves the engineering ownership boundary blank rather than guessing at it. It stays blank here too.</p></section>
+<section class="lay" data-layer="6" hidden><header class="lay__head"><p class="lay__n">Layer 06</p><h3 class="lay__name">Quality</h3></header><div class="lay__cols"><div class="lay__col lay__col--neutral"><h4 class="lay__ch">Experience quality</h4><ul class="lay__list"><li>usability</li><li>hierarchy</li><li>interaction clarity</li><li>consistency</li></ul></div><div class="lay__col lay__col--neutral"><h4 class="lay__ch">Visual quality</h4><ul class="lay__list"><li>typography</li><li>spacing</li><li>composition</li><li>brand consistency</li></ul></div><div class="lay__col lay__col--neutral"><h4 class="lay__ch">System quality</h4><ul class="lay__list"><li>component reuse</li><li>tokens</li><li>patterns</li><li>variants</li></ul></div><div class="lay__col lay__col--neutral"><h4 class="lay__ch">Accessibility</h4><ul class="lay__list"><li>WCAG considerations</li><li>keyboard behaviour</li><li>contrast</li><li>semantics</li><li>assistive technology</li></ul></div><div class="lay__col lay__col--neutral"><h4 class="lay__ch">Technical quality</h4><ul class="lay__list"><li>responsiveness</li><li>performance</li><li>implementation fidelity</li><li>API behaviour</li></ul></div><div class="lay__col lay__col--neutral"><h4 class="lay__ch">Product quality</h4><ul class="lay__list"><li>task completion</li><li>conversion</li><li>adoption</li><li>engagement</li><li>retention</li><li>business outcomes</li></ul></div></div><p class="lay__arrow"><span>Design</span> <span>Build</span> <span>Validate</span> <span>Learn</span> <span>Improve</span></p></section>
+<section class="lay" data-layer="7" hidden><header class="lay__head"><p class="lay__n">Layer 07</p><h3 class="lay__name">Knowledge</h3></header><div class="lay__cols"><div class="lay__col lay__col--neutral"><h4 class="lay__ch">Product knowledge</h4><ul class="lay__list"><li>product principles</li><li>user journeys</li><li>requirements</li><li>business rules</li></ul></div><div class="lay__col lay__col--neutral"><h4 class="lay__ch">Design knowledge</h4><ul class="lay__list"><li>patterns</li><li>components</li><li>decisions</li><li>research</li><li>usability findings</li></ul></div><div class="lay__col lay__col--neutral"><h4 class="lay__ch">Engineering knowledge</h4><ul class="lay__list"><li>APIs</li><li>implementation constraints</li><li>technical patterns</li></ul></div><div class="lay__col lay__col--neutral"><h4 class="lay__ch">Organisational knowledge</h4><ul class="lay__list"><li>strategy</li><li>priorities</li><li>governance</li><li>decision history</li></ul></div></div><p class="lay__quote">Design knowledge should compound instead of disappearing after delivery.</p></section></div>
+</div>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">A proposed operating model, not an implemented process</span></p>
+<p class="note">Seven layers, from the source document. The point of the stack is that
+AI touches every one of them but owns none of them &mdash; each layer names what AI can
+contribute and what stays a human call.</p></div>
+</section>
+
+<!-- 05 · RESPONSIBILITY ----------------------------------------------------- -->
+<section class="section" aria-labelledby="a-matrix">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">05 &mdash; Responsibility</p>
+    <h2 class="t-h2" id="a-matrix">Who is accountable for what</h2>
+  </div>
+  <div data-reveal><div class="rm__wrap">
+<table class="rm">
+  <caption class="srcnote">Thirteen activities, in the source document's own wording</caption>
+  <thead><tr><th scope="col">Activity</th>
+    <th scope="col"><span class="rm__key rm__key--ai">AI contributes</span></th>
+    <th scope="col"><span class="rm__key rm__key--hu">Human remains responsible for</span></th>
+  </tr></thead>
+  <tbody><tr><th scope="row">Problem framing</th><td class="rm__ai" data-label="AI contributes">Pattern discovery</td><td class="rm__hu" data-label="Human remains responsible for">Define the real problem</td></tr><tr><th scope="row">Research synthesis</th><td class="rm__ai" data-label="AI contributes">Summarisation</td><td class="rm__hu" data-label="Human remains responsible for">Interpret user context</td></tr><tr><th scope="row">Ideation</th><td class="rm__ai" data-label="AI contributes">Generate alternatives</td><td class="rm__hu" data-label="Human remains responsible for">Select meaningful directions</td></tr><tr><th scope="row">UX flows</th><td class="rm__ai" data-label="AI contributes">Explore options</td><td class="rm__hu" data-label="Human remains responsible for">Decide experience architecture</td></tr><tr><th scope="row">UI exploration</th><td class="rm__ai" data-label="AI contributes">Generate variants</td><td class="rm__hu" data-label="Human remains responsible for">Define quality bar</td></tr><tr><th scope="row">Copy</th><td class="rm__ai" data-label="AI contributes">Generate alternatives</td><td class="rm__hu" data-label="Human remains responsible for">Approve tone and meaning</td></tr><tr><th scope="row">Prototyping</th><td class="rm__ai" data-label="AI contributes">Accelerate creation</td><td class="rm__hu" data-label="Human remains responsible for">Validate interaction</td></tr><tr><th scope="row">Coding</th><td class="rm__ai" data-label="AI contributes">Generate implementation</td><td class="rm__hu" data-label="Human remains responsible for">Direct product behaviour</td></tr><tr><th scope="row">Testing</th><td class="rm__ai" data-label="AI contributes">Identify issues</td><td class="rm__hu" data-label="Human remains responsible for">Decide severity and action</td></tr><tr><th scope="row">Documentation</th><td class="rm__ai" data-label="AI contributes">Structure information</td><td class="rm__hu" data-label="Human remains responsible for">Establish truth</td></tr><tr><th scope="row">Design system</th><td class="rm__ai" data-label="AI contributes">Detect patterns</td><td class="rm__hu" data-label="Human remains responsible for">Govern standards</td></tr><tr><th scope="row">Product analytics</th><td class="rm__ai" data-label="AI contributes">Surface patterns</td><td class="rm__hu" data-label="Human remains responsible for">Make decisions</td></tr><tr><th scope="row">Product strategy</th><td class="rm__ai" data-label="AI contributes">Challenge assumptions</td><td class="rm__hu" data-label="Human remains responsible for">Set direction</td></tr></tbody>
+</table>
+</div>
+<figure class="bigquote">
+  <blockquote><p>AI expands the surface area of design. It does not remove accountability.</p></blockquote>
+</figure>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span></p>
+<p class="note">Read the right-hand column as the real job description. Every row on the
+left is work that still arrives needing review &mdash; a generated flow, a generated
+component, a generated paragraph of documentation is a draft with a confident tone, and
+nothing more than that until someone signs it off.</p></div>
+</section>
+
+<!-- 06 · WORKPERKS ---------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-wp">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">06 &mdash; In practice</p>
+    <h2 class="t-h2" id="a-wp">WorkPerks</h2>
+    <p class="prose">A multi-surface employee benefits product. It is the reason this page is not purely a framework: I went from defining the product to working on the thing that runs, and the gap between those two used to be a handoff.</p>
+  </div>
+
+  <figure class="plate" data-reveal>
+    <img src="../../assets/img/ai/wp-hifi.jpg" loading="lazy"
+         alt="High-fidelity WorkPerks screens shown in a browser, covering the benefits catalogue and employee-facing flows."
+         width="857" height="1200">
+    <figcaption class="plate__cap"><span class="plate__src">WorkPerks &middot; high-fidelity design</span>
+    Designed surfaces before implementation.</figcaption>
+  </figure>
+
+  <div class="shots" data-reveal>
+    <figure class="shotfig"><img src="../../assets/img/ai/wp-intro.jpg" loading="lazy" alt="WorkPerks app onboarding intro screen." width="289" height="620"><figcaption>Onboarding</figcaption></figure>
+    <figure class="shotfig"><img src="../../assets/img/ai/wp-home.jpg" loading="lazy" alt="WorkPerks app home screen showing benefits categories." width="289" height="620"><figcaption>Home</figcaption></figure>
+    <figure class="shotfig"><img src="../../assets/img/ai/wp-flexi.jpg" loading="lazy" alt="WorkPerks Flexi benefits allocation screen." width="289" height="620"><figcaption>Flexi allocation</figcaption></figure>
+    <figure class="shotfig"><img src="../../assets/img/ai/wp-flexi-sheet.jpg" loading="lazy" alt="WorkPerks Flexi decision sheet showing allocation across funded heads." width="289" height="620"><figcaption>Decision sheet</figcaption></figure>
+  </div>
+
+  <div data-reveal><ol class="prod"><li class="prod__step"><span class="prod__n">01</span>Product problem</li><li class="prod__step"><span class="prod__n">02</span>Ecosystem definition</li><li class="prod__step"><span class="prod__n">03</span>Experience architecture</li><li class="prod__step"><span class="prod__n">04</span>Design system</li><li class="prod__step"><span class="prod__n">05</span>UX / UI</li><li class="prod__step"><span class="prod__n">06</span>AI-assisted build</li><li class="prod__step"><span class="prod__n">07</span>Working product</li></ol>
+<h3 class="snap__title" style="margin-top:var(--step-12)">The eight product surfaces</h3>
+<ul class="eco" role="list"><li class="eco__cell"><span class="eco__n">01</span><h4 class="eco__name">Onboarding</h4><p class="eco__note">splash, org ID, per-module learn, intro pages, permissions</p></li><li class="eco__cell"><span class="eco__n">02</span><h4 class="eco__name">Perks &amp; benefits catalogue</h4><p class="eco__note">categories, detail, partners, collections, locations, saved, search, orders</p></li><li class="eco__cell"><span class="eco__n">03</span><h4 class="eco__name">Flexi benefits</h4><p class="eco__note">allocation across funded heads against a grade-band pool, donut and decision sheets</p></li><li class="eco__cell"><span class="eco__n">04</span><h4 class="eco__name">Rewards &amp; Recognition</h4><p class="eco__note">wall, awards, certificates, nominations, programmes, winners, milestones, journey map</p></li><li class="eco__cell"><span class="eco__n">05</span><h4 class="eco__name">Vouchers &amp; coins</h4><p class="eco__note">balance, catalogue, denominations, code redemption, my vouchers</p></li><li class="eco__cell"><span class="eco__n">06</span><h4 class="eco__name">Reimbursements</h4><p class="eco__note">claim heads, new claim, my claims</p></li><li class="eco__cell"><span class="eco__n">07</span><h4 class="eco__name">AI chat</h4><p class="eco__note">a modal route with local retrieval</p></li><li class="eco__cell"><span class="eco__n">08</span><h4 class="eco__name">Notifications</h4><p class="eco__note">preferences, challenges, profile</p></li></ul>
+<p class="srcnote">Surfaces as enumerated by the project&#x27;s own repository walkthrough, shown in the terminal session further down this page.</p></div>
+</section>
+
+<!-- 07 · THE BUILD LOOP ----------------------------------------------------- -->
+<section class="section section--accent" aria-labelledby="a-loop">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">07 &mdash; The build loop</p>
+    <h2 class="t-h2" id="a-loop">When the designer enters the build loop</h2>
+  </div>
+
+  <figure class="pull" data-reveal>
+    <blockquote class="pull__quote">
+      <p>I didn't stop at the design artefact. AI gave me a way to participate further into the product-development loop.</p>
+    </blockquote>
+  </figure>
+
+  <figure class="plate" data-reveal>
+    <img src="../../assets/img/ai/claude-code-session.jpg" loading="lazy"
+         alt="An editor window showing the WorkPerks repository tree with a mobile folder, a Claude settings file open, and a terminal running Claude Code which has listed the eight product surfaces of the app."
+         width="1500" height="560">
+    <figcaption class="plate__cap"><span class="plate__src">Claude Code, working in the WorkPerks repository</span>
+    A real session. The terminal output is Claude Code reading the codebase back to me &mdash;
+    the eight product surfaces listed below came from this walkthrough. Cropped to remove
+    internal backend notes.</figcaption>
+  </figure>
+
+  <div data-reveal><ol class="prod prod--loop"><li class="prod__step"><span class="prod__n">01</span>Product thinking</li><li class="prod__step"><span class="prod__n">02</span>Experience design</li><li class="prod__step prod__step--on"><span class="prod__n">03</span>Claude Code</li><li class="prod__step"><span class="prod__n">04</span>Frontend</li><li class="prod__step"><span class="prod__n">05</span>Backend</li><li class="prod__step"><span class="prod__n">06</span>APIs / integrations</li><li class="prod__step"><span class="prod__n">07</span>React Native</li><li class="prod__step"><span class="prod__n">08</span>Working product</li></ol>
+<h3 class="snap__title" style="margin-top:var(--step-10)">Who owned what</h3>
+<div class="lay__cols lay__cols--three"><div class="lay__col lay__col--human"><h4 class="lay__ch">Designer-owned</h4><ul class="lay__list"><li>product intent</li><li>experience architecture</li><li>interaction decisions</li><li>design quality</li><li>component behaviour</li><li>visual language</li><li>prioritisation</li><li>acceptance criteria</li><li>product judgment</li></ul></div><div class="lay__col lay__col--ai"><h4 class="lay__ch">AI-assisted</h4><ul class="lay__list"><li>code generation</li><li>scaffolding</li><li>implementation iterations</li><li>debugging support</li><li>repetitive engineering work</li><li>exploration of technical approaches</li><li>documentation</li><li>transformation of design decisions into working interfaces</li></ul></div><div class="lay__col lay__col--gap"><h4 class="lay__ch">Engineering-owned / shared</h4><p class="gap"><span class="gap__k">Input needed</span>The source document refuses to invent this boundary and so does this page. Describing a collaboration model I cannot evidence would undo the point of the rest of the section.</p></div></div>
+<p class="ev ev--experiment"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Experiment</span><span class="ev__n">A workflow I have actually run, evidenced by the repository and the session below</span></p></div>
+</section>
+
+<!-- 08 · SCALE -------------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-scale">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">08 &mdash; Scale</p>
+    <h2 class="t-h2" id="a-scale">What the working tree actually contains</h2>
+    <p class="prose">Counted from the repository rather than remembered. These numbers describe size, and size alone proves nothing about quality or speed &mdash; but it does show the surface a designer can now reach.</p>
+  </div>
+
+  <div data-reveal><ul class="stats stats--big">
+  <li><p class="stat__value">35,718</p><p class="stat__label">lines of TypeScript</p></li>
+  <li><p class="stat__value">71</p><p class="stat__label">registered routes</p></li>
+  <li><p class="stat__value">28</p><p class="stat__label">UI primitives</p></li>
+</ul>
+<ul class="sbar"><li class="sbar__row"><span class="sbar__name">Registered routes<span class="sbar__hint">screens wired to a navigator</span></span><span class="sbar__track"><i style="width:42.5%"></i></span><span class="sbar__val">71</span></li><li class="sbar__row"><span class="sbar__name">TypeScript files<span class="sbar__hint">source files, .ts and .tsx</span></span><span class="sbar__track"><i style="width:100.0%"></i></span><span class="sbar__val">167</span></li><li class="sbar__row"><span class="sbar__name">UI primitives<span class="sbar__hint">modules in src/ui</span></span><span class="sbar__track"><i style="width:16.8%"></i></span><span class="sbar__val">28</span></li></ul>
+<p class="ev ev--verified"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Verified</span><span class="ev__n">Measured from the working tree on 2026-09-24</span></p>
+<p class="srcnote">WorkPerks employee app &amp;mdash; Expo / React Native / TypeScript. Counted from the working tree, excluding node_modules, build output and native project folders. Routes are the distinct names registered on a navigator in source.</p>
+<p class="note"><strong>Three different units, deliberately not combined.</strong> A
+route count, a file count and a line count measure different things and none of them is
+a measure of quality, speed or business impact. They are here to show the scale of the
+surface a designer can now reach into &mdash; nothing more. I am not claiming AI wrote
+this, that it was faster than an alternative, or that size is an achievement.</p>
+<p class="note">The portfolio previously recorded a snapshot of <span class="tag">67
+routes</span>, <span class="tag">28 UI primitives</span>, <span class="tag">163 TS
+files</span> and <span class="tag">~33,800 lines</span>. Re-measuring the working tree
+gives the figures above: the primitive count is unchanged, the other three have grown.
+The older numbers are left visible here rather than quietly replaced.</p></div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">The component vocabulary</h3>
+    <p class="prose">Twenty-eight primitives, which is the part of the count I find most interesting &mdash; it is the only figure that has not moved since the earlier snapshot. A system stabilises while the product on top of it keeps growing.</p>
+  </div>
+  <div data-reveal><ul class="chips" role="list"><li class="chip">Accordion</li><li class="chip">Atmosphere</li><li class="chip">Avatar</li><li class="chip">Beat</li><li class="chip">Brand</li><li class="chip">CategoryTile</li><li class="chip">ChatBlocks</li><li class="chip">FlexiDonut</li><li class="chip">Header</li><li class="chip">ModePill</li><li class="chip">NightCard</li><li class="chip">Press</li><li class="chip">Rolling</li><li class="chip">Sample</li><li class="chip">Segmented</li><li class="chip">Sheet</li><li class="chip">Skeleton</li><li class="chip">SlideAction</li><li class="chip">Stagger</li><li class="chip">States</li><li class="chip">SwipeRail</li><li class="chip">TabBar</li><li class="chip">Toast</li><li class="chip">Toggle</li><li class="chip">VendorLogo</li><li class="chip">icons</li><li class="chip">motion</li><li class="chip">primitives</li></ul>
+<p class="srcnote">Every module in src/ui, listed by filename. This is the component vocabulary the app is actually built from.</p></div>
+</section>
+
+<!-- 09 · CAPSULE ------------------------------------------------------------ -->
+<section class="section" aria-labelledby="a-capsule">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">09 &mdash; The system</p>
+    <h2 class="t-h2" id="a-capsule">From design system to design intelligence</h2>
+  </div>
+  <div data-reveal><ol class="gens"><li class="gen"><p class="gen__n">Generation 1</p><h3 class="gen__name">UI library</h3><p class="gen__note">A collection of reusable components.</p><p class="gen__tag gen__tag--v">Verified</p></li><li class="gen"><p class="gen__n">Generation 2</p><h3 class="gen__name">Design system</h3><p class="gen__note">Components + rules + governance.</p><p class="gen__tag gen__tag--v">Verified</p></li><li class="gen gen--concept"><p class="gen__n">Generation 3</p><h3 class="gen__name">Design intelligence</h3><p class="gen__note">Components + rules + context + organisational knowledge + AI assistance + validation.</p><p class="gen__tag">Concept</p></li></ol>
+<div class="feed">
+  <h3 class="snap__title">What a design system would have to hand an AI</h3>
+  <ul class="chips" role="list"><li class="chip">Design tokens</li><li class="chip">Components and variants</li><li class="chip">Usage rules</li><li class="chip">Product context</li><li class="chip">Design principles</li><li class="chip">Constraints</li><li class="chip">AI-readable instructions</li><li class="chip">Validation criteria</li></ul>
+</div>
+<figure class="bigquote">
+  <blockquote><p>Instead of teaching AI what the product looks like, teach AI how the product thinks.</p></blockquote>
+</figure>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">Generation 3 only</span></p>
+<p class="note">Generations 1 and 2 describe Capsule as it exists &mdash; tokens,
+components, rules, governance. Generation 3 is a proposal. Capsule does not generate
+designs or validate output automatically today, and this page does not suggest it
+does.</p></div>
+</section>
+
+<!-- 10 · TEAM MODEL --------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-team">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">10 &mdash; The organisation</p>
+    <h2 class="t-h2" id="a-team">An AI-native team operating model</h2>
+    <p class="prose">Everything above this point is one designer's workflow. This is the part that makes it an operating system rather than a personal habit.</p>
+  </div>
+  <div data-reveal><ol class="cycle"><li class="cycle__stage"><span class="cycle__n">01</span><h3 class="cycle__name">Context</h3><p class="cycle__note">Every designer understands: - product strategy - users - business model - technical constraints</p></li><li class="cycle__stage"><span class="cycle__n">02</span><h3 class="cycle__name">Intelligence</h3><p class="cycle__note">Teams use AI to: - research - synthesise - analyse - explore</p></li><li class="cycle__stage"><span class="cycle__n">03</span><h3 class="cycle__name">Creation</h3><p class="cycle__note">Designers create: - flows - prototypes - systems - interfaces - content</p></li><li class="cycle__stage"><span class="cycle__n">04</span><h3 class="cycle__name">Build</h3><p class="cycle__note">Designers work closer to: - frontend - APIs - backend - engineering</p></li><li class="cycle__stage"><span class="cycle__n">05</span><h3 class="cycle__name">Validation</h3><p class="cycle__note">Teams validate: - usability - accessibility - visual quality - technical fidelity - product outcomes</p></li><li class="cycle__stage"><span class="cycle__n">06</span><h3 class="cycle__name">Learning</h3><p class="cycle__note">Every project contributes knowledge back to: - design system - documentation - pattern library - team playbook</p></li></ol>
+<div class="wheel">
+  <ol class="wheel__ring"><li class="wheel__node">Work</li><li class="wheel__node">Knowledge</li><li class="wheel__node">System</li><li class="wheel__node">Better work</li></ol>
+  <p class="wheel__mid">The loop only closes if finished work is written back</p>
+</div>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span></p></div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">Rituals that would keep it honest</h3>
+  </div>
+  <div data-reveal><ul class="rits" role="list"><li class="rit"><h3 class="rit__name">Weekly AI Design Critique</h3><p class="rit__note">Discuss: - where AI was used - what worked - where it failed - what required human judgment - reusable prompts/workflows</p><ul class="rit__items"><li>where AI was used</li><li>what worked</li><li>where it failed</li><li>what required human judgment</li><li>reusable prompts/workflows</li></ul></li><li class="rit"><h3 class="rit__name">Design + Engineering Review</h3><p class="rit__note">Review: - implementation - component behaviour - technical constraints - design-system consistency</p><ul class="rit__items"><li>implementation</li><li>component behaviour</li><li>technical constraints</li><li>design-system consistency</li></ul></li><li class="rit"><h3 class="rit__name">AI Quality Review</h3><p class="rit__note">Review: - hallucinations - incorrect assumptions - accessibility - brand drift - privacy/security considerations - output quality</p><ul class="rit__items"><li>hallucinations</li><li>incorrect assumptions</li><li>accessibility</li><li>brand drift</li><li>privacy/security considerations</li><li>output quality</li></ul></li><li class="rit"><h3 class="rit__name">Prompt / Workflow Library</h3><p class="rit__note">Store: - successful workflows - reusable instructions - design-system context - product context - failure cases</p><ul class="rit__items"><li>successful workflows</li><li>reusable instructions</li><li>design-system context</li><li>product context</li><li>failure cases</li></ul></li><li class="rit"><h3 class="rit__name">AI Pattern Review</h3><p class="rit__note">Track emerging patterns: - assistants - recommendations - conversational search - generative UI - adaptive experiences</p><ul class="rit__items"><li>assistants</li><li>recommendations</li><li>conversational search</li><li>generative UI</li><li>adaptive experiences</li></ul></li></ul>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">Proposed rituals, not current practice</span></p>
+<p class="note">Five rituals from the source document. None of these runs in my organisation today &mdash; they are what I would introduce, and saying otherwise would be the easiest lie on this page.</p></div>
+</section>
+
+<!-- 11 · GOVERNANCE --------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-gov">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">11 &mdash; Governance</p>
+    <h2 class="t-h2" id="a-gov">Seven questions before a team starts</h2>
+  </div>
+  <div data-reveal><ol class="govs"><li class="gov"><span class="gov__n">01</span><h3 class="gov__name">Privacy</h3><p class="gov__q">What information can be shared with AI systems?</p></li><li class="gov"><span class="gov__n">02</span><h3 class="gov__name">Security</h3><p class="gov__q">What data, credentials, repositories or customer information must never be exposed?</p></li><li class="gov"><span class="gov__n">03</span><h3 class="gov__name">Accuracy</h3><p class="gov__q">How are AI-generated outputs verified?</p></li><li class="gov"><span class="gov__n">04</span><h3 class="gov__name">Brand</h3><p class="gov__q">How do we prevent AI-generated experiences from drifting from brand principles?</p></li><li class="gov"><span class="gov__n">05</span><h3 class="gov__name">Accessibility</h3><p class="gov__q">How do we prevent AI from generating inaccessible experiences?</p></li><li class="gov"><span class="gov__n">06</span><h3 class="gov__name">Bias</h3><p class="gov__q">How do we identify problematic recommendations, language or assumptions?</p></li><li class="gov"><span class="gov__n">07</span><h3 class="gov__name">Ownership</h3><p class="gov__q">Who owns the final decision?</p></li></ol>
+<figure class="bigquote">
+  <blockquote><p>AI can generate an output. A responsible human must own the outcome.</p></blockquote>
+</figure>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">A proposed framework; no organisational policy is claimed</span></p>
+<p class="note">Each category is a question rather than a policy, because a policy I
+have not written and an organisation has not adopted would be a claim I cannot make.
+These are the seven things I would want answered before a team starts.</p></div>
+</section>
+
+<!-- 12 · MEASUREMENT -------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-measure">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">12 &mdash; Measurement</p>
+    <h2 class="t-h2" id="a-measure">Measure what changes</h2>
+    <p class="prose">An empty measurement frame, shown empty on purpose.</p>
+  </div>
+  <div data-reveal><div class="meass"><article class="meas"><h3 class="meas__name">Speed</h3><ul class="meas__list"><li><span class="meas__m">concept → prototype time</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">prototype → build time</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">design → development handoff time</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">iteration cycle time</span><span class="meas__v">Metric to establish</span></li></ul></article><article class="meas"><h3 class="meas__name">Quality</h3><ul class="meas__list"><li><span class="meas__m">design defects</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">implementation mismatches</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">accessibility issues</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">design-system violations</span><span class="meas__v">Metric to establish</span></li></ul></article><article class="meas"><h3 class="meas__name">Product</h3><ul class="meas__list"><li><span class="meas__m">conversion</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">adoption</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">completion</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">engagement</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">retention</span><span class="meas__v">Metric to establish</span></li></ul></article><article class="meas"><h3 class="meas__name">Team</h3><ul class="meas__list"><li><span class="meas__m">designer satisfaction</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">engineering satisfaction</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">onboarding time</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">knowledge reuse</span><span class="meas__v">Metric to establish</span></li></ul></article><article class="meas"><h3 class="meas__name">System</h3><ul class="meas__list"><li><span class="meas__m">component reuse</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">pattern reuse</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">documentation coverage</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">AI workflow adoption</span><span class="meas__v">Metric to establish</span></li></ul></article><article class="meas"><h3 class="meas__name">AI</h3><ul class="meas__list"><li><span class="meas__m">percentage of workflow AI-assisted</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">time saved</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">output acceptance rate</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">AI error rate</span><span class="meas__v">Metric to establish</span></li><li><span class="meas__m">human review rate</span><span class="meas__v">Metric to establish</span></li></ul></article></div>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">No values recorded in any source</span></p>
+<p class="note">26 candidate metrics across six categories, and <strong>not one of them
+has a value</strong>. No baseline for any of these exists in my source files, so every
+cell reads &ldquo;metric to establish&rdquo;. A page like this is where fabricated
+percentages normally appear; putting the empty frame on display instead is the more
+useful artefact, because the first real job is deciding which four of these are worth
+instrumenting.</p></div>
+</section>
+
+<!-- 13 · BLUEPRINT ---------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-bp">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">13 &mdash; The blueprint</p>
+    <h2 class="t-h2" id="a-bp">How I would start</h2>
+  </div>
+  <div data-reveal><ol class="bp"><li class="bp__step"><span class="bp__n">01</span><span class="bp__name">Map the existing workflow</span></li><li class="bp__step"><span class="bp__n">02</span><span class="bp__name">Identify AI opportunities</span></li><li class="bp__step"><span class="bp__n">03</span><span class="bp__name">Establish guardrails</span></li><li class="bp__step"><span class="bp__n">04</span><span class="bp__name">Build reusable context</span></li><li class="bp__step"><span class="bp__n">05</span><span class="bp__name">Connect design to build</span></li><li class="bp__step"><span class="bp__n">06</span><span class="bp__name">Create feedback loops</span></li><li class="bp__step"><span class="bp__n">07</span><span class="bp__name">Institutionalise learning</span></li></ol>
+<h3 class="snap__title" style="margin-top:var(--step-12)">Sorting the work: four kinds of AI opportunity</h3>
+<ul class="opps" role="list"><li class="opp opp--1"><h3 class="opp__name">Automate</h3><p class="opp__note">Repetitive, rule-shaped work with a checkable output.</p></li><li class="opp opp--2"><h3 class="opp__name">Accelerate</h3><p class="opp__note">Work where AI reduces manual effort but a human still steers.</p></li><li class="opp opp--3"><h3 class="opp__name">Assist</h3><p class="opp__note">Work where AI informs a decision a human makes.</p></li><li class="opp opp--4"><h3 class="opp__name">Human-owned</h3><p class="opp__note">Decisions that carry accountability and stay with a person.</p></li></ul>
+<p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span></p></div>
+</section>
+
+<!-- 14 · WHAT CHANGES ------------------------------------------------------- -->
+<section class="section" aria-labelledby="a-leader">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">14 &mdash; The role</p>
+    <h2 class="t-h2" id="a-leader">What changes for the design leader</h2>
+    <p class="prose">Nothing on the left stops mattering. Hiring, growing people, running reviews, protecting quality, managing stakeholders &mdash; none of that is displaced. The right-hand column is what gets added, and it is additive in the most literal sense: more surface, same accountability.</p>
+  </div>
+
+  <div class="shiftcols" data-reveal>
+    <div class="shiftcol">
+      <h3 class="snap__title">Still the job</h3>
+      <ul class="shiftlist">
+        <li>Growing designers</li><li>Design reviews and direction</li>
+        <li>Delivery and planning</li><li>Stakeholder management</li>
+        <li>Quality and craft</li>
+      </ul>
+    </div>
+    <div class="shiftcol shiftcol--new">
+      <h3 class="snap__title">Added to the job</h3>
+      <ul class="shiftlist">
+        <li>AI literacy</li><li>Workflow design</li><li>Governance</li>
+        <li>Technical fluency</li><li>Experimentation</li>
+        <li>Knowledge architecture</li><li>Human&ndash;AI collaboration</li>
+        <li>Organisational change</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="bigquote" data-reveal>
+    <blockquote><p>The opportunity is not simply to design faster. It is to build a design organisation that learns faster.</p></blockquote>
+  </figure>
+
+  <p class="note" data-reveal>Source: <span class="tag">3. AI-Design-Operating-System.md</span>, my own strategy document. The frameworks on this page are parsed from it at build time rather than retyped, and the repository figures are measured from the WorkPerks working tree. Where the document marks something as needing input, this page leaves it blank.</p>
+
+  <nav class="onward" aria-label="Related pages">
+    <a class="btn btn--ghost" href="../">All DesignOps</a>
+    <a class="btn btn--ghost" href="../planning/">Planning &amp; Resources</a>
+    <a class="btn btn--ghost" href="../quality/">Design Quality</a>
+  </nav>
+</section>
+</div>
+</div>
+</div>
+</main>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__base">
+      <p class="t-label">Arushi Prasad — Design leader</p>
+      <p class="t-label t-dim">Pune, India</p>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/site.js?v=8b13f207" defer></script>
+<script src="../../assets/js/case.js?v=fd4fa5e0" defer></script>
+</body>
+</html>

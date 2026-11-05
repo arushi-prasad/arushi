@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" role="presentation">
+  <!-- Base camp, 5,380 m. Two peaks, a trail, a flag at the top. -->
+  <path d="M6.4 48.6 21.8 23.4 33.4 42.2 29.6 48.8z" fill="#6E5F93"/>
+  <path d="M19.4 49 38.4 17.6 57.6 49z" fill="#4A5F79"/>
+  <path d="M38.4 17.6 31.4 29.2l3.5-1.1 2.2 2.3 2.6-2.5 3.1 1.6 2.5-1.5z" fill="#EFE9DC"/>
+  <path d="M38.4 17.6V8.2" stroke="#EFE9DC" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M38.8 8.4 48 11.1l-9.2 3.4z" fill="#B55C3C" stroke="#EFE9DC" stroke-width="1.5" stroke-linejoin="round"/>
+  <g stroke="#EFE9DC" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6.4 48.6 21.8 23.4 33.4 42.2"/>
+    <path d="M19.4 49 38.4 17.6 57.6 49z"/>
+    <path d="M38.4 17.6 31.4 29.2l3.5-1.1 2.2 2.3 2.6-2.5 3.1 1.6 2.5-1.5"/>
+    <path d="M4.6 49h55.2"/>
+  </g>
+  <path d="M26.4 48.2c3.4-2.6 4.6-6.4 8.2-7.6 3.4-1.1 4.8 1.4 8.2.2" stroke="#E8D49A" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="1.4 3.2"/>
+</svg>

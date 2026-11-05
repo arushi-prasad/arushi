@@ -1,0 +1,330 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>verify mesh</title>
+<style>body{background:#111;color:#ddd;font:13px/1.5 monospace;padding:12px}
+.ok{color:#8ad67a}.bad{color:#ff7a6b}.hd{color:#e0b07a;margin-top:10px}
+iframe{border:1px solid #333}</style>
+<pre id="out">running…</pre>
+<iframe id="f" style="width:1280px;height:860px"></iframe>
+<script>
+/* A throwaway harness for the hero's grid. It drives the real homepage in an
+   iframe and prints a report, so behaviour is checked rather than eyeballed.
+   Not shipped.
+
+   What it is here to hold down: the mesh is allowed to bend the grid in a
+   small window around the pointer and to do absolutely nothing else. The
+   interesting failures are all of the kind "it left something behind" —
+   a canvas on a touch screen, ink on the page after the pointer has gone,
+   a frame loop still running at rest, a pixel of height added to the
+   document, or lines redrawn a hair off the ones they replaced, which is
+   the one that would show as a doubled grid rather than a bent one.
+
+   Open it in a real browser. A headless run under --virtual-time-budget
+   never advances requestAnimationFrame, and every number below comes from
+   frames the mesh actually drew. */
+const lines = [];
+let pass = 0, fail = 0;
+function head(t){ lines.push('\n<span class="hd">'+t+'</span>'); }
+function check(name, cond, extra){
+  if (cond) { pass++; lines.push('<span class="ok">  PASS</span> '+name); }
+  else { fail++; lines.push('<span class="bad">  FAIL</span> '+name+(extra!==undefined?'  ['+JSON.stringify(extra)+']':'')); }
+}
+/* For the numbers worth reading even when they pass. */
+function note(name, value){ lines.push('<span class="hd">  ----</span> '+name+'  '+JSON.stringify(value)); }
+function flush(){
+  document.getElementById('out').innerHTML =
+    lines.join('\n') + '\n\n<span class="hd">RESULT</span> pass='+pass+' fail='+fail+
+    (fail? ' <span class="bad">***FAILURES***</span>' : ' <span class="ok">ALL GREEN</span>');
+}
+const errors = [];
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const frame = () => new Promise(r => requestAnimationFrame(r));
+const f = document.getElementById('f');
+
+function load(src, w, h){
+  return new Promise(res => {
+    f.style.width = w + 'px'; f.style.height = h + 'px';
+    f.onload = () => res(f.contentWindow);
+    f.src = src + '?t=' + Date.now();
+  });
+}
+
+/* A pointer, as the page would see one. The real listener is on the window
+   and reads clientX/clientY, so this is the same input a mouse gives it. */
+function point(w, x, y, type){
+  w.dispatchEvent(new w.PointerEvent('pointermove', {
+    clientX: x, clientY: y, pointerType: type || 'mouse', bubbles: true
+  }));
+}
+async function glide(w, x0, y0, x1, y1, steps){
+  for (let i = 0; i <= steps; i++) {
+    point(w, x0 + (x1 - x0) * i / steps, y0 + (y1 - y0) * i / steps);
+    await frame();
+  }
+}
+
+/* Everything the canvas is currently holding, from one read: how much ink,
+   where it is, and how bright it gets. "At rest", "local", "nothing left
+   behind", "the crossings are lit" and "the glow is warm" are all answerable
+   from this one reading.
+
+   Two thresholds, because the canvas now holds two different kinds of mark.
+   The erase-and-replace window is opaque — step 1 strokes the page colour at
+   alpha 1 — so counting only alpha > 200 measures the bend and nothing else.
+   The light on top of it, and the sparks fading on the untouched grid beyond
+   it, are all faint; alpha > 3 counts those too. So `box` is "everything the
+   effect is currently doing" and `boxHard` is "the window it is bending",
+   which are no longer the same box once an afterglow can outlive the window
+   that lit it.
+
+   peakR is the most red on an opaque pixel: on the erased ground, which
+   starts at the page colour's 20, that number is the light the crossings and
+   the lines are carrying. warm is the warmest lit pixel anywhere — the
+   sparks are mixed toward --hue-ochre-light and run about 40 levels redder
+   than they are blue, which nothing else on the canvas does. */
+function ink(w){
+  const cv = w.document.querySelector('.stage__mesh');
+  if (!cv) return null;
+  const d = cv.getContext('2d').getImageData(0, 0, cv.width, cv.height).data;
+  let n = 0, x0 = 1e9, y0 = 1e9, x1 = -1, y1 = -1;
+  let nh = 0, hx0 = 1e9, hy0 = 1e9, hx1 = -1, hy1 = -1;
+  let peakR = 0, warm = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    const a = d[i + 3];
+    if (a <= 3) continue;
+    const p = i / 4, x = p % cv.width, y = (p / cv.width) | 0;
+    n++;
+    if (x < x0) x0 = x; if (x > x1) x1 = x;
+    if (y < y0) y0 = y; if (y > y1) y1 = y;
+    if (a > 200) {
+      nh++;
+      if (x < hx0) hx0 = x; if (x > hx1) hx1 = x;
+      if (y < hy0) hy0 = y; if (y > hy1) hy1 = y;
+      if (d[i] > peakR) peakR = d[i];
+    }
+    if (a > 60) { const t = d[i] - d[i + 2]; if (t > warm) warm = t; }
+  }
+  return { n, box: n ? [x0, y0, x1, y1] : null,
+           nh, boxHard: nh ? [hx0, hy0, hx1, hy1] : null,
+           peakR, warm, w: cv.width, h: cv.height };
+}
+const span = b => b ? [b[2] - b[0], b[3] - b[1]] : null;
+
+/* The page grid is position:fixed and the canvas is not, so the canvas works
+   out where the cells are every frame. This samples a row just outside the
+   reach of the bend but still inside the window the canvas repaints: every
+   line on it was lifted out and put back with no displacement, so it has to
+   land exactly where the CSS grid draws it. A drift here is the difference
+   between a bent grid and a doubled one. */
+function align(w, pointerY){
+  const d3 = w.document;
+  const cv = d3.querySelector('.stage__mesh');
+  const r = cv.getBoundingClientRect();
+  const cell = parseFloat(w.getComputedStyle(d3.documentElement).getPropertyValue('--grid-cell'));
+  let row = Math.round(pointerY - r.top - 198);
+  if (row < 2) row = Math.round(pointerY - r.top + 198);
+  /* Pulled to the middle of a cell. A row that lands on a horizontal line is
+     painted edge to edge, which leaves no vertical edges on it to measure. */
+  row += ((cell / 2) - ((row + r.top) % cell) + cell) % cell;
+  row = Math.round(row);
+  if (row < 2 || row > r.height - 2) return { skipped: true };
+  const px = cv.getContext('2d').getImageData(0, row, cv.width, 1).data;
+  const off = [];
+  for (let x = 1; x < cv.width; x++) {
+    if (px[x * 4 + 3] > 60 && px[(x - 1) * 4 + 3] <= 60) {
+      const v = (x + r.left) % cell;
+      off.push(Math.min(v, cell - v));
+    }
+  }
+  off.sort((a, b) => a - b);
+  return { n: off.length, worst: off.length ? off[off.length - 1] : null };
+}
+
+(async function run(){
+  const w = await load('index.html', 1280, 860);
+  w.addEventListener('error', e => errors.push('frame: ' + e.message));
+  const d = w.document;
+  d.querySelector('.stage').setAttribute('data-intro', 'off');
+  await wait(900);
+
+  const reduced = w.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = w.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  const stage = d.querySelector('.stage');
+  const box0 = stage.getBoundingClientRect();
+  const doc0 = { w: d.documentElement.scrollWidth, h: d.documentElement.scrollHeight,
+                 cw: d.documentElement.clientWidth };
+
+  head('1 · before anything has happened');
+  check('the home page loads mesh.js', !!d.querySelector('script[src*="mesh.js"]'));
+  check('and builds nothing until a pointer arrives', !d.querySelector('.stage__mesh'));
+
+  /* count the frames the page asks for, so "it stops when it is done" is a
+     number rather than a hope */
+  w.__raf = 0;
+  const realRaf = w.requestAnimationFrame.bind(w);
+  w.requestAnimationFrame = fn => { w.__raf++; return realRaf(fn); };
+
+  const cx = Math.round(box0.left + box0.width * 0.30);
+  const cy = Math.round(box0.top + box0.height * 0.62);
+
+  if (reduced || !fine) {
+    head('2 · this run has no business drawing anything');
+    check('the environment says so', true, { reduced, fine });
+    await glide(w, cx, cy, cx + 160, cy - 40, 24);
+    await wait(200);
+    check('a pointer builds no canvas at all', !d.querySelector('.stage__mesh'));
+    check('no page errors', errors.length === 0, errors.join(' // '));
+    flush();
+    return;
+  }
+
+  head('2 · a touch is not a pointer');
+  point(w, cx, cy, 'touch');
+  await wait(120);
+  check('a touch builds nothing', !d.querySelector('.stage__mesh'));
+
+  head('3 · a slow pass through the hero');
+  await glide(w, cx, cy, cx + 200, cy - 60, 36);
+  await frame();
+
+  const cv = d.querySelector('.stage__mesh');
+  check('the canvas is built', !!cv);
+  check('it is decorative to a screen reader', cv.getAttribute('aria-hidden') === 'true');
+  const cs = w.getComputedStyle(cv);
+  check('it takes no pointer events', cs.pointerEvents === 'none', cs.pointerEvents);
+  check('it sits at 0 — under the peek layer, the name, the pills and the ruler',
+        cs.zIndex === '0', cs.zIndex);
+  const cvBox = cv.getBoundingClientRect();
+  check('it is exactly as tall as the hero',
+        Math.abs(cvBox.height - stage.getBoundingClientRect().height) < 1,
+        [Math.round(cvBox.height), Math.round(stage.getBoundingClientRect().height)]);
+  check('and full-bleed, because the grid it stands in for is',
+        cvBox.width >= d.documentElement.clientWidth - 1,
+        [Math.round(cvBox.width), d.documentElement.clientWidth]);
+
+  let k = ink(w);
+  check('it is painting', k && k.n > 1500, k && k.n);
+  check('and only in a window around the pointer',
+        k && k.box && (k.box[2] - k.box[0]) < 760 && (k.box[3] - k.box[1]) < 760, span(k.box));
+
+  head('3b · and the window is bright enough to find');
+  /* The ground inside the window is the page colour, red 20. Anything above
+     that on an opaque pixel is the light being carried by a line or a
+     crossing, so this is the one number that says the interaction is
+     visible rather than theoretically present. */
+  note('most red on an opaque pixel (page colour is 20)', k && k.peakR);
+  note('warmest lit pixel, red minus blue', k && k.warm);
+  note('pixels the effect is touching', k && k.n);
+  check('the lines and the crossings carry real light', k && k.peakR > 58, k && k.peakR);
+  /* The other half of the same number. 255 on a channel means the additive
+     steps have clamped, which is a white point rather than a lit one — the
+     difference between a lit grid and glitter, and the one way this effect
+     could end up competing with the name above it. */
+  check('and none of it clamps to white — a background, not a highlight',
+        k && k.peakR < 240, k && k.peakR);
+  /* Only the sparks are mixed toward the ochre. A warm pixel is proof that
+     one is alight — the ivory the rest of the window is lit with is within
+     a dozen levels of neutral. */
+  check('and a few points of light are alight, warmer than the rest',
+        k && k.warm > 24, k && k.warm);
+
+  head('4 · and it moved nothing');
+  const box1 = stage.getBoundingClientRect();
+  check('the hero is the same box it was',
+        Math.abs(box1.top - box0.top) < 0.5 && Math.abs(box1.height - box0.height) < 0.5,
+        [box0.top, box0.height, box1.top, box1.height]);
+  check('the document is the same height',
+        d.documentElement.scrollHeight === doc0.h, [doc0.h, d.documentElement.scrollHeight]);
+  check('and still cannot scroll sideways',
+        d.documentElement.scrollWidth <= d.documentElement.clientWidth,
+        [d.documentElement.scrollWidth, d.documentElement.clientWidth]);
+
+  head('5 · the lines it draws are the lines it replaced');
+  const a = align(w, cy - 60);
+  check('they land on the real grid, to within a pixel',
+        a && !a.skipped && a.n > 3 && a.worst < 1.05, a);
+
+  head('6 · fast movement');
+  for (let i = 0; i < 4; i++) {
+    await glide(w, 80, cy, 1200, cy - 140, 7);
+    await glide(w, 1200, cy - 140, 80, cy, 7);
+  }
+  k = ink(w);
+  check('no error thrown', errors.length === 0, errors.join(' // '));
+  /* The bend, measured on its own: a flick across the full width of the
+     hero still leaves exactly one window of displaced grid, where the
+     pointer is. The sparks it lit on the way past are deliberately not in
+     this measurement — they are allowed to be anywhere the hand went, and
+     test 7b is what holds down that they go out. */
+  check('still one window of bent grid, not a smear',
+        k && k.boxHard && (k.boxHard[2] - k.boxHard[0]) < 820, span(k.boxHard));
+  check('and the points it lit are a handful, not a stripe',
+        k && k.n < k.w * k.h * 0.12, k && [k.n, Math.round(k.w * k.h * 0.12)]);
+
+  head('7 · letting go');
+  await glide(w, cx, cy, cx + 40, cy - 10, 8);
+  await wait(2200);                       /* idle 700ms, then the release */
+  k = ink(w);
+  check('a pointer that stops eases the grid all the way back', k && k.n === 0, k);
+  w.__raf = 0;
+  await wait(600);
+  check('and the frame loop stops — nothing runs at rest', w.__raf === 0, w.__raf);
+
+  await glide(w, cx, cy, cx + 60, cy - 20, 10);
+  point(w, cx, 4);                        /* up into the navigation */
+  await wait(1400);
+  check('leaving the hero eases it back too', ink(w).n === 0, ink(w));
+
+  head('7b · the afterglow outlives the window');
+  /* The half of "an afterglow, not a trail" that the two checks above do not
+     cover: they prove the canvas is empty 1.4s and 2.2s after the pointer
+     goes, which is the ceiling on how long anything can linger. What is left
+     to show is the ordering — that at some point the bend has released, with
+     no opaque pixel left anywhere, while a few points of light are still
+     fading on the untouched grid. Nothing else on the canvas can do that.
+
+     Read back to back rather than on a timer: one full canvas read is tens
+     of milliseconds of blocked main thread, and the iframe's frame loop is
+     on the same thread, so a sampling interval here is fiction. Ordering
+     survives that; wall-clock does not, which is why there is no duration
+     claimed in this block. */
+  await glide(w, cx, cy, cx + 150, cy - 50, 26);
+  point(w, cx + 150, 4);                  /* out of the hero at speed */
+  let after = false, widest = 0, reads = 0, empty = false;
+  for (let i = 0; i < 60 && !empty; i++) {
+    const s = ink(w); reads++;
+    if (s.n > 0) widest = Math.max(widest, span(s.box)[0]);
+    if (s.nh === 0 && s.n > 0) after = true;
+    empty = s.n === 0;
+    await frame();
+  }
+  note('canvas reads before it went empty', reads);
+  check('a few points stay lit after the bend has let go', after);
+  check('and then the canvas goes empty on its own', empty);
+  check('the glow never spread past the ground it was lit on', widest < 900, widest);
+
+  head('8 · the Grid control still owns the grid');
+  w.APTokens.set('grid', 'dots');
+  await wait(600);
+  await glide(w, cx, cy, cx + 90, cy - 30, 18);
+  k = ink(w);
+  check('dots: the mesh follows whichever layer is up', k && k.n > 200, k && k.n);
+
+  w.APTokens.set('grid', 'off');
+  await wait(700);
+  await glide(w, cx, cy, cx + 90, cy - 30, 18);
+  k = ink(w);
+  check('off: the mesh paints nothing at all', k && k.n === 0, k);
+  w.APTokens.reset();
+  await wait(600);
+
+  head('9 · console');
+  check('no page errors', errors.length === 0, errors.join(' // '));
+  flush();
+})().catch(e => {
+  lines.push('<span class="bad">  THREW</span> ' + e.message + '\n' + e.stack);
+  fail++;
+  flush();
+});
+</script>

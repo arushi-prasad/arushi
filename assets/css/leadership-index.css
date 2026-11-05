@@ -1,0 +1,236 @@
+/* ===========================================================================
+   LEADERSHIP INDEX — the landing page: one oversized heading, a statement
+   beside the evidence, and two rows into the work itself.
+
+   Everything here is built from existing tokens. The one deliberate
+   exception is the heading's face, noted where it is set.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   HEAD
+
+   There is nothing here any more. This page used to carry its own oversized
+   heading, in its own face, at its own size — the one page title on the site
+   that was not the shared component. It now opens on .lede-hero like Work
+   and Strategy, so the breadcrumb, the heading and the measure under them
+   cannot drift from those pages: they are the same rules, not matching
+   copies of them. See .lede-hero in components.css.
+   ------------------------------------------------------------------------ */
+
+/* ---------------------------------------------------------------------------
+   INTRO — the statement on the left, the evidence on the right.
+   ------------------------------------------------------------------------ */
+/* Two columns that do different jobs. The statement is four lines and the
+   column beside it is a page and a half, so pairing them as equal halves
+   left the left-hand side as mostly empty space. It is narrower now, and it
+   stays with the reader instead of scrolling away from a list it introduces.
+
+   align-items:start is what lets a sticky child work at all: stretched to
+   the row's full height — the grid default — there is nothing for it to
+   travel inside. */
+.li-intro{
+  padding-block:0 var(--step-20);
+  display:grid;
+  grid-template-columns:minmax(0,26rem) minmax(0,1fr);
+  gap:var(--step-16);
+  align-items:start;
+}
+.li-intro__text{
+  position:sticky;
+  /* Clear of the sticky header, with the same breathing room the case-study
+     rail uses — see --case-top in case.css. */
+  top:calc(var(--nav-bar) + var(--step-6));
+}
+.li-intro__right{
+  min-width:0;
+  display:flex; flex-direction:column;
+  gap:var(--step-16);
+}
+.li-statement{
+  margin:0;
+  max-width:34rem;
+  /* A tenth under the shared lede size rather than a hand-written clamp of
+     its own, so it still tracks --text-lg across every width and every
+     Type setting. */
+  font-size:calc(var(--text-lg) * 0.9);
+  /* The leading .lede-hero__lede uses, which is the line this sits in place
+     of on every other section page. Unitless, so the explicit breaks between
+     sentences sit on the same rhythm as the wrapped lines around them. */
+  line-height:1.45;
+  color:var(--text-secondary);
+  text-wrap:pretty;
+}
+
+/* The two of them across, not stacked. They are a pair — a count of people
+   and a count of sessions — and side by side they read as one row of
+   evidence rather than as the first two items of a list. */
+.li-metrics{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:var(--step-10);
+  align-items:start;
+}
+.li-metric{ display:flex; flex-direction:column; gap:var(--step-2); }
+.li-metric__value{
+  margin:0;
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem, 1.4rem + 3.4vw, 4.25rem);
+  font-weight:var(--weight-display);
+  letter-spacing:var(--track-display);
+  line-height:1;
+  color:var(--accent-light);
+  font-variant-numeric:tabular-nums;
+}
+/* The arrow between a pair of figures is punctuation, not a number: quieter,
+   and a size that does not fight the digits either side of it. */
+.li-metric__arrow{
+  font-size:0.52em;
+  color:var(--text-tertiary);
+  vertical-align:0.22em;
+  padding-inline:0.1em;
+  font-variant-numeric:normal;
+}
+.li-metric__label{
+  margin:0;
+  font-family:var(--font-body);
+  font-size:var(--text-h4);
+  font-weight:var(--weight-emphasis);
+  letter-spacing:var(--track-heading);
+  line-height:1.3;
+  color:var(--text-primary);
+}
+.li-metric__note{
+  margin:0;
+  max-width:30rem;
+  font-size:var(--text-sm);
+  line-height:1.55;
+  color:var(--text-tertiary);
+  text-wrap:pretty;
+}
+
+/* ---------------------------------------------------------------------------
+   HIGHLIGHTS — twelve rows, typography and hairlines doing the work.
+
+   This was two rows at headline size, which competed with the page title
+   above it. It is a supporting list: regular weight, around 17px on a wide
+   screen and 15px on a phone, and a row height set by the text rather than
+   by padding.
+   ------------------------------------------------------------------------ */
+.li-highlights{ min-width:0; }
+.li-highlights__head{
+  margin:0 0 var(--step-5);
+  font-family:var(--font-display);
+  font-weight:var(--weight-emphasis);
+  letter-spacing:var(--track-heading);
+  /* Modestly above the rows — about 22 to 26px — and well under the title. */
+  font-size:clamp(1.375rem, 1.25rem + 0.5vw, 1.625rem);
+  line-height:1.2;
+  color:var(--text-primary);
+}
+
+.hl-list{
+  list-style:none; margin:0; padding:0;
+  border-top:var(--hair) solid var(--border-default);
+}
+.hl-row{ border-bottom:var(--hair) solid var(--border-default); }
+
+/* A row is a <span> when it is only text and an <a> when it opens something.
+   Both lay out identically, so the list reads as one set and only the two
+   that lead somewhere behave differently. */
+.hl-row__text,
+.hl-link{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--step-5);
+  align-items:baseline;
+  padding-block:var(--step-4);
+  font-size:clamp(0.9375rem, 0.89rem + 0.22vw, 1.0625rem);
+  font-weight:var(--weight-body);
+  line-height:1.5;
+  color:var(--text-primary);
+  text-decoration:none;
+  text-wrap:pretty;
+}
+/* The text inside a link is already laid out by the link itself. */
+.hl-link > .hl-row__text{
+  display:block; padding-block:0; font-size:inherit; line-height:inherit;
+}
+.hl-link{ transition:color var(--duration-base) var(--ease-smooth); }
+.hl-link:hover{ color:var(--accent-light); }
+
+/* The mark at the end of a recognition line. Sized in em so it tracks the
+   row's own type, and quiet enough to read as punctuation rather than as a
+   second piece of content. It sits inside the row's single grid item, which
+   is what keeps it against the full stop instead of out at the row's right
+   edge where the link arrows live. */
+.hl-row__icon{
+  display:inline-block;
+  width:1em; height:1em;
+  margin-left:0.4em;
+  vertical-align:-0.13em;
+  fill:none; stroke:currentColor; stroke-width:1.5;
+  stroke-linecap:round; stroke-linejoin:round;
+  color:var(--text-tertiary);
+  overflow:visible;
+}
+
+.hl-row__arrow{
+  width:1rem; height:1rem;
+  align-self:center;
+  flex:none;
+  fill:none; stroke:currentColor; stroke-width:1.3;
+  stroke-linecap:round; stroke-linejoin:round;
+  /* Shown at rest, quietly: it is the only thing marking these two rows out
+     of twelve as openable, and a hover-only affordance says nothing at all
+     on a touch screen. It brightens and steps out when the row is read. */
+  color:var(--text-tertiary);
+  opacity:1;
+  transition:color var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-smooth);
+}
+.hl-link:hover .hl-row__arrow,
+.hl-link:focus-visible .hl-row__arrow{
+  color:var(--accent-light);
+  transform:translate(3px, -3px);
+}
+.hl-link:focus-visible{ outline-offset:-3px; }
+
+/* ---------------------------------------------------------------------------
+   TABLET — the two intro columns stop being two.
+   ------------------------------------------------------------------------ */
+@media (max-width:900px){
+  .li-intro{
+    grid-template-columns:minmax(0,1fr);
+    gap:var(--step-12);
+    padding-bottom:var(--step-16);
+  }
+  /* One column: there is nothing beside it to stay level with, and a sticky
+     block here would ride down over the list it belongs above. */
+  .li-intro__text{ position:static; top:auto; }
+  .li-intro__right{ gap:var(--step-12); }
+  .li-statement{ max-width:var(--prose-max); }
+  /* The stack gives them the full width, so they stay two across. */
+  .li-metrics{ gap:var(--step-8) var(--step-12); }
+  .li-metric__note{ max-width:22rem; }
+}
+
+/* ---------------------------------------------------------------------------
+   MOBILE — one column, and rows tall enough to tap.
+   ------------------------------------------------------------------------ */
+@media (max-width:640px){
+  /* One column at last: a 68px figure and a three-line label do not both
+     fit in half a phone. */
+  .li-metrics{ grid-template-columns:minmax(0,1fr); gap:var(--step-8); }
+  .li-metric__note{ max-width:none; }
+  .hl-row__text,
+  .hl-link{ gap:var(--step-4); padding-block:var(--step-4); }
+  /* The two rows that open something need a comfortable target even when
+     their text is a single line. */
+  .hl-link{ min-height:2.75rem; align-items:center; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hl-link,.hl-row__arrow{ transition:none; }
+  .hl-link:hover .hl-row__arrow,
+  .hl-link:focus-visible .hl-row__arrow{ transform:none; }
+}

@@ -1,0 +1,1131 @@
+{
+ "checklist": {
+  "source": "UX Checklist.pptx",
+  "slides": [
+   {
+    "slide": 1,
+    "title": "The UX Design Checklist",
+    "rationale": "",
+    "checks": []
+   },
+   {
+    "slide": 2,
+    "title": "I love my design, but only when?",
+    "rationale": "",
+    "checks": [
+     "Does every element on the screen deliver value?",
+     "Will the user achieve his goal with it?",
+     "Is it persona-checked?",
+     "What could make the design fail?",
+     "Does it meet UX metrics if any?"
+    ]
+   },
+   {
+    "slide": 3,
+    "title": "Error states provided",
+    "rationale": "Bad error handling paired with useless error messages will make your visitors leave",
+    "checks": [
+     "Are all forms and input fields error-handled?",
+     "What does the error page look like?",
+     "Can user recover from the error?"
+    ]
+   },
+   {
+    "slide": 4,
+    "title": "Design system checked",
+    "rationale": "Consistency is key, and DS is the single source of truth",
+    "checks": [
+     "Did you check if you reinvented elements that already exist in the design system?",
+     "Have you picked the right components as per the use case?",
+     "Did you introduce new font, icons, colors or shades of colors?"
+    ]
+   },
+   {
+    "slide": 5,
+    "title": "Visual feedback on user actions",
+    "rationale": "When users click and nothing happens they will look for exit or click again.",
+    "checks": [
+     "Have you considered adding microinteractions?",
+     "Did you use animation while content in loading up?"
+    ]
+   },
+   {
+    "slide": 6,
+    "title": "Wording is awesome",
+    "rationale": "Writing copy needs experience too",
+    "checks": [
+     "Do you speak the same language as your audience?",
+     "What do your users need to know on this screen?",
+     "Avoid jargons, and keep it short and simple that anybody can understand it easily"
+    ]
+   },
+   {
+    "slide": 7,
+    "title": "Ready for test / review?",
+    "rationale": "Prototype that gives real experience",
+    "checks": [
+     "Did you cover all scenarios to test journeys?",
+     "Did I replaced all dummy data with real data and removed all duplication?"
+    ]
+   },
+   {
+    "slide": 8,
+    "title": "Developer handover prepared",
+    "rationale": "Make sure your developers have an effortless experience",
+    "checks": [
+     "Make sure to write down every error state, blank state or animation placement."
+    ]
+   }
+  ],
+  "embedded_media": 0,
+  "cover": "The UX Design Checklist",
+  "stages": [
+   {
+    "slide": 2,
+    "title": "I love my design, but only when?",
+    "rationale": "",
+    "checks": [
+     "Does every element on the screen deliver value?",
+     "Will the user achieve his goal with it?",
+     "Is it persona-checked?",
+     "What could make the design fail?",
+     "Does it meet UX metrics if any?"
+    ]
+   },
+   {
+    "slide": 3,
+    "title": "Error states provided",
+    "rationale": "Bad error handling paired with useless error messages will make your visitors leave",
+    "checks": [
+     "Are all forms and input fields error-handled?",
+     "What does the error page look like?",
+     "Can user recover from the error?"
+    ]
+   },
+   {
+    "slide": 4,
+    "title": "Design system checked",
+    "rationale": "Consistency is key, and DS is the single source of truth",
+    "checks": [
+     "Did you check if you reinvented elements that already exist in the design system?",
+     "Have you picked the right components as per the use case?",
+     "Did you introduce new font, icons, colors or shades of colors?"
+    ]
+   },
+   {
+    "slide": 5,
+    "title": "Visual feedback on user actions",
+    "rationale": "When users click and nothing happens they will look for exit or click again.",
+    "checks": [
+     "Have you considered adding microinteractions?",
+     "Did you use animation while content in loading up?"
+    ]
+   },
+   {
+    "slide": 6,
+    "title": "Wording is awesome",
+    "rationale": "Writing copy needs experience too",
+    "checks": [
+     "Do you speak the same language as your audience?",
+     "What do your users need to know on this screen?",
+     "Avoid jargons, and keep it short and simple that anybody can understand it easily"
+    ]
+   },
+   {
+    "slide": 7,
+    "title": "Ready for test / review?",
+    "rationale": "Prototype that gives real experience",
+    "checks": [
+     "Did you cover all scenarios to test journeys?",
+     "Did I replaced all dummy data with real data and removed all duplication?"
+    ]
+   },
+   {
+    "slide": 8,
+    "title": "Developer handover prepared",
+    "rationale": "Make sure your developers have an effortless experience",
+    "checks": [
+     "Make sure to write down every error state, blank state or animation placement."
+    ]
+   }
+  ],
+  "check_count": 19
+ },
+ "critique": {
+  "attribution": {
+   "title": "Share & Critique your way to a Culture of Collaboration",
+   "author": "Shalini Raghunathan",
+   "org": "3 Big Things",
+   "role": "Co-Founder",
+   "date": "February 8, 2025",
+   "source": "5. Share & Critique for Collaboration.pdf, page 1",
+   "note": "Third-party material. Not my work; a method I keep in the governance toolkit."
+  },
+  "setup": {
+   "page": 2,
+   "items": [
+    "Core team of 3-10 people",
+    "Have Shared context and/or work in related spaces",
+    "Meet 2-3 times a week"
+   ]
+  },
+  "choreography": {
+   "page": 3,
+   "stated_total": "45-55 mins",
+   "custodian": "Custodian keeps time, facilitates the conversation, keeps it in scope.",
+   "stages": [
+    {
+     "n": 1,
+     "who": "Creator",
+     "lo": 12,
+     "hi": 15,
+     "text": "Creator shares work - 12-15 mins",
+     "detail": ""
+    },
+    {
+     "n": 2,
+     "who": "Collaborators",
+     "lo": 3,
+     "hi": 5,
+     "text": "Collaborators ask for clarifications, if needed, briefly. 3-5 mins",
+     "detail": ""
+    },
+    {
+     "n": 3,
+     "who": "Collaborators",
+     "lo": 7,
+     "hi": 10,
+     "text": "Collaborators write feedback and post to the gallery in silence - 7-10 mins",
+     "detail": "Includes time for folks to read and react to others' comments."
+    },
+    {
+     "n": 4,
+     "who": "Everyone",
+     "lo": 15,
+     "hi": 20,
+     "text": "Round Robin feedback & conversation - 15-20 mins",
+     "detail": "Each collaborator reads out their post-its (and explains briefly, if needed). Nominates the next collaborator."
+    },
+    {
+     "n": 5,
+     "who": "Creator",
+     "lo": 5,
+     "hi": 5,
+     "text": "Creator records Action Items and schedules follow-ups - 5 mins",
+     "detail": ""
+    }
+   ]
+  },
+  "roles": [
+   "Creator",
+   "Collaborator",
+   "Custodian"
+  ],
+  "cs": [
+   "Contextual",
+   "Concise",
+   "Curious"
+  ],
+  "mindsets": [
+   {
+    "role": "Creator",
+    "page": 17,
+    "by_c": {
+     "Contextual": [
+      "Share what the problem is and who are you solving it for.",
+      "Tell a story about your work's journey, inspirations and challenges.",
+      "Define scope. Where are you in the project and design lifecycle?"
+     ],
+     "Concise": [
+      "What aspects of the design work are you seeking feedback on?",
+      "What aspects of the design work do you NOT want feedback on?",
+      "Structure your narrative to precisely articulate why you are seeking feedback at this time."
+     ],
+     "Curious": [
+      "Do not defend or solve. Feedback is a gift.",
+      "Listen to absorb and understand, not to respond.",
+      "Use \"Why?\" and \"Yes, and...\" to dig deeper and get the best out of the session.",
+      "Reflect and interpret. Translate feedback into action items that advance the work."
+     ]
+    }
+   },
+   {
+    "role": "Collaborator",
+    "page": 20,
+    "by_c": {
+     "Contextual": [
+      "Frame your feedback to focus on user's goals and objectives.",
+      "Stay within the scope of the feedback requested.",
+      "Critique the work, not the creator."
+     ],
+     "Concise": [
+      "Provide feedback that is specific, objective and tangible.",
+      "Share your opinions with justification.",
+      "Offer insight, not solutions."
+     ],
+     "Curious": [
+      "Highlight what's working well. Don't focus only on the negatives.",
+      "State your assumptions. Ask for clarifications. Probe.",
+      "Challenge to contribute, not to win. Disagree respectfully."
+     ]
+    }
+   },
+   {
+    "role": "Custodian",
+    "page": 22,
+    "by_c": {
+     "Contextual": [
+      "Stay neutral and objective.",
+      "Ensure collaborators move through the 4 Players roles.",
+      "Remember and remind the group of the \u201cWhy\u201d."
+     ],
+     "Concise": [
+      "Keep time.",
+      "Redirect in case of detours.",
+      "Diffuse tensions."
+     ],
+     "Curious": [
+      "Ensure all voices are heard.",
+      "Challenge the group, if needed.",
+      "Critique the critique."
+     ]
+    }
+   }
+  ],
+  "frameworks": [
+   {
+    "name": "Rose / Thorn / Bud",
+    "page": 10,
+    "parts": [
+     [
+      "Rose",
+      "Success"
+     ],
+     [
+      "Thorn",
+      "Challenge"
+     ],
+     [
+      "Bud",
+      "Potential"
+     ]
+    ]
+   },
+   {
+    "name": "I Like / I Wish / I Wonder",
+    "page": 11,
+    "parts": [
+     [
+      "I like",
+      ""
+     ],
+     [
+      "I wish",
+      ""
+     ],
+     [
+      "I wonder",
+      ""
+     ]
+    ]
+   },
+   {
+    "name": "4 Ls Retrospective (adapted)",
+    "page": 12,
+    "parts": [
+     [
+      "Liked",
+      "What did the team like?"
+     ],
+     [
+      "Learned",
+      "What did the team learn?"
+     ],
+     [
+      "Lacked",
+      "What did the team lack?"
+     ],
+     [
+      "Longed for",
+      "What did the team long for?"
+     ]
+    ]
+   },
+   {
+    "name": "Hits / Misses / Improvements / Ideas",
+    "page": 13,
+    "parts": [
+     [
+      "Hits",
+      ""
+     ],
+     [
+      "Misses",
+      ""
+     ],
+     [
+      "Improvements",
+      ""
+     ],
+     [
+      "Ideas",
+      ""
+     ]
+    ]
+   }
+  ],
+  "four_player": {
+   "page": 19,
+   "name": "Kantor's 4 Player Model",
+   "roles": [
+    "Mover",
+    "Opposer",
+    "Follower",
+    "Bystander"
+   ],
+   "note": "Collaborators Move through all 4 roles"
+  },
+  "wip": {
+   "page": 5,
+   "examples": [
+    "Research plan",
+    "Discussion guide",
+    "Research synthesis",
+    "Research report",
+    "Concept sketches",
+    "Storyboard",
+    "Wireframes",
+    "Visual design",
+    "Portfolio",
+    "Social media post",
+    "Frameworks",
+    "Client/Stakeholder presentation deck",
+    "Team initiative plan",
+    "Workshop plan",
+    "project/sprint plan",
+    "Conference talk proposal"
+   ],
+   "formats": [
+    "Physical Whiteboard",
+    "Digital workspace / Miro board",
+    "Document/Presentation",
+    "Confluence page",
+    "Paper sketch",
+    "Paper prototype",
+    "Low-fi digital wireframe",
+    "Hi-fi digital wireframe"
+   ]
+  },
+  "readiness": {
+   "page": 7,
+   "must": "When you can articulate your ideas visually and verbally.",
+   "nice": [
+    "When you have strong opinions, loosely held, about your work.",
+    "When you have some clarity and some questions about your work."
+   ]
+  }
+ },
+ "completed": {
+  "dimensions": [
+   {
+    "name": "Discoverability",
+    "definition": "Allow user to quickly understand what the product offers and how to navigate through it",
+    "questions": [
+     {
+      "n": 1,
+      "text": "Is your navigation clear and intuitive? Are you able to find the required entry points quickly? (Help, My claims, My Profile, etc.)",
+      "rating": 1.5
+     },
+     {
+      "n": 2,
+      "text": "Does it assist you in quickly and easily locate information that you require? (quick links, search, help, etc.)",
+      "rating": 3.0
+     },
+     {
+      "n": 3,
+      "text": "Is the layout clear and organized, making it easy for you to quickly understand and locate informatrion & features? (Information appearance, placement and order on landing page - Plan, benefits, vouchers, deals, and important quick entry points.",
+      "rating": 2.0
+     }
+    ],
+    "recorded": 2.1666666666666665,
+    "computed": 2.1667,
+    "matches": true
+   },
+   {
+    "name": "Learnability",
+    "definition": "Minimize the time and effort required for users to become proficient in using the product",
+    "questions": [
+     {
+      "n": 1,
+      "text": "Is the text easy to understand and convey just the right amount of information with no jargons? (Labels, headings, instructions, CTAs, etc.)",
+      "rating": 2.0
+     },
+     {
+      "n": 2,
+      "text": "Is there a consistent design scheme across the product, where all the components and patterns look same and behave similarly? (Shape, color, position, and states of components like button, icon, textbox, dropdown, including drawer, gestures, micro-interaction, feedabck, toast message, layout, and navigation)",
+      "rating": 3.0
+     },
+     {
+      "n": 3,
+      "text": "Does the visual design create a inviting impression to quickly understand the purpose of design elements and how to use the interface and navigate through its features. (Layout, buttons, icons, navigation, cards, input fields, links, gesture, that is widely recognized help users to interact effortlessly )",
+      "rating": 2.5
+     },
+     {
+      "n": 4,
+      "text": "Are the design components familiar with clear visual cues (affordance) for you to quickly understand the purpose and how to interact with for action? (Buttons, icons, navigation, cards, input fields, text links, gesture, navigation that is widely recognized help users to interact effortlessly)",
+      "rating": 3.0
+     }
+    ],
+    "recorded": 2.625,
+    "computed": 2.625,
+    "matches": true
+   },
+   {
+    "name": "Engagement",
+    "definition": "Captivate user attention and motivates them to explore and and assist in pursuing journey",
+    "questions": [
+     {
+      "n": 1,
+      "text": "Is the UI aesthetically pleasing, with attractive visuals and appealing colors that capture users' attention and communicate the product's value and benefits. (Page composition, use of colors & typography, use of components, imageries, and interactivities)",
+      "rating": 2.0
+     },
+     {
+      "n": 2,
+      "text": "Does it guide you through the journey with intuitive userflows and motivate you to complete tasks or reach your milestones? (Break jouneys into stages, Progressive disclosure, progress status, inline help to encourge , and feedback on the completion of tasks)",
+      "rating": 3.0
+     },
+     {
+      "n": 3,
+      "text": "Did you notice any small animated effects while interacting with design elements, indicating that your action was recognised? ( Micro-intercations / animation - hover, progress Bar, button pressed, sound, transition effects, etc.)",
+      "rating": 2.0
+     },
+     {
+      "n": 4,
+      "text": "Is the language familiar, easy, and persuasive enough to lessen cognitive load, establish an emotional connection, and inspire you to complete your tasks? (Labels, product info, headers, instructions, and messaging)",
+      "rating": 4.0
+     }
+    ],
+    "recorded": 2.75,
+    "computed": 2.75,
+    "matches": true
+   },
+   {
+    "name": "Efficiency",
+    "definition": "Allow users to accomplish tasks quickly and with minimal efforts",
+    "questions": [
+     {
+      "n": 1,
+      "text": "Do you see all the essential features or actions upfront, with prominent calls to action? And the remaining are called as on-demand basis. (Contextual navigation, view more, carousal, etc )",
+      "rating": 3.0
+     },
+     {
+      "n": 2,
+      "text": "Are you able to complete the tasks efficiently within a few clicks? In the case of complex or long tasks, do you perform them in manageable steps? (Progressive disclosure, save draft , inline contextual help)",
+      "rating": 4.0
+     },
+     {
+      "n": 3,
+      "text": "Do you get straightforward & simple instructions that guide you through tasks efficiently? (Instructions, inline help, textual clues, etc.",
+      "rating": 4.0
+     },
+     {
+      "n": 4,
+      "text": "Did you receive any auto-assistance support to help you complete a task in less time? ( Auto-populating fields, predictive search, templatization, etc..)",
+      "rating": 3.0
+     }
+    ],
+    "recorded": 3.5,
+    "computed": 3.5,
+    "matches": true
+   },
+   {
+    "name": "Error Handling & Guidance",
+    "definition": "Empower users and make them feel confident and capable while interacting with product",
+    "questions": [
+     {
+      "n": 1,
+      "text": "Are you able to locate any support feature when you are lost and don't know what to do? (Help module, customer support, digital assistant, FAQ, etc.)",
+      "rating": 2.0
+     },
+     {
+      "n": 2,
+      "text": "Are you guided through complex processes step by step to reduce the likelihood of getting lost and making mistakes? (Having relevent information and actions that facilites the jounery, provide inline contextual help, instant action validation, and show instructions to recover from error)",
+      "rating": 3.0
+     },
+     {
+      "n": 3,
+      "text": "Are you assisted as and when you encounter errors and unfamiliar terms or actions? (Contextual help, tooltips, action oriented feedback)",
+      "rating": 2.5
+     },
+     {
+      "n": 4,
+      "text": "Is the error message clear and descriptive to explain what went wrong and provide meaningful instructions on how to fix the issue? (Upload failed. Ensure the file is in PDF format that is under 5 MB, and try again.)",
+      "rating": 4.0
+     },
+     {
+      "n": 5,
+      "text": "Are the graphics used as visual cues to warn about mistakes or errors meaningful and easy to understand ? (Field highlighting, error Icons, error color)",
+      "rating": 3.0
+     }
+    ],
+    "recorded": 2.9,
+    "computed": 2.9,
+    "matches": true
+   }
+  ],
+  "report": [
+   {
+    "name": "Discoverability",
+    "score": 2.1666666666666665,
+    "out_of": 5.0,
+    "matches": true
+   },
+   {
+    "name": "Learnability",
+    "score": 2.625,
+    "out_of": 5.0,
+    "matches": true
+   },
+   {
+    "name": "Engagement",
+    "score": 2.75,
+    "out_of": 5.0,
+    "matches": true
+   },
+   {
+    "name": "Efficiency",
+    "score": 3.5,
+    "out_of": 5.0,
+    "matches": true
+   },
+   {
+    "name": "Error Handling & Guidance",
+    "score": 2.9,
+    "out_of": 5.0,
+    "matches": true
+   }
+  ],
+  "total": {
+   "score": 13.941666666666666,
+   "out_of": 25.0
+  },
+  "total_computed": 13.9417,
+  "total_matches": true,
+  "source": "Design_Evaluation_Template.xlsx / Evaluation Metrics + Report"
+ },
+ "scale": {
+  "label": "Rating scale, 1-5",
+  "source": "Design_Evaluation_Template.xlsx / Overview",
+  "dimensions": [
+   "Discoverability",
+   "Learnability",
+   "Engagement",
+   "Efficiency",
+   "Error Handling & Guidance"
+  ],
+  "levels": [
+   {
+    "level": 1,
+    "label": "Not at all",
+    "by_dimension": {
+     "Discoverability": "Complex navigation that users find confusing, leading to frustration and difficulty finding basic features.",
+     "Learnability": "Users struggle to understand the design and instructions, resulting in difficulty knowing the purpose",
+     "Engagement": "No interesting user flow (content & task) results in a lack of motivation to stay engaged.",
+     "Efficiency": "Users find the system difficult to use, confusing, and frustrating.",
+     "Error Handling & Guidance": "It's challenging for users to seek assistance when needed."
+    }
+   },
+   {
+    "level": 2,
+    "label": "Somewhat",
+    "by_dimension": {
+     "Discoverability": "Users can navigate through after some trial and error, but they encounter challenges in locating specific settings.",
+     "Learnability": "Users explore the interface before grasping how to complete tasks, leading to a moderate learning curve.",
+     "Engagement": "User expereince with interactivities and challenges, leads to moderate engagement.",
+     "Efficiency": "Users are able to complete tasks somehow; however, there were some difficulties or areas of confusion.",
+     "Error Handling & Guidance": "Highlights errors after submission, but lacks clear instructions on how to correct the errors."
+    }
+   },
+   {
+    "level": 3,
+    "label": "Moderately",
+    "by_dimension": {
+     "Discoverability": "Users can easily find and understand the features, but some users need to search for the main CTAs button.",
+     "Learnability": "Provides signifiers and instructions for various features, helping users understand the basics.",
+     "Engagement": "Offers some level of personalization, encourages users to explore further.",
+     "Efficiency": "Clearly stated instructions and layouts allow users to complete tasks without any major difficulties.",
+     "Error Handling & Guidance": "Provides moderately helpful instructions that explain the purpose of specific tasks but don't offer a broader context."
+    }
+   },
+   {
+    "level": 4,
+    "label": "Very Much",
+    "by_dimension": {
+     "Discoverability": "Clean and intuitive design that allows users to quickly locate and access various features and settings.",
+     "Learnability": "User-friendly interface, clearly labeled tools, and guided tutorials that make it easy for users to get started.",
+     "Engagement": "Personalization that keeps users engaged by offering relevant and enjoyable content.",
+     "Efficiency": "Intuitive navigation and streamlined tasks allow users to efficiently complete the tasks with minimal clicks and distractions.",
+     "Error Handling & Guidance": "Assists users through a step-by-step wizard in completing tasks, reducing the chances of errors."
+    }
+   },
+   {
+    "level": 5,
+    "label": "Completely",
+    "by_dimension": {
+     "Discoverability": "Prominently displays key functions, allowing users to work efficiently without confusion.",
+     "Learnability": "Offers a series of guided exercises during onboarding, helping users understand how to use the app effectively from the start.",
+     "Engagement": "Offers a blend of real-time updates, interactive features, and engaging content, keeping users actively involved.",
+     "Efficiency": "Smart processing features and digital assistance, allowing users to swiftly perform tasks efficiently, save both time and effort.",
+     "Error Handling & Guidance": "Comprehensive help center that includes articles, video tutorials, community forums, and direct support channels."
+    }
+   },
+   {
+    "level": 0,
+    "label": "Not applicable",
+    "by_dimension": {
+     "Discoverability": "",
+     "Learnability": "",
+     "Engagement": "",
+     "Efficiency": "",
+     "Error Handling & Guidance": ""
+    }
+   }
+  ]
+ },
+ "blank_questions": {
+  "label": "Question set, with parameters",
+  "source": "DesignEvaluationMetrics.xlsx / Design Evaluation",
+  "kind": "blank",
+  "factors": [
+   {
+    "name": "Discoverability",
+    "definition": "Allow user to quickly understand what the product offers and how to navigate through it",
+    "rows": [
+     {
+      "parameter": "Navigation",
+      "text": "Is your navigation clear and intuitive? Are you able to find the required entry points quickly? (Help, My claims, My Profile, etc.)"
+     },
+     {
+      "parameter": "Navigation",
+      "text": "Does it assist you in quickly and easily locate information that you require? (quick links, search, help, etc.)"
+     },
+     {
+      "parameter": "Design Composition",
+      "text": "Is the layout clear and organized, making it easy for you to quickly understand and locate informatrion & features? (Information appearance, placement and order on landing page - Plan, benefits, vouchers, deals, and important quick entry points."
+     }
+    ]
+   },
+   {
+    "name": "Learnability",
+    "definition": "Minimize the time and effort required for users to become proficient in using the product",
+    "rows": [
+     {
+      "parameter": "Language",
+      "text": "Is the text easy to understand and convey just the right amount of information with no jargons? (Labels, headings, instructions, CTAs, etc.)"
+     },
+     {
+      "parameter": "Consistency",
+      "text": "Is there a consistent design scheme across the product, where all the components and patterns look same and behave similarly? (Shape, color, position, and states of components like button, icon, textbox, dropdown, including drawer, gestures, micro-interaction, feedabck, toast message, layout, and navigation)"
+     },
+     {
+      "parameter": "Visual Communication",
+      "text": "Does the visual design create a inviting impression to quickly understand the purpose of design elements and how to use the interface and navigate through its features. (Layout, buttons, icons, navigation, cards, input fields, links, gesture, that is widely recognized help users to interact effortlessly )"
+     },
+     {
+      "parameter": "Intuitiveness",
+      "text": "Are the design components familiar with clear visual cues (affordance) for you to quickly understand the purpose and how to interact with for action? (Buttons, icons, navigation, cards, input fields, text links, gesture, navigation that is widely recognized help users to interact effortlessly)"
+     }
+    ]
+   },
+   {
+    "name": "Engagement",
+    "definition": "Captivate user attention and motivates them to explore and and assist in pursuing journey",
+    "rows": [
+     {
+      "parameter": "Visual Communication",
+      "text": "Is the UI aesthetically pleasing, with attractive visuals and appealing colors that capture users' attention and communicate the product's value and benefits. (Page composition, use of colors & typography, use of components, imageries, and interactivities)"
+     },
+     {
+      "parameter": "Userflow & Paths",
+      "text": "Does it guide you through the journey with intuitive userflows and motivate you to complete tasks or reach your milestones? (Break jouneys into stages, Progressive disclosure, progress status, inline help to encourge , and feedback on the completion of tasks)"
+     },
+     {
+      "parameter": "Interactivity",
+      "text": "Did you notice any small animated effects while interacting with design elements, indicating that your action was recognised? ( Micro-intercations / animation - hover, progress Bar, button pressed, sound, transition effects, etc.)"
+     },
+     {
+      "parameter": "Language",
+      "text": "Is the language familiar, easy, and persuasive enough to lessen cognitive load, establish an emotional connection, and inspire you to complete your tasks? (Labels, product info, headers, instructions, and messaging)"
+     }
+    ]
+   },
+   {
+    "name": "Efficiency",
+    "definition": "Allow users to accomplish tasks quickly and with minimal efforts",
+    "rows": [
+     {
+      "parameter": "Navigation",
+      "text": "Do you see all the essential features or actions upfront, with prominent calls to action? And the remaining are called as on-demand basis. (Contextual navigation, view more, carousal, etc )"
+     },
+     {
+      "parameter": "Userflow & Paths",
+      "text": "Are you able to complete the tasks efficiently within a few clicks? In the case of complex or long tasks, do you perform them in manageable steps? (Progressive disclosure, save draft , inline contextual help)"
+     },
+     {
+      "parameter": "Language",
+      "text": "Do you get straightforward & simple instructions that guide you through tasks efficiently? (Instructions, inline help, textual clues, etc."
+     },
+     {
+      "parameter": "Interactivity",
+      "text": "Did you receive any auto-assistance support to help you complete a task in less time? ( Auto-populating fields, predictive search, templatization, etc..)"
+     }
+    ]
+   },
+   {
+    "name": "Error Handling & Guidance",
+    "definition": "Empower users and make them feel confident and capable while interacting with product",
+    "rows": [
+     {
+      "parameter": "Navigation",
+      "text": "Are you able to locate any support feature when you are lost and don't know what to do? (Help module, customer support, digital assistant, FAQ, etc.)"
+     },
+     {
+      "parameter": "Error prevention",
+      "text": "Are you guided through complex processes step by step to reduce the likelihood of getting lost and making mistakes? (Having relevent information and actions that facilites the jounery, provide inline contextual help, instant action validation, and show instructions to recover from error)"
+     },
+     {
+      "parameter": "Error prevention",
+      "text": "Are you assisted as and when you encounter errors and unfamiliar terms or actions? (Contextual help, tooltips, action oriented feedback)"
+     },
+     {
+      "parameter": "Language",
+      "text": "Is the error message clear and descriptive to explain what went wrong and provide meaningful instructions on how to fix the issue? (Upload failed. Ensure the file is in PDF format that is under 5 MB, and try again.)"
+     },
+     {
+      "parameter": "Visual Communication",
+      "text": "Are the graphics used as visual cues to warn about mistakes or errors meaningful and easy to understand ? (Field highlighting, error Icons, error color)"
+     }
+    ]
+   }
+  ],
+  "count": 20
+ },
+ "definitions": {
+  "label": "The model, as definitions",
+  "source": "Framework.xlsx / Sheet1 (2)",
+  "kind": "definitions",
+  "factors": [
+   {
+    "name": "Discoverability",
+    "definition": "Allow user to quickly understand what the product offers and how to navigate through it",
+    "rows": [
+     {
+      "parameter": "Information Architecture",
+      "text": "Well-organized navigation menus help users locate different sections of the product easily"
+     },
+     {
+      "parameter": "Information Design",
+      "text": "Organize and present information effectively that help users understand the information and context easily."
+     },
+     {
+      "parameter": "Searchability",
+      "text": "Allow direct access to specific item / content help users find what they need quickly and easily"
+     }
+    ]
+   },
+   {
+    "name": "Learnability",
+    "definition": "Minimize the time and effort required for users to become proficient in using the product",
+    "rows": [
+     {
+      "parameter": "Content",
+      "text": "Simple text for labels, headings, CTAs make it easier for users to understand the context and instructions"
+     },
+     {
+      "parameter": "Consistency",
+      "text": "Consistent design elements and patterns throughout the product helps users learn quickly how it works."
+     },
+     {
+      "parameter": "Visual Design",
+      "text": "Aesthetically pleasing visuals with clear visual cues and affordances help user understand the information and actions."
+     },
+     {
+      "parameter": "Intuitiveness",
+      "text": "Familiar design elements (navigation, gestures, patterns, flow, etc. that is widely recognized help users to interact effortlessly"
+     },
+     {
+      "parameter": "Guidance",
+      "text": "Offers contextual help and tooltips that would guide users when they encounter errors and unfamiliar terms or actions."
+     }
+    ]
+   },
+   {
+    "name": "Engagement",
+    "definition": "Captivate user attention and motivates them to explore and and assist in pursuing journey",
+    "rows": [
+     {
+      "parameter": "Visual Design",
+      "text": "Attractive visuals and well-defined layout that captures users' attention and create a positive impression"
+     },
+     {
+      "parameter": "User Flows",
+      "text": "Guide users through the product with intuitive flow, allowing them to complete tasks efficiently"
+     },
+     {
+      "parameter": "Interaction",
+      "text": "Interactive media (mico-interacations, gestures, touch, hover, sound, and etc.) that provide feedback, delight users, and enhance the overall user experience."
+     },
+     {
+      "parameter": "Content",
+      "text": "Compelling content that keeps the users engaged and encourages them to explore further - Product info, progressive disclosure, personalization, suggestions & feedback messages to motivates the user to pursue journey"
+     }
+    ]
+   },
+   {
+    "name": "Efficiency",
+    "definition": "Allow users to accomplish tasks quickly and with minimal efforts",
+    "rows": [
+     {
+      "parameter": "Information Design",
+      "text": "Making essential features or actions easily accessible with prominent entry point & CTAs"
+     },
+     {
+      "parameter": "Content",
+      "text": "Provides straightforward and simple instructions that guide users through tasks efficiently."
+     },
+     {
+      "parameter": "Interaction",
+      "text": "Efficient input methods like auto-populating fields, predictive search, drag & drop, templatization, and etc. help save users time and effort"
+     },
+     {
+      "parameter": "User Flows",
+      "text": "User flows that align with users' mental models, minimizing the number of steps required to complete tasks to save on time."
+     }
+    ]
+   },
+   {
+    "name": "Error Prevention and Handling",
+    "definition": "Minimize errors occurrence and provide clear actionable error messages to resolve them",
+    "rows": [
+     {
+      "parameter": "User Flows",
+      "text": "Guided user flows that lead users through complex processes step by step, reducing the likelihood of mistakes"
+     },
+     {
+      "parameter": "Content",
+      "text": "Clear & simple messages when user make mistakes or encounter error, indicating the exact problem and provide guidance (inline help / help module) to recover from errors"
+     },
+     {
+      "parameter": "Guidance",
+      "text": "Providing context-sensitive help or prompts that assist users when they need it, without disrupting their workflow."
+     },
+     {
+      "parameter": "Visual",
+      "text": "Highlight elements with errors using visual cues - color, icon etc."
+     },
+     {
+      "parameter": "Interaction",
+      "text": "Microinteractions / animation for instant feeback, confirming that their actions are being processed"
+     }
+    ]
+   }
+  ],
+  "count": 21
+ },
+ "revised_questions": {
+  "label": "Question set, revised fifth factor",
+  "source": "Framework.xlsx / Sheet4",
+  "kind": "blank",
+  "factors": [
+   {
+    "name": "Discoverability",
+    "definition": "Allow user to quickly understand what the product offers and how to navigate through it",
+    "rows": [
+     {
+      "parameter": "Navigation",
+      "text": "Is your navigation clear and intuitive? Are you able to find the required entry points quickly? (Help, My claims, My Profile, etc.)"
+     },
+     {
+      "parameter": "Navigation",
+      "text": "Does it assist you in quickly and easily locate information that you require? (quick links, search, help, etc.)"
+     },
+     {
+      "parameter": "Design Composition",
+      "text": "Is the layout clear and organized, making it easy for you to quickly understand and locate informatrion & features? (Information appearance, placement and order on landing page - Plan, benefits, vouchers, deals, and important quick entry points."
+     }
+    ]
+   },
+   {
+    "name": "Learnability",
+    "definition": "Minimize the time and effort required for users to become proficient in using the product",
+    "rows": [
+     {
+      "parameter": "Language",
+      "text": "Is the text easy to understand and convey just the right amount of information with no jargons? (Labels, headings, instructions, CTAs, etc.)"
+     },
+     {
+      "parameter": "Consistency",
+      "text": "Is there a consistent design scheme across the product, where all the components and patterns look same and behave similarly? (Shape, color, position, and states of components like button, icon, textbox, dropdown, including drawer, gestures, micro-interaction, feedabck, toast message, layout, and navigation)"
+     },
+     {
+      "parameter": "Visual Communication",
+      "text": "Does the visual design create a inviting impression to quickly understand the purpose of design elements and how to use the interface and navigate through its features. (Layout, buttons, icons, navigation, cards, input fields, links, gesture, that is widely recognized help users to interact effortlessly )"
+     },
+     {
+      "parameter": "Intuitiveness",
+      "text": "Are the design components familiar with clear visual cues (affordance) for you to quickly understand the purpose and how to interact with for action? (Buttons, icons, navigation, cards, input fields, text links, gesture, navigation that is widely recognized help users to interact effortlessly)"
+     }
+    ]
+   },
+   {
+    "name": "Engagement",
+    "definition": "Captivate user attention and motivates them to explore and and assist in pursuing journey",
+    "rows": [
+     {
+      "parameter": "Visual Communication",
+      "text": "Is the UI aesthetically pleasing, with attractive visuals and appealing colors that capture users' attention and communicate the product's value and benefits. (Page composition, use of colors & typography, use of components, imageries, and interactivities)"
+     },
+     {
+      "parameter": "Userflow & Paths",
+      "text": "Does it guide you through the journey with intuitive userflows and motivate you to complete tasks or reach your milestones? (Break jouneys into stages, Progressive disclosure, progress status, inline help to encourge , and feedback on the completion of tasks)"
+     },
+     {
+      "parameter": "Interactivity",
+      "text": "Did you notice any small animated effects while interacting with design elements, indicating that your action was recognised? ( Micro-intercations / animation - hover, progress Bar, button pressed, sound, transition effects, etc.)"
+     },
+     {
+      "parameter": "Language",
+      "text": "Is the language familiar, easy, and persuasive enough to lessen cognitive load, establish an emotional connection, and inspire you to complete your tasks? (Labels, product info, headers, instructions, and messaging)"
+     }
+    ]
+   },
+   {
+    "name": "Efficiency",
+    "definition": "Allow users to accomplish tasks quickly and with minimal efforts",
+    "rows": [
+     {
+      "parameter": "Navigation",
+      "text": "Do you see all the essential features or actions upfront, with prominent calls to action? And the remaining are called as on-demand basis. (Contextual navigation, view more, carousal, etc )"
+     },
+     {
+      "parameter": "Userflow & Paths",
+      "text": "Are you able to complete the tasks efficiently within a few clicks? In the case of complex or long tasks, do you perform them in manageable steps? (Progressive disclosure, save draft , inline contextual help)"
+     },
+     {
+      "parameter": "Language",
+      "text": "Do you get straightforward & simple instructions that guide you through tasks efficiently? (Instructions, inline help, textual clues, etc."
+     },
+     {
+      "parameter": "Interactivity",
+      "text": "Did you receive any auto-assistance support to help you complete a task in less time? ( Auto-populating fields, predictive search, templatization, etc..)"
+     }
+    ]
+   },
+   {
+    "name": "Guidance & Handholding",
+    "definition": "Empower users and make them feel confident and capable while interacting with product",
+    "rows": [
+     {
+      "parameter": "Navigation",
+      "text": "Are you able to locate any support feature when you are lost and don't know what to do? (Help module, customer support, digital assistant, FAQ, etc.)"
+     },
+     {
+      "parameter": "Error prevention & Handling",
+      "text": "Is the onboarding userflow and information helpful in explaining how to use the product? (tooltips or hints, guided tour, onbaording process)"
+     },
+     {
+      "parameter": "Error prevention & Handling",
+      "text": "Are you guided through complex processes step by step to reduce the likelihood of getting lost and making mistakes? (Having relevent information and actions that facilites the jounery, provide inline contextual help, instant action validation, and show instructions to recover from error)"
+     },
+     {
+      "parameter": "Error prevention & Handling",
+      "text": "Are you assisted as and when you encounter errors and unfamiliar terms or actions? (Contextual help, tooltips, action oriented feedback)"
+     },
+     {
+      "parameter": "Language",
+      "text": "Is the error message clear and descriptive to explain what went wrong and provide meaningful instructions on how to fix the issue? (Upload failed. Ensure the file is in PDF format that is under 5 MB, and try again.)"
+     },
+     {
+      "parameter": "Visual Communication",
+      "text": "Are the graphics used as visual cues to warn about mistakes or errors meaningful and easy to understand ? (Field highlighting, error Icons, error color)"
+     }
+    ]
+   }
+  ],
+  "count": 21
+ },
+ "snapshot": {
+  "label": "A separate recorded snapshot",
+  "source": "Framework.xlsx / Sheet5",
+  "by_factor": [
+   {
+    "name": "Discoverability",
+    "score": 3.5
+   },
+   {
+    "name": "Learnability",
+    "score": 3.0
+   },
+   {
+    "name": "Engagement",
+    "score": 2.0
+   },
+   {
+    "name": "Efficiency",
+    "score": 2.0
+   },
+   {
+    "name": "Guidance & Handholding",
+    "score": 2.0
+   }
+  ],
+  "by_parameter": [
+   {
+    "name": "Navigation",
+    "score": 3.0
+   },
+   {
+    "name": "Design Composition",
+    "score": 3.5
+   },
+   {
+    "name": "Language",
+    "score": 2.5
+   },
+   {
+    "name": "Consistency",
+    "score": 3.0
+   },
+   {
+    "name": "Visual Communication",
+    "score": 4.0
+   },
+   {
+    "name": "Intuitiveness",
+    "score": 3.0
+   },
+   {
+    "name": "Userflow & Paths",
+    "score": 3.0
+   },
+   {
+    "name": "Interactivity",
+    "score": 2.0
+   },
+   {
+    "name": "Error prevention & Handling",
+    "score": 2.0
+   }
+  ]
+ },
+ "review_layers": {
+  "cells": [
+   "Design Team Review",
+   "Squad Review",
+   "Service",
+   "Peer review"
+  ],
+  "source": "Framework.xlsx / Sheet6",
+  "note": "Four cells only. The sheet names review layers but records no criteria, cadence or results against them."
+ }
+}

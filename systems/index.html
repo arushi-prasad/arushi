@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="mono" data-type="editorial" data-density="comfortable" data-radius="subtle" data-dense="yes">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capsule — the design system — Arushi Prasad</title>
+  <meta name="description" content="Capsule, the organisation's first design system — principles, tokens, 25 components and four platforms, shown at their documented values.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preload" href="../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=f874ed78">
+  <link rel="stylesheet" href="../assets/css/base.css?v=c3f7efb8">
+  <link rel="stylesheet" href="../assets/css/components.css?v=be3cf32e">
+  <link rel="stylesheet" href="../assets/css/capsule.css?v=54c86a23">
+  <!-- Loaded before paint so a saved token preference is applied to <html>
+       without a flash of the defaults. -->
+  <script src="../assets/js/tokens.js?v=a7c3e9c1"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+<defs>
+<symbol id="i-colour" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M8 2.2a5.8 5.8 0 0 1 0 11.6z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-type" viewBox="0 0 16 16"><path d="M3.2 13.6 8 2.6l4.8 11"/><path d="M5.3 9.4h5.4"/></symbol>
+<symbol id="i-spacing" viewBox="0 0 16 16"><path d="M2.2 3.6v8.8M13.8 3.6v8.8"/><path d="M5 8h6"/><path d="m6.6 6.4-1.7 1.6 1.7 1.6M9.4 6.4 11.1 8 9.4 9.6"/></symbol>
+<symbol id="i-radius" viewBox="0 0 16 16"><path d="M2.4 13.6V7.2a4.8 4.8 0 0 1 4.8-4.8h6.4"/><path d="M2.4 2.4h.01M13.6 13.6h.01"/></symbol>
+<symbol id="i-opacity" viewBox="0 0 16 16"><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2a4.6 4.6 0 1 1-9.2 0C3.4 6.8 8 2.2 8 2.2Z"/><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2A4.6 4.6 0 0 1 8 14z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-grid" viewBox="0 0 16 16"><rect x="2.4" y="2.4" width="11.2" height="11.2" rx="1.4"/><path d="M6.13 2.4v11.2M9.87 2.4v11.2M2.4 6.13h11.2M2.4 9.87h11.2"/></symbol>
+  <symbol id="i-surprise" viewBox="0 0 16 16"><path d="M7.1 2.6 8.35 6.05 11.8 7.3 8.35 8.55 7.1 12 5.85 8.55 2.4 7.3 5.85 6.05Z"/><path d="M12.3 10.1v2.9M10.85 11.55h2.9"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 16 16"><path d="M13.4 8a5.4 5.4 0 1 1-1.8-4"/><path d="M13.6 2.6v3.6H10"/></symbol>
+<symbol id="i-bars" viewBox="0 0 16 16"><path d="M2.4 4.6h11.2M2.4 8h11.2M2.4 11.4h11.2"/></symbol>
+<symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
+<symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
+<symbol id="i-tick" viewBox="0 0 16 16"><path d="m3.4 8.4 3 3 6.2-7"/></symbol>
+<!-- Recognition. Stroke-drawn on the same 16-unit grid and at the same
+     weight as the rest, so they sit in a line of text without shouting. -->
+<symbol id="i-trophy" viewBox="0 0 16 16"><path d="M4.9 2.7h6.2v3.5a3.1 3.1 0 0 1-6.2 0Z"/><path d="M4.9 3.7H3.3v.9a2 2 0 0 0 1.6 1.9M11.1 3.7h1.6v.9a2 2 0 0 1-1.6 1.9"/><path d="M8 9.3v2.1"/><path d="M6.5 11.4h3v1.9h-3Z"/></symbol>
+<symbol id="i-star" viewBox="0 0 16 16"><path d="m8 2.5 1.7 3.45 3.8.55-2.75 2.68.65 3.79L8 11.18l-3.4 1.79.65-3.79L2.5 6.5l3.8-.55Z"/></symbol>
+<symbol id="i-medal" viewBox="0 0 16 16"><circle cx="8" cy="10.1" r="3.5"/><path d="M6.1 7.1 4.3 2.6M9.9 7.1l1.8-4.5"/></symbol>
+<!-- Document types. A page outline each, told apart by what is on it: ruled
+     cells for a workbook, a folded corner for a PDF, one wide band for a
+     deck. Same 16-unit grid and weight as everything else. -->
+<symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
+<symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
+<symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
+</defs>
+</svg>
+<header class="nav-wrap">
+  <nav class="nav shell" aria-label="Primary">
+    <a class="nav__logo" href="../" aria-label="Arushi Prasad, home">
+      <img class="nav__avatar" src="../assets/img/avatar.png" alt="" width="58" height="58" decoding="async">
+    </a>
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a class="nav__link" href="../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../designops/" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../leadership/" aria-label="Leadership">leadership</a></li>
+      </ul>
+
+      <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
+    </div>
+  </nav>
+</header>
+<div class="nav-sheet" id="nav-sheet" data-open="false">
+  <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../designops/">Strategy<span>8</span></a></li><li><a class="nav-sheet__link" href="../leadership/">Leadership<span>—</span></a></li><li><a class="nav-sheet__link" href="../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../about/">About<span>—</span></a></li><li><a class="nav-sheet__link" href="../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../snippets/">Snippets<span>5</span></a></li></ul>
+  <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
+</div>
+<main id="main" tabindex="-1">
+<div class="page ">
+<header class="page-hero shell">
+  <h1 class="page-hero__title" data-reveal>
+    <span class="page-hero__word page-hero__word-a">capsule</span>
+    <span class="page-hero__word page-hero__word-b">design system</span>
+  </h1>
+  <p class="page-hero__tagline" data-reveal>Three products, one language. Every value on this page is the documented one — transcribed from the blueprint and checked against the Figma file it came from.</p>
+  
+</header>
+<section class="section shell cap-chapter" id="c-what">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 01 &mdash; What it is</p>
+    <h2 class="t-h2">A system is only infrastructure once other people can build on it without asking you first.</h2>
+    <p class="prose">Capsule is the organisation&rsquo;s first design system: five written principles, six
+    foundation areas, a token layer, twenty-five specified components and four platforms. It is
+    documented twice over &mdash; as a Figma file engineers read, and as a written construction
+    blueprint that states every value as a number.</p>
+  </div>
+
+  <ul class="cap-counts"><li class="cap-count" data-reveal style="--i:0">
+  <p class="cap-count__v" data-count-text="79">79</p>
+  <p class="cap-count__l">documented component frames</p>
+  <p class="cap-count__q">Top-level frames on the Storybook page of the Figma Documentation file, counted on 20 October 2026.</p>
+  <p class="cap-count__s"><span class="cap-tag cap-tag--verified">verified</span><span>Figma · Documentation file qNHzFFW0IuAhgC2ZloLK4b, page 'Storybook' (node 0:1). Read live on 2026-10-20 through the Figma MCP connector.</span></p>
+</li><li class="cap-count" data-reveal style="--i:1">
+  <p class="cap-count__v" data-count-text="25">25</p>
+  <p class="cap-count__l">components specified</p>
+  <p class="cap-count__q">Sections 9.1 to 9.25 of the blueprint, each with anatomy, variants and rules.</p>
+  <p class="cap-count__s"><span class="cap-tag cap-tag--verified">verified</span><span>Bajaj-Design-System-Blueprint 2 1.md</span></p>
+</li><li class="cap-count" data-reveal style="--i:2">
+  <p class="cap-count__v" data-count-text="5">5</p>
+  <p class="cap-count__l">atoms</p>
+  <p class="cap-count__q">Dividers, avatar, badge, star rating, status dot — the pieces that cannot be broken down further.</p>
+  <p class="cap-count__s"><span class="cap-tag cap-tag--verified">verified</span><span>Bajaj-Design-System-Blueprint 2 1.md</span></p>
+</li><li class="cap-count" data-reveal style="--i:3">
+  <p class="cap-count__v" data-count-text="4">4</p>
+  <p class="cap-count__l">patterns</p>
+  <p class="cap-count__q">List item, form section, screen layout, sticky bottom CTA.</p>
+  <p class="cap-count__s"><span class="cap-tag cap-tag--verified">verified</span><span>Bajaj-Design-System-Blueprint 2 1.md</span></p>
+</li><li class="cap-count" data-reveal style="--i:4">
+  <p class="cap-count__v" data-count-text="4">4</p>
+  <p class="cap-count__l">platforms documented</p>
+  <p class="cap-count__q">App, MWeb, DWeb and PWA each have their own header and sizing defaults.</p>
+  <p class="cap-count__s"><span class="cap-tag cap-tag--verified">verified</span><span>Figma · Documentation file qNHzFFW0IuAhgC2ZloLK4b, page 'Storybook' (node 0:1). Read live on 2026-10-20 through the Figma MCP connector.</span></p>
+</li><li class="cap-count" data-reveal style="--i:5">
+  <p class="cap-count__v" data-count-text="3">3</p>
+  <p class="cap-count__l">products, one language</p>
+  <p class="cap-count__q">Consistent across the resume and the existing portfolio page.</p>
+  <p class="cap-count__s"><span class="cap-tag cap-tag--verified">verified</span><span>Resume/Arushi-Prasad-Resume.md</span></p>
+</li></ul>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-challenge">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 02 &mdash; The challenge</p>
+    <h2 class="t-h2">One product ecosystem. No shared language.</h2>
+  </div>
+
+  <p class="cap-lede" data-reveal>Three products, built by different teams at different times, each with its own idea of what a button was.</p>
+<ul class="cap-befores"><li class="cap-before" data-reveal style="--i:0">
+  <span class="cap-before__n">01</span>
+  <div><h4>Every screen re-decided the basics</h4><p>Colour, spacing and type were settled per screen rather than once, so the same control looked different in two places.</p></div>
+</li><li class="cap-before" data-reveal style="--i:1">
+  <span class="cap-before__n">02</span>
+  <div><h4>Design and engineering guessed at each other</h4><p>Without named values, a handoff was a screenshot and a conversation. The same component got rebuilt per platform.</p></div>
+</li><li class="cap-before" data-reveal style="--i:2">
+  <span class="cap-before__n">03</span>
+  <div><h4>Four platforms, four answers</h4><p>App, MWeb, DWeb and PWA each needed their own sizing — but nothing recorded what was deliberately different and what had simply drifted.</p></div>
+</li><li class="cap-before" data-reveal style="--i:3">
+  <span class="cap-before__n">04</span>
+  <div><h4>Nothing could be changed centrally</h4><p>A brand decision meant finding every instance by hand.</p></div>
+</li></ul>
+<p class="cap-note" data-reveal><span class="cap-tag cap-tag--confirm">needs your confirmation</span>This is the problem the system was built to answer, described from the specification it produced. Historical before-and-after screenshots are not in my files, so there is no fabricated 'before' UI on this page.</p>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-decision">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 03 &mdash; The decision</p>
+    <h2 class="t-h2">Not another UI kit. A foundation for how we build.</h2>
+    <p class="prose">A kit is a folder of components someone has to remember to open. A system is a
+    chain of decisions where each layer only depends on the one above it &mdash; so a change enters
+    once and arrives everywhere.</p>
+  </div>
+
+  <h3 class="cap-sub" data-reveal>Five principles, written down</h3>
+  <p class="prose" data-reveal>These settle arguments. They are quotable by someone who is not me,
+  which is the only test that matters.</p>
+
+  <ul class="cap-principles"><li class="cap-principle" data-reveal style="--i:0;--pc:#005DAC">
+  <span class="cap-principle__swatch" aria-hidden="true"></span>
+  <h4 class="cap-principle__name">Trust &amp; clarity</h4>
+  <p class="cap-principle__body">Blue-dominant palette conveys reliability. Clean layouts with ample whitespace.</p>
+</li><li class="cap-principle" data-reveal style="--i:1;--pc:#FF5500">
+  <span class="cap-principle__swatch" aria-hidden="true"></span>
+  <h4 class="cap-principle__name">Hierarchy</h4>
+  <p class="cap-principle__body">Orange and yellowish-orange accents draw attention to key actions and alerts.</p>
+</li><li class="cap-principle" data-reveal style="--i:2;--pc:#64A70B">
+  <span class="cap-principle__swatch" aria-hidden="true"></span>
+  <h4 class="cap-principle__name">Consistency</h4>
+  <p class="cap-principle__body">Every component shares the same radius scale, spacing grid and colour tokens.</p>
+</li><li class="cap-principle" data-reveal style="--i:3;--pc:#FDA416">
+  <span class="cap-principle__swatch" aria-hidden="true"></span>
+  <h4 class="cap-principle__name">Accessibility</h4>
+  <p class="cap-principle__body">Primary blue on white exceeds WCAG AA (4.65:1). Interactive targets are minimum 44px.</p>
+</li><li class="cap-principle" data-reveal style="--i:4;--pc:#575756">
+  <span class="cap-principle__swatch" aria-hidden="true"></span>
+  <h4 class="cap-principle__name">Light-first</h4>
+  <p class="cap-principle__body">Design primarily for light mode — white surfaces, subtle grey borders, minimal shadows.</p>
+</li></ul>
+
+  <h3 class="cap-sub" data-reveal>The chain</h3>
+
+  <ol class="cap-layers"><li class="cap-layer" data-reveal style="--i:0">
+  <span class="cap-layer__i">1</span>
+  <span class="cap-layer__n">Principles</span>
+  <span class="cap-layer__d">Five written rules that decide arguments before they start.</span>
+  <span class="cap-layer__c">5 principles</span>
+</li><li class="cap-layer" data-reveal style="--i:1">
+  <span class="cap-layer__i">2</span>
+  <span class="cap-layer__n">Foundations</span>
+  <span class="cap-layer__d">Colour, type, space, elevation, radius, icons.</span>
+  <span class="cap-layer__c">6 areas</span>
+</li><li class="cap-layer" data-reveal style="--i:2">
+  <span class="cap-layer__i">3</span>
+  <span class="cap-layer__n">Tokens</span>
+  <span class="cap-layer__d">The named values the foundations resolve to.</span>
+  <span class="cap-layer__c">primitive + semantic</span>
+</li><li class="cap-layer" data-reveal style="--i:3">
+  <span class="cap-layer__i">4</span>
+  <span class="cap-layer__n">Atoms</span>
+  <span class="cap-layer__d">The pieces that cannot be broken down further.</span>
+  <span class="cap-layer__c">5</span>
+</li><li class="cap-layer" data-reveal style="--i:4">
+  <span class="cap-layer__i">5</span>
+  <span class="cap-layer__n">Components</span>
+  <span class="cap-layer__d">The library, with states and behaviour specified.</span>
+  <span class="cap-layer__c">25</span>
+</li><li class="cap-layer" data-reveal style="--i:5">
+  <span class="cap-layer__i">6</span>
+  <span class="cap-layer__n">Patterns</span>
+  <span class="cap-layer__d">The recurring compositions above component level.</span>
+  <span class="cap-layer__c">4</span>
+</li><li class="cap-layer" data-reveal style="--i:6">
+  <span class="cap-layer__i">7</span>
+  <span class="cap-layer__n">Products</span>
+  <span class="cap-layer__d">App, MWeb, DWeb, PWA.</span>
+  <span class="cap-layer__c">4 platforms</span>
+</li></ol>
+<p class="cap-note" data-reveal>Each layer only depends on the one above it. That is the whole
+reason a brand decision can be made once: it enters at the token layer and arrives everywhere below.</p>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-foundations">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 04 &mdash; Foundations</p>
+    <h2 class="t-h2">Consistency starts with the smallest decisions.</h2>
+    <p class="prose">Everything below is the real system at its real values, rendered live rather
+    than screenshotted. Capsule is light-first, so each exhibit is a light stage inside this dark
+    page &mdash; the page frames the system, it doesn&rsquo;t recolour it.</p>
+  </div>
+
+  <h3 class="cap-sub" data-reveal>Colour</h3>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Brand colours</p><ul class="cap-brands"><li class="cap-brand" style="--c:#005DAC">
+  <span class="cap-brand__chip"></span>
+  <span class="cap-brand__role">Primary</span>
+  <span class="cap-brand__name">Blue-400</span>
+  <code class="cap-brand__hex">#005DAC</code>
+  <span class="cap-brand__use">CTAs, active states, links, primary actions</span>
+</li><li class="cap-brand" style="--c:#FF5500">
+  <span class="cap-brand__chip"></span>
+  <span class="cap-brand__role">Secondary</span>
+  <span class="cap-brand__name">Orange-400</span>
+  <code class="cap-brand__hex">#FF5500</code>
+  <span class="cap-brand__use">Secondary accents, highlights, promotional badges</span>
+</li><li class="cap-brand" style="--c:#FDA416">
+  <span class="cap-brand__chip"></span>
+  <span class="cap-brand__role">Tertiary</span>
+  <span class="cap-brand__name">YellowOrange-400</span>
+  <code class="cap-brand__hex">#FDA416</code>
+  <span class="cap-brand__use">Warnings, caution states, star ratings</span>
+</li></ul></div><div class="cap-stage " data-reveal><p class="cap-stage__label">Full scales</p><div class="cap-scale">
+  <p class="cap-scale__head"><b>Blue</b><span>Primary</span></p>
+  <div class="cap-scale__row"><button class="cap-swatch" type="button" style="--c:#F0F9FF"
+     data-copy="#F0F9FF" aria-label="Blue-100, #F0F9FF. ExtraLight primary bg, info tag bg">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Blue-100</span>
+  <code class="cap-swatch__hex">#F0F9FF</code>
+  <span class="cap-swatch__use">ExtraLight primary bg, info tag bg</span>
+</button><button class="cap-swatch" type="button" style="--c:#C9E2F8"
+     data-copy="#C9E2F8" aria-label="Blue-200, #C9E2F8. Light blue tint, hover state bg, icon tint">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Blue-200</span>
+  <code class="cap-swatch__hex">#C9E2F8</code>
+  <span class="cap-swatch__use">Light blue tint, hover state bg, icon tint</span>
+</button><button class="cap-swatch" type="button" style="--c:#9AC2E4"
+     data-copy="#9AC2E4" aria-label="Blue-300, #9AC2E4. Secondary blue icon colour">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Blue-300</span>
+  <code class="cap-swatch__hex">#9AC2E4</code>
+  <span class="cap-swatch__use">Secondary blue icon colour</span>
+</button><button class="cap-swatch" type="button" style="--c:#005DAC"
+     data-copy="#005DAC" aria-label="Blue-400, #005DAC. Primary brand — buttons, links, active states">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Blue-400</span>
+  <code class="cap-swatch__hex">#005DAC</code>
+  <span class="cap-swatch__use">Primary brand — buttons, links, active states</span>
+</button><button class="cap-swatch" type="button" style="--c:#00437A"
+     data-copy="#00437A" aria-label="Blue-500, #00437A. Hover state for primary buttons, dark blue text">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Blue-500</span>
+  <code class="cap-swatch__hex">#00437A</code>
+  <span class="cap-swatch__use">Hover state for primary buttons, dark blue text</span>
+</button><button class="cap-swatch" type="button" style="--c:#002747"
+     data-copy="#002747" aria-label="Blue-600, #002747. Pressed state, deep blue backgrounds">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Blue-600</span>
+  <code class="cap-swatch__hex">#002747</code>
+  <span class="cap-swatch__use">Pressed state, deep blue backgrounds</span>
+</button></div>
+</div><div class="cap-scale">
+  <p class="cap-scale__head"><b>Orange</b><span>Secondary</span></p>
+  <div class="cap-scale__row"><button class="cap-swatch" type="button" style="--c:#FFEEE5"
+     data-copy="#FFEEE5" aria-label="Orange-100, #FFEEE5. ExtraLight orange bg, orange tag bg">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Orange-100</span>
+  <code class="cap-swatch__hex">#FFEEE5</code>
+  <span class="cap-swatch__use">ExtraLight orange bg, orange tag bg</span>
+</button><button class="cap-swatch" type="button" style="--c:#FFB899"
+     data-copy="#FFB899" aria-label="Orange-200, #FFB899. Light orange tint">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Orange-200</span>
+  <code class="cap-swatch__hex">#FFB899</code>
+  <span class="cap-swatch__use">Light orange tint</span>
+</button><button class="cap-swatch" type="button" style="--c:#FF7733"
+     data-copy="#FF7733" aria-label="Orange-300, #FF7733. Medium orange accent">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Orange-300</span>
+  <code class="cap-swatch__hex">#FF7733</code>
+  <span class="cap-swatch__use">Medium orange accent</span>
+</button><button class="cap-swatch" type="button" style="--c:#FF5500"
+     data-copy="#FF5500" aria-label="Orange-400, #FF5500. Secondary brand — secondary CTAs, highlights">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Orange-400</span>
+  <code class="cap-swatch__hex">#FF5500</code>
+  <span class="cap-swatch__use">Secondary brand — secondary CTAs, highlights</span>
+</button><button class="cap-swatch" type="button" style="--c:#CC4400"
+     data-copy="#CC4400" aria-label="Orange-500, #CC4400. Dark orange for hover/pressed">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Orange-500</span>
+  <code class="cap-swatch__hex">#CC4400</code>
+  <span class="cap-swatch__use">Dark orange for hover/pressed</span>
+</button><button class="cap-swatch" type="button" style="--c:#993300"
+     data-copy="#993300" aria-label="Orange-600, #993300. Deepest orange">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Orange-600</span>
+  <code class="cap-swatch__hex">#993300</code>
+  <span class="cap-swatch__use">Deepest orange</span>
+</button></div>
+</div><div class="cap-scale">
+  <p class="cap-scale__head"><b>YellowOrange</b><span>Tertiary / caution</span></p>
+  <div class="cap-scale__row"><button class="cap-swatch" type="button" style="--c:#FFF3E0"
+     data-copy="#FFF3E0" aria-label="YellowOrange-100, #FFF3E0. ExtraLight tertiary bg, caution tag bg">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">YellowOrange-100</span>
+  <code class="cap-swatch__hex">#FFF3E0</code>
+  <span class="cap-swatch__use">ExtraLight tertiary bg, caution tag bg</span>
+</button><button class="cap-swatch" type="button" style="--c:#FEEDAE"
+     data-copy="#FEEDAE" aria-label="YellowOrange-200, #FEEDAE. Warm accent tint">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">YellowOrange-200</span>
+  <code class="cap-swatch__hex">#FEEDAE</code>
+  <span class="cap-swatch__use">Warm accent tint</span>
+</button><button class="cap-swatch" type="button" style="--c:#FDB848"
+     data-copy="#FDB848" aria-label="YellowOrange-300, #FDB848. Medium warm accent">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">YellowOrange-300</span>
+  <code class="cap-swatch__hex">#FDB848</code>
+  <span class="cap-swatch__use">Medium warm accent</span>
+</button><button class="cap-swatch" type="button" style="--c:#FDA416"
+     data-copy="#FDA416" aria-label="YellowOrange-400, #FDA416. Tertiary — star ratings, warning icons">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">YellowOrange-400</span>
+  <code class="cap-swatch__hex">#FDA416</code>
+  <span class="cap-swatch__use">Tertiary — star ratings, warning icons</span>
+</button><button class="cap-swatch" type="button" style="--c:#CF8612"
+     data-copy="#CF8612" aria-label="YellowOrange-500, #CF8612. ExtraDark yellowish text">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">YellowOrange-500</span>
+  <code class="cap-swatch__hex">#CF8612</code>
+  <span class="cap-swatch__use">ExtraDark yellowish text</span>
+</button><button class="cap-swatch" type="button" style="--c:#9F680E"
+     data-copy="#9F680E" aria-label="YellowOrange-600, #9F680E. Deepest warm accent">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">YellowOrange-600</span>
+  <code class="cap-swatch__hex">#9F680E</code>
+  <span class="cap-swatch__use">Deepest warm accent</span>
+</button></div>
+</div><div class="cap-scale">
+  <p class="cap-scale__head"><b>Green</b><span>Success</span></p>
+  <div class="cap-scale__row"><button class="cap-swatch" type="button" style="--c:#E8FCCF"
+     data-copy="#E8FCCF" aria-label="Green-100, #E8FCCF. ExtraLight success bg, success tag bg">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Green-100</span>
+  <code class="cap-swatch__hex">#E8FCCF</code>
+  <span class="cap-swatch__use">ExtraLight success bg, success tag bg</span>
+</button><button class="cap-swatch" type="button" style="--c:#87B069"
+     data-copy="#87B069" aria-label="Green-200, #87B069. Medium green tint">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Green-200</span>
+  <code class="cap-swatch__hex">#87B069</code>
+  <span class="cap-swatch__use">Medium green tint</span>
+</button><button class="cap-swatch" type="button" style="--c:#95C950"
+     data-copy="#95C950" aria-label="Green-300, #95C950. Light success accent">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Green-300</span>
+  <code class="cap-swatch__hex">#95C950</code>
+  <span class="cap-swatch__use">Light success accent</span>
+</button><button class="cap-swatch" type="button" style="--c:#64A70B"
+     data-copy="#64A70B" aria-label="Green-400, #64A70B. Success icon, success badge text">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Green-400</span>
+  <code class="cap-swatch__hex">#64A70B</code>
+  <span class="cap-swatch__use">Success icon, success badge text</span>
+</button><button class="cap-swatch" type="button" style="--c:#568F0A"
+     data-copy="#568F0A" aria-label="Green-500, #568F0A. Success icon, dark variant">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Green-500</span>
+  <code class="cap-swatch__hex">#568F0A</code>
+  <span class="cap-swatch__use">Success icon, dark variant</span>
+</button><button class="cap-swatch" type="button" style="--c:#3C6407"
+     data-copy="#3C6407" aria-label="Green-600, #3C6407. ExtraDark green text">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Green-600</span>
+  <code class="cap-swatch__hex">#3C6407</code>
+  <span class="cap-swatch__use">ExtraDark green text</span>
+</button></div>
+</div><div class="cap-scale">
+  <p class="cap-scale__head"><b>Red</b><span>Error / destructive</span></p>
+  <div class="cap-scale__row"><button class="cap-swatch" type="button" style="--c:#FCEDEE"
+     data-copy="#FCEDEE" aria-label="Red-100, #FCEDEE. ExtraLight error bg, error tag bg">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Red-100</span>
+  <code class="cap-swatch__hex">#FCEDEE</code>
+  <span class="cap-swatch__use">ExtraLight error bg, error tag bg</span>
+</button><button class="cap-swatch" type="button" style="--c:#F08F94"
+     data-copy="#F08F94" aria-label="Red-200, #F08F94. Light red tint">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Red-200</span>
+  <code class="cap-swatch__hex">#F08F94</code>
+  <span class="cap-swatch__use">Light red tint</span>
+</button><button class="cap-swatch" type="button" style="--c:#E96269"
+     data-copy="#E96269" aria-label="Red-300, #E96269. Medium error accent">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Red-300</span>
+  <code class="cap-swatch__hex">#E96269</code>
+  <span class="cap-swatch__use">Medium error accent</span>
+</button><button class="cap-swatch" type="button" style="--c:#DA1E28"
+     data-copy="#DA1E28" aria-label="Red-400, #DA1E28. Error icons, error borders, destructive actions">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Red-400</span>
+  <code class="cap-swatch__hex">#DA1E28</code>
+  <span class="cap-swatch__use">Error icons, error borders, destructive actions</span>
+</button><button class="cap-swatch" type="button" style="--c:#B31921"
+     data-copy="#B31921" aria-label="Red-500, #B31921. Error text, notification badge bg">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Red-500</span>
+  <code class="cap-swatch__hex">#B31921</code>
+  <span class="cap-swatch__use">Error text, notification badge bg</span>
+</button><button class="cap-swatch" type="button" style="--c:#861319"
+     data-copy="#861319" aria-label="Red-600, #861319. Deepest error">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Red-600</span>
+  <code class="cap-swatch__hex">#861319</code>
+  <span class="cap-swatch__use">Deepest error</span>
+</button></div>
+</div><div class="cap-scale">
+  <p class="cap-scale__head"><b>Gray</b><span>Neutral</span></p>
+  <div class="cap-scale__row"><button class="cap-swatch" type="button" style="--c:#F2F2F2"
+     data-copy="#F2F2F2" aria-label="Gray-100, #F2F2F2. ExtraLight bg, dividers, progress track">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Gray-100</span>
+  <code class="cap-swatch__hex">#F2F2F2</code>
+  <span class="cap-swatch__use">ExtraLight bg, dividers, progress track</span>
+</button><button class="cap-swatch" type="button" style="--c:#DADADA"
+     data-copy="#DADADA" aria-label="Gray-200, #DADADA. Light gray bg, empty star, disabled border">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Gray-200</span>
+  <code class="cap-swatch__hex">#DADADA</code>
+  <span class="cap-swatch__use">Light gray bg, empty star, disabled border</span>
+</button><button class="cap-swatch" type="button" style="--c:#B3B3B3"
+     data-copy="#B3B3B3" aria-label="Gray-300, #B3B3B3. Muted text, placeholder, disabled text">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Gray-300</span>
+  <code class="cap-swatch__hex">#B3B3B3</code>
+  <span class="cap-swatch__use">Muted text, placeholder, disabled text</span>
+</button><button class="cap-swatch" type="button" style="--c:#575756"
+     data-copy="#575756" aria-label="Gray-400, #575756. Default text, secondary text, default icons">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Gray-400</span>
+  <code class="cap-swatch__hex">#575756</code>
+  <span class="cap-swatch__use">Default text, secondary text, default icons</span>
+</button><button class="cap-swatch" type="button" style="--c:#2B2B2B"
+     data-copy="#2B2B2B" aria-label="Gray-500, #2B2B2B. Primary text, headings, high-contrast body">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Gray-500</span>
+  <code class="cap-swatch__hex">#2B2B2B</code>
+  <span class="cap-swatch__use">Primary text, headings, high-contrast body</span>
+</button><button class="cap-swatch" type="button" style="--c:#1A1A1A"
+     data-copy="#1A1A1A" aria-label="Gray-600, #1A1A1A. Tooltip and snackbar bg, near-black">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">Gray-600</span>
+  <code class="cap-swatch__hex">#1A1A1A</code>
+  <span class="cap-swatch__use">Tooltip and snackbar bg, near-black</span>
+</button></div>
+</div><div class="cap-scale">
+  <p class="cap-scale__head"><b>BlushGray</b><span>Surfaces &amp; borders</span></p>
+  <div class="cap-scale__row"><button class="cap-swatch" type="button" style="--c:#EFF2F4"
+     data-copy="#EFF2F4" aria-label="BlushGray-100, #EFF2F4. Card borders, surface bg, chip unselected bg">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">BlushGray-100</span>
+  <code class="cap-swatch__hex">#EFF2F4</code>
+  <span class="cap-swatch__use">Card borders, surface bg, chip unselected bg</span>
+</button><button class="cap-swatch" type="button" style="--c:#D2DAE0"
+     data-copy="#D2DAE0" aria-label="BlushGray-200, #D2DAE0. Input borders, search bar border">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">BlushGray-200</span>
+  <code class="cap-swatch__hex">#D2DAE0</code>
+  <span class="cap-swatch__use">Input borders, search bar border</span>
+</button><button class="cap-swatch" type="button" style="--c:#B3C2CB"
+     data-copy="#B3C2CB" aria-label="BlushGray-300, #B3C2CB. Stronger border variant">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">BlushGray-300</span>
+  <code class="cap-swatch__hex">#B3C2CB</code>
+  <span class="cap-swatch__use">Stronger border variant</span>
+</button><button class="cap-swatch" type="button" style="--c:#9AA8B6"
+     data-copy="#9AA8B6" aria-label="BlushGray-500, #9AA8B6. Muted icon, secondary element">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">BlushGray-500</span>
+  <code class="cap-swatch__hex">#9AA8B6</code>
+  <span class="cap-swatch__use">Muted icon, secondary element</span>
+</button><button class="cap-swatch" type="button" style="--c:#495D6A"
+     data-copy="#495D6A" aria-label="BlushGray-600, #495D6A. Dark blush text">
+  <span class="cap-swatch__chip"></span>
+  <span class="cap-swatch__name">BlushGray-600</span>
+  <code class="cap-swatch__hex">#495D6A</code>
+  <span class="cap-swatch__use">Dark blush text</span>
+</button></div>
+</div></div><p class="cap-stage__note">Seven scales, forty-one steps. Click any swatch to copy its hex. Every value is transcribed from the blueprint’s colour tables.</p>
+
+  <h3 class="cap-sub" data-reveal>Typography</h3>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Type scale — 17 tokens</p><div class="cap-face">
+  <p class="cap-face__name">Rubik</p>
+  <p class="cap-face__rule">Rubik is the only permitted typeface. Never substitute with Inter, Manrope, a system font or any other family.</p>
+</div>
+<ul class="cap-types"><li class="cap-type" style="--fs:56px;--fw:500;--lh:1.15;--ls:-0.02em">
+  <div class="cap-type__meta">
+    <code>display-lg</code>
+    <span>56px · 500 · 1.15 · -0.02em</span>
+    <span class="cap-type__use">Hero banners, splash screens</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:44px;--fw:700;--lh:1.2;--ls:-0.02em">
+  <div class="cap-type__meta">
+    <code>display-md</code>
+    <span>44px · 700 · 1.2 · -0.02em</span>
+    <span class="cap-type__use">Page-level feature headers</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:32px;--fw:700;--lh:1.25;--ls:-0.01em">
+  <div class="cap-type__meta">
+    <code>header-lg</code>
+    <span>32px · 700 · 1.25 · -0.01em</span>
+    <span class="cap-type__use">Section titles, page headers</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:24px;--fw:700;--lh:1.3;--ls:-0.01em">
+  <div class="cap-type__meta">
+    <code>header-md</code>
+    <span>24px · 700 · 1.3 · -0.01em</span>
+    <span class="cap-type__use">Card group headers, modal titles</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:20px;--fw:600;--lh:1.4;--ls:0">
+  <div class="cap-type__meta">
+    <code>header-sm</code>
+    <span>20px · 600 · 1.4</span>
+    <span class="cap-type__use">Sub-section headers</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:18px;--fw:600;--lh:1.4;--ls:0">
+  <div class="cap-type__meta">
+    <code>header-xs</code>
+    <span>18px · 600 · 1.4</span>
+    <span class="cap-type__use">App bar titles, navigation headers</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:16px;--fw:600;--lh:1.5;--ls:0">
+  <div class="cap-type__meta">
+    <code>subheading-lg</code>
+    <span>16px · 600 · 1.5</span>
+    <span class="cap-type__use">Card titles, list item primary text</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:14px;--fw:600;--lh:1.5;--ls:0">
+  <div class="cap-type__meta">
+    <code>subheading-md</code>
+    <span>14px · 600 · 1.5</span>
+    <span class="cap-type__use">Inline headings, form section labels</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:12px;--fw:600;--lh:1.5;--ls:0.01em">
+  <div class="cap-type__meta">
+    <code>subheading-sm</code>
+    <span>12px · 600 · 1.5 · 0.01em</span>
+    <span class="cap-type__use">Overline text, section labels</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:16px;--fw:400;--lh:1.5;--ls:0">
+  <div class="cap-type__meta">
+    <code>body-lg</code>
+    <span>16px · 400 · 1.5</span>
+    <span class="cap-type__use">Primary body copy</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:14px;--fw:400;--lh:1.5;--ls:0">
+  <div class="cap-type__meta">
+    <code>body-md</code>
+    <span>14px · 400 · 1.5</span>
+    <span class="cap-type__use">Secondary body copy, descriptions</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:12px;--fw:400;--lh:1.5;--ls:0.01em">
+  <div class="cap-type__meta">
+    <code>body-sm</code>
+    <span>12px · 400 · 1.5 · 0.01em</span>
+    <span class="cap-type__use">Captions, helper text, timestamps</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:10px;--fw:400;--lh:1.4;--ls:0.02em">
+  <div class="cap-type__meta">
+    <code>body-xs</code>
+    <span>10px · 400 · 1.4 · 0.02em</span>
+    <span class="cap-type__use">Fine print, disclaimer text</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:14px;--fw:500;--lh:1.4;--ls:0.01em">
+  <div class="cap-type__meta">
+    <code>label-lg</code>
+    <span>14px · 500 · 1.4 · 0.01em</span>
+    <span class="cap-type__use">Button text, form labels</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:12px;--fw:500;--lh:1.4;--ls:0.02em">
+  <div class="cap-type__meta">
+    <code>label-md</code>
+    <span>12px · 500 · 1.4 · 0.02em</span>
+    <span class="cap-type__use">Chip text, tag text, tab labels</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:10px;--fw:500;--lh:1.4;--ls:0.03em">
+  <div class="cap-type__meta">
+    <code>label-sm</code>
+    <span>10px · 500 · 1.4 · 0.03em</span>
+    <span class="cap-type__use">Badge text, micro-labels</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li><li class="cap-type" style="--fs:8px;--fw:500;--lh:1.4;--ls:0.04em">
+  <div class="cap-type__meta">
+    <code>label-xs</code>
+    <span>8px · 500 · 1.4 · 0.04em</span>
+    <span class="cap-type__use">Superscript, annotation marks</span>
+  </div>
+  <p class="cap-type__spec">Capsule</p>
+</li></ul></div><p class="cap-stage__note">Rubik is self-hosted here at the weights the scale uses, so every line is the real typeface at its real size, not a visual approximation.</p>
+
+  <h3 class="cap-sub" data-reveal>Spacing</h3>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Spacing scale</p><ul class="cap-spaces"><li class="cap-space">
+  <code class="cap-space__token">space-xs</code>
+  <span class="cap-space__bar" style="--w:6.25%"><i></i></span>
+  <b class="cap-space__v">4px</b>
+  <span class="cap-space__use">Inline icon-to-text gap, tight internal padding</span>
+</li><li class="cap-space">
+  <code class="cap-space__token">space-sm</code>
+  <span class="cap-space__bar" style="--w:12.5%"><i></i></span>
+  <b class="cap-space__v">8px</b>
+  <span class="cap-space__use">Chip gap, compact list spacing, tag padding-y</span>
+</li><li class="cap-space">
+  <code class="cap-space__token">space-md</code>
+  <span class="cap-space__bar" style="--w:18.75%"><i></i></span>
+  <b class="cap-space__v">12px</b>
+  <span class="cap-space__use">Input internal padding, small card padding</span>
+</li><li class="cap-space">
+  <code class="cap-space__token">space-lg</code>
+  <span class="cap-space__bar" style="--w:25.0%"><i></i></span>
+  <b class="cap-space__v">16px</b>
+  <span class="cap-space__use">Standard card padding, section spacing, screen margin</span>
+</li><li class="cap-space">
+  <code class="cap-space__token">space-xl</code>
+  <span class="cap-space__bar" style="--w:37.5%"><i></i></span>
+  <b class="cap-space__v">24px</b>
+  <span class="cap-space__use">Section separation, larger component gaps</span>
+</li><li class="cap-space">
+  <code class="cap-space__token">space-2xl</code>
+  <span class="cap-space__bar" style="--w:50.0%"><i></i></span>
+  <b class="cap-space__v">32px</b>
+  <span class="cap-space__use">Major section breaks</span>
+</li><li class="cap-space">
+  <code class="cap-space__token">space-3xl</code>
+  <span class="cap-space__bar" style="--w:75.0%"><i></i></span>
+  <b class="cap-space__v">48px</b>
+  <span class="cap-space__use">Page-level vertical spacing</span>
+</li><li class="cap-space">
+  <code class="cap-space__token">space-4xl</code>
+  <span class="cap-space__bar" style="--w:100.0%"><i></i></span>
+  <b class="cap-space__v">64px</b>
+  <span class="cap-space__use">Maximum whitespace blocks</span>
+</li></ul></div><p class="cap-stage__note">Drawn to scale — the bar is the actual value. 44px is the floor for anything a finger has to hit.</p>
+
+  <h3 class="cap-sub" data-reveal>Radius</h3>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Radius scale</p><ul class="cap-rads"><li class="cap-rad">
+  <span class="cap-rad__box" style="--r:4px"></span>
+  <code>radius-xs</code>
+  <b>4px</b>
+  <span class="cap-rad__use">Tags, chips, small buttons, badges</span>
+</li><li class="cap-rad">
+  <span class="cap-rad__box" style="--r:8px"></span>
+  <code>radius-sm</code>
+  <b>8px</b>
+  <span class="cap-rad__use">Medium and large buttons, inputs, dropdowns, search</span>
+</li><li class="cap-rad">
+  <span class="cap-rad__box" style="--r:12px"></span>
+  <code>radius-md</code>
+  <b>12px</b>
+  <span class="cap-rad__use">Bottom sheet top corners, listing cards, carousel</span>
+</li><li class="cap-rad">
+  <span class="cap-rad__box" style="--r:16px"></span>
+  <code>radius-lg</code>
+  <b>16px</b>
+  <span class="cap-rad__use">Avatars, segmented buttons</span>
+</li><li class="cap-rad">
+  <span class="cap-rad__box" style="--r:999px"></span>
+  <code>radius-full</code>
+  <b>50%</b>
+  <span class="cap-rad__use">Circular avatars, dot badges, FABs</span>
+</li></ul></div><p class="cap-stage__note">Buttons are never pill-shaped — 4px at small, 8px at medium and large. The rule is in the blueprint, not a matter of taste.</p>
+
+  <h3 class="cap-sub" data-reveal>Elevation</h3>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Elevation</p><ul class="cap-elevs"><li class="cap-elev">
+  <span class="cap-elev__box" style="--sh:none"></span>
+  <code>elevation-0</code>
+  <span class="cap-elev__v">none</span>
+  <span class="cap-elev__use">Flat elements, inline components</span>
+</li><li class="cap-elev">
+  <span class="cap-elev__box" style="--sh:0 1px 3px rgba(0,0,0,0.08)"></span>
+  <code>elevation-1</code>
+  <span class="cap-elev__v">0 1px 3px rgba(0,0,0,0.08)</span>
+  <span class="cap-elev__use">Cards, raised surfaces</span>
+</li><li class="cap-elev">
+  <span class="cap-elev__box" style="--sh:0 4px 12px rgba(0,0,0,0.12)"></span>
+  <code>elevation-2</code>
+  <span class="cap-elev__v">0 4px 12px rgba(0,0,0,0.12)</span>
+  <span class="cap-elev__use">Dropdowns, popovers, floating elements</span>
+</li><li class="cap-elev">
+  <span class="cap-elev__box" style="--sh:0 8px 24px rgba(0,0,0,0.16)"></span>
+  <code>elevation-3</code>
+  <span class="cap-elev__v">0 8px 24px rgba(0,0,0,0.16)</span>
+  <span class="cap-elev__use">Modals, bottom sheets, dialogs</span>
+</li><li class="cap-elev">
+  <span class="cap-elev__box" style="--sh:0 12px 32px rgba(0,0,0,0.20)"></span>
+  <code>elevation-4</code>
+  <span class="cap-elev__v">0 12px 32px rgba(0,0,0,0.20)</span>
+  <span class="cap-elev__use">Tooltips, toasts on dark bg</span>
+</li></ul></div><p class="cap-stage__note">Shadows are always subtle. Never use coloured shadows or hard drop shadows. Keep opacity low.</p>
+
+  <h3 class="cap-sub" data-reveal>Iconography</h3>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Iconography</p><ul class="cap-ico"><li><span class="cap-ico__k">Style</span><span class="cap-ico__v">Outlined — not filled, not two-tone</span></li><li><span class="cap-ico__k">Default size</span><span class="cap-ico__v">24px</span></li><li><span class="cap-ico__k">Small / large</span><span class="cap-ico__v">20px / 32px</span></li><li><span class="cap-ico__k">Stroke width</span><span class="cap-ico__v">1.5px</span></li><li><span class="cap-ico__k">Default colour</span><span class="cap-ico__v">#575756 (Gray-400)</span></li><li><span class="cap-ico__k">Active colour</span><span class="cap-ico__v">#005DAC (Blue-400)</span></li><li><span class="cap-ico__k">Touch target</span><span class="cap-ico__v">Centred in a 44px area</span></li></ul></div><p class="cap-stage__note">The icon rules are specified but the icon set itself is not in my files — no icons are reproduced here rather than substituting a different library.</p>
+
+  <h3 class="cap-sub" data-reveal>Accessibility</h3>
+  <p class="prose" data-reveal>The blueprint makes one numeric accessibility claim. I checked it,
+  and then checked every other documented pair the same way.</p>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Contrast · 14 documented pairs, measured</p><div class="cap-tbl__wrap">
+  <table class="cap-ct">
+    <thead><tr><th scope="col">Pair</th><th scope="col">Tokens</th><th scope="col">Ratio</th>
+    <th scope="col">Verdict</th><th scope="col">Where it is used</th></tr></thead>
+    <tbody><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#005DAC;--bg:#FFFFFF">Aa</span>Primary blue on white</th>
+  <td><code>#005DAC</code> on <code>#FFFFFF</code></td>
+  <td class="cap-ct__r"><b>6.64:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Links, headings, primary button labels</td>
+</tr><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#FFFFFF;--bg:#005DAC">Aa</span>White on primary blue</th>
+  <td><code>#FFFFFF</code> on <code>#005DAC</code></td>
+  <td class="cap-ct__r"><b>6.64:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Filled button label</td>
+</tr><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#00437A;--bg:#FFFFFF">Aa</span>Hover blue on white</th>
+  <td><code>#00437A</code> on <code>#FFFFFF</code></td>
+  <td class="cap-ct__r"><b>10.08:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Hover state text</td>
+</tr><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#2B2B2B;--bg:#FFFFFF">Aa</span>Primary text on white</th>
+  <td><code>#2B2B2B</code> on <code>#FFFFFF</code></td>
+  <td class="cap-ct__r"><b>14.16:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Body copy, headings</td>
+</tr><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#575756;--bg:#FFFFFF">Aa</span>Default text on white</th>
+  <td><code>#575756</code> on <code>#FFFFFF</code></td>
+  <td class="cap-ct__r"><b>7.23:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Secondary text</td>
+</tr><tr class="is-fail">
+  <th scope="row"><span class="cap-cc" style="--fg:#B3B3B3;--bg:#FFFFFF">Aa</span>Muted text on white</th>
+  <td><code>#B3B3B3</code> on <code>#FFFFFF</code></td>
+  <td class="cap-ct__r"><b>2.1:1</b></td>
+  <td class="cap-ct__v">fails</td>
+  <td class="cap-ct__u">Placeholder, helper, disabled text</td>
+</tr><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#B31921;--bg:#FFFFFF">Aa</span>Error text on white</th>
+  <td><code>#B31921</code> on <code>#FFFFFF</code></td>
+  <td class="cap-ct__r"><b>6.82:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Validation messages</td>
+</tr><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#3C6407;--bg:#FFFFFF">Aa</span>Success text on white</th>
+  <td><code>#3C6407</code> on <code>#FFFFFF</code></td>
+  <td class="cap-ct__r"><b>6.96:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Confirmation messages</td>
+</tr><tr class="is-fail">
+  <th scope="row"><span class="cap-cc" style="--fg:#CF8612;--bg:#FFFFFF">Aa</span>Warning text on white</th>
+  <td><code>#CF8612</code> on <code>#FFFFFF</code></td>
+  <td class="cap-ct__r"><b>2.97:1</b></td>
+  <td class="cap-ct__v">fails</td>
+  <td class="cap-ct__u">Warning copy</td>
+</tr><tr class="is-fail">
+  <th scope="row"><span class="cap-cc" style="--fg:#FFFFFF;--bg:#B3B3B3">Aa</span>Disabled label on grey</th>
+  <td><code>#FFFFFF</code> on <code>#B3B3B3</code></td>
+  <td class="cap-ct__r"><b>2.1:1</b></td>
+  <td class="cap-ct__v">fails</td>
+  <td class="cap-ct__u">Disabled filled button</td>
+</tr><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#005DAC;--bg:#F0F9FF">Aa</span>Info tag</th>
+  <td><code>#005DAC</code> on <code>#F0F9FF</code></td>
+  <td class="cap-ct__r"><b>6.23:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Tag text on its own tint</td>
+</tr><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#3C6407;--bg:#E8FCCF">Aa</span>Success tag</th>
+  <td><code>#3C6407</code> on <code>#E8FCCF</code></td>
+  <td class="cap-ct__r"><b>6.38:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Tag text on its own tint</td>
+</tr><tr class="is-pass">
+  <th scope="row"><span class="cap-cc" style="--fg:#B31921;--bg:#FCEDEE">Aa</span>Error tag</th>
+  <td><code>#B31921</code> on <code>#FCEDEE</code></td>
+  <td class="cap-ct__r"><b>6.01:1</b></td>
+  <td class="cap-ct__v">AA</td>
+  <td class="cap-ct__u">Tag text on its own tint</td>
+</tr><tr class="is-fail">
+  <th scope="row"><span class="cap-cc" style="--fg:#CF8612;--bg:#FFF3E0">Aa</span>Caution tag</th>
+  <td><code>#CF8612</code> on <code>#FFF3E0</code></td>
+  <td class="cap-ct__r"><b>2.71:1</b></td>
+  <td class="cap-ct__v">fails</td>
+  <td class="cap-ct__u">Tag text on its own tint</td>
+</tr></tbody>
+  </table>
+</div></div><p class="cap-stage__note">Computed with the WCAG 2.1 relative-luminance formula against the documented token pairs — not judged by eye. Normal body text needs 4.5:1; large text and UI boundaries need 3:1.</p><div class="cap-finding" data-reveal>
+  <p class="cap-finding__k">What the measurement found</p>
+  <p class="cap-finding__body">The blueprint states that primary blue on white is 4.65:1. Measured, it is 6.64:1 — the system is more accessible than its own documentation claims.</p>
+  <p class="cap-finding__body">But <b>4 of the 14 pairs fall below 4.5:1</b> —
+  muted text, warning text, the disabled button label and the caution tag. Placeholder and disabled
+  text are partly exempt under WCAG; warning copy and the caution tag are not. This is worth a look
+  before the next version of the system.</p>
+  <p class="cap-finding__caveat">This checks colour contrast only. It is not a full WCAG audit, and the page makes no compliance claim.</p>
+</div>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-architecture">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 05 &mdash; Architecture</p>
+    <h2 class="t-h2">From individual values to a system of decisions.</h2>
+    <p class="prose">The difference between a palette and a token layer is one word: <em>job</em>.
+    A primitive says what a colour is. A semantic says what it is for.</p>
+  </div>
+
+  <div class="cap-arch" data-reveal>
+  <div class="cap-arch__col">
+    <p class="cap-arch__k">Primitive</p>
+    <p class="cap-arch__d">A value with a name. <code>Blue-400</code> is <code>#005DAC</code> and
+    means nothing else.</p>
+  </div>
+  <div class="cap-arch__arrow" aria-hidden="true"><span></span></div>
+  <div class="cap-arch__col">
+    <p class="cap-arch__k">Semantic</p>
+    <p class="cap-arch__d">A value with a <em>job</em>. <code>border-input-focus</code> happens to be
+    Blue-400 today; the component never needs to know that.</p>
+  </div>
+  <div class="cap-arch__arrow" aria-hidden="true"><span></span></div>
+  <div class="cap-arch__col">
+    <p class="cap-arch__k">Component</p>
+    <p class="cap-arch__d">Consumes semantics only. Re-point one semantic token and every component
+    using it moves together.</p>
+  </div>
+</div>
+
+<div class="cap-stage " data-reveal><p class="cap-stage__label">The semantic map, as documented</p><ul class="cap-sems"><li class="cap-sem">
+  <code class="cap-sem__token">bg-page</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">White</span>
+  <span class="cap-sem__chip" style="--c:#FFFFFF"></span>
+  <code class="cap-sem__hex">#FFFFFF</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">bg-surface</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">BlushGray-100</span>
+  <span class="cap-sem__chip" style="--c:#EFF2F4"></span>
+  <code class="cap-sem__hex">#EFF2F4</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">bg-extralight-primary</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">Blue-100</span>
+  <span class="cap-sem__chip" style="--c:#F0F9FF"></span>
+  <code class="cap-sem__hex">#F0F9FF</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">bg-extralight-success</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">Green-100</span>
+  <span class="cap-sem__chip" style="--c:#E8FCCF"></span>
+  <code class="cap-sem__hex">#E8FCCF</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">bg-extralight-error</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">Red-100</span>
+  <span class="cap-sem__chip" style="--c:#FCEDEE"></span>
+  <code class="cap-sem__hex">#FCEDEE</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">bg-extralight-tertiary</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">YellowOrange-100</span>
+  <span class="cap-sem__chip" style="--c:#FFF3E0"></span>
+  <code class="cap-sem__hex">#FFF3E0</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">bg-overlay</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">Black @ 40%</span>
+  <span class="cap-sem__chip" style="--c:rgba(0,0,0,0.4)"></span>
+  <code class="cap-sem__hex">rgba(0,0,0,0.4)</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">border-card</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">BlushGray-100</span>
+  <span class="cap-sem__chip" style="--c:#EFF2F4"></span>
+  <code class="cap-sem__hex">#EFF2F4</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">border-divider</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">Gray-100</span>
+  <span class="cap-sem__chip" style="--c:#F2F2F2"></span>
+  <code class="cap-sem__hex">#F2F2F2</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">border-input</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">BlushGray-200</span>
+  <span class="cap-sem__chip" style="--c:#D2DAE0"></span>
+  <code class="cap-sem__hex">#D2DAE0</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">border-input-focus</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">Blue-400</span>
+  <span class="cap-sem__chip" style="--c:#005DAC"></span>
+  <code class="cap-sem__hex">#005DAC</code>
+</li><li class="cap-sem">
+  <code class="cap-sem__token">border-input-error</code>
+  <span class="cap-sem__arrow" aria-hidden="true">&#8594;</span>
+  <span class="cap-sem__prim">Red-400</span>
+  <span class="cap-sem__chip" style="--c:#DA1E28"></span>
+  <code class="cap-sem__hex">#DA1E28</code>
+</li></ul></div><p class="cap-stage__note">Twelve semantic tokens from the blueprint, each resolved to the primitive behind it. This is the layer that makes a brand change a one-line edit.</p>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-components">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 06 &mdash; Components</p>
+    <h2 class="t-h2">The building blocks of better experiences.</h2>
+    <p class="prose">Built here from the written construction spec, at the documented heights,
+    radii and state colours &mdash; and checked against the Figma frames they were specified in.
+    They are live elements, not pictures of elements.</p>
+  </div>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Buttons · six types × five states</p><div class="cap-tbl__wrap">
+  <table class="cap-matrix">
+    <thead><tr><th scope="col"><span class="sr-only">Type</span></th><th scope='col'>Default</th><th scope='col'>Focus</th><th scope='col'>Hover</th><th scope='col'>Press</th><th scope='col'>Disabled</th></tr></thead>
+    <tbody><tr><th scope="row">Filled</th><td><span class="cap-btn cap-btn--filled is-default">Next</span></td><td><span class="cap-btn cap-btn--filled is-focus">Next</span></td><td><span class="cap-btn cap-btn--filled is-hover">Next</span></td><td><span class="cap-btn cap-btn--filled is-press">Next</span></td><td><span class="cap-btn cap-btn--filled is-disabled">Next</span></td></tr><tr><th scope="row">Outline</th><td><span class="cap-btn cap-btn--outline is-default">Next</span></td><td><span class="cap-btn cap-btn--outline is-focus">Next</span></td><td><span class="cap-btn cap-btn--outline is-hover">Next</span></td><td><span class="cap-btn cap-btn--outline is-press">Next</span></td><td><span class="cap-btn cap-btn--outline is-disabled">Next</span></td></tr><tr><th scope="row">Ghost</th><td><span class="cap-btn cap-btn--ghost is-default">Next</span></td><td><span class="cap-btn cap-btn--ghost is-focus">Next</span></td><td><span class="cap-btn cap-btn--ghost is-hover">Next</span></td><td><span class="cap-btn cap-btn--ghost is-press">Next</span></td><td><span class="cap-btn cap-btn--ghost is-disabled">Next</span></td></tr><tr><th scope="row">Text</th><td><span class="cap-btn cap-btn--text is-default">Next</span></td><td><span class="cap-btn cap-btn--text is-focus">Next</span></td><td><span class="cap-btn cap-btn--text is-hover">Next</span></td><td><span class="cap-btn cap-btn--text is-press">Next</span></td><td><span class="cap-btn cap-btn--text is-disabled">Next</span></td></tr><tr><th scope="row">Text link</th><td><span class="cap-btn cap-btn--link is-default">Next</span></td><td><span class="cap-btn cap-btn--link is-focus">Next</span></td><td><span class="cap-btn cap-btn--link is-hover">Next</span></td><td><span class="cap-btn cap-btn--link is-press">Next</span></td><td><span class="cap-btn cap-btn--link is-disabled">Next</span></td></tr><tr><th scope="row">Destructive</th><td><span class="cap-btn cap-btn--destructive is-default">Next</span></td><td><span class="cap-btn cap-btn--destructive is-focus">Next</span></td><td><span class="cap-btn cap-btn--destructive is-hover">Next</span></td><td><span class="cap-btn cap-btn--destructive is-press">Next</span></td><td><span class="cap-btn cap-btn--destructive is-disabled">Next</span></td></tr></tbody>
+  </table>
+</div></div><p class="cap-stage__note">Five states per type, read off the Figma Behaviour frame. The blueprint's variant table lists only hover, pressed and disabled — Figma is the more complete source here.</p><div class="cap-stage " data-reveal><p class="cap-stage__label">Sizes</p><ul class="cap-sizes"><li><span class="cap-btn cap-btn--filled" style="--h:24px;--r:4px;--fs:12px">Button</span>
+<code>S</code><span>24px · radius 4px</span></li><li><span class="cap-btn cap-btn--filled" style="--h:40px;--r:8px;--fs:18px">Button</span>
+<code>M</code><span>40px · radius 8px</span></li><li><span class="cap-btn cap-btn--filled" style="--h:48px;--r:8px;--fs:18px">Button</span>
+<code>L</code><span>48px · radius 8px</span></li></ul></div><div class="cap-stage " data-reveal><p class="cap-stage__label">Platform defaults</p><div class="cap-tbl__wrap">
+  <table class="cap-spec">
+    <thead><tr><th scope="col">Platform</th><th scope="col">Height</th><th scope="col">Icon</th>
+    <th scope="col">Padding</th><th scope="col">Width</th></tr></thead>
+    <tbody><tr><th scope='row'>Banners</th><td>24px</td><td>no icon</td><td>8px / 4px</td><td>—</td></tr><tr><th scope='row'>App / MWeb</th><td>40px</td><td>16px</td><td>12px</td><td>84–320px</td></tr><tr><th scope='row'>DWeb</th><td>48px</td><td>24px</td><td>12px</td><td>84–320px</td></tr></tbody>
+  </table>
+</div></div><p class="cap-stage__note">Four platforms, three button heights. The differences are recorded on purpose — that is what stops them being rediscovered every quarter.</p>
+
+  <h3 class="cap-sub" data-reveal>Text input</h3>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Text input · ten documented states</p><ul class="cap-fields"><li class="cap-field cap-field--idle">
+  <span class="cap-field__state">Default</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Placeholder</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Placeholder and helper text, resting border.</span>
+</li><li class="cap-field cap-field--error">
+  <span class="cap-field__state">Default · error</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Placeholder</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Error border and message before the field is touched.</span>
+</li><li class="cap-field cap-field--active">
+  <span class="cap-field__state">Active</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Priya Sharma</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Focused, caret visible, border darkened.</span>
+</li><li class="cap-field cap-field--active">
+  <span class="cap-field__state">Active · typing</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Priya Sharma</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Content entered, clear affordance appears.</span>
+</li><li class="cap-field cap-field--error">
+  <span class="cap-field__state">Active · error</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Priya Sharma</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Validation fires while typing.</span>
+</li><li class="cap-field cap-field--filled">
+  <span class="cap-field__state">Filled</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Priya Sharma</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Committed value, resting border.</span>
+</li><li class="cap-field cap-field--error">
+  <span class="cap-field__state">Filled · error</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Priya Sharma</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Committed value that failed validation.</span>
+</li><li class="cap-field cap-field--success">
+  <span class="cap-field__state">Filled · success</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Priya Sharma</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Validated, confirmation mark and message.</span>
+</li><li class="cap-field cap-field--disabled">
+  <span class="cap-field__state">Disabled</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Priya Sharma</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Not interactive, muted throughout.</span>
+</li><li class="cap-field cap-field--readonly">
+  <span class="cap-field__state">Read only</span>
+  <label class="cap-field__label">Full name</label>
+  <span class="cap-field__box">
+    <span class="cap-field__val">Priya Sharma</span>
+    <span class="cap-field__mark" aria-hidden="true"></span>
+  </span>
+  <span class="cap-field__help">Value shown, editing not permitted.</span>
+</li></ul></div><p class="cap-stage__note">Read off the Figma Behaviour frame. The Figma documentation uses a colleague’s real name as placeholder content; it is replaced here.</p>
+
+  <h3 class="cap-sub" data-reveal>Atoms</h3>
+
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Tags · five semantic colours</p><div class="cap-row"><span class="cap-pill" style="--bg:#F0F9FF;--fg:#005DAC">Info</span><span class="cap-pill" style="--bg:#E8FCCF;--fg:#3C6407">Success</span><span class="cap-pill" style="--bg:#FCEDEE;--fg:#B31921">Error</span><span class="cap-pill" style="--bg:#FFF3E0;--fg:#CF8612">Caution</span><span class="cap-pill" style="--bg:#F2F2F2;--fg:#575756">Neutral</span></div></div><div class="cap-stage " data-reveal><p class="cap-stage__label">Status dots</p><div class="cap-row"><span class="cap-dot" style="--c:#64A70B"><i></i>Active</span><span class="cap-dot" style="--c:#DA1E28"><i></i>Inactive</span><span class="cap-dot" style="--c:#FDA416"><i></i>Warning</span><span class="cap-dot" style="--c:#005DAC"><i></i>Info</span><span class="cap-dot" style="--c:#B3B3B3"><i></i>Neutral</span></div></div><div class="cap-stage " data-reveal><p class="cap-stage__label">Avatars · five sizes</p><div class="cap-row cap-row--mid"><span class="cap-av" style="--d:32px"><i>AP</i><b>xs</b><em>32px</em></span><span class="cap-av" style="--d:40px"><i>AP</i><b>sm</b><em>40px</em></span><span class="cap-av" style="--d:48px"><i>AP</i><b>md</b><em>48px</em></span><span class="cap-av" style="--d:56px"><i>AP</i><b>lg</b><em>56px</em></span><span class="cap-av" style="--d:64px"><i>AP</i><b>xl</b><em>64px</em></span></div></div><div class="cap-stage " data-reveal><p class="cap-stage__label">Star rating and badges</p><div class="cap-row cap-row--mid"><span class="cap-stars"><i class="is-on">&#9733;</i><i class="is-on">&#9733;</i><i class="is-on">&#9733;</i><i class="is-on">&#9733;</i><i class="">&#9733;</i><b>4.0</b><em>(128)</em></span><span class="cap-badge-demo">Inbox<i class="cap-badge">12</i></span>
+<span class="cap-badge-demo">Alerts<i class="cap-badge cap-badge--dot"></i></span></div></div><p class="cap-stage__note">Filled stars are YellowOrange-400 #FDA416, empty are Gray-200 #DADADA. Count badges sit on Red-400 with a 2px white ring so they read against any surface.</p>
+
+  <h3 class="cap-sub" data-reveal>The full inventory</h3>
+
+  <div class="cap-inv"><div class="cap-invgrp" data-reveal style="--i:0">
+  <p class="cap-invgrp__k">Actions<span>4</span></p>
+  <ul><li>Buttons</li><li>Segmented buttons</li><li>Chips</li><li>Filter bar</li></ul>
+</div><div class="cap-invgrp" data-reveal style="--i:1">
+  <p class="cap-invgrp__k">Form<span>9</span></p>
+  <ul><li>Text input</li><li>Text area</li><li>Checkbox</li><li>Radio button</li><li>Dropdown / select</li><li>Search bar</li><li>Slider</li><li>PIN / OTP</li><li>Date picker</li></ul>
+</div><div class="cap-invgrp" data-reveal style="--i:2">
+  <p class="cap-invgrp__k">Navigation<span>6</span></p>
+  <ul><li>Header / app bar</li><li>Tabs</li><li>Pagination</li><li>Breadcrumb</li><li>Stepper</li><li>Scroll indicator</li></ul>
+</div><div class="cap-invgrp" data-reveal style="--i:3">
+  <p class="cap-invgrp__k">Feedback<span>7</span></p>
+  <ul><li>Snackbar / toast</li><li>Tooltip / nudge</li><li>Progress bar</li><li>Empty state</li><li>Status</li><li>Badges</li><li>Coach marks</li></ul>
+</div><div class="cap-invgrp" data-reveal style="--i:4">
+  <p class="cap-invgrp__k">Containers<span>8</span></p>
+  <ul><li>Cards</li><li>Profile cards</li><li>Product cards</li><li>Service cards</li><li>Transaction cards</li><li>Testimonials</li><li>Accordion</li><li>FAQ</li></ul>
+</div><div class="cap-invgrp" data-reveal style="--i:5">
+  <p class="cap-invgrp__k">Overlays<span>3</span></p>
+  <ul><li>Bottom sheet</li><li>Side sheet</li><li>Pop-ups / dialog</li></ul>
+</div><div class="cap-invgrp" data-reveal style="--i:6">
+  <p class="cap-invgrp__k">Atoms<span>6</span></p>
+  <ul><li>Divider</li><li>Avatar</li><li>Badge</li><li>Star rating</li><li>Status dot</li><li>Tags</li></ul>
+</div></div>
+<p class="cap-note" data-reveal>Grouped from the 79 documented frames in the Figma file and the blueprint's component sections. A frame exists for each of these; a frame existing is not the same as a product having adopted it.</p>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-product">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 07 &mdash; In product</p>
+    <h2 class="t-h2">A system earns its place in the products it supports.</h2>
+  </div>
+
+  <div class="cap-gap" data-reveal>
+  <p class="cap-gap__k"><span class="cap-tag cap-tag--confirm">needs your confirmation</span></p>
+  <h3 class="cap-gap__head">No shipped product screens are published here</h3>
+  <p class="cap-gap__body">A component existing in Figma is not evidence that a product adopted it,
+  and I do not have screenshots of Capsule components in a shipped Bajaj interface. Rather than
+  present a mock-up as a product screen, this chapter is deliberately short.</p>
+  <p class="cap-gap__body">What <em>is</em> evidenced: the system documents four platforms — App,
+  MWeb, DWeb and PWA — each with its own header frame and its own sizing defaults. A system built for
+  one surface does not grow four sets of platform rules.</p>
+  <p class="cap-gap__ask">To finish this chapter I need two or three real product screens exported.</p>
+</div>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-handoff">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 08 &mdash; Design to development</p>
+    <h2 class="t-h2">The handoff is part of the system.</h2>
+    <p class="prose">A handoff fails when the engineer has to infer a value. Capsule&rsquo;s answer is
+    that nothing is left to inference &mdash; sizes, padding, radii and state colours are written as
+    numbers before anyone opens a ticket.</p>
+  </div>
+
+  <ol class="cap-steps"><li class="cap-step" data-reveal style="--i:0">
+  <span class="cap-step__n">1</span>
+  <div><h4>Figma documentation</h4><p>Each component has its own frame: anatomy, variants, behaviour, usage.</p><span class="cap-tag cap-tag--verified">verified</span></div>
+</li><li class="cap-step" data-reveal style="--i:1">
+  <span class="cap-step__n">2</span>
+  <div><h4>Named variables</h4><p>Figma variables carry the colour and type values, including a `--color-primary-400` naming that maps to CSS.</p><span class="cap-tag cap-tag--verified">verified</span></div>
+</li><li class="cap-step" data-reveal style="--i:2">
+  <span class="cap-step__n">3</span>
+  <div><h4>Written construction spec</h4><p>The blueprint states sizes, padding, radius and state colours as numbers, not pictures.</p><span class="cap-tag cap-tag--verified">verified</span></div>
+</li><li class="cap-step" data-reveal style="--i:3">
+  <span class="cap-step__n">4</span>
+  <div><h4>Platform defaults</h4><p>App/MWeb 40px, DWeb 48px, banners 24px — the differences are recorded rather than discovered.</p><span class="cap-tag cap-tag--verified">verified</span></div>
+</li><li class="cap-step" data-reveal style="--i:4">
+  <span class="cap-step__n">5</span>
+  <div><h4>Automated token pipeline</h4><p>No evidence in my sources that tokens are published to code automatically. This is the obvious next step, not something I am claiming exists.</p><span class="cap-tag cap-tag--future">future direction</span></div>
+</li></ol>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-governance">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 09 &mdash; Governance</p>
+    <h2 class="t-h2">A living system needs a way to grow.</h2>
+    <p class="prose">This is the half that decides whether a system is still true a year after
+    launch &mdash; and the half where my evidence runs out. What is documented is marked as such;
+    what isn&rsquo;t, isn&rsquo;t claimed.</p>
+  </div>
+
+  <ul class="cap-govs"><li class="cap-gov cap-gov--verified" data-reveal style="--i:0">
+  <h4>Single source file</h4><p>One Figma Documentation file, versioned as the blueprint (v2.0, 7 April 2026).</p><span class="cap-tag cap-tag--verified">verified</span>
+</li><li class="cap-gov cap-gov--verified" data-reveal style="--i:1">
+  <h4>Documented do's and don'ts</h4><p>The blueprint closes with an explicit cheat sheet of rules.</p><span class="cap-tag cap-tag--verified">verified</span>
+</li><li class="cap-gov cap-gov--verified" data-reveal style="--i:2">
+  <h4>Per-component usage rules</h4><p>Each component section states what is and is not permitted — buttons are never pill-shaped, shadows are never coloured.</p><span class="cap-tag cap-tag--verified">verified</span>
+</li><li class="cap-gov cap-gov--confirm" data-reveal style="--i:3">
+  <h4>Contribution and review process</h4><p>Not documented in the sources I have. Needs confirmation before any claim is published.</p><span class="cap-tag cap-tag--confirm">needs your confirmation</span>
+</li><li class="cap-gov cap-gov--confirm" data-reveal style="--i:4">
+  <h4>Versioning and change log</h4><p>The blueprint carries a version and date; a per-component change log is not evidenced.</p><span class="cap-tag cap-tag--confirm">needs your confirmation</span>
+</li><li class="cap-gov cap-gov--confirm" data-reveal style="--i:5">
+  <h4>Adoption tracking</h4><p>No evidence of a tracked adoption measure.</p><span class="cap-tag cap-tag--confirm">needs your confirmation</span>
+</li></ul>
+
+<div class="cap-stage " data-reveal><p class="cap-stage__label">The cheat sheet, verbatim</p><div class="cap-rules">
+  <div class="cap-rules__col cap-rules__col--do"><p>Do</p><ul><li>Use Rubik for every piece of text.</li><li>Use the documented radius scale — 4px for small controls, 8px for medium and large.</li><li>Keep interactive targets at 44px minimum.</li><li>Use semantic tokens rather than raw hex values.</li><li>Keep shadows subtle and uncoloured.</li></ul></div>
+  <div class="cap-rules__col cap-rules__col--dont"><p>Don’t</p><ul><li>Never substitute the typeface.</li><li>Never make buttons pill-shaped.</li><li>Never use coloured or hard drop shadows.</li><li>Never invent a colour outside the documented scales.</li><li>Never go below the 44px touch target.</li></ul></div>
+</div></div><p class="cap-stage__note">The blueprint closes with these. A rule a designer can quote is worth more than a review meeting that reaches the same conclusion privately.</p>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-impact">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 10 &mdash; Impact</p>
+    <h2 class="t-h2">What changes when the system starts working?</h2>
+    <p class="prose">The honest answer is that I can show you what the system <em>is</em> &mdash;
+    countable, checkable, in two files &mdash; more rigorously than I can currently show you what it
+    changed. So that is what the numbers at the top of this page are, and this is everything I left
+    off.</p>
+  </div>
+
+  <div class="cap-confirm" data-reveal>
+  <p class="cap-confirm__k"><span class="cap-tag cap-tag--confirm">needs your confirmation</span></p>
+  <h3 class="cap-confirm__head">Six things I did not publish</h3>
+  <p class="cap-confirm__body">These are the performance claims attached to Capsule elsewhere in my
+  own material. Each one conflicts with another source, or has no source beyond itself. They are
+  listed rather than printed as results.</p>
+  <ol class="cap-confs"><li class="cap-conf" data-reveal style="--i:0">
+  <h4 class="cap-conf__claim">3.75× / 4× faster revamp</h4>
+  <p class="cap-conf__why">Two different numbers appear in the same homepage section; the resume says 3×. Three values, one claim.</p>
+  <p class="cap-conf__ask">Which figure is right, and what was measured against what?</p>
+</li><li class="cap-conf" data-reveal style="--i:1">
+  <h4 class="cap-conf__claim">73% design-time reduction</h4>
+  <p class="cap-conf__why">Appears in homepage copy only. Your own audit marks it VERIFY.</p>
+  <p class="cap-conf__ask">What was the baseline, the task, and the sample?</p>
+</li><li class="cap-conf" data-reveal style="--i:2">
+  <h4 class="cap-conf__claim">Full redesign in 1.5 vs 2 months</h4>
+  <p class="cap-conf__why">The homepage tile says 2 months; your master doc says 1.5.</p>
+  <p class="cap-conf__ask">Which product, and which figure?</p>
+</li><li class="cap-conf" data-reveal style="--i:3">
+  <h4 class="cap-conf__claim">20+ designers on the system</h4>
+  <p class="cap-conf__why">Homepage tile only, marked VERIFY in your audit.</p>
+  <p class="cap-conf__ask">Designers with file access, or designers actively building with it?</p>
+</li><li class="cap-conf" data-reveal style="--i:4">
+  <h4 class="cap-conf__claim">~100 screens in the library</h4>
+  <p class="cap-conf__why">Consistent in the resume and the current page, but still self-reported.</p>
+  <p class="cap-conf__ask">Screens in the Figma file, or screens shipped in product?</p>
+</li><li class="cap-conf" data-reveal style="--i:5">
+  <h4 class="cap-conf__claim">Product adoption evidence</h4>
+  <p class="cap-conf__why">I have no product screenshots showing Capsule components in a shipped Bajaj interface.</p>
+  <p class="cap-conf__ask">Can you export two or three real product screens?</p>
+</li></ol>
+</div>
+</section>
+
+
+<section class="section shell cap-chapter" id="c-learned">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">Chapter 11 &mdash; What I learned</p>
+    <h2 class="t-h2">The system is the product behind the products.</h2>
+  </div>
+
+  <ol class="cap-learns"><li class="cap-learn" data-reveal style="--i:0">
+  <span class="cap-learn__n">01</span>
+  <div><h4>Designing for scale</h4><p>A system is a product whose users are designers and engineers. The moment I started treating the blueprint as a spec with versions rather than a document, arguments got shorter.</p></div>
+</li><li class="cap-learn" data-reveal style="--i:1">
+  <span class="cap-learn__n">02</span>
+  <div><h4>Design and engineering</h4><p>Named values are the whole trick. A hex code in a comp is a suggestion; `border-input-focus` is a contract.</p></div>
+</li><li class="cap-learn" data-reveal style="--i:2">
+  <span class="cap-learn__n">03</span>
+  <div><h4>Rules beat taste at scale</h4><p>Five written principles settle more disagreements than any amount of review, because they are quotable by someone who is not me.</p></div>
+</li><li class="cap-learn" data-reveal style="--i:3">
+  <span class="cap-learn__n">04</span>
+  <div><h4>Governance is the hard half</h4><p>Launching a library is a project. Keeping one true is an operating commitment, and it is the part I would resource differently next time.</p></div>
+</li><li class="cap-learn" data-reveal style="--i:4">
+  <span class="cap-learn__n">05</span>
+  <div><h4>Consistency against product need</h4><p>Four platforms needed four button heights. The system's job was to record which differences were deliberate — not to pretend there were none.</p></div>
+</li></ol>
+<blockquote class="cap-close" data-reveal>A design system is the product behind the products. When it works, nobody mentions it — they just ship faster and argue less, and the things they ship look like they came from the same company.</blockquote>
+</section>
+</div>
+</main>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__base">
+      <p class="t-label">Arushi Prasad — Design leader</p>
+      <p class="t-label t-dim">Pune, India</p>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/site.js?v=8b13f207" defer></script>
+<script src="../assets/js/capsule.js?v=48c12538" defer></script>
+</body>
+</html>

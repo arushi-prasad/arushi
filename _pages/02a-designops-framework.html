@@ -1,0 +1,372 @@
+<!--meta
+route: designops/framework
+title: Design Operations Framework
+desc: The end-to-end design process — discovery, design, detailed design and validation — and what happens at each stage.
+nav: designops
+case: yes
+case_kicker: DesignOps / Foundations
+case_title: Design Operations Framework
+case_note: Four stages, twenty-seven named activities — the sequence I run on every project.
+case_project: Design Operations Framework
+case_sections: overview|Overview; stages|The four stages; stage-discover|Discover|9; stage-design|Design|4; stage-detailed|Detailed design|8; stage-validation|Validation|6; intent|Why write it down
+sheets: tiles, case
+word_a: designops
+word_b: framework
+tagline: Four stages, each with its own activities and its own exit. The point is not the diagram &mdash; it is that the same questions get asked in the same order, on every project.
+-->
+
+<!-- A · THE OPENING --------------------------------------------------------
+     The page-hero carries the title and the standfirst, as it does on Planning
+     and on AI; the reading column opens on the argument. The three facts are
+     counted from the activities below — 9 + 4 + 8 + 6 — not asserted. -->
+<section class="section" id="overview" aria-labelledby="h-overview" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">DesignOps / 01</p>
+    <h2 class="t-h2" id="h-overview">A structured process is what keeps discovery honest</h2>
+    <p class="prose">It keeps design deliberate and handoff boring, too. This is the sequence I run &mdash; research and strategy, concept and solutioning, UX and UI, then review and testing &mdash; with the activities that belong to each stage written down so a team can pick up any one of them without guessing.</p>
+    <p class="prose t-dim">Not every activity runs on every project. The framework is the full set; scope decides which parts apply.</p>
+  </div>
+
+  <ul class="case__facts" role="list" data-reveal data-reveal-delay="140">
+    <li class="case__fact"><b>4</b><span>Stages</span></li>
+    <li class="case__fact"><b>27</b><span>Named activities</span></li>
+    <li class="case__fact"><b>9 · 4 · 8 · 6</b><span>Activities per stage</span></li>
+  </ul>
+</section>
+
+<!-- B · THE SEQUENCE -------------------------------------------------------
+     The diagram carries the shape of the process — order, and where the
+     weight sits. The cards carry what each stage is, and hold their own
+     activities back until the stage is pointed at. -->
+<section class="section" id="stages" aria-labelledby="h-stages" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">02 — End to end</p>
+    <h2 class="t-h2" id="h-stages">The four stages</h2>
+    <p class="prose">Each stage hands something specific to the next. The bars are the number of activities that belong to each one, which is also where the work actually sits.</p>
+  </div>
+
+  <figure class="proc" data-reveal aria-hidden="true">
+    <svg viewBox="0 0 1000 292" fill="none">
+      <path class="proc__rail" d="M125 110 H875" stroke-width="2"/>
+      <path class="proc__line" d="M125 110 H875" stroke-width="2.5"/>
+
+      <g data-stage="discover" style="--i:0">
+        <text x="125" y="34" text-anchor="middle">Stage 01</text>
+        <text class="proc__name" x="125" y="66" text-anchor="middle">Discover</text>
+        <circle class="proc__node" cx="125" cy="110" r="11" stroke-width="2"/>
+        <rect class="proc__bar" x="112" y="140" width="26" height="110" rx="4"/>
+        <text class="proc__count" x="125" y="274" text-anchor="middle">9</text>
+      </g>
+
+      <g data-stage="design" style="--i:1">
+        <text x="375" y="34" text-anchor="middle">Stage 02</text>
+        <text class="proc__name" x="375" y="66" text-anchor="middle">Design</text>
+        <circle class="proc__node" cx="375" cy="110" r="11" stroke-width="2"/>
+        <rect class="proc__bar" x="362" y="201" width="26" height="49" rx="4"/>
+        <text class="proc__count" x="375" y="274" text-anchor="middle">4</text>
+      </g>
+
+      <g data-stage="detailed" style="--i:2">
+        <text x="625" y="34" text-anchor="middle">Stage 03</text>
+        <text class="proc__name" x="625" y="66" text-anchor="middle">Detailed design</text>
+        <circle class="proc__node" cx="625" cy="110" r="11" stroke-width="2"/>
+        <rect class="proc__bar" x="612" y="152" width="26" height="98" rx="4"/>
+        <text class="proc__count" x="625" y="274" text-anchor="middle">8</text>
+      </g>
+
+      <g data-stage="validation" style="--i:3">
+        <text x="875" y="34" text-anchor="middle">Stage 04</text>
+        <text class="proc__name" x="875" y="66" text-anchor="middle">Validation</text>
+        <circle class="proc__node" cx="875" cy="110" r="11" stroke-width="2"/>
+        <rect class="proc__bar" x="862" y="177" width="26" height="73" rx="4"/>
+        <text class="proc__count" x="875" y="274" text-anchor="middle">6</text>
+      </g>
+    </svg>
+  </figure>
+
+  <div class="tile-grid stage-grid" data-reveal data-reveal-delay="80">
+
+    <a class="card card--tile stage-card" data-stage="discover" href="#stage-discover">
+      <div class="card__meta">
+        <span class="tile__index">01</span>
+        <span class="card__status">9 activities</span>
+      </div>
+      <div class="card__body">
+        <h3 class="card__name">Discover</h3>
+        <p class="card__premise">Research, insights, strategy.</p>
+      </div>
+      <ul class="stage-acts" role="list">
+        <li style="--i:0">Research strategy &amp; planning</li>
+        <li style="--i:1">User research</li>
+        <li style="--i:2">Product research</li>
+        <li style="--i:3">Persona development</li>
+        <li style="--i:4" class="stage-acts__more">+ 5 more</li>
+      </ul>
+      <span class="tile__cta">See activities <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span>
+    </a>
+
+    <a class="card card--tile stage-card" data-stage="design" href="#stage-design">
+      <div class="card__meta">
+        <span class="tile__index">02</span>
+        <span class="card__status">4 activities</span>
+      </div>
+      <div class="card__body">
+        <h3 class="card__name">Design</h3>
+        <p class="card__premise">Concept ideation and solutioning.</p>
+      </div>
+      <ul class="stage-acts" role="list">
+        <li style="--i:0">Solutioning</li>
+        <li style="--i:1">User flow &amp; information architecture</li>
+        <li style="--i:2">Define use cases</li>
+        <li style="--i:3">Design prototype</li>
+      </ul>
+      <span class="tile__cta">See activities <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span>
+    </a>
+
+    <a class="card card--tile stage-card" data-stage="detailed" href="#stage-detailed">
+      <div class="card__meta">
+        <span class="tile__index">03</span>
+        <span class="card__status">8 activities</span>
+      </div>
+      <div class="card__body">
+        <h3 class="card__name">Detailed design</h3>
+        <p class="card__premise">UX &amp; UI, through to prototyping.</p>
+      </div>
+      <ul class="stage-acts" role="list">
+        <li style="--i:0">Wireframes</li>
+        <li style="--i:1">Visual design strategy</li>
+        <li style="--i:2">UI design</li>
+        <li style="--i:3">Interactive prototyping</li>
+        <li style="--i:4" class="stage-acts__more">+ 4 more</li>
+      </ul>
+      <span class="tile__cta">See activities <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span>
+    </a>
+
+    <a class="card card--tile stage-card" data-stage="validation" href="#stage-validation">
+      <div class="card__meta">
+        <span class="tile__index">04</span>
+        <span class="card__status">6 activities</span>
+      </div>
+      <div class="card__body">
+        <h3 class="card__name">Validation</h3>
+        <p class="card__premise">Design review and testing.</p>
+      </div>
+      <ul class="stage-acts" role="list">
+        <li style="--i:0">Strategy &amp; planning</li>
+        <li style="--i:1">Usability testing</li>
+        <li style="--i:2">Analysing &amp; synthesising findings</li>
+        <li style="--i:3">Reviewing design artefacts</li>
+        <li style="--i:4" class="stage-acts__more">+ 2 more</li>
+      </ul>
+      <span class="tile__cta">See activities <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span>
+    </a>
+
+  </div>
+</section>
+
+<!-- C · WHAT HAPPENS AT EACH STAGE ----------------------------------------
+     The activity index. Same .rows component the rest of the site uses,
+     tinted with the stage's colour so each block reads as part of its card
+     above without becoming twenty-seven more coloured boxes. -->
+<section class="section" id="stage-discover" data-stage="discover" aria-labelledby="h-discover" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <div class="stage-head">
+      <span class="stage-head__chip">Stage 01 — Discover</span>
+      <span class="stage-head__count">9 activities</span>
+    </div>
+    <h2 class="t-h2" id="h-discover">Discover</h2>
+    <p class="prose">Research, insights and strategy. The stage that decides what is worth building before anyone draws a screen.</p>
+  </div>
+
+  <div class="rows rows--stage" data-reveal>
+    <article class="row">
+      <p class="row__num">01</p>
+      <h3 class="row__title">Research strategy &amp; planning</h3>
+      <div class="row__body"><p>Defining the objectives, cohort, sample size, methods and techniques, and a day-wise plan to conduct research activities.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">02</p>
+      <h3 class="row__title">User research</h3>
+      <div class="row__body"><p>Qualitative and quantitative research to understand users and their behaviours, preferences and pain points.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">03</p>
+      <h3 class="row__title">Product research</h3>
+      <div class="row__body"><p>Studying clickstream, existing data and analytics, and industry benchmarks to understand how users behave and interact with the product.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">04</p>
+      <h3 class="row__title">Persona development</h3>
+      <div class="row__body"><p>Built from research findings to represent different user segments, their goals, motivations and behaviours.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">05</p>
+      <h3 class="row__title">User journey mapping</h3>
+      <div class="row__body"><p>Mapping the journey to identify pain points, touchpoints and opportunities for improvement.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">06</p>
+      <h3 class="row__title">Empathy mapping</h3>
+      <div class="row__body"><p>A deeper read on users' thoughts, feelings and motivations at each stage of their journey.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">07</p>
+      <h3 class="row__title">Affinity mapping</h3>
+      <div class="row__body"><p>Organising research findings to synthesise information and identify user patterns and insights.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">08</p>
+      <h3 class="row__title">Design problem statement &amp; research insights</h3>
+      <div class="row__body"><p>Articulating the problems to be solved and the goals to be achieved, including success metrics.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">09</p>
+      <h3 class="row__title">UX strategy</h3>
+      <div class="row__body"><p>Drawing the problems and goals together from stakeholder input, user journey challenges, existing stats and usage analytics, and industry benchmarks against technical feasibility.</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="stage-design" data-stage="design" aria-labelledby="h-design" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <div class="stage-head">
+      <span class="stage-head__chip">Stage 02 — Design</span>
+      <span class="stage-head__count">4 activities</span>
+    </div>
+    <h2 class="t-h2" id="h-design">Design</h2>
+    <p class="prose">Concept ideation and solutioning. Breadth before depth &mdash; directions explored and structured before anything is made precise.</p>
+  </div>
+
+  <div class="rows rows--stage" data-reveal>
+    <article class="row">
+      <p class="row__num">01</p>
+      <h3 class="row__title">Solutioning</h3>
+      <div class="row__body"><p>Whiteboarding, sketching and mind mapping to explore ideas and concepts, uncover insights and identify potential design directions &mdash; features, functionality, interaction models, user journeys.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">02</p>
+      <h3 class="row__title">User flow &amp; information architecture</h3>
+      <div class="row__body"><p>Mapping the navigational structure and the sequence of steps users take to accomplish their goals.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">03</p>
+      <h3 class="row__title">Define use cases</h3>
+      <div class="row__body"><p>Writing stories that capture specific user scenarios, tasks and goals.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">04</p>
+      <h3 class="row__title">Design prototype</h3>
+      <div class="row__body"><p>Low-fidelity wireframes of key screens on critical journeys, to visualise navigation, layout structure, features and information hierarchy.</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="stage-detailed" data-stage="detailed" aria-labelledby="h-detailed" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <div class="stage-head">
+      <span class="stage-head__chip">Stage 03 — Detailed design</span>
+      <span class="stage-head__count">8 activities</span>
+    </div>
+    <h2 class="t-h2" id="h-detailed">Detailed design</h2>
+    <p class="prose">UX and UI through to prototyping, and the documentation that lets engineering build it without a translation layer.</p>
+  </div>
+
+  <div class="rows rows--stage" data-reveal>
+    <article class="row">
+      <p class="row__num">01</p>
+      <h3 class="row__title">Wireframes</h3>
+      <div class="row__body"><p>Detailing every scenario and journey in the product, covering layout structure, interaction model, information hierarchy and content.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">02</p>
+      <h3 class="row__title">Visual design strategy</h3>
+      <div class="row__body"><p>Exploring visual directions through moodboards, a match against the user persona, benchmarks and technical feasibility.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">03</p>
+      <h3 class="row__title">UI design</h3>
+      <div class="row__body"><p>Applying visual design principles and the design language to produce the mock-ups that set the interface's look and feel.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">04</p>
+      <h3 class="row__title">Interactive prototyping</h3>
+      <div class="row__body"><p>Clickable prototypes with motion and micro-interactions, to sharpen usability and engagement.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">05</p>
+      <h3 class="row__title">Responsive &amp; adaptive design</h3>
+      <div class="row__body"><p>Scaling the design across screen sizes, resolutions and devices.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">06</p>
+      <h3 class="row__title">Accessibility considerations</h3>
+      <div class="row__body"><p>Meeting the baseline accessibility standards and guidelines.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">07</p>
+      <h3 class="row__title">UX writing</h3>
+      <div class="row__body"><p>Clear, concise, user-centric microcopy that guides and engages, and that users can actually understand.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">08</p>
+      <h3 class="row__title">Design documentation &amp; handoff</h3>
+      <div class="row__body"><p>Style guides and design specifications, with assets, to support implementation.</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="stage-validation" data-stage="validation" aria-labelledby="h-validation" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <div class="stage-head">
+      <span class="stage-head__chip">Stage 04 — Validation</span>
+      <span class="stage-head__count">6 activities</span>
+    </div>
+    <h2 class="t-h2" id="h-validation">Validation</h2>
+    <p class="prose">Design review and testing. Where the work meets people who did not make it.</p>
+  </div>
+
+  <div class="rows rows--stage" data-reveal>
+    <article class="row">
+      <p class="row__num">01</p>
+      <h3 class="row__title">Strategy &amp; planning</h3>
+      <div class="row__body"><p>Defining the objectives and goals of the reviews, and identifying the persona, scenarios and tasks to be tested. Creating a screener and onboarding participants.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">02</p>
+      <h3 class="row__title">Usability testing</h3>
+      <div class="row__body"><p>Preparing the questionnaire, the testing guide and the mock-ups.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">03</p>
+      <h3 class="row__title">Analysing &amp; synthesising findings</h3>
+      <div class="row__body"><p>Working through observations, feedback and usability metrics to identify the key findings and insights.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">04</p>
+      <h3 class="row__title">Reviewing design artefacts</h3>
+      <div class="row__body"><p>Expert reviews and heuristic evaluations of wireframes, prototypes and mock-ups.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">05</p>
+      <h3 class="row__title">Routine design reviews for QA</h3>
+      <div class="row__body"><p>Evaluating visual design, layout and aesthetics against established design principles and best practice.</p></div>
+    </article>
+    <article class="row">
+      <p class="row__num">06</p>
+      <h3 class="row__title">Documentation</h3>
+      <div class="row__body"><p>A usability testing report or presentation, to communicate results to stakeholders.</p></div>
+    </article>
+  </div>
+</section>
+
+<!-- D · THE OPERATING PRINCIPLE ------------------------------------------- -->
+<section class="section" id="intent" aria-labelledby="h-principle" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">04 — The intent</p>
+    <h2 class="t-h2" id="h-principle">Why write it down</h2>
+  </div>
+  <div class="case__close" data-reveal>
+    <p class="prose">The aim is a repeatable, connected process: each stage hands something specific to the next, the activities within it are named rather than assumed, and anyone joining mid-project can see where the work is and what is still open.</p>
+    <p class="prose t-dim">Written down, it is something a team can run, argue with and improve &mdash; which is more useful than a process that only exists in the head of whoever ran it last.</p>
+  </div>
+</section>

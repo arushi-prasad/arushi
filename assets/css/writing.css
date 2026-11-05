@@ -1,0 +1,215 @@
+/* ===========================================================================
+   WRITING — a typeset index, not a card grid.
+
+   The page is one column of rows at a reading width. Everything it uses is
+   an existing token: the display face and tracking from the page titles, the
+   hairline and the neutral ramp from the row component, the mono label face
+   from the navigation counts. There is no new colour and no new typeface
+   here, only less of both.
+   ========================================================================= */
+
+/* A narrower measure than the 76rem site shell. A list of titles that runs
+   the full content width stops being scannable — the eye has to travel back
+   past the date column to find the next title. */
+.w-shell{ max-width:min(var(--content-max), 54rem); }
+
+/* ---------------------------------------------------------------------------
+   HEAD — a small heading and a short introduction.
+   This page carries its own <h1> rather than the shared two-word page hero,
+   because a 10rem title above a quiet list is the opposite of what the list
+   is for. Same family, same weight, same tracking — a smaller step on it.
+   ------------------------------------------------------------------------ */
+.w-head{ padding-block:var(--step-12) 0; }
+.w-title{
+  margin:0;
+  font-family:var(--font-display);
+  font-weight:var(--weight-display);
+  letter-spacing:var(--track-display);
+  line-height:1.05;
+  font-size:clamp(2rem, 1.5rem + 1.6vw, 3rem);
+  color:var(--text-primary);
+}
+.w-intro{ margin-top:var(--step-6); }
+.w-intro .prose + .prose{ margin-top:var(--step-4); }
+
+/* ---------------------------------------------------------------------------
+   TABS — two words and a hairline. The set is one tab stop; the arrow keys
+   move inside it (writing.js). The rule under the strip is the same hairline
+   the rows use, so the active tab's mark reads as a thickening of a line
+   that is already there rather than as a new element.
+   ------------------------------------------------------------------------ */
+.w-tabs{
+  display:flex;
+  gap:var(--step-6);
+  border-bottom:var(--hair) solid var(--border-default);
+}
+.w-tab{
+  position:relative;
+  /* A real 44px box rather than small type with a grown hit area: the tab is
+     a flex item that aligns its label to the bottom, so the extra height goes
+     above the text and the underline stays flush with the strip's hairline. */
+  display:inline-flex; align-items:flex-end;
+  min-height:2.75rem;
+  padding:0 0 var(--step-3);
+  margin-bottom:calc(-1 * var(--hair));
+  font-family:var(--font-label);
+  font-size:var(--text-label);
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+  font-weight:500;
+  line-height:1.2;
+  color:var(--text-tertiary);
+  transition:color var(--duration-base) var(--ease-smooth);
+}
+.w-tab:hover{ color:var(--text-secondary); }
+.w-tab[aria-selected="true"]{ color:var(--text-primary); }
+/* The underline is a pseudo-element rather than a border so the inactive tab
+   reserves the same box and selecting one cannot shift the strip by a pixel. */
+.w-tab::after{
+  content:""; position:absolute; inset-inline:0; bottom:0;
+  height:2px; background:var(--accent-light);
+  opacity:0;
+  transition:opacity var(--duration-base) var(--ease-smooth);
+}
+.w-tab[aria-selected="true"]::after{ opacity:1; }
+/* One flex item, not two. The button is a flex container so it can hold a
+   44px box with its label on the bottom edge; a bare <sup> inside it would
+   become a flex item of its own, and vertical-align does not apply to those —
+   the count dropped to the baseline and read as a subscript. */
+.w-tab__label{ display:inline-block; }
+.w-tab__count{
+  font-size:0.8em; vertical-align:super; line-height:0;
+  margin-left:0.3em; color:var(--text-tertiary);
+}
+.w-tab[aria-selected="true"] /* One flex item, not two. The button is a flex container so it can hold a
+   44px box with its label on the bottom edge; a bare <sup> inside it would
+   become a flex item of its own, and vertical-align does not apply to those —
+   the count dropped to the baseline and read as a subscript. */
+.w-tab__label{ display:inline-block; }
+.w-tab__count{ color:var(--text-secondary); }
+
+/* The panel is focusable, so it needs the site's ring and nothing else. */
+.w-panel:focus-visible{ outline-offset:6px; }
+
+/* ---------------------------------------------------------------------------
+   LIST — a row is a title, an optional description, its tags, and whatever
+   metadata the piece actually has, right-aligned on desktop.
+   ------------------------------------------------------------------------ */
+.w-list{ list-style:none; margin:0; padding:0; }
+.w-item{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--step-6);
+  align-items:baseline;
+  padding-block:var(--step-6);
+  border-bottom:var(--hair) solid var(--border-default);
+}
+.w-item__main{ min-width:0; }
+.w-item__title{
+  margin:0;
+  font-family:var(--font-display);
+  font-size:var(--text-h4);
+  font-weight:var(--weight-emphasis);
+  letter-spacing:var(--track-heading);
+  line-height:1.3;
+  color:var(--text-primary);
+  text-wrap:pretty;
+}
+.w-item__desc{
+  margin:var(--step-2) 0 0;
+  max-width:var(--prose-max);
+  color:var(--text-secondary);
+  font-size:var(--text-sm);
+  line-height:1.55;
+}
+/* The tags the drafts already carry, kept as text. They were pills, which on
+   a list of four rows added twelve bordered shapes to a page whose whole
+   argument is restraint. */
+.w-item__tags{
+  margin:var(--step-3) 0 0;
+  font-family:var(--font-mono);
+  font-size:var(--text-mono);
+  color:var(--text-tertiary);
+}
+/* The right-hand column is the date slot. None of these pieces has a
+   publication date, so it carries the one piece of metadata they do have —
+   their status — rather than a placeholder date. */
+.w-item__meta{
+  margin:0;
+  justify-self:end;
+  text-align:right;
+  white-space:nowrap;
+  font-family:var(--font-mono);
+  font-size:var(--text-mono);
+  letter-spacing:0;
+  font-variant-numeric:tabular-nums;
+  color:var(--text-tertiary);
+}
+
+/* The published row. A title with a destination is a link across the whole
+   row, and it gets the only hover state on the page: the title warms and the
+   arrow steps out. Nothing here is live yet — this is the shape the first
+   finished piece drops into. */
+.w-item__link{
+  display:block; text-decoration:none; color:inherit;
+}
+.w-item__link::after{
+  content:""; position:absolute; inset:0;
+}
+.w-item:has(.w-item__link){ position:relative; }
+.w-item__link:hover .w-item__title,
+.w-item__link:focus-visible .w-item__title{ color:var(--accent-light); }
+.w-item__link .w-item__title::after{
+  content:" \2192";
+  display:inline-block;
+  opacity:0;
+  transform:translateX(-0.2em);
+  transition:opacity var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-smooth);
+}
+.w-item__link:hover .w-item__title::after,
+.w-item__link:focus-visible .w-item__title::after{
+  opacity:1; transform:translateX(0);
+}
+
+/* Written by writing.js when a panel's list is empty. */
+.w-empty{
+  margin:0;
+  padding-block:var(--step-10);
+  border-bottom:var(--hair) solid var(--border-default);
+  color:var(--text-tertiary);
+  font-size:var(--text-sm);
+}
+
+/* ---------------------------------------------------------------------------
+   FOOTNOTES — the two paragraphs that explain the state of the index. Quiet
+   and below the list, because they are about the page rather than in it.
+   ------------------------------------------------------------------------ */
+.w-notes{ margin-top:var(--step-10); max-width:var(--prose-max); }
+.w-notes__p{
+  margin:0; color:var(--text-tertiary);
+  font-size:var(--text-sm); line-height:1.55;
+}
+.w-notes__p + .w-notes__p{ margin-top:var(--step-4); }
+.w-notes__p strong{ color:var(--text-secondary); font-weight:var(--weight-emphasis); }
+
+/* ---------------------------------------------------------------------------
+   MOBILE — the date column stops being a column. It moves under the row's
+   text, left-aligned on the same edge as everything else, so nothing has to
+   wrap in a 4rem gutter and the page never scrolls sideways.
+   ------------------------------------------------------------------------ */
+@media (max-width:640px){
+  .w-item{
+    grid-template-columns:minmax(0,1fr);
+    gap:var(--step-3);
+    padding-block:var(--step-5);
+  }
+  .w-item__meta{ justify-self:start; text-align:left; }
+  /* The strip still fits on one line at 320px at this gap. */
+  .w-tabs{ gap:var(--step-6); }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .w-tab,.w-tab::after,
+  .w-item__link .w-item__title::after{ transition:none; }
+}

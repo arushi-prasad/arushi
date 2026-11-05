@@ -1,0 +1,3809 @@
+/* ============================================================================
+   workperks.css — the page-scoped layer for the WorkPerks case study.
+
+   Everything general already exists: .section, .split, .plate, .rows, .flow,
+   .stats, .spec and .note come from components.css and are used unchanged.
+   What is here is only what this case study needs and no other page does:
+
+     wp-status     the build-state label (Built / Specified / Concept)
+     wp-shots      the device screenshot rail, at the phone's own aspect
+     wp-ba         the before / after pair, the strongest exhibit on the page
+     wp-crop       a frame that trims a capture without re-exporting the file
+     wp-arch       the ecosystem and data-boundary diagrams, drawn in CSS
+     wp-gap        an intentional evidence slot — a designed empty space
+
+   No colour is declared here that is not already a token. The status labels
+   borrow the palette hues rather than introducing a second accent, so the
+   Colour control on the home page still owns every accent on this page.
+   ========================================================================= */
+
+
+/* ── status ──────────────────────────────────────────────────────────────
+   Two legends, kept apart, because a thing can be verified and unbuilt or
+   built and unconfirmed. Build state says whether it exists; the dimmed
+   variant says the page is reporting rather than claiming.               */
+
+.wp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  padding: .3em .7em;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.wp-status::before {
+  content: "";
+  inline-size: .45em;
+  block-size: .45em;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.wp-status--built     { color: var(--hue-sage-deep);     border-color: color-mix(in oklab, var(--hue-sage-deep) 40%, transparent); }
+.wp-status--specified { color: var(--hue-slate-deep);    border-color: color-mix(in oklab, var(--hue-slate-deep) 40%, transparent); }
+.wp-status--concept   { color: var(--text-tertiary);     border-style: dashed; }
+.wp-status--tested    { color: var(--hue-teal-deep);     border-color: color-mix(in oklab, var(--hue-teal-deep) 40%, transparent); }
+
+
+/* ── device screenshots ──────────────────────────────────────────────────
+   The captures are 409 × 876, which is the phone frame the hi-fi build and
+   the running app both render at. Holding that ratio in CSS means a new
+   capture drops in without the row reflowing.                            */
+
+.wp-shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: var(--step-5);
+  margin-top: var(--step-8);
+  list-style: none;
+  padding: 0;
+}
+
+.wp-shot { margin: 0; display: grid; gap: var(--step-3); align-content: start; }
+
+.wp-shot img {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 409 / 876;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--ink-5);
+  display: block;
+}
+
+.wp-shot figcaption {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+.wp-shot__k {
+  display: block;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: .25em;
+}
+
+/* A rail when there are more captures than a grid row should hold. Scrolls
+   inside itself, so the page body never scrolls sideways. */
+.wp-shots--rail {
+  display: flex;
+  grid-template-columns: none;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: var(--step-4);
+}
+
+.wp-shots--rail .wp-shot { flex: 0 0 11rem; scroll-snap-align: start; }
+
+
+/* ── before / after ──────────────────────────────────────────────────────
+   Both halves of this pair are real captures of the same screen about one
+   design revision apart. The pair is the exhibit; the labels are what stop
+   a reader having to work out which is which.                            */
+
+.wp-ba {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--step-6);
+  margin-top: var(--step-8);
+}
+
+.wp-ba__side { margin: 0; display: grid; gap: var(--step-3); align-content: start; }
+
+/* Both halves are pinned to the same ratio and the same top edge. The two
+   captures are a few pixels apart in size, and left to themselves they
+   render at different heights — which reads as a difference between the two
+   designs rather than a difference between two screenshots. */
+.wp-ba__side img {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 409 / 876;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--ink-5);
+  display: block;
+}
+
+/* The label sits on its own row of the implicit grid, so a longer label on
+   one side cannot push that side's image down past the other's. */
+.wp-ba__side { grid-template-rows: auto auto 1fr; }
+
+.wp-ba__k {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .6em;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  min-block-size: 2.4em;
+  margin: 0;
+}
+
+.wp-ba__k b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+.wp-ba__side figcaption {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+
+/* ── crop frame ──────────────────────────────────────────────────────────
+   One capture carries a debug bar along its top edge. Trimming it here
+   keeps the original file untouched, which matters because the original is
+   the evidence and a re-export is a second artefact to keep honest.      */
+
+.wp-crop {
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--ink-5);
+  line-height: 0;
+}
+
+.wp-crop img {
+  inline-size: 100%;
+  block-size: auto;
+  display: block;
+  margin-block-start: -7%;   /* the log bar, and nothing else */
+}
+
+
+/* ── diagrams ────────────────────────────────────────────────────────────
+   Drawn in CSS rather than shipped as an image, so they respond to the
+   Type, Spacing and Radius controls like the rest of the site and stay
+   legible when the page is read at 200%.                                 */
+
+.wp-arch {
+  display: grid;
+  gap: var(--step-4);
+  margin-top: var(--step-8);
+  padding: var(--step-6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+
+.wp-arch__band { display: grid; gap: var(--step-3); }
+
+.wp-arch__k {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.wp-arch__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: var(--step-3);
+}
+
+.wp-arch__cell {
+  padding: var(--step-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface-page);
+  display: grid;
+  gap: var(--step-2);
+  align-content: start;
+}
+
+.wp-arch__cell b { font-size: var(--text-sm); font-weight: var(--weight-emphasis); }
+.wp-arch__cell span { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+/* The one band everything resolves through. */
+.wp-arch__cell--spine {
+  background: var(--ink-5);
+  border-color: var(--border-strong);
+}
+
+.wp-arch__link {
+  justify-self: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+}
+
+/* The rule under a diagram that states what it is not allowed to do. */
+.wp-arch__rule {
+  margin: 0;
+  padding-top: var(--step-4);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+
+/* The data boundary: two columns, and the line between them is the point. */
+.wp-bound {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--step-5);
+  margin-top: var(--step-6);
+}
+
+.wp-bound__side {
+  padding: var(--step-5);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: var(--step-3);
+  align-content: start;
+}
+
+.wp-bound__side--never { border-style: dashed; background: var(--ink-5); }
+
+.wp-bound__side ul { margin: 0; padding-left: 1.1em; display: grid; gap: var(--step-2); }
+.wp-bound__side li { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+
+/* ── evidence slots ──────────────────────────────────────────────────────
+   A designed empty space, not an unfinished section. Each one names the
+   artefact it is waiting for and where that artefact lives, so it can be
+   filled without the page being redesigned around it.                    */
+
+.wp-gap {
+  margin-top: var(--step-6);
+  padding: var(--step-6);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: var(--step-3);
+  align-content: start;
+  background: color-mix(in oklab, var(--surface-raised) 60%, transparent);
+}
+
+.wp-gap__k {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.wp-gap__t { margin: 0; font-size: var(--text-lg); font-weight: var(--weight-heading); }
+.wp-gap__d { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); max-width: 60ch; }
+
+.wp-gap__src {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+  word-break: break-word;
+}
+
+.wp-gaps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--step-5);
+  margin-top: var(--step-6);
+}
+
+.wp-gaps .wp-gap { margin-top: 0; }
+
+
+/* ── counted figures ─────────────────────────────────────────────────────
+   Every number on this page is counted from a repository. The source line
+   under the grid is part of the component, not a footnote, so a figure can
+   never appear without the thing it was counted from.                    */
+
+.wp-count {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: var(--step-5);
+  margin-top: var(--step-8);
+}
+
+.wp-count__i { display: grid; gap: var(--step-2); align-content: start; }
+
+.wp-count__n {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--track-display);
+  line-height: 1;
+}
+
+.wp-count__l { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+/* One card rather than four columns standing loose on the page — the
+   treatment the spine boxes, the flow panel and the principle cards all
+   get. Four across on one line, which the block only fits now that Screen
+   modules and UI primitives have come out: the numeral is set to the
+   research chapter's stat size rather than --text-h2, so "35,718" needs
+   about 115px rather than 150px and four tracks of a reading column have
+   the room.
+
+   This modifier carries no source line. Both blocks it is on — chapter 08
+   and, since 4 Nov 2026, Outcomes — had their provenance notes removed at
+   Arushi's instruction. Outcomes runs seven figures rather than four, so
+   its last row is a short one; the four-track grid is kept so a figure
+   sits at the same width on both chapters. */
+.wp-count--box {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--step-8) var(--step-6);
+  padding: var(--step-8);
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+/* The same size the competitive landscape stats are set at, so a figure
+   reads the same on both chapters. Matches .wp-mkt__stat-v exactly. */
+.wp-count--box .wp-count__n {
+  font-size: clamp(1.5rem, 1.15rem + 1.1vw, 2.1rem);
+  font-variant-numeric: tabular-nums;
+}
+/* And the label with it: the research chapter sets its keys in the label
+   face, uppercase and tertiary, so the pair reads as one stat rather than
+   as a numeral with a sentence under it. Matches .wp-mkt__stat-k exactly. */
+.wp-count--box .wp-count__l {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+@media (max-width: 860px) {
+  .wp-count--box { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .wp-count--box { grid-template-columns: minmax(0, 1fr); padding: var(--step-6); }
+}
+
+.wp-count__src {
+  margin-top: var(--step-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+}
+
+
+/* ── the skills folder ───────────────────────────────────────────────────
+   An editorial block rather than a plate: the narrative carries the claim
+   and the screenshot is the evidence under it, so the two are one figure.
+   The shot is a dark Finder capture, so it takes a raised mat and a hair
+   border rather than the .plate treatment, which sets an --ink-5 ground
+   behind light artwork. The mat is padding rather than a crop; the image
+   is placed whole and never cropped.
+
+   The shot is capped at 45rem rather than running the full reading column,
+   at Arushi's instruction: at 953px it read as an expanded screenshot
+   rather than an exhibit. 720px is a quarter off that, and still 67% of
+   the capture's own 1070px, so every filename stays legible.           */
+
+.wp-skills { margin: 0; }
+
+.wp-skills__lede { margin-top: var(--step-4); }
+
+.wp-skills__shot {
+  margin-top: var(--step-6);
+  max-inline-size: min(100%, 45rem);
+  padding: var(--step-3);
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+.wp-skills__shot img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-md);
+}
+@media (max-width: 640px) {
+  .wp-skills__shot { padding: var(--step-2); }
+}
+
+.wp-skills__cap {
+  margin-top: var(--step-3);
+  max-inline-size: 52ch;
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--text-tertiary);
+}
+.wp-skills__src {
+  display: block;
+  margin-bottom: var(--step-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+
+/* ── decision blocks ─────────────────────────────────────────────────────
+   Problem, options, decision, rationale, implication — in that order,
+   because a decision without its context reads as a preference.          */
+
+.wp-dec {
+  margin-top: var(--step-8);
+  padding-top: var(--step-6);
+}
+
+.wp-dec__h { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--step-3); }
+.wp-dec__n { font-family: var(--font-mono); font-size: var(--text-label); color: var(--text-tertiary); margin: 0; }
+
+.wp-dec__grid {
+  display: grid;
+  gap: var(--step-4) var(--step-6);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  margin-top: var(--step-5);
+}
+
+.wp-dec__f { display: grid; gap: var(--step-2); align-content: start; }
+
+.wp-dec__k {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.wp-dec__v { margin: 0; font-size: var(--text-sm); color: var(--text-body); line-height: var(--leading-body); }
+
+
+/* ── a pair list ─────────────────────────────────────────────────────────
+   Two short definitions inside a panel. A <dl> rather than the shared .rows
+   component, because .rows reserves its first grid column for the step
+   number and a pair with no number gets squeezed into that column.       */
+
+.wp-pair { margin: 0; display: grid; gap: var(--step-4); }
+.wp-pair dt { font-size: var(--text-lg); font-weight: var(--weight-heading); }
+.wp-pair dd {
+  margin: var(--step-2) 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+
+/* ── wide tables ─────────────────────────────────────────────────────────
+   The shared .spec component is a two-column key and value table on a grid
+   track with a 20rem minimum. The tables on this page carry three and four
+   columns, so on a narrow screen the table outgrows that track and pushes
+   the page sideways.
+
+   Below the breakpoint .spec stops being a grid and becomes its own scroll
+   container, so the wide content scrolls inside itself and the page body
+   never does. The table is given a minimum width so the columns stay
+   readable rather than collapsing to one word per line.                  */
+
+@media (max-width: 52rem) {
+  .section .spec {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .section .spec__table { min-width: 34rem; }
+  .section .spec__table th,
+  .section .spec__table td { padding-right: var(--step-4); }
+  .section .spec__table th { width: auto; }
+}
+
+
+/* ── responsive ──────────────────────────────────────────────────────────
+   One further breakpoint. Below it the ownership verb moves above its row
+   rather than beside it, so a long title never squeezes the label to one
+   letter per line.                                                       */
+
+@media (max-width: 42rem) {
+  .wp-shots--rail .wp-shot { flex-basis: 9.5rem; }
+}
+
+
+/* Reduced motion is handled globally in base.css; nothing on this page
+   animates on its own, so there is nothing further to stand down. */
+
+
+/* ===========================================================================
+   THE OPENING SEQUENCE
+   Chapters 01 to 05: the headline, the category argument carried over from
+   the concept deck, the build evidence, the summary and the two journeys.
+   Everything below is page scoped. The shared `.case__facts` component is
+   deliberately untouched, because Vytals and Vidal still use it as it is.
+   ========================================================================= */
+
+/* ── 01 · the opening headline ───────────────────────────────────────────
+   One size up from a normal section heading and set tight, because this is
+   the first statement on the page rather than a chapter title. It stops at
+   the display scale rather than the h1 scale: the page's own `work perks`
+   wordmark sits above it and has to stay the larger of the two.          */
+
+.wp-open__h {
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 3.5rem);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--track-display);
+  line-height: 1.02;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+.wp-open__h + .prose { margin-top: var(--step-8); }
+
+
+/* ── 02 · the category shift ─────────────────────────────────────────────
+   Slide 03 of the concept deck. Three columns, each hung from a coloured
+   rule, in the slide's order: THEN neutral, NOW green, THE GAP amber.
+
+   The deck's own greens and browns (#1f5a4c, #6f4610) are near enough to
+   this site's `--hue-teal-deep` and `--hue-ochre-deep` to be the same two
+   hues, but they were picked to sit on white paper. On this page's near
+   black ground they read as mud, so each column takes the mid weight of
+   its hue for the rule and the light weight for the label, which keeps the
+   slide's three way coding and stays legible. The slide's heading keeps
+   its em dash: it is quoted copy, not copy written for this page.        */
+
+.wp-shift__h {
+  max-width: 34ch;
+  line-height: 1.3;
+  font-size: clamp(1.1rem, 0.95rem + 0.72vw, 1.5rem);
+  text-wrap: pretty;
+}
+
+/* Then, now and the gap, stacked under the statement they qualify rather
+   than set as three columns beside it. Each one is a pointer: a marker,
+   a mono label, and the line in italic at a size below the body, so the
+   run reads as an aside to the headline and not as a second argument.
+   The gap is the one that matters, so it is the one lit. */
+.wp-shift__points {
+  list-style: none; margin: var(--step-8) 0 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--step-4);
+  /* The measure is still 46ch; the inset below is added back on, so
+     padding a row does not narrow the line it holds. */
+  max-width: calc(46ch + var(--step-5) * 2);
+}
+.wp-shift__point {
+  display: grid;
+  padding-inline: var(--step-5);
+  /* The label column is fixed rather than auto: each row is its own grid,
+     so `auto` sizes to that row's own label and the three italic lines
+     start at three different places. 5rem clears THE GAP, the longest. */
+  grid-template-columns: 1.25rem 5rem 1fr;
+  gap: var(--step-1) var(--step-3);
+  align-items: baseline;
+}
+.wp-shift__point::before {
+  content: "\2192";               /* → */
+  color: var(--text-tertiary);
+  font-size: var(--text-mono);
+  line-height: 1.5;
+}
+.wp-shift__pk {
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500; color: var(--text-tertiary);
+  white-space: nowrap;
+}
+.wp-shift__pt {
+  font-style: italic;
+  font-size: var(--text-sm); line-height: 1.5;
+  color: var(--text-secondary);
+}
+/* The highlighted one. Then and Now are the setup; this is the finding the
+   whole chapter rests on, so it is lifted onto its own ground rather than
+   only tinted in. The ground is the page's existing gesture for a coloured
+   surface — a deep hue mixed into --surface-page, the same construction
+   .wp-pool__k uses — at 34%, which reads as a panel against the near black
+   without becoming a second colour on the page. Ochre because this row is
+   already the ochre coded one. The hairline repeats the hue at the mid
+   weight so the edge is found even where the tint is too quiet to see. */
+.wp-shift__point--gap {
+  margin-block: var(--step-1);
+  padding-block: var(--step-5);
+  border: var(--hair) solid color-mix(in srgb, var(--hue-ochre) 38%, transparent);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--hue-ochre-deep) 34%, var(--surface-page));
+}
+.wp-shift__point--gap::before { color: var(--hue-ochre); }
+.wp-shift__point--gap .wp-shift__pk { color: var(--hue-ochre-light); }
+/* It stops being an aside, so it stops being set as one: upright, at the
+   body size, in the primary ink. 13.5:1 on the tinted ground. */
+.wp-shift__point--gap .wp-shift__pt {
+  color: var(--text-primary);
+  font-style: normal;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+
+/* ── 02 · the terminal, as build evidence ────────────────────────────────
+   The screenshot is 2410 wide, so at full column width the terminal text
+   is legible on a laptop and the whole frame still fits on a phone. It is
+   inset from the slide above it and sits on a raised ground, so it reads
+   as a cited exhibit under the argument rather than as a second argument.
+
+   The same file appears again in chapter 13, where the working method is
+   the subject. Here it is evidence; there it is the thing being explained,
+   and the two captions say different things about it.                    */
+
+.wp-term { margin-top: var(--step-16); }
+.wp-term img {
+  border-color: var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--ink-5);
+}
+
+
+/* ── 03 · the project summary ────────────────────────────────────────────
+   The seven fields the opening used to carry, at a quieter size inside a
+   hairline container: mono small caps for the labels, mono for the values,
+   one rule per row, and a heavier rule where the engagement facts end and
+   the product facts begin. Padding is generous on purpose — the point of
+   the treatment is that the information has room, not that it is large. */
+
+.wp-sum {
+  margin: var(--step-10) 0 0;
+  max-width: 52rem;
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--step-4) var(--step-10) var(--step-6);
+  background: transparent;
+}
+.wp-sum__row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: var(--step-6);
+  align-items: baseline;
+  padding: var(--step-5) 0;
+  border-top: var(--hair) solid var(--border-subtle);
+}
+.wp-sum__row:first-child { border-top: 0; }
+/* The one group break: engagement above, product and build below. */
+.wp-sum__row--group { border-top-color: var(--border-default); }
+
+.wp-sum__k {
+  margin: 0;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500; color: var(--text-tertiary);
+}
+.wp-sum__v {
+  margin: 0;
+  font-family: var(--font-mono); font-size: var(--text-mono);
+  line-height: 1.65; letter-spacing: 0;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  text-wrap: pretty;
+}
+
+
+/* ── the opening sequence, narrow ────────────────────────────────────────
+   Two things change below the reading column's comfortable width: the
+   summary's label column stops being a column, so a long value is never
+   squeezed to a few characters per line, and the summary's side padding
+   comes down to something a phone can afford.                           */
+
+@media (max-width: 52rem) {
+  .wp-sum { padding-inline: var(--step-6); }
+}
+
+@media (max-width: 42rem) {
+  .wp-shift__point { grid-template-columns: 1.25rem 1fr; }
+  .wp-shift__pt { grid-column: 2; }
+  .wp-sum { padding-inline: var(--step-5); }
+  .wp-sum__row { grid-template-columns: 1fr; gap: var(--step-2); }
+  .wp-sum__v { font-size: var(--text-sm); }
+  .wp-open__h { max-width: none; }
+}
+
+
+/* The problem opening, drawn. The artwork carries its own light ground to
+   all four edges, so unlike the ecosystem and definition plates it needs no
+   plate under it — the radius is the only thing added. The .wp-prob rules
+   below are the live markup version it replaced and are no longer
+   referenced, kept beside .wp-how and .wp-ecos for the same reason. */
+.wp-prob__art {
+  margin: var(--step-6) 0 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.wp-prob__art img {
+  display: block; width: 100%; height: auto;
+  border: 0; background: none;
+}
+
+/* ── 04 · the problem, in three stages ───────────────────────────────────
+   The execution plan's opening slide, rebuilt. On the slide the three stages
+   sit side by side with an arrow between them; here they are an ordered list
+   on a grid, so the order survives when the grid collapses to one column and
+   a screen reader reads them as the sequence they are.
+
+   The slide's three-way colour coding is kept and retinted, the same move
+   chapter 03 makes: the deck is drawn in green, amber and orange for white
+   paper, and this page's ground is near black, so the hues come from the
+   site's own teal, ochre and rust at a luminance that survives it.
+
+   The arrows are drawn by CSS on the gaps rather than written into the
+   markup, because an arrow between two cards is a picture of the layout and
+   disappears with it at one column.
+   ------------------------------------------------------------------------ */
+.wp-prob {
+  list-style: none;
+  margin: var(--step-10) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--step-5);
+}
+.wp-prob__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--step-2);
+  padding: var(--step-6);
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+/* The arrow sits in the gap to the stage's right, so the last one has none. */
+.wp-prob__stage + .wp-prob__stage::before {
+  content: "→";
+  position: absolute;
+  inset-inline-start: calc(var(--step-5) * -1);
+  inset-block-start: 50%;
+  translate: -50% -50%;
+  width: var(--step-5);
+  text-align: center;
+  color: var(--border-strong);
+  line-height: 1;
+}
+.wp-prob__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+.wp-prob__stage--wallet .wp-prob__k { color: var(--hue-teal-light); }
+.wp-prob__stage--frag   .wp-prob__k { color: var(--hue-ochre-light); }
+.wp-prob__stage--loss   .wp-prob__k { color: var(--hue-rust-light); }
+.wp-prob__h {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--track-heading);
+  color: var(--text-primary);
+}
+.wp-prob__sub {
+  margin: 0 0 var(--step-3);
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+}
+.wp-prob__chips { margin: 0; }
+/* Stage 02 is drawn on the slide as boxes that step sideways, which is the
+   fragmentation being described rather than decoration, so the step is kept
+   and done with a margin on alternate items. */
+.wp-prob__stack { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--step-2); }
+.wp-prob__box {
+  padding: var(--step-3) var(--step-4);
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  background: var(--surface-page);
+}
+.wp-prob__box:nth-child(even) { margin-inline-start: var(--step-6); }
+/* Stage 03's items sit on dotted rules on the slide: a value with nothing
+   written on the line under it. */
+.wp-prob__lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--step-4); }
+.wp-prob__line {
+  padding-bottom: var(--step-3);
+  border-bottom: var(--hair) dashed var(--border-default);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.wp-prob__foot {
+  margin: var(--step-8) 0 0;
+  padding-top: var(--step-5);
+  max-width: var(--prose-max);
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+}
+.wp-prob__foot strong { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+/* ── 04 · the parts inside the chapter ───────────────────────────────────
+   Four movements in one chapter, so each one after the first opens on a
+   heading. The separation is air and the heading alone: no rule, at
+   Arushi's instruction — a hairline inside a chapter reads as a chapter
+   break, and the chapters already own that line.
+
+   One gap, --step-12, between every part, and nothing added on the
+   heading. It is deliberately shorter than the gap between chapters, so a
+   part cannot be mistaken for a chapter, and close to the --step-8 and
+   --step-10 a part's own blocks are spaced by, so a chapter reads at one
+   rhythm from its eyebrow down.
+   ------------------------------------------------------------------------ */
+.wp-part { margin-top: var(--step-12); }
+.wp-part__h {
+  margin: 0 0 var(--step-3);
+  padding-top: 0;
+}
+
+/* ── 04 · what the gap was made of ───────────────────────────────────────
+   Four cards, two up. Every value here is a token this page already uses:
+   the card is the same hairline-on-raised-surface as .wp-prob__stage, the
+   type is the same display and mono faces, and the four hues are the three
+   this chapter already assigns to the problem stages plus slate.
+
+   Each card carries its hue in --gap-hue and everything coloured reads that
+   one property, so a card is re-themed by one declaration and the Colour
+   control still reaches all of it through the --hue-* tokens.
+
+   The tint and the ghost numeral are both scaled by --deco, which is what
+   the Opacity control writes — the same contract .note and the page grid
+   are on, so they fade with everything else rather than standing out as the
+   one decoration that ignores the setting.
+   --------------------------------------------------------------------- */
+.wp-gapmade { margin: var(--step-10) 0 0; }
+.wp-gapmade__head {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: var(--step-2) var(--step-5);
+  margin-bottom: var(--step-5);
+}
+.wp-gapmade__cap { margin: 0; color: var(--text-secondary); }
+
+.wp-gapmade__grid {
+  margin: 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--step-5);
+}
+.wp-gapmade__item {
+  --gap-hue: var(--hue-slate-light);
+  position: relative;
+  display: flex; flex-direction: column; gap: var(--step-2);
+  padding: var(--step-6);
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+.wp-gapmade__item--util      { --gap-hue: var(--hue-teal-light); }
+.wp-gapmade__item--value     { --gap-hue: var(--hue-ochre-light); }
+.wp-gapmade__item--platforms { --gap-hue: var(--hue-rust-light); }
+.wp-gapmade__item--funding   { --gap-hue: var(--hue-slate-light); }
+
+.wp-gapmade__h {
+  margin: 0;
+  font-family: var(--font-display); font-size: var(--text-h4);
+  font-weight: var(--weight-heading); letter-spacing: var(--track-heading);
+  line-height: 1.25; color: var(--text-primary);
+}
+.wp-gapmade__t {
+  margin: 0; max-width: 34ch;
+  font-size: var(--text-sm); line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+
+/* One column before the cards get narrow enough to break the headings. */
+@media (max-width: 52rem) {
+  .wp-gapmade__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 42rem) {
+  .wp-gapmade__head { gap: var(--step-1); }
+}
+
+/* ── 04 · the utilisation metrics ────────────────────────────────────────
+   Two numerals at display size. They are empty on purpose: see the note in
+   the fragment. The slot is styled as a slot rather than as a number, so the
+   block reads as a measurement that has not been taken instead of as a
+   figure that failed to load. Putting a real number in means replacing the
+   span's text; nothing else here changes.
+
+   <dd> before <dt> in the markup, because the number is what is read first
+   and the label names it. A definition list allows the pair in that order.
+   ------------------------------------------------------------------------ */
+.wp-metric {
+  margin: var(--step-8) 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--step-6);
+}
+.wp-metric__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--step-2);
+  padding: var(--step-8) 0;
+}
+.wp-metric__item + .wp-metric__item {
+  padding-inline-start: var(--step-8);
+  border-inline-start: var(--hair) solid var(--border-subtle);
+}
+.wp-metric__v {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--track-display);
+  line-height: 1;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+/* The page has no pure red; --hue-rust is the red end of the hue ring and
+   is already what this chapter uses for value lost, so the figure is read
+   against the same key as the problem stage beside it. The -light step is
+   the on-dark one, and clears 4.5:1 rather than scraping large-text 3:1. */
+.wp-metric__v--loss { color: var(--hue-rust-light); }
+.wp-metric__k {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+/* The empty state. Set at the label's size rather than the numeral's, so an
+   absent figure does not shout louder than a present one would. */
+.wp-metric__slot {
+  display: inline-block;
+  padding: var(--step-2) var(--step-4);
+  border: var(--hair) dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: 400;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 760px) {
+  .wp-prob { grid-template-columns: 1fr; gap: var(--step-6); }
+  /* One column, so the arrow turns to point down the page. */
+  .wp-prob__stage + .wp-prob__stage::before {
+    content: "↓";
+    inset-inline-start: var(--step-6);
+    inset-block-start: calc(var(--step-6) * -1);
+    translate: 0 -50%;
+  }
+  .wp-prob__box:nth-child(even) { margin-inline-start: var(--step-4); }
+  .wp-metric { grid-template-columns: 1fr; }
+  .wp-metric__item + .wp-metric__item {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+/* ── 06 · the market table ───────────────────────────────────────────────
+   Twelve rows across five competitors will not fit a phone and should not
+   try. The table keeps its real width and scrolls inside its own wrapper,
+   with the row-label column pinned so a value never loses its question.
+   The wrapper is focusable so the scroll is reachable from the keyboard. */
+
+
+.wp-mkt__note {
+  display: block;
+  margin-top: var(--step-10);
+  padding: var(--step-6) var(--step-8);
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-md);
+}
+.wp-mkt__note-t {
+  margin: 0;
+  font-size: var(--text-sm); line-height: 1.65;
+  color: var(--text-secondary);
+}
+/* The figures inside the summary. Bold rather than coloured: there are
+   twenty of them in one paragraph and twenty coloured numbers would read
+   as a chart rather than as a reading. */
+.wp-mkt__note-t b {
+  font-weight: var(--weight-emphasis);
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.wp-mkt__note-k { font-weight: var(--weight-emphasis); color: var(--text-primary); }
+
+/* The four that carry the argument, lifted out of the paragraph and set at
+   display size. Four across on a desktop, two on a tablet, one on a phone —
+   auto-fit rather than a fixed count, so the row never leaves a widow. */
+.wp-mkt__sum-k {
+  margin: 0 0 var(--step-5);
+  color: var(--text-secondary);
+}
+.wp-mkt__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--step-6) var(--step-8);
+  margin: 0;
+}
+.wp-mkt__stat { display: flex; flex-direction: column; gap: var(--step-1); }
+.wp-mkt__stat-v {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: clamp(1.5rem, 1.15rem + 1.1vw, 2.1rem);
+  letter-spacing: var(--track-display);
+  line-height: 1;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+/* The unit rides with the numeral rather than dropping to the label, so
+   13 M and <1 OFFER read as one value each. */
+.wp-mkt__stat-s {
+  margin-inline-start: 0.18em;
+  font-size: 0.5em;
+  font-family: var(--font-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.wp-mkt__stat-k {
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+/* The one that is not a size but a failure, so it takes the chapter's red
+   the way 70% does two chapters up. */
+.wp-mkt__stat--tell .wp-mkt__stat-v { color: var(--hue-rust-light); }
+.wp-mkt__stat--tell .wp-mkt__stat-s { color: color-mix(in srgb, var(--hue-rust-light) 70%, transparent); }
+
+/* The landscape table, as drawn. Light artwork on a dark page, so it takes
+   a light plate the way the journey flows do; twelve rows across six
+   columns hold a floor width and scroll sideways under it. */
+.wp-mkt__art {
+  margin: var(--step-8) 0 0;
+  padding: var(--step-4);
+  border-radius: var(--radius-lg);
+  background: var(--ink-100);
+}
+.wp-mkt__art-scroll { overflow-x: auto; border-radius: var(--radius-md); }
+.wp-mkt__art-scroll:focus-visible { outline: 2px solid var(--hue-teal); outline-offset: 3px; }
+.wp-mkt__art img {
+  display: block; width: 100%; min-width: 52rem; height: auto;
+  border: 0; border-radius: var(--radius-md); background: none;
+}
+
+
+/* ── the flexi benchmark ─────────────────────────────────────────────────
+   Light paper on a dark page, so it takes the landscape table's plate.
+   2856px of spreadsheet across eight columns will not fit a reading
+   column and should not try: the real width is held behind a sideways
+   scroll, with the wrapper focusable so the scroll is reachable from the
+   keyboard. The 82rem floor is 1800:52rem — the landscape table's own
+   ratio — scaled up to this file's width, so a cell renders at the same
+   size on both tables. */
+.wp-flexmkt,
+.wp-roadmap {
+  margin: var(--step-10) 0 0;
+  padding: var(--step-4);
+  border-radius: var(--radius-lg);
+  background: var(--ink-100);
+}
+.wp-flexmkt__scroll,
+.wp-roadmap__scroll { overflow-x: auto; border-radius: var(--radius-md); }
+.wp-flexmkt__scroll:focus-visible,
+.wp-roadmap__scroll:focus-visible { outline: 2px solid var(--hue-teal); outline-offset: 3px; }
+.wp-flexmkt img,
+.wp-roadmap img {
+  display: block; width: 100%; min-width: 82rem; height: auto;
+  border: 0; border-radius: var(--radius-md); background: none;
+}
+/* 1594px against the flexi sheet's 2856, so the same rendered cell
+   size needs a much lower floor, and the sheet clears the reading
+   column on a desktop without scrolling at all. */
+.wp-roadmap img { min-width: 46rem; }
+.wp-roadmap { margin-top: var(--step-8); }
+
+@media (max-width: 640px) {
+  .wp-flexmkt, .wp-roadmap { padding: var(--step-2); }
+}
+
+
+/* ── 07 · the white space map ────────────────────────────────────────────
+   A two by two with the axes named on two sides. The y-axis label is
+   rotated on wide screens and flattened on narrow ones, where a rotated
+   label would be unreadable and would also force the grid too thin.    */
+
+/* Folded into chapter 03 as a .wp-part, so the grid answers to the part's
+   rhythm rather than to the chapter head's: the step-12 below is the gap a
+   section__head wants, and there is no prose line here to take it up. */
+.wp-part > .wp-ws { margin-top: var(--step-8); }
+
+.wp-ws {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: var(--step-3);
+  margin-top: var(--step-12);
+}
+.wp-ws__axis {
+  margin: 0;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.wp-ws__axis--y {
+  grid-column: 1; grid-row: 1;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  justify-self: center; align-self: center;
+  white-space: nowrap;
+}
+.wp-ws__axis--x { grid-column: 2; grid-row: 2; text-align: right; }
+
+.wp-ws__grid {
+  grid-column: 2; grid-row: 1;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--hair);
+  background: var(--border-default);
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.wp-ws__q {
+  display: flex; flex-direction: column; gap: var(--step-3);
+  min-height: 11rem;
+  padding: var(--step-6);
+  background: var(--surface-raised);
+}
+/* The open quadrant is the point of the slide, so it is the only one that
+   takes a colour. */
+.wp-ws__q--us {
+  background: color-mix(in srgb, var(--hue-teal-deep) 92%, var(--surface-page));
+  box-shadow: inset 3px 0 0 var(--hue-teal);
+}
+.wp-ws__q--us .wp-ws__name b { color: var(--hue-teal-light); }
+.wp-ws__q--us .wp-ws__qn { color: var(--text-primary); }
+.wp-ws__qk {
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.wp-ws__q--us .wp-ws__qk { color: var(--hue-teal-light); }
+.wp-ws__names { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--step-1); }
+.wp-ws__name b {
+  font-family: var(--font-display); font-size: var(--text-body);
+  font-weight: var(--weight-heading); letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.wp-ws__name span { font-size: var(--text-sm); color: var(--text-tertiary); }
+.wp-ws__qn {
+  margin: auto 0 0; font-size: var(--text-sm); line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+
+/* ── 08 · the product definition ─────────────────────────────────────────
+   Four cards, then the layer diagram the slide closes on. The arrows are
+   decorative and turn to point downward when the diagram stacks.       */
+
+
+.wp-def__layer {
+  display: flex; flex-wrap: wrap; align-items: stretch; gap: var(--step-4);
+  margin-top: var(--step-12);
+}
+.wp-def__node {
+  flex: 1 1 15rem;
+  display: flex; flex-direction: column; gap: var(--step-2);
+  padding: var(--step-6);
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+.wp-def__node--us {
+  border-color: var(--hue-teal);
+  background: color-mix(in srgb, var(--hue-teal-deep) 42%, var(--surface-page));
+}
+.wp-def__nk {
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.wp-def__node--us .wp-def__nk { color: var(--hue-teal-light); }
+.wp-def__nv {
+  margin: 0; font-size: var(--text-sm); line-height: 1.5; color: var(--text-primary);
+}
+.wp-def__arrow {
+  align-self: center; flex: none;
+  font-size: var(--text-h3); color: var(--text-tertiary);
+}
+
+
+/* ── the deck sequence, narrow ───────────────────────────────────────── */
+
+@media (max-width: 52rem) {
+  .wp-ws__grid { grid-template-columns: 1fr; }
+  .wp-ws__q { min-height: 0; }
+}
+
+@media (max-width: 42rem) {
+  /* a rotated axis label is unreadable at this width, so it lies flat
+     and the grid takes the full column */
+  .wp-ws { grid-template-columns: 1fr; }
+  .wp-ws__axis--y { grid-column: 1; grid-row: 1; writing-mode: horizontal-tb; transform: none; justify-self: start; }
+  .wp-ws__grid { grid-column: 1; grid-row: 2; }
+  .wp-ws__axis--x { grid-column: 1; grid-row: 3; text-align: left; }
+  .wp-def__layer { flex-direction: column; }
+  .wp-def__arrow { transform: rotate(90deg); }
+}
+
+/* ── 01 · the screen recording ───────────────────────────────────────────
+   Sits at the same width as the terminal exhibit below it, so the pair
+   reads as one run of evidence rather than two unrelated embeds.
+
+   It does not autoplay. The file is 17.7 MB and fifty two seconds long,
+   and `preload="metadata"` means a reader who scrolls past costs only the
+   header — the poster carries the frame until someone chooses to watch.
+   That also sidesteps the reduced-motion question entirely: nothing moves
+   unless it was asked to.                                              */
+
+.wp-film { margin-top: var(--step-16); }
+.wp-film__v {
+  display: block; width: 100%; height: auto;
+  border: var(--hair) solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--ink-5);
+}
+.wp-film__fallback {
+  margin: 0; padding: var(--step-6);
+  font-size: var(--text-sm); color: var(--text-secondary);
+}
+/* The film follows the terminal shot, so it takes the tighter gap: the
+   two are one run of evidence, not two separate exhibits. */
+.wp-term + .wp-film { margin-top: var(--step-10); }
+
+/* A label, not a caption — each exhibit is left to speak for itself.
+   Shared by the terminal shot and the film so the pair reads as one run. */
+.wp-exh__cap {
+  margin-top: var(--step-3);
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500; color: var(--text-tertiary);
+}
+
+/* ── 03 · the headline and the illustration, side by side ────────────────
+   The statement on the left, the category cards on the right, and the
+   then / now / the gap columns running full width underneath — the
+   composition the reference sets out.
+
+   The artwork is cut from the authored reference, whose ground is
+   #15130F against this page's #14130F. Close enough to need no plate,
+   no border and no radius: it sits directly on the page.             */
+
+.wp-shift__top {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: var(--step-10);
+  align-items: start;
+}
+.wp-shift__top .section__head { margin: 0; }
+
+.wp-shift__art { margin: 0; }
+.wp-shift__art img {
+  display: block; width: 100%; height: auto;
+  border: 0; border-radius: 0; background: none;
+}
+
+/* Below the top row the three columns keep the gap they already had to
+   the head, so the rhythm of the section does not change. */
+
+@media (max-width: 60rem) {
+  /* The headline needs the full measure before the artwork does, so the
+     two stack and the art follows the statement it illustrates. */
+  .wp-shift__top { grid-template-columns: 1fr; gap: var(--step-8); }
+  .wp-shift__art img { max-width: 32rem; margin-inline: auto; }
+}
+
+/* ── 05 · the journeys, built ────────────────────────────────────────────
+   The artwork was a white sheet on a near-black page that had to scroll
+   sideways to keep five steps across legible. It is live markup now, on
+   the page's own ground, so the steps reflow down the page instead.
+
+   Each rail is a titled container and an ordered list — ordered because
+   the order is the argument. The arrows are drawn in the column gap by
+   CSS rather than shipped as elements: they are the join between two
+   steps, not a step, and a screen reader walking the list does not want
+   to hear one. When the rail stacks they turn to point downward.
+
+   Nothing here is coloured. The artwork does not colour its steps, and
+   the chapter's claim is that the whole journey is the problem, so
+   lighting one step would be a new argument rather than this one.      */
+
+.wp-jr { display: grid; gap: var(--step-6); margin-top: var(--step-12); }
+
+.wp-jr__rail {
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  padding: var(--step-6);
+}
+
+/* The title and the count sit on one line, the count pushed to the far
+   end — the same shape the artwork gives them. */
+.wp-jr__head {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: var(--step-3);
+  margin-bottom: var(--step-6);
+}
+.wp-jr__k, .wp-jr__n {
+  margin: 0;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500;
+}
+.wp-jr__k { color: var(--text-secondary); }
+.wp-jr__n {
+  padding: .3em .8em;
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+/* Five equal columns with a gap wide enough to carry an arrow. Equal
+   rather than content-sized, so FIND AND PAY A VENDOR does not make its
+   own step twice the width of UPLOAD PROOF. */
+.wp-jr__steps {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: var(--step-8);
+  row-gap: var(--step-5);
+}
+.wp-jr__step {
+  position: relative;
+  display: flex; flex-direction: column; gap: var(--step-2);
+  padding: var(--step-5);
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface-page);
+}
+.wp-jr__sn {
+  font-family: var(--font-mono); font-size: var(--text-mono);
+  letter-spacing: var(--track-label);
+  color: var(--text-tertiary);
+}
+.wp-jr__st {
+  font-family: var(--font-mono); font-size: var(--text-mono);
+  line-height: 1.45;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+/* The join, drawn in the gap to the left of every step but the first. */
+.wp-jr__step + .wp-jr__step::before {
+  content: "\2192";                /* → */
+  position: absolute;
+  inset-inline-start: calc(-1 * var(--step-8));
+  inline-size: var(--step-8);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: var(--text-mono);
+  line-height: 1;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 64rem) {
+  /* Five across stops working well before the layout does: the longer
+     labels run to four lines. One column, and the arrow turns down. */
+  .wp-jr__steps { grid-template-columns: 1fr; row-gap: var(--step-8); }
+  .wp-jr__step { flex-direction: row; align-items: baseline; gap: var(--step-4); }
+  .wp-jr__step + .wp-jr__step::before {
+    inset-inline-start: 0;
+    inline-size: 100%;
+    inset-block-start: calc(-1 * var(--step-8));
+    block-size: var(--step-8);
+    transform: none;
+    display: grid; place-items: center;
+    rotate: 90deg;
+  }
+}
+
+@media (max-width: 42rem) {
+  .wp-jr__rail { padding: var(--step-5); }
+}
+
+/* ── 04 · the pools, built ───────────────────────────────────────────────
+   The artwork that stood here was a white sheet on a near-black page, and
+   it had to scroll sideways to keep its type legible. It is live markup
+   now, so it takes the page's own ground and reflows instead: the same
+   two cards in the same order, carrying the same words and figures.
+
+   The parts are the page's existing vocabulary rather than new ones — the
+   wp-sum row (mono label, hairline rule, value) for what-it-is and
+   why-it-exists, and the site's own chip for the heads. Only the pool
+   colour is per card, and it is the deck's own coding read through this
+   site's tokens: employee wallet teal, employer spend ochre. The tint sits
+   on the header strip and the chips, never on the reading matter.
+   ------------------------------------------------------------------- */
+
+.wp-pool {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Column gap only. `gap` set both, and once the cards became subgrids
+     that row gap stopped being the space BETWEEN two cards and became
+     24px inserted between every one of the seven bands inside them —
+     six times over, in both cards. It is the whole of why the boxes were
+     so tall. The space inside a card is set by the bands themselves. */
+  column-gap: var(--step-6);
+  row-gap: 0;
+  margin-top: var(--step-12);
+}
+
+.wp-pool__card {
+  /* min-width:0 because a grid item sizes to its own min-content by
+     default, and OTHER FLEXIBLE BENEFITS is wider than half the column. */
+  min-width: 0;
+  display: flex; flex-direction: column;
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  overflow: hidden;
+}
+
+/* The header strip is the only full-bleed band in the card, so it is where
+   the pool's colour goes: a tinted ground, a hairline under it, and the
+   mono label the rest of the page uses for a kicker. */
+.wp-pool__k {
+  margin: 0;
+  padding: var(--step-4) var(--step-6);
+  border-bottom: var(--hair) solid var(--border-default);
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500;
+}
+.wp-pool__card--wallet .wp-pool__k {
+  background: color-mix(in srgb, var(--hue-teal-deep) 62%, var(--surface-page));
+  color: var(--hue-teal-light);
+}
+.wp-pool__card--spend .wp-pool__k {
+  background: color-mix(in srgb, var(--hue-ochre-deep) 62%, var(--surface-page));
+  color: var(--hue-ochre-light);
+}
+
+.wp-pool__h {
+  margin: var(--step-5) var(--step-6) 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.6rem);
+  line-height: 1.2; letter-spacing: -0.015em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+/* Two rows, the summary table's shape: a fixed mono label column so both
+   values start at the same place in both cards. */
+.wp-pool__rows { margin: var(--step-4) var(--step-6) 0; }
+.wp-pool__row {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: var(--step-2) var(--step-5);
+  align-items: baseline;
+  padding: var(--step-2) 0;
+  border-top: var(--hair) solid var(--border-subtle);
+}
+.wp-pool__rk {
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500; color: var(--text-tertiary);
+}
+.wp-pool__rv {
+  margin: 0; font-size: var(--text-sm); line-height: 1.5;
+  color: var(--text-secondary);
+}
+/* The figure is the one number on the card, so it is set at display size
+   with its qualifier under it. Under rather than beside, because the two
+   ranges are different lengths and an inline qualifier wraps on one card
+   and not the other; the qualifier is what stops the range being read as
+   a WorkPerks measurement, so it must sit the same way on both. */
+.wp-pool__fk {
+  margin: var(--step-4) var(--step-6) 0;
+  padding-top: var(--step-3);
+  border-top: var(--hair) solid var(--border-subtle);
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500; color: var(--text-tertiary);
+}
+.wp-pool__fv {
+  display: flex; flex-direction: column; gap: var(--step-1);
+  margin: var(--step-1) var(--step-6) 0;
+}
+.wp-pool__fn {
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  font-size: clamp(1.35rem, 1.05rem + 0.9vw, 1.85rem);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.wp-pool__fc { font-size: var(--text-sm); color: var(--text-tertiary); }
+
+/* The heads close the card and sit on the card's own tint, so the two
+   lists read as belonging to their pool without a second rule. */
+/* base.css resets `ul[role="list"]` to padding:0, and an attribute selector
+   outranks a single class, so the inset written here never applied and the
+   chips sat flush on the card's left, right and bottom edges. Qualifying by
+   the card restores it. The band also takes the card's tint, which is what
+   the note above always said it did: it closes the card against the tinted
+   header at the top of it. */
+.wp-pool__card .wp-pool__heads {
+  margin: var(--step-5) 0 0;
+  padding: var(--step-6);
+  border-top: var(--hair) solid var(--border-subtle);
+}
+.wp-pool__card--wallet .wp-pool__heads {
+  background: color-mix(in srgb, var(--hue-teal-deep) 20%, var(--surface-raised));
+}
+.wp-pool__card--spend .wp-pool__heads {
+  background: color-mix(in srgb, var(--hue-ochre-deep) 20%, var(--surface-raised));
+}
+
+/* Six bands — header, heading, the two rows, the figure label, the figure,
+   the heads — and the two cards agree on where each one starts. Before
+   subgrid each card laid itself out alone, so the pair was squared up by a
+   `min-height: 3em` floor on the values (which left a hole under the short
+   one) and an auto margin that floored the heads (which left another). Both
+   of those come off below: the grid does the alignment now, exactly, and the
+   card is the height of its own content. */
+@supports (grid-template-rows: subgrid) {
+  .wp-pool { grid-template-rows: repeat(7, auto); }
+  .wp-pool__card {
+    display: grid;
+    grid-row: span 7;
+    grid-template-rows: subgrid;
+  }
+  /* The two summary rows take two of the seven rather than one, so WHY IT
+     EXISTS starts level on both cards even when WHAT IT IS wraps on one of
+     them and not the other. */
+  .wp-pool__rows {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+  }
+}
+.wp-pool__card--wallet .chip {
+  border-color: color-mix(in srgb, var(--hue-teal) 55%, transparent);
+  color: var(--hue-teal-light);
+}
+.wp-pool__card--spend .chip {
+  border-color: color-mix(in srgb, var(--hue-ochre) 55%, transparent);
+  color: var(--hue-ochre-light);
+}
+
+@media (max-width: 52rem) {
+  /* Each card is a column of reading matter; two of them on a tablet puts
+     the values on three words a line, so they stack. Stacked, the gap
+     between them IS a row gap, so it comes back — and the subgrid goes,
+     because there is no second column left to line anything up with. */
+  .wp-pool { grid-template-columns: 1fr; row-gap: var(--step-5); grid-template-rows: none; }
+  .wp-pool__card { grid-row: auto; display: flex; flex-direction: column; }
+  .wp-pool__rows { display: block; grid-row: auto; }
+}
+
+@media (max-width: 42rem) {
+  .wp-mkt__art { padding: var(--step-2); }
+  .wp-mkt__note { padding: var(--step-5); }
+  .wp-pool__row { grid-template-columns: 1fr; gap: var(--step-1); }
+}
+
+/* ── 09 · the ecosystem diagram ──────────────────────────────────────────
+   Authored artwork whose ground is already this page's black, so it needs
+   no plate and no border — same call as the chapter 03 illustration. The
+   three roles and the eight surfaces are large enough to survive a phone,
+   so it scales rather than scrolling.
+
+   The capability list under it uses the site's own chip component. The
+   closing note follows the chips rather than leading them, because the
+   chips are the answer and the note is the explanation.               */
+
+.wp-eco { margin: var(--step-12) 0 0; }
+.wp-eco img {
+  display: block; width: 100%; height: auto;
+  border: 0; border-radius: var(--radius-lg); background: none;
+}
+.wp-eco__h { margin: 0 0 var(--step-5); color: var(--text-primary); }
+
+/* ── 09 · the ecosystem, drawn in markup ─────────────────────────────────
+   Three groups feed one platform. Was a 1550px PNG with its own type and
+   its own blue; it is the page's own type and the page's own hue ring now,
+   which is the whole of why it stopped matching the chapters either side.
+
+   The interaction is the one chapter 05's run uses, so the page has one
+   vocabulary rather than three: hover or focus lifts the thing under the
+   pointer and steps the rest back. Nothing is hidden behind it.
+   ------------------------------------------------------------------------ */
+/* The ecosystem diagram, drawn. Light artwork on a dark page, so it takes
+   the same light plate the landscape table does. The .wp-ecos rules below
+   are the live markup version it replaced and are no longer referenced. */
+/* The definition diagram, drawn — the six stage loop and the five surfaces
+   in one plate. Light artwork on a dark page, so it takes the same plate
+   the landscape table does. The .wp-how rules further down are the live
+   markup version it replaced and are no longer referenced. */
+.wp-def__art {
+  margin: var(--step-8) 0 0;
+  padding: var(--step-4);
+  border-radius: var(--radius-lg);
+  background: var(--ink-100);
+}
+.wp-def__art img {
+  display: block; width: 100%; height: auto;
+  border: 0; border-radius: var(--radius-md); background: none;
+}
+
+.wp-ecos__art {
+  margin: var(--step-12) 0 0;
+  padding: var(--step-4);
+  border-radius: var(--radius-lg);
+  background: var(--ink-100);
+}
+.wp-ecos__art img {
+  display: block; width: 100%; height: auto;
+  border: 0; border-radius: var(--radius-md); background: none;
+}
+
+.wp-ecos { margin: var(--step-12) 0 0; }
+.wp-ecos__roles {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--step-5);
+}
+.wp-ecos__role {
+  --eco-hue: var(--hue-slate);
+  --eco-lit: var(--hue-slate-light);
+  display: flex; flex-direction: column; align-items: start; gap: var(--step-3);
+  padding: var(--step-6);
+  border: var(--hair) solid color-mix(in srgb, var(--eco-hue) 28%, var(--border-default));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--eco-hue) 8%, var(--surface-raised));
+}
+.wp-ecos__role--emp { --eco-hue: var(--hue-teal);     --eco-lit: var(--hue-teal-light); }
+.wp-ecos__role--hr  { --eco-hue: var(--hue-ochre);    --eco-lit: var(--hue-ochre-light); }
+.wp-ecos__role--sup { --eco-hue: var(--hue-lavender); --eco-lit: var(--hue-lavender-light); }
+
+.wp-ecos__ico {
+  inline-size: 2.5rem; block-size: 2.5rem;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--eco-hue) 22%, var(--surface-page));
+  color: var(--eco-lit);
+}
+.wp-ecos__ico svg {
+  inline-size: 1.25rem; block-size: 1.25rem;
+  fill: none; stroke: currentColor; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.wp-ecos__rh {
+  margin: 0;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500; color: var(--eco-lit);
+}
+.wp-ecos__rt { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); }
+
+/* The arrow the artwork draws between the two halves, kept. */
+.wp-ecos__flow {
+  display: grid; place-items: center;
+  block-size: var(--step-12);
+  color: var(--text-tertiary);
+}
+.wp-ecos__flow::before {
+  content: ""; inline-size: var(--hair); block-size: 100%;
+  background: linear-gradient(var(--border-subtle), var(--border-default));
+  grid-area: 1 / 1;
+}
+.wp-ecos__arrow {
+  grid-area: 1 / 1; align-self: end;
+  inline-size: 1.1rem; block-size: 1.1rem;
+  fill: none; stroke: currentColor; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+  background: var(--surface-page);
+}
+
+/* The platform. A teal edge rather than the artwork's, because teal is this
+   page's own and the artwork's green was picked against a different black. */
+.wp-ecos__plat {
+  padding: var(--step-8) var(--step-6) var(--step-6);
+  border: var(--hair) solid color-mix(in srgb, var(--hue-teal) 32%, transparent);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 160% at 50% -30%,
+      color-mix(in srgb, var(--hue-teal-deep) 40%, transparent), transparent 65%),
+    var(--surface-raised);
+  text-align: center;
+}
+.wp-ecos__ph {
+  margin: 0;
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: clamp(1.3rem, 1.05rem + 0.8vw, 1.8rem);
+  letter-spacing: var(--track-display); line-height: 1;
+  color: var(--text-primary);
+}
+.wp-ecos__pt { margin: var(--step-2) 0 0; font-size: var(--text-sm); color: var(--text-secondary); }
+.wp-ecos__surfaces {
+  list-style: none; margin: var(--step-6) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--step-3);
+}
+.wp-ecos__surface {
+  padding: var(--step-4) var(--step-3);
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface-page) 55%, transparent);
+  font-size: var(--text-sm); line-height: 1.35;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 56rem) {
+  .wp-ecos__surfaces { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 40rem) {
+  .wp-ecos__roles { grid-template-columns: minmax(0, 1fr); }
+  .wp-ecos__plat { text-align: start; }
+}
+
+/* ── 09b · what the definition resolved to ───────────────────────────────
+   Three terms and what each one means. A definition list rather than the
+   two-column table it was: the table's header row named the columns, and
+   with the header gone a <table> is markup claiming a structure the block
+   no longer has. The term takes the hue the chapter's first block takes,
+   so the three read as one set rather than as three paragraphs.
+   ------------------------------------------------------------------------ */
+.wp-res {
+  margin: var(--step-10) 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--step-5);
+}
+.wp-res__row {
+  display: flex; flex-direction: column; gap: var(--step-3);
+  padding: var(--step-6);
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+.wp-res__k {
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  font-size: var(--text-h4);
+  letter-spacing: var(--track-heading);
+  line-height: 1.2;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+.wp-res__v {
+  margin: 0;
+  font-size: var(--text-sm); line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+@media (max-width: 52rem) {
+  .wp-res { grid-template-columns: minmax(0, 1fr); gap: var(--step-4); }
+}
+
+
+/* ── 10 · the product structure, drawn in markup ─────────────────────────
+   Four blocks, their numbers, sub-lines and items all the artwork's own.
+   The artwork's blue, cream, green and lilac are read through this page's
+   ring as slate, ochre, sage and lavender, so the block colours survive a
+   palette change instead of being four fixed pastels on a black ground.
+   The count on each block is counted from the list beside it.
+   ------------------------------------------------------------------------ */
+.wp-struct { margin: var(--step-12) 0 0; }
+.wp-struct__list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--step-5);
+}
+.wp-struct__block {
+  --st-hue: var(--hue-slate);
+  --st-lit: var(--hue-slate-light);
+  padding: var(--step-6);
+  border: var(--hair) solid color-mix(in srgb, var(--st-hue) 26%, var(--border-default));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--st-hue) 9%, var(--surface-raised));
+}
+.wp-struct__block--a { --st-hue: var(--hue-slate);    --st-lit: var(--hue-slate-light); }
+.wp-struct__block--b { --st-hue: var(--hue-ochre);    --st-lit: var(--hue-ochre-light); }
+.wp-struct__block--c { --st-hue: var(--hue-sage);     --st-lit: var(--hue-sage-light); }
+.wp-struct__block--d { --st-hue: var(--hue-lavender); --st-lit: var(--hue-lavender-light); }
+
+.wp-struct__head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--step-2) var(--step-5);
+  padding-bottom: var(--step-5);
+  border-bottom: var(--hair) solid color-mix(in srgb, var(--st-hue) 22%, transparent);
+}
+.wp-struct__n {
+  margin: 0;
+  font-family: var(--font-display); font-weight: var(--weight-display);
+  font-size: clamp(1.4rem, 1.15rem + 0.7vw, 1.9rem);
+  letter-spacing: var(--track-display); line-height: 1;
+  color: var(--st-lit);
+  font-variant-numeric: tabular-nums;
+}
+.wp-struct__h {
+  margin: 0;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500; color: var(--text-primary);
+}
+.wp-struct__s { margin: var(--step-1) 0 0; font-size: var(--text-sm); color: var(--text-secondary); }
+.wp-struct__c {
+  margin: 0;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary); white-space: nowrap;
+}
+.wp-struct__c span { color: var(--st-lit); font-variant-numeric: tabular-nums; }
+
+.wp-struct__items {
+  list-style: none; margin: var(--step-5) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+  gap: var(--step-3);
+}
+.wp-struct__item {
+  padding: var(--step-3) var(--step-4);
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface-page) 55%, transparent);
+  font-size: var(--text-sm); line-height: 1.3;
+  color: var(--text-secondary);
+}
+@media (max-width: 40rem) {
+  .wp-struct__head { grid-template-columns: auto 1fr; }
+  .wp-struct__c { grid-column: 2; }
+}
+
+
+/* ── 08 · the six stage loop ─────────────────────────────────────────────
+   Light artwork, so it takes the same plate the journey flows take. Six
+   stages across hold a floor width and scroll under it rather than
+   shrinking the stage copy away.                                      */
+
+/* ── 08 · how it works, the six stage run ────────────────────────────────
+   Was an 1800px JPEG on a white plate. It is live markup now, on the page's
+   own ground, and the six parts line up across the run because each stage
+   is a subgrid: disc, node, kicker, title, body and the status slot all
+   take their height from the tallest of the six, so a two line title on one
+   stage does not push its own body out of step with the rest.
+
+   Each stage carries a hue in --how-hue and everything coloured reads that
+   one property, which is the same contract .wp-gapmade__item is on, so the
+   run re-themes through the --hue-* tokens with the Colour control.
+
+   The connector is drawn on the node cell and runs from this column's
+   centre to the next column's centre — `right: calc(-50% - gap)`, where the
+   percentage resolves against the column. It is hidden on whichever stage
+   closes a row, which is why the :nth-child rules change with the count.
+   ------------------------------------------------------------------------ */
+.wp-how {
+  --how-gap: var(--step-6);
+  --how-disc: 3.25rem;
+  --how-node: 2rem;
+  margin: var(--step-12) 0 0;
+}
+.wp-how__scroll { overflow-x: auto; }
+.wp-how__scroll:focus-visible { outline: 2px solid var(--hue-teal); outline-offset: 3px; border-radius: var(--radius-md); }
+
+.wp-how__track {
+  list-style: none; margin: 0; padding: var(--step-2) 0 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(5, auto);
+  column-gap: var(--how-gap);
+  row-gap: var(--step-10);
+}
+.wp-how__stage {
+  display: grid;
+  grid-row: span 5;
+  grid-template-rows: subgrid;
+  row-gap: var(--step-3);
+  align-content: start;
+  --how-hue: var(--hue-slate);
+  --how-lit: var(--hue-slate-light);
+}
+.wp-how__stage--a { --how-hue: var(--hue-sage);     --how-lit: var(--hue-sage-light); }
+.wp-how__stage--b { --how-hue: var(--hue-ochre);    --how-lit: var(--hue-ochre-light); }
+.wp-how__stage--c { --how-hue: var(--hue-slate);    --how-lit: var(--hue-slate-light); }
+.wp-how__stage--d { --how-hue: var(--hue-teal);     --how-lit: var(--hue-teal-light); }
+.wp-how__stage--e { --how-hue: var(--hue-copper);   --how-lit: var(--hue-copper-light); }
+.wp-how__stage--f { --how-hue: var(--hue-lavender); --how-lit: var(--hue-lavender-light); }
+
+/* ── the disc ── */
+.wp-how__disc {
+  inline-size: var(--how-disc); block-size: var(--how-disc);
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--how-hue) 20%, var(--surface-page));
+  box-shadow: inset 0 0 0 var(--hair) color-mix(in srgb, var(--how-hue) 40%, transparent);
+  color: var(--how-lit);
+  transition: background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+.wp-how__ico {
+  inline-size: 1.4rem; block-size: 1.4rem;
+  fill: none; stroke: currentColor; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ── the node, and the run between the nodes ── */
+.wp-how__node {
+  position: relative;
+  display: grid; place-items: center;
+  justify-self: stretch;
+  block-size: var(--how-node);
+}
+.wp-how__node::before {
+  content: ""; position: absolute; z-index: 0;
+  inset-block-start: 50%; translate: 0 -50%;
+  inset-inline-start: 50%;
+  inset-inline-end: calc(-50% - var(--how-gap));
+  block-size: 2px; border-radius: 1px;
+  background: var(--border-default);
+  transition: background 220ms ease;
+}
+.wp-how__n {
+  position: relative; z-index: 1;
+  inline-size: var(--how-node); block-size: var(--how-node);
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: var(--hair) solid color-mix(in srgb, var(--how-hue) 55%, transparent);
+  background: var(--surface-page);
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); font-weight: 500;
+  color: var(--how-lit);
+  font-variant-numeric: tabular-nums;
+  transition: background 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+/* ── the words ── */
+.wp-how__k { margin: 0; color: var(--text-tertiary); }
+.wp-how__h {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  font-size: clamp(0.98rem, 0.9rem + 0.25vw, 1.15rem);
+  line-height: 1.25; letter-spacing: var(--track-heading);
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+.wp-how__t {
+  margin: 0;
+  font-size: var(--text-sm); line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+/* The body and its status word are one cell, not two rows: a chip in a
+   row of its own would hang under the tallest body in the run rather than
+   under the stage it belongs to. */
+.wp-how__body { display: flex; flex-direction: column; gap: var(--step-4); align-items: start; }
+.wp-how__status { margin: 0; }
+
+/* ── hover and keyboard focus. Nothing is hidden behind either: the lit
+      stage comes forward and the rest step back, and that is all. ── */
+/* Static, at Arushi's instruction. The run carried a hover that lit the
+   stage under the pointer and dimmed the other five; it read as too much
+   for a diagram that is there to be read straight through, so the colour
+   each stage is drawn in is simply the colour it is. */
+
+/* ── the run folds rather than scrolls. Whichever stage closes a row drops
+      its connector, so no line ever points off the end of one. ── */
+.wp-how__stage:last-child .wp-how__node::before { display: none; }
+
+@media (max-width: 68rem) {
+  .wp-how__track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .wp-how__stage:nth-child(3n) .wp-how__node::before { display: none; }
+}
+@media (max-width: 44rem) {
+  .wp-how__track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wp-how__stage:nth-child(3n) .wp-how__node::before { display: block; }
+  .wp-how__stage:nth-child(2n) .wp-how__node::before { display: none; }
+}
+@media (max-width: 30rem) {
+  .wp-how__track { grid-template-columns: minmax(0, 1fr); row-gap: var(--step-8); }
+  .wp-how__stage .wp-how__node::before { display: none; }
+}
+
+/* Without subgrid the six parts cannot line up across the run, so each
+   stage simply stacks its own. Everything else is unchanged. */
+@supports not (grid-template-rows: subgrid) {
+  .wp-how__track { grid-template-rows: none; }
+  .wp-how__stage { grid-row: auto; display: flex; flex-direction: column; gap: var(--step-3); }
+}
+
+/* ── 10 · the product structure ──────────────────────────────────────────
+   Black ground against this page's near-black, so no plate — but it is a
+   tall portrait block rather than a wide one, and its cards stay legible
+   as it scales, so it needs no scroller either. A hairline keeps the
+   two blacks from reading as a seam.                                  */
+
+.wp-mods { margin: var(--step-12) 0 0; }
+.wp-mods img {
+  display: block; width: 100%; height: auto;
+  max-width: 46rem; margin-inline: auto;
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: none;
+}
+
+@media (max-width: 42rem) {
+}
+
+/* ── 11 · the six decisions ──────────────────────────────────────────────
+   Two authored boards, three cards each, read as one run. Black ground
+   against this page's near-black, so a hairline rather than a plate keeps
+   the two blacks from reading as a seam — the same call as chapter 10.
+   Three cards across survive a phone at this scale, so they scale rather
+   than scrolling.                                                      */
+
+/* ── 09 · the AI-assisted development workflow ───────────────────────────
+   The supplied diagram, placed where the What I direct split used to sit.
+   Its ground is already in the file, so it takes a hairline and a radius
+   and no plate — the same treatment .wp-dec6 gets two chapters up. */
+.wp-aiflow { margin: var(--step-8) 0 0; }
+.wp-aiflow img {
+  display: block; width: 100%; height: auto;
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: none;
+}
+
+.wp-dec6 { margin: var(--step-6) 0 0; }
+.wp-dec6--next { margin-top: var(--step-6); }
+.wp-dec6 img {
+  display: block; width: 100%; height: auto;
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: none;
+}
+
+/* ── 12 · the workflow diagrams ──────────────────────────────────────────
+   Eight exported IA flows, three surfaces. Their ground is already this
+   page's black, so they take no plate and no border — the same call as
+   chapters 09 and 10.
+
+   What makes them different from every other figure on the page is their
+   shape: the widest is 7502px across and 672px tall, a twenty-to-one
+   ribbon. Scaling that to the column width would put the node labels
+   under four pixels and the diagram would be decoration. So each one
+   holds a floor width that renders it at roughly a fifth of natural size
+   — small enough that much more of the ribbon lands in one view, still
+   large enough for the node labels — and scrolls sideways inside its own
+   wrapper rather than making the page scroll. The floor is
+   set per figure as --ia-min, because the eight differ by a factor of
+   two and a half in width and one shared number would either crush the
+   narrow ones or leave the wide ones illegible.
+
+   The wrapper is focusable, so the scroll is reachable from the keyboard,
+   and labelled, so a screen reader is told it scrolls. Same contract as
+   .wp-mkt__art-scroll.                                                */
+
+.wp-ia { margin: var(--step-8) 0 0; }
+.wp-ia__scroll { overflow-x: auto; border-radius: var(--radius-md); }
+.wp-ia__scroll:focus-visible { outline: 2px solid var(--hue-teal); outline-offset: 3px; }
+.wp-ia img {
+  display: block; width: 100%; min-width: var(--ia-min, 49rem); height: auto;
+  border: 0; border-radius: var(--radius-md); background: none;
+}
+/* The flow's own title and the note that reads it, above the figure rather
+   than under it. The note was a <figcaption> below the diagram, which put
+   the sentence that tells you what to look for after the looking; moved at
+   Arushi's instruction so each flow is announced, explained, then drawn. */
+.wp-ia__head { margin: var(--step-8) 0 0; max-width: var(--prose-max); }
+.wp-ia__h {
+  margin: 0;
+  /* Below the page's h4: the group heading above it is the one that has to
+     carry weight, and this is a name rather than a chapter. */
+  font-size: 1rem; line-height: 1.3;
+  color: var(--text-primary);
+}
+.wp-ia__sub {
+  margin: var(--step-3) 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+.wp-ia__head + .wp-ia { margin-top: var(--step-5); }
+
+/* The surface a run of flows belongs to. The h3 is the whole signal: no
+   rule above it and no heavier type size, because three of these stack
+   down one chapter and a hairline between them would read as three
+   chapters. The gap is --step-10, close to the gap between the flows
+   inside a group, so the chapter reads as one run rather than as three
+   separate things. */
+/* ── 12b · the app-entry flow, rebuilt out of its export ─────────────────
+   Three of the eight are live markup rather than a
+   PNG. The export is 7502 by 672: a 7500px sideways scroll in a column
+   that can give it about a thousand. A reader could follow it and still
+   never see the shape — that all three endings arrive at Home is the
+   point of the diagram, and it was the one fact 7500px of scrolling hid.
+
+   So the run is cut at its own three seams — identity, setup, the Flexi
+   decision — and stood up as three columns over one terminal. Same 21
+   nodes, same 7 edge labels, both return paths; re-laid out, not edited.
+
+   A column is a rail with a dot per step and a diamond per decision. The
+   rail is drawn once by the list rather than once per row, because the
+   rows are different heights and a per-row segment leaves gaps between
+   them. Decisions carry their branches as indented rows, each led by its
+   own edge label, which is what lets a three-way fork cost three lines
+   instead of three boxes and the lines between them.
+
+   One hue per phase, on the disc, the rail and the dots only. Three hues
+   are enough to tell the phases apart; putting them on the words as well
+   would make a case-study diagram into a chart.
+
+   Static, per the same instruction chapters 04, 06 and 07 got: no hover
+   lighting, no sibling dimming, no transform lifts. The staggered entrance
+   is the reveal every other block on the page has. ------------------- */
+.wp-flow {
+  --flow-rail: 1.2rem;   /* text indent past the rail */
+  --flow-dot: 0.5rem;
+  --flow-steppad: 0.22rem;
+  /* The diagram sets its own type scale rather than reading --text-sm.
+     Twenty-one nodes over three columns is a lot of words for one figure,
+     and at the page's body size the thing ran taller than the screen it
+     was rebuilt to fit on. Thirteen pixels is the smallest size this
+     face stays comfortable at. The caps, the discs, the dots and the
+     terminal all scale with it, so the figure shrinks as one thing
+     rather than as small text inside full-size furniture. */
+  --flow-text: 0.8125rem;
+  --flow-head: 0.875rem;
+  --flow-gutter: var(--step-6);
+  --flow-disc: 1.75rem;   /* the cap's icon circle; the fan drops onto it */
+  margin: var(--step-5) 0 0;
+}
+/* The card. It came off once and went back on at Arushi's instruction:
+   it is what holds twenty-one nodes together as one figure rather than as
+   three lists that happen to be side by side, and it is the ground the
+   dots and diamonds are punched out of. */
+.wp-flow__panel {
+  padding: var(--step-6);
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+
+/* The column count is a variable rather than a number, because the three
+   live flows do not have the same shape: the app-entry run is three
+   phases, benefits discovery is three phases over four fulfilment
+   actions, and the rewards flow is five parallel lanes. One set of rules
+   draws all of them. */
+.wp-flow__phases {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--flow-cols, 3), minmax(0, 1fr));
+  gap: var(--flow-gutter);
+}
+.wp-flow__phases--four { --flow-cols: 4; }
+.wp-flow__phases--five { --flow-cols: 5; }
+/* A second tier under the first — the four fulfilment runs the discovery
+   spine forks into. Air rather than a rule, like everything else in this
+   chapter. */
+.wp-flow__phases + .wp-flow__phases { margin-top: var(--step-8); }
+.wp-flow__phase {
+  --flow-hue: var(--hue-teal);
+  --flow-lit: var(--hue-teal-light);
+  position: relative;
+  display: flex; flex-direction: column; gap: var(--step-3);
+}
+.wp-flow__phase--a { --flow-hue: var(--hue-teal);  --flow-lit: var(--hue-teal-light); }
+.wp-flow__phase--b { --flow-hue: var(--hue-sage);  --flow-lit: var(--hue-sage-light); }
+.wp-flow__phase--c { --flow-hue: var(--hue-ochre); --flow-lit: var(--hue-ochre-light); }
+.wp-flow__phase--d { --flow-hue: var(--hue-slate); --flow-lit: var(--hue-slate-light); }
+.wp-flow__phase--e { --flow-hue: var(--hue-lavender); --flow-lit: var(--hue-lavender-light); }
+
+/* Two rows — the caps, then the runs — and every column is a subgrid of
+   them, so a cap that wraps to two lines (Rewards and recognition does, at
+   five across) lifts the whole row of caps instead of pushing its own run
+   half a line below the four beside it. Columns that start on different
+   lines read as separate diagrams, which is the one thing these figures
+   cannot afford. */
+.wp-flow__phases { grid-template-rows: auto auto; }
+.wp-flow__phase { grid-row: span 2; }
+@supports (grid-template-rows: subgrid) {
+  .wp-flow__phase { display: grid; grid-template-rows: subgrid; }
+  /* The run must not stretch to the tallest column's height, or its rail
+     carries on down past its own last dot. */
+  .wp-flow__phase > .wp-flow__run { align-self: start; }
+}
+
+/* ── the phase cap. The hairline under it came out at Arushi's
+   instruction: no horizontal lines inside a chapter. The padding stays,
+   so the cap still sits apart from its run. ── */
+.wp-flow__cap {
+  display: flex; align-items: center; gap: var(--step-2);
+  padding-bottom: var(--step-2);
+}
+.wp-flow__disc {
+  flex: none;
+  inline-size: var(--flow-disc); block-size: var(--flow-disc);
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--flow-hue) 20%, var(--surface-page));
+  box-shadow: inset 0 0 0 var(--hair) color-mix(in srgb, var(--flow-hue) 40%, transparent);
+  color: var(--flow-lit);
+}
+.wp-flow__ico {
+  inline-size: 0.9rem; block-size: 0.9rem;
+  fill: none; stroke: currentColor; stroke-width: 1.6;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.wp-flow__capt { display: block; min-inline-size: 0; }
+.wp-flow__k { display: block; color: var(--text-tertiary); }
+.wp-flow__ph {
+  margin: var(--step-1) 0 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  font-size: var(--flow-head); line-height: 1.25;
+  letter-spacing: var(--track-heading);
+  color: var(--text-primary);
+}
+
+/* ── the run: one rail, a dot per step, a diamond per decision ── */
+.wp-flow__run {
+  position: relative;
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column;
+}
+/* Inset top and bottom by half a line so the rail starts at the first dot
+   and stops at the last one instead of overshooting both. */
+.wp-flow__run::before {
+  content: ""; position: absolute;
+  inset-block: 0.75em 0.75em;
+  inset-inline-start: calc(var(--flow-dot) / 2 - var(--hair) / 2);
+  inline-size: var(--hair);
+  background: color-mix(in srgb, var(--flow-hue) 45%, transparent);
+}
+
+.wp-flow__step,
+.wp-flow__fork,
+.wp-flow__next { position: relative; padding-inline-start: var(--flow-rail); }
+
+.wp-flow__step {
+  padding-block: var(--flow-steppad);
+  font-size: var(--flow-text); line-height: 1.4;
+  color: var(--text-secondary);
+}
+.wp-flow__step::before {
+  content: ""; position: absolute;
+  inset-inline-start: 0; inset-block-start: 0.68em;
+  inline-size: var(--flow-dot); block-size: var(--flow-dot);
+  border-radius: 50%;
+  border: var(--hair) solid color-mix(in srgb, var(--flow-hue) 65%, transparent);
+  background: var(--surface-raised);
+}
+
+/* A decision is a diamond on the same rail: the drawing's own shape for a
+   fork, at the size of a dot rather than at the size of a box. */
+.wp-flow__fork { --fork-top: var(--step-3); padding-block: var(--fork-top) var(--step-1); }
+/* A phase that opens on its decision rather than on a step — phase 03 does
+   — otherwise started a step-3 lower than the two columns beside it, and
+   three columns that begin on three different lines read as three
+   diagrams. It takes a step's own padding instead. */
+.wp-flow__fork:first-child { --fork-top: var(--flow-steppad); }
+.wp-flow__fork::before {
+  content: ""; position: absolute;
+  inset-inline-start: calc(var(--flow-dot) / 2 - 0.3125rem);
+  inset-block-start: calc(var(--fork-top) + 0.42em);
+  inline-size: 0.625rem; block-size: 0.625rem;
+  rotate: 45deg;
+  border: var(--hair) solid var(--flow-lit);
+  background: var(--surface-raised);
+}
+.wp-flow__q {
+  margin: 0;
+  font-size: var(--flow-text); line-height: 1.35;
+  font-weight: var(--weight-emphasis);
+  color: var(--text-primary);
+}
+
+.wp-flow__brs {
+  list-style: none; margin: var(--step-2) 0 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--step-2);
+}
+.wp-flow__br {
+  display: grid; grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--step-2); align-items: baseline;
+  font-size: var(--flow-text); line-height: 1.35;
+  color: var(--text-secondary);
+}
+.wp-flow__lab {
+  justify-self: start;
+  padding: 0.1rem var(--step-2);
+  border-radius: var(--radius-full);
+  border: var(--hair) solid color-mix(in srgb, var(--flow-hue) 45%, transparent);
+  background: color-mix(in srgb, var(--flow-hue) 16%, transparent);
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--flow-lit);
+  white-space: nowrap;
+}
+/* The branch that carries on down the spine, rather than off it. */
+.wp-flow__lab--go {
+  border-color: color-mix(in srgb, var(--flow-hue) 70%, transparent);
+  background: color-mix(in srgb, var(--flow-hue) 28%, transparent);
+}
+.wp-flow__to { min-inline-size: 0; }
+/* A fork whose edge labels are sentences rather than words — Review
+   outcome? and Nomination decision? both are — stands the label over its
+   target instead of beside it. Side by side, "More information needed"
+   took two thirds of its column and left the node it leads to in a
+   three-line ribbon. */
+.wp-flow__brs--stack .wp-flow__br { grid-template-columns: minmax(0, 1fr); gap: var(--step-1); }
+/* A return path. It is written rather than drawn: a line back up a column
+   would cross the steps it passes, and the words are shorter than the
+   line. */
+.wp-flow__back {
+  display: block;
+  font-size: var(--text-label); line-height: 1.4;
+  color: var(--text-tertiary);
+}
+.wp-flow__back::before { content: "\21BA\00A0"; }
+
+/* The handoff out of a phase that does not end on a decision. */
+.wp-flow__next {
+  padding-block: var(--step-3) 0;
+  font-size: var(--text-label); line-height: 1.4;
+  color: var(--text-tertiary);
+}
+.wp-flow__next::before {
+  content: ""; position: absolute;
+  inset-inline-start: calc(var(--flow-dot) / 2 - 0.25rem);
+  inset-block-start: calc(var(--step-3) + 0.25em);
+  inline-size: 0.5rem; block-size: 0.5rem;
+  border-inline-end: var(--hair) solid var(--flow-lit);
+  border-block-end: var(--hair) solid var(--flow-lit);
+  rotate: 45deg;
+}
+
+/* ── the drawn handoff ───────────────────────────────────────────────────
+   The written one above says where a phase goes next; this one shows it.
+   It leaves the run's last dot, crosses half the gutter, rises to the line
+   the next run starts on and arrives at its first node, which is the shape
+   the export drew. The box is the elbow: its bottom border is the leg out,
+   its end border the rise, and ::after the leg in. It is positioned, not
+   laid out, so it adds nothing to the run's height.
+
+   The ems are the step's ems — the hop sets --flow-text on itself — so the
+   two ends land on dot centres rather than near them, at either type size.
+   Phones drop to one column, where a connector across a gutter that no
+   longer exists would point at nothing, so it comes off.             ---- */
+.wp-flow__hop {
+  position: absolute;
+  font-size: var(--flow-text);
+  inset-block: calc(0.68em + var(--flow-dot) / 2 - var(--hair) / 2) calc(-1 * var(--step-2));
+  inset-inline: calc(var(--flow-dot) / 2) calc(-0.5 * var(--flow-gutter));
+  border-inline-end: var(--hair) solid color-mix(in srgb, var(--flow-hue) 45%, transparent);
+  border-block-end: var(--hair) solid color-mix(in srgb, var(--flow-hue) 45%, transparent);
+  pointer-events: none;
+}
+/* The leg out runs under the last row rather than across it: at the last
+   dot's own line it struck the words through. So the rail turns the corner
+   below its last dot, and this is the piece that takes it there. It is
+   drawn in the rail's own colour and overlaps its end by a few pixels,
+   because the rail's inset is in the run's ems and this is in the step's.
+
+   It ends on the node rather than pointing at it: the arrowhead it used to
+   carry sat on top of the dot it was arriving at, which read as a smudge
+   rather than as a direction. The fan's drops keep theirs — they land on a
+   disc, which is big enough to be arrived at. */
+.wp-flow__hop::before {
+  content: ""; position: absolute;
+  inset-block: auto 0; inset-inline-start: 0;
+  block-size: calc(1rem + var(--step-2));
+  inline-size: var(--hair);
+  background: color-mix(in srgb, var(--flow-hue) 45%, transparent);
+}
+.wp-flow__hop::after {
+  content: ""; position: absolute;
+  inset-block-start: 0; inset-inline-start: 100%;
+  inline-size: calc(var(--flow-gutter) / 2); block-size: var(--hair);
+  background: color-mix(in srgb, var(--flow-hue) 45%, transparent);
+}
+
+/* ── the fan under a decision ────────────────────────────────────────────
+   One stem down from the diamond that opens the four runs, a bus across
+   them and a drop onto each cap's disc. The stem sits at the third
+   column's rail because that is the column the decision is in, and the
+   grid maths is written out rather than guessed: the tier above is three
+   columns on the same gutter, this one is four.
+
+   The drops land on the discs rather than on the first dots: a line to the
+   dot would have to cross the cap on its way, and the disc is the node the
+   cap stands for. The fan is the space between the two tiers rather than
+   an addition to it, so it replaces that margin.                     ---- */
+.wp-flow__fan {
+  --fan-cols: 4;
+  --fan-hue: var(--hue-ochre);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--fan-cols), minmax(0, 1fr));
+  gap: var(--flow-gutter);
+  block-size: var(--step-8);
+  font-size: var(--flow-text);
+}
+.wp-flow__stem, .wp-flow__bus, .wp-flow__drop::before {
+  background: color-mix(in srgb, var(--fan-hue) 45%, transparent);
+}
+/* up past the run's own 0.75em bottom inset, so it meets the rail's end */
+.wp-flow__stem {
+  position: absolute;
+  inset-block: -0.75em 50%;
+  inset-inline-start: calc((100% - 2 * var(--flow-gutter)) / 3 * 2
+                           + 2 * var(--flow-gutter)
+                           + var(--flow-dot) / 2 - var(--hair) / 2);
+  inline-size: var(--hair);
+}
+.wp-flow__bus {
+  position: absolute;
+  inset-block-start: calc(50% - var(--hair) / 2);
+  block-size: var(--hair);
+  inset-inline-start: calc(var(--flow-disc) / 2);
+  inset-inline-end: calc(100%
+    - ((100% - (var(--fan-cols) - 1) * var(--flow-gutter)) / var(--fan-cols) * (var(--fan-cols) - 1)
+       + (var(--fan-cols) - 1) * var(--flow-gutter) + var(--flow-disc) / 2));
+}
+.wp-flow__drop { position: relative; grid-row: 1; }
+.wp-flow__drop::before {
+  content: ""; position: absolute;
+  inset-block: 50% 0;
+  inset-inline-start: calc(var(--flow-disc) / 2 - var(--hair) / 2);
+  inline-size: var(--hair);
+}
+.wp-flow__drop::after {
+  content: ""; position: absolute;
+  inset-block-end: 0.1rem;
+  inset-inline-start: calc(var(--flow-disc) / 2 - 0.2rem);
+  inline-size: 0.4rem; block-size: 0.4rem;
+  border-inline-end: var(--hair) solid var(--fan-hue);
+  border-block-end: var(--hair) solid var(--fan-hue);
+  rotate: 45deg;
+}
+
+/* ── the bar. Under the columns it is a terminal — one screen is the only
+   place a convergence can actually be seen. Above them, with --start, it
+   is the entry every lane leaves from, which is how the two flows that
+   fan out of Home are drawn. Its rule came out with the cap's; the air
+   around it carries the separation instead. ── */
+.wp-flow__end {
+  --flow-hue: var(--hue-teal);
+  --flow-lit: var(--hue-teal-light);
+  margin: var(--step-6) 0 0;
+  padding: var(--step-5) 0 0;
+  display: flex; align-items: center; gap: var(--step-4);
+}
+.wp-flow__end--start { margin: 0 0 var(--step-6); padding: 0 0 var(--step-5); }
+.wp-flow__disc--end { inline-size: 2rem; block-size: 2rem; }
+.wp-flow__disc--end .wp-flow__ico { inline-size: 1.05rem; block-size: 1.05rem; }
+.wp-flow__endt { display: block; min-inline-size: 0; }
+.wp-flow__endh {
+  display: block;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  font-weight: 500;
+  color: var(--hue-teal-light);
+}
+.wp-flow__ends {
+  display: block; margin-top: var(--step-1);
+  font-size: var(--flow-text); line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+/* Tablet keeps the three columns and tightens instead. Dropping to two and
+   standing phase 03 full width under them was tried first and measured
+   941px against an 812px screen: the third phase is the tallest of the
+   three, so moving it to its own row costs a row the height of the whole
+   diagram and the full width it gains is width its single run cannot use.
+   Narrower columns wrap a few labels to two lines, which is cheaper. */
+@media (max-width: 64rem) {
+  .wp-flow { --flow-rail: 1.05rem; --flow-steppad: 0.18rem; --flow-text: 0.78125rem;
+             --flow-gutter: var(--step-5); }
+  /* The four-column tier becomes two below this, so the fan no longer has
+     four runs to land on. It comes off; the fork's branch rows still name
+     every one of them. */
+  .wp-flow__fan { display: none; }
+  .wp-flow__fan + .wp-flow__phases { margin-top: var(--step-8); }
+  .wp-flow__panel { padding: var(--step-5); }
+  .wp-flow__phases--four, .wp-flow__phases--five { --flow-cols: 2; }
+  .wp-flow__end { margin-top: var(--step-5); padding-top: var(--step-4); }
+  .wp-flow__end--start { margin-bottom: var(--step-5); padding-bottom: var(--step-4); }
+}
+/* Phone: one column. One screen is no longer on offer at this width, so
+   the rails simply run on down. */
+@media (max-width: 44rem) {
+  .wp-flow { --flow-rail: 1.2rem; --flow-steppad: 0.22rem; --flow-text: 0.8125rem;
+             --flow-gutter: var(--step-8); }
+  /* One column: nothing sits beside a run to hand off to. */
+  .wp-flow__hop { display: none; }
+  .wp-flow__phases { --flow-cols: 1; }
+  .wp-flow__phases--four, .wp-flow__phases--five { --flow-cols: 1; }
+}
+
+
+/* ── 12c · the two clubbed portal flows ──────────────────────────────────
+   HR Portal and Supplier Portal are one task flow each rather than two and
+   three, so each figure carries two tiers of columns where the employee
+   flows carry one. Two tiers is roughly twice the words, and the whole
+   point of these rebuilds is that the flow is seen at once, so the dense
+   modifier takes the type down one more notch — 12px, with the rail, the
+   dots, the discs and the gutters coming down with it so the figure
+   shrinks as one thing rather than as small text in full size furniture.
+   Everything else is the component as it already stood. */
+.wp-flow--dense {
+  --flow-text: 0.75rem;
+  --flow-head: 0.8125rem;
+  --flow-rail: 1.05rem;
+  --flow-dot: 0.44rem;
+  --flow-steppad: 0.15rem;
+  --flow-gutter: var(--step-5);
+}
+.wp-flow--dense .wp-flow__panel { padding: var(--step-5); }
+.wp-flow--dense .wp-flow__cap { gap: var(--step-2); padding-bottom: var(--step-1); }
+.wp-flow--dense { --flow-disc: 1.5rem; }
+.wp-flow--dense .wp-flow__ico { inline-size: 0.8rem; block-size: 0.8rem; }
+.wp-flow--dense .wp-flow__phase { gap: var(--step-2); }
+.wp-flow--dense .wp-flow__phases + .wp-flow__phases { margin-top: var(--step-6); }
+.wp-flow--dense .wp-flow__fork::before { inset-block-start: calc(var(--fork-top) + 0.36em); }
+
+/* A bar between two tiers rather than above or below all of them: the HR
+   flow's second tier is only reachable once the first has published, and
+   the drawing's own node for that is the workspace. It takes the start
+   bar's rules plus a top margin, since nothing above it supplies one. */
+.wp-flow__phases + .wp-flow__end--mid { margin-block-start: var(--step-6); }
+.wp-flow--dense .wp-flow__end--mid { margin-block-end: var(--step-5); padding-block-end: var(--step-4); }
+.wp-flow--dense .wp-flow__disc--end { inline-size: 1.75rem; block-size: 1.75rem; }
+.wp-flow--dense .wp-flow__disc--end .wp-flow__ico { inline-size: 0.95rem; block-size: 0.95rem; }
+
+
+.wp-ia-group { margin: var(--step-10) 0 0; }
+.wp-ia-group + .wp-ia-group { margin-top: var(--step-10); }
+.wp-ia-group__h {
+  margin: 0;
+  padding-top: 0;
+  color: var(--text-primary);
+}
+.wp-ia-group__note { margin: var(--step-4) 0 0; }
+
+
+/* ── 13 · the design principles ──────────────────────────────────────────
+   Five cards in the site's own card language: a raised surface, a
+   hairline, token type. The chapter used to carry its own green palette
+   and its own chrome, which made it read as a different site; the only
+   thing left of that palette now is the one place it cannot be removed.
+
+   That place is the art plate. The five illustrations are finished
+   artwork drawn on a single flat ground — indigo originally, recoloured
+   to green in the files themselves at Arushi's instruction — so the
+   ground is part of every PNG. Standing them on the card would show a
+   rectangular seam, so each one gets a plate at its own ground colour,
+   #023218, sampled off the recoloured files. That literal is the one
+   colour in this stylesheet that is not a token, and it is a literal
+   because it belongs to the pictures rather than to the page. This is
+   the same move chapters 05, 08 and 14 make for light artwork: a plate
+   at the artwork's own canvas colour, inside a card that is the site's.
+
+   The recolour itself is a hue map applied to the files, not a CSS
+   filter: the artwork sits in a single 180..310 hue band, compressed
+   into 119..168 and curved down at the dark end. Script and reasoning
+   are in the session scratchpad as greenify.py; the untouched indigo
+   originals are still at 02. Work/01. Workperks/Ref.
+
+   Three cards, then two centred beneath them. Six columns at full width
+   lets the second row be centred by placement, so its gutters stay on
+   the same rhythm as the row above instead of needing a second grid.
+   Four columns on a tablet does the same thing for a 2 / 2 / 1 stack.
+
+   The plate holds one height for all five and each illustration is
+   contained inside it rather than filling it, so the five keep their
+   own proportions and every title in a row starts on the same line. */
+
+.wp-pr {
+  --wp-pr-ground:#023218;   /* the artwork's own ground. See above. */
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 1fr;
+  gap: var(--step-6);
+  margin: var(--step-12) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wp-pr__card {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  padding: var(--step-6);
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+
+/* The second row starts where the first one does. It was centred under
+   the three above it until 4 Nov 2026, when Arushi asked for it left
+   aligned instead, so the two cards simply take the next two slots the
+   grid offers and the row below lines up with the row above. Auto
+   placement does that on its own; the rules that put card 4 in column 2
+   and card 5 in column 4 are gone rather than rewritten. */
+
+.wp-pr__art {
+  margin-bottom: var(--step-6);
+  padding: var(--step-5);
+  border-radius: var(--radius-md);
+  background: var(--wp-pr-ground);
+}
+
+/* Contained in a box of one fixed height rather than left at its natural
+   size. The five differ in aspect by a fifth, so sized to themselves the
+   tallest stand deeper than the rest and show their own ground past the
+   plate. object-fit does the letterboxing, and the letterbox is invisible
+   because the bars are the plate and the plate is the colour the artwork
+   is drawn on. The height is set in rem rather than as a percentage: a
+   percentage against a grid area left Chrome falling back to the width
+   and height attributes, which is the overflow this is fixing. */
+/* Left rather than centred, at Arushi's instruction. object-position alone
+   could not do it: with inline-size:100% the image box already spans the
+   plate, so there is no slack inside it for a position to move. The box is
+   given its own intrinsic width at the fixed height instead, and the plate
+   is a flex row that starts it at the left — which leaves real slack, on
+   the right, where the plate's own ground fills it.
+
+   That starts the image BOX at the left; it does not start the DRAWING
+   there. Each screenshot sat on its own ground at its own offset — left
+   pads of 50, 38, 57, 47 and 55 source pixels — and because all five render
+   at one fixed height those pads scale differently, so the drawings began
+   up to 10px apart on screen. The pads are now cropped out of the files by
+   _crop_principles.py, which is why the five widths differ from the five
+   the screenshots were taken at. The crop is invisible: what it removes is
+   ground, and the plate behind it is painted at that same ground colour. */
+.wp-pr__art { display: flex; justify-content: flex-start; align-items: center; }
+.wp-pr__art img {
+  display: block;
+  inline-size: auto;
+  max-inline-size: 100%;
+  block-size: 9rem;
+  object-fit: contain;
+  object-position: left center;
+  border: 0;
+  background: none;
+}
+
+.wp-pr__n {
+  margin: 0 0 var(--step-3);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.wp-pr__h {
+  margin: 0 0 var(--step-4);
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.wp-pr__p {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+
+/* Tablet: two across, the fifth left aligned under them for the same
+   reason as the row above. */
+@media (max-width: 64rem) {
+  .wp-pr { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Phone: one column, and the plate gives back some of its height. */
+@media (max-width: 44rem) {
+  .wp-pr { grid-template-columns: 1fr; gap: var(--step-5); }
+  .wp-pr__card { grid-column: 1 / -1; }
+  .wp-pr__art { margin-bottom: var(--step-5); }
+  .wp-pr__art img { block-size: 7.5rem; }
+}
+
+
+/* ── 14 · the design system ──────────────────────────────────────────────
+   This chapter shows a light design system on a near-black page, and the
+   specimens in it are the real components: assets/css/wpds.css is the
+   system's own stylesheet, lifted from its documentation file and scoped
+   under .wpds so its wp-* classes cannot collide with this page's own.
+
+   So what is here is only the furniture around those specimens — the light
+   plate they stand on, the caption bars, and the few boards (colour ramps,
+   type rows, spacing bars, shell diagrams) that are about the system rather
+   than part of it. Nothing here restyles a component.
+
+   The plate is the same call chapters 05 and 08 make for light artwork, at
+   the system's own canvas colour rather than this page's ivory, so a
+   component sits on the ground it was designed for.                     */
+
+.wp-ds {
+  margin: var(--step-8) 0 0;
+  padding: var(--step-6);
+  border-radius: var(--radius-lg);
+  background: var(--wp-bg-canvas);
+  color: var(--wp-text-primary);
+}
+.wp-ds :where(h1,h2,h3,h4,p,span,b,code) { color: inherit; }
+
+/* The chapter's own sub-heads, in the site's voice rather than the
+   system's, because they are this page talking about the system. */
+.wp-ds__h { margin: var(--step-16) 0 var(--step-4); color: var(--text-primary); }
+.wp-ds__h + .prose { margin-bottom: var(--step-2); }
+
+.wp-ds__cap {
+  margin-top: var(--step-5);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--wp-text-tertiary);
+}
+.wp-ds__cap b { color: var(--wp-text-primary); font-weight: 700; }
+
+/* A specimen stage and the line that says what it is. The stage is white
+   because that is the system's surface; the bar is the quiet canvas. */
+.wp-ds__stage {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+  padding: 24px;
+  border-radius: var(--wp-radius-md);
+  background: var(--wp-bg-surface);
+  border: 1px solid var(--wp-border-default);
+}
+.wp-ds__stage--col { flex-direction: column; align-items: stretch; }
+.wp-ds__stage--form { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); align-items: start; }
+.wp-ds__stage--pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); align-items: start; }
+
+.wp-ds__bar {
+  margin: 10px 2px 0;
+  font: var(--wp-body-sm);
+  letter-spacing: var(--wp-body-sm-tracking);
+  color: var(--wp-text-tertiary);
+}
+.wp-ds__bar b { color: var(--wp-text-primary); font-weight: 700; }
+
+.wp-ds__shelf { display: grid; gap: 20px; }
+.wp-ds__item--wide { grid-column: 1 / -1; }
+
+/* 1 · the two surfaces ------------------------------------------------- */
+.wp-ds__stage--two {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 24px;
+  padding: 28px;
+}
+.wp-ds__phone {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--wp-border-default);
+  border-radius: var(--wp-radius-lg);
+  overflow: hidden;
+  background: var(--wp-bg-canvas);
+  min-height: 26rem;
+}
+.wp-ds__phonebody { flex: 1; display: grid; gap: 12px; align-content: start; padding: 14px; }
+/* The sidebar sizes itself from --wp-size-sidebar, so the mock narrows it
+   with the system's own token rather than by overriding .wp-side. 264px is
+   the real value; this panel is a third of a real portal's width. */
+.wp-ds__portal {
+  --wp-size-sidebar: 11.5rem;
+  display: grid; grid-template-columns: auto minmax(0, 1fr);
+  border: 1px solid var(--wp-border-default);
+  border-radius: var(--wp-radius-lg);
+  overflow: hidden;
+  background: var(--wp-bg-canvas);
+}
+/* The table keeps its own 640px floor and scrolls inside its wrapper, which
+   is what it does on a narrow viewport in the product too. */
+.wp-ds__portalmain .wp-table-wrap:focus-visible { outline: 3px solid var(--wp-border-focus); outline-offset: 2px; }
+.wp-ds__portalmain { display: grid; gap: 12px; align-content: start; padding: 16px; min-width: 0; }
+
+/* 2 · the foundations board -------------------------------------------- */
+.wp-ds__board { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 16px; }
+.wp-ds__cell {
+  padding: 20px;
+  border-radius: var(--wp-radius-md);
+  background: var(--wp-bg-surface);
+  border: 1px solid var(--wp-border-default);
+}
+.wp-ds__k {
+  margin: 0 0 14px;
+  font: var(--wp-label-sm); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--wp-text-tertiary);
+}
+.wp-ds__sub { margin: 18px 0 8px; font: var(--wp-label-md); color: var(--wp-text-secondary); }
+.wp-ds__note { margin: 14px 0 0; font: var(--wp-body-sm); color: var(--wp-text-tertiary); }
+.wp-ds__inline { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.wp-ds__swatches { display: grid; gap: 10px; }
+.wp-ds__sw { display: grid; grid-template-columns: 2.25rem 1fr; grid-template-rows: auto auto auto; column-gap: 12px; align-items: center; }
+.wp-ds__sw i { grid-row: 1 / 4; inline-size: 2.25rem; block-size: 2.25rem; border-radius: var(--wp-radius-xs); background: var(--sw); }
+.wp-ds__sw b { font: var(--wp-label-lg); }
+.wp-ds__sw code { font-family: var(--wp-font-mono); font-size: 11px; color: var(--wp-text-tertiary); }
+.wp-ds__sw span { font: var(--wp-body-sm); color: var(--wp-text-tertiary); }
+
+.wp-ds__ramp { display: flex; border-radius: var(--wp-radius-xs); overflow: hidden; border: 1px solid var(--wp-border-default); }
+.wp-ds__ramp i { flex: 1; block-size: 1.75rem; }
+
+.wp-ds__type { display: grid; gap: 14px; }
+.wp-ds__tyrow { display: grid; gap: 4px; }
+.wp-ds__tyrow code { font-family: var(--wp-font-mono); font-size: 11px; color: var(--wp-text-tertiary); }
+
+.wp-ds__space { display: grid; gap: 8px; }
+.wp-ds__space span { display: flex; align-items: center; gap: 12px; }
+.wp-ds__space i { inline-size: var(--w); block-size: .875rem; border-radius: 2px; background: var(--wp-blue-600); flex: none; }
+.wp-ds__space code { font-family: var(--wp-font-mono); font-size: 11px; color: var(--wp-text-tertiary); }
+
+.wp-ds__radii, .wp-ds__elev { display: flex; flex-wrap: wrap; gap: 18px; }
+/* The shadows are soft by design and a white card on a white stage shows
+   almost none of them, so this row gets the system's canvas behind it —
+   which is the ground a raised thing actually sits on in the product. */
+.wp-ds__elev {
+  margin-top: 20px; padding: 20px 18px 16px;
+  border-radius: var(--wp-radius-md);
+  background: var(--wp-bg-canvas);
+}
+.wp-ds__radii span, .wp-ds__elev span { display: grid; gap: 6px; justify-items: center; }
+.wp-ds__radii i { inline-size: 3rem; block-size: 3rem; background: var(--wp-neutral-150); border: 1px solid var(--wp-border-default); }
+.wp-ds__elev i { inline-size: 3.5rem; block-size: 2.5rem; border-radius: var(--wp-radius-sm); background: var(--wp-bg-surface); }
+.wp-ds__radii code, .wp-ds__elev code { font-family: var(--wp-font-mono); font-size: 11px; color: var(--wp-text-tertiary); }
+
+/* 4 · forced states, so a spec sheet can show them at rest --------------
+   The system paints hover, pressed and focus on :hover, :active and
+   :focus-visible, which a screenshot or a scrolling reader never sees. The
+   three rules below re-apply the system's own declarations on a data
+   attribute instead. The values are copied from wpds.css, not invented: if
+   the component changes, these three go stale and should be re-copied. */
+.wpds .wp-btn[data-state="hover"] { color: var(--flood-fg); }
+.wpds .wp-btn[data-state="hover"]::before { transform: none; }
+.wpds .wp-btn[data-state="pressed"] { transform: scale(.97); }
+.wpds .wp-btn[data-state="focus"] { outline: 3px solid var(--wp-border-focus); outline-offset: 3px; }
+
+/* 4 · the do / don't pair ---------------------------------------------- */
+.wp-ds__do { display: grid; gap: 10px; align-content: start; }
+.wp-ds__dok { margin: 0; font: var(--wp-label-md); color: var(--wp-success-fg); display: flex; align-items: center; gap: 8px; }
+.wp-ds__dok::before {
+  content: attr(data-k);
+  font: var(--wp-label-sm); text-transform: uppercase; letter-spacing: .08em;
+  padding: 3px 8px; border-radius: var(--wp-radius-pill);
+  background: var(--wp-success-bg); color: var(--wp-success-fg);
+}
+.wp-ds__do--dont .wp-ds__dok { color: var(--wp-danger-fg); }
+.wp-ds__do--dont .wp-ds__dok::before { background: var(--wp-danger-bg); color: var(--wp-danger-fg); }
+.wp-ds__skel { display: grid; gap: 10px; padding: 4px 0; }
+
+/* 5 · the two shells ---------------------------------------------------- */
+.wp-ds__shells { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 16px; }
+.wp-ds__shell { display: grid; align-content: start; }
+.wp-ds__shellart {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 10px; block-size: 13rem;
+  border-radius: var(--wp-radius-md);
+  background: var(--wp-bg-surface);
+  border: 1px solid var(--wp-border-default);
+}
+.wp-ds__shellart--app { inline-size: min(100%, 11rem); margin-inline: auto; }
+.wp-ds__shellart--portal { flex-direction: row; }
+.wp-ds__shellmain { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.wp-ds__slab {
+  display: grid; place-items: center; text-align: center;
+  padding: 6px; border-radius: var(--wp-radius-xs);
+  background: var(--wp-bg-muted); color: var(--wp-text-tertiary);
+  font: var(--wp-label-sm);
+}
+.wp-ds__slab--fill { flex: 1; background: var(--wp-bg-subtle); }
+.wp-ds__slab--side { inline-size: 5rem; flex: none; }
+
+/* 6 · the accessibility and content rules, in the site's voice ---------- */
+.wp-ds__rules {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--step-5);
+  margin: var(--step-8) 0 var(--step-8);
+  padding: 0; list-style: none;
+}
+.wp-ds__rules li {
+  display: grid; gap: var(--step-1);
+  padding-top: var(--step-4);
+  border-top: var(--hair) solid var(--border-subtle);
+}
+.wp-ds__rules b { color: var(--text-primary); font-weight: var(--weight-heading); }
+.wp-ds__rules span { font-size: var(--text-sm); line-height: var(--leading-body); color: var(--text-secondary); }
+
+/* 7 · naming, the files plate and the way out -------------------------- */
+.wp-ds__naming {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--step-5); margin-top: var(--step-8);
+}
+.wp-ds__naming > div {
+  display: grid; gap: var(--step-2); align-content: start;
+  padding: var(--step-5);
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+.wp-ds__naming .wp-ds__k { margin: 0; color: var(--text-tertiary); }
+.wp-ds__naming code { font-size: var(--text-mono); color: var(--accent-light); }
+.wp-ds__naming span { font-size: var(--text-sm); line-height: var(--leading-body); color: var(--text-secondary); }
+.wp-ds__naming b { color: var(--text-primary); }
+
+/* Left aligned rather than centred, because everything else in the chapter
+   starts at the measure's left edge, and with room under it so the token
+   table below is not reading as part of the caption. */
+.wp-ds__files { margin: var(--step-10) 0 var(--step-12); }
+.wp-ds__files img { max-width: 34rem; }
+
+.wp-ds__cta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--step-4);
+  margin: var(--step-10) 0 0;
+}
+.wp-ds__ctan { font-size: var(--text-sm); color: var(--text-tertiary); }
+
+@media (max-width: 62rem) {
+  .wp-ds__stage--two { grid-template-columns: 1fr; }
+  .wp-ds__portal { grid-template-columns: 10rem minmax(0, 1fr); }
+}
+@media (max-width: 44rem) {
+  .wp-ds { padding: var(--step-4); }
+  .wp-ds__stage { padding: 16px; }
+  .wp-ds__portal { grid-template-columns: 1fr; }
+  .wp-ds__portal .wp-side { display: none; }
+}
+
+/* 8 · the close — the published documentation ---------------------------
+   The chapter stops and leaves one way out. It was a bordered panel with an
+   accent wash, a top hairline, a pill badge, a version chip and a pill
+   button: six decorations around four lines of type that already said
+   everything. Stripped at Arushi's instruction to plain text on the page's
+   own ground, with the link as the only thing asking to be looked at. ---- */
+.wp-doc {
+  margin: var(--step-16) 0 0;
+  max-width: var(--prose-max);
+}
+.wp-doc__meta { margin: 0; color: var(--text-tertiary); }
+.wp-doc__t {
+  margin: var(--step-3) 0 0;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+.wp-doc__lede {
+  margin: var(--step-2) 0 0;
+  font-size: var(--text-sm); line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+/* The one thing here with any weight. Not a pill and not a button — an
+   underline the accent draws, set a step above the text around it, so it is
+   the loudest thing in the block without a box being needed to say so. */
+.wp-doc__cta {
+  display: inline-flex; align-items: center; gap: var(--step-3);
+  margin-top: var(--step-6);
+  padding-bottom: var(--step-2);
+  border-bottom: 2px solid color-mix(in srgb, var(--hue-teal) 55%, transparent);
+  font-size: var(--text-lg); line-height: 1.3;
+  color: var(--hue-teal-light); text-decoration: none;
+  transition: border-color var(--duration-base) var(--ease-smooth),
+              color var(--duration-base) var(--ease-smooth);
+}
+.wp-doc__cta:hover { border-bottom-color: var(--hue-teal); color: var(--text-primary); }
+.wp-doc__cta:focus-visible { outline: 2px solid var(--hue-teal); outline-offset: 4px; }
+.wp-doc__arrow { transition: transform var(--duration-base) var(--ease-out); }
+.wp-doc__cta:hover .wp-doc__arrow { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  .wp-doc__cta, .wp-doc__arrow { transition: none; }
+  .wp-doc__cta:hover .wp-doc__arrow { transform: none; }
+}
+
+/* The endcap as the documentation's own cover card. The card is the whole
+   link, so everything the panel above draws — the plate, the hairline, the
+   accent wash, the top rule — is already in the picture and is turned off
+   here rather than drawn twice.
+
+   No border-radius and no clipping. The image carries its own rounded
+   corners with its own ground in the notches, and that ground measures
+   within four values of --surface-page in all three palettes, so it
+   disappears into the page. Clipping to --radius-lg instead would cut a
+   fixed radius across corners that scale with the viewport, and the two
+   would only agree at one width.
+
+   Static, like the chapter's diagrams: no hover state. The card draws its
+   own call to action, and the focus ring is the one thing it cannot. */
+.wp-doc--art {
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  overflow: visible;
+}
+.wp-doc--art::before { content: none; }
+.wp-doc--art img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+.wp-doc--art:focus-visible { outline: 2px solid var(--hue-teal); outline-offset: 4px; }
+
+/* .wp-doc--art above is left in place: the artwork is still on disk at
+   assets/img/workperks/ds/doc-card.jpg, and swapping the text close for it
+   is a class and a child. Its turn-offs are redundant now that .wp-doc
+   draws no panel, and harmless.
+
+   What stood here — .wp-doc--row, .wp-doc__dot and .wp-doc__v — laid the
+   panel out as a row and drew the two marks on its pills. The panel is gone,
+   so they are too. ----------------------------------------------------- */
+
+
+/* ── 07b · the onboarding spine, drawn as a flow ──────────────────────────
+   Seven stages that used to be seven hairline-topped text columns: the
+   sequence was there in the numbers and nowhere in the drawing, and the
+   only mark connecting them was a 1.25rem stub reaching into the gutter.
+
+   Now each stage is a box on the chapter's own card language — raised
+   surface, hairline, token type — and the line between two boxes is the
+   claim the block is making: this order, and no other.
+
+   Four across, then three, because the notes are sentences rather than
+   labels and seven columns of a sentence each is a column of one word per
+   line. The turn from 04 to 05 is drawn rather than left to the reader:
+   the run leaves the fourth box's underside, crosses the band below the
+   row and climbs back into the fifth box's top edge, so the second row
+   reads left to right like the first one instead of doubling back.
+
+   The lines carry no arrowheads, per the instruction the chapter 09 flows
+   got: join the line, and let the numbers say which way it runs.
+
+   Geometry is the grid's own maths. A column is
+   (100% - 3 gutters) / 4, so the two vertical legs land on the centre of
+   the first and last columns at any width, and the turn band is a grid
+   row of its own rather than a guess at how tall the row above it ended
+   up. Static, like every other diagram in this case study. --------- */
+.wp-spine {
+  --sp-g: var(--step-6);                              /* the gutter */
+  --sp-col: calc((100% - var(--sp-g) * 3) / 4);       /* one column */
+  --sp-turn: var(--step-10);                          /* the turn band */
+  --sp-line: color-mix(in srgb, var(--hue-teal) 45%, transparent);
+  --sp-badge: 1.75rem;
+  --sp-pad: var(--step-5);
+  --sp-head: 0.9375rem;
+  --sp-text: 0.8125rem;
+
+  list-style: none;
+  margin: var(--step-6) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--sp-g);
+  row-gap: 0;          /* the turn band is the row gap at this width */
+}
+
+.wp-spine__step {
+  position: relative;
+  display: flex; flex-direction: column; gap: var(--step-2);
+  padding: var(--sp-pad);
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+}
+
+/* The forward connector: each box draws its own across the gutter to its
+   right, so the line always ends where the next box begins however the
+   titles wrap. Boxes in a row stretch to a shared height, which is what
+   lets 50% be the same line for all four of them. */
+.wp-spine__step::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 100%;
+  inline-size: var(--sp-g);
+  block-size: var(--hair);
+  background: var(--sp-line);
+}
+/* 04 ends the row — its continuation is the turn band — and 07 ends the
+   sequence, which is what closes it. */
+.wp-spine__step:nth-child(4)::after,
+.wp-spine__step:last-child::after { display: none; }
+
+.wp-spine__n {
+  margin: 0;
+  flex: none;
+  display: grid; place-items: center;
+  inline-size: var(--sp-badge); block-size: var(--sp-badge);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--hue-teal) 20%, var(--surface-page));
+  box-shadow: inset 0 0 0 var(--hair)
+              color-mix(in srgb, var(--hue-teal) 40%, transparent);
+  font-family: var(--font-label); font-size: 0.6875rem;
+  letter-spacing: 0;                 /* "01" centres, --track-label does not */
+  color: var(--hue-teal-light);
+}
+.wp-spine__t {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  font-size: var(--sp-head); line-height: 1.25;
+  letter-spacing: var(--track-heading);
+  color: var(--text-primary);
+}
+.wp-spine__d {
+  margin: 0;
+  font-size: var(--sp-text); line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+/* ── the turn. A full-width grid row holding nothing but the line that
+   carries the run back to the left margin. ::before is the bus and the
+   descending leg into box 05 in one box, drawn as a top and a left
+   border so the corner joins itself; ::after is the leg leaving box 04.
+   Both are inset by half a column, which is where the boxes' centres
+   are. ── */
+.wp-spine__turn {
+  grid-column: 1 / -1;
+  position: relative;
+  block-size: var(--sp-turn);
+}
+.wp-spine__turn::before,
+.wp-spine__turn::after { content: ""; position: absolute; }
+.wp-spine__turn::before {
+  inset-inline: calc(var(--sp-col) / 2 - var(--hair) / 2);
+  inset-block: 50% 0;
+  border-top: var(--hair) solid var(--sp-line);
+  border-left: var(--hair) solid var(--sp-line);
+}
+.wp-spine__turn::after {
+  inset-inline-end: calc(var(--sp-col) / 2 - var(--hair) / 2);
+  inset-block: 0 50%;
+  inline-size: var(--hair);
+  background: var(--sp-line);
+}
+
+/* One column, and the flow runs down. The turn band has nothing left to
+   turn, and the connector moves to the spine the badges already make:
+   it leaves the box under the badge it came from and arrives under the
+   next one. Two abreast is not offered — a connected run that wraps on
+   every row is a set of stubs, not a flow. */
+@media (max-width: 900px) {
+  .wp-spine {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--step-8);
+  }
+  .wp-spine__turn { display: none; }
+  /* The box turns into a row: the badge beside the words rather than above
+     them. Stacked full width, a column box is mostly empty paper on the
+     right and seven of them is a long scroll for seven short sentences. */
+  .wp-spine__step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--step-4);
+    row-gap: var(--step-1);
+    align-items: start;
+  }
+  .wp-spine__n { grid-row: 1 / span 2; align-self: center; }
+  .wp-spine__step::after {
+    inset-block-start: 100%;
+    inset-inline-start: calc(var(--sp-pad) + var(--sp-badge) / 2 - var(--hair) / 2);
+    inline-size: var(--hair);
+    block-size: var(--step-8);
+  }
+  .wp-spine__step:nth-child(4)::after { display: block; }
+  .wp-spine__step:last-child::after { display: none; }
+}
+
+
+/* ── 07c · Flexi, the hard middle ────────────────────────────────
+   The argument on the left, the two screens on the right, and the two
+   sides the same height — which is what the pointers are for. As two
+   paragraphs the text ran 262px against 604px of phone and no column
+   ratio closed it. Cut at the sentence breaks the paragraphs already had,
+   the same words make five pointers that very nearly stand the height of
+   the pair on their own, and the list spreads itself over whatever is
+   left.
+
+   So the column stretches rather than sits: the text block is a flex
+   column, the list takes the slack with flex:1, and space-between opens
+   the gaps between pointers until the last one lands level with the
+   bottom of the captions. gap is the floor, so where the list is already
+   taller than the screens — a narrow column, large type — the pointers
+   keep their own rhythm and nothing collapses.
+
+   The marker is the dot the spine and the flow rails use, at the same
+   size, drawn rather than a list-style bullet so it can sit on the first
+   line's own baseline. No rules between items: the chapter does not use
+   horizontal lines inside itself. ----------------------------------- */
+/* Two columns only while both still work: a 23rem floor rather than the
+   .split default of 20rem. The pair needs about 356px of column before
+   .wp-shots can give it two tracks, and at the 20rem floor the band
+   around a 1100px viewport — where the case rail is up and the reading
+   column is only 731px — handed each side 341px, stacked the two screens
+   and ran the figure 1666px tall. auto-fit stacks the block instead. */
+.wp-flexi { grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr)); align-items: stretch; }
+
+/* ── the screens at the five's own size ──
+   The pair sits in a column, the five above span the whole reading
+   width, and auto-fit sizes each row from the width it is given — so in
+   an even split the pair came out 223px against the five's 180px.
+   Measured across 900..1600, the two rows only disagree where the five
+   sit five across, which is every width with 920px or more of reading
+   column; from 919 down the pair is already within 7px of them and from
+   731 down the block stacks and they match exactly.
+
+   So in that band the screens column is pinned to two of the five's own
+   tracks plus the gutter between them — the same (width - 4 gutters) / 5
+   the five row works out for itself — and the text takes what is left.
+   It is a container query rather than a media query because the number
+   that decides this is the reading column's width, not the viewport's:
+   the case rail drops out around 1024px and the column jumps from 676px
+   to 938px, so one viewport width stands for two different layouts. */
+.wp-flexi-box { container-type: inline-size; }
+/* Four across, from the width the block can hold two columns at all. */
+@container (min-width: 784px) {
+  .wp-flexi {
+    grid-template-columns:
+      minmax(0, 1fr)
+      calc(2 * ((100% - 3 * var(--step-5)) / 4) + var(--step-5));
+  }
+}
+/* Five across, which is every reading column of 920px or more. */
+@container (min-width: 920px) {
+  .wp-flexi {
+    grid-template-columns:
+      minmax(0, 1fr)
+      calc(2 * ((100% - 4 * var(--step-5)) / 5) + var(--step-5));
+  }
+}
+.wp-flexi__text { display: flex; flex-direction: column; min-inline-size: 0; }
+.wp-flexi__text > .t-h3 { margin-block-end: var(--step-4); }
+
+/* The standfirst. One step up from the pointers and in the primary
+   colour, so the order reads heading, lead, list rather than heading and
+   then six things at the same weight. */
+.wp-flexi__lede {
+  margin: 0 0 var(--step-6);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+.wp-pts {
+  flex: 1;
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  gap: var(--step-5);
+}
+.wp-pts > li {
+  position: relative;
+  padding-inline-start: var(--step-6);
+  color: var(--text-secondary);
+  /* The size the captions under the five screens are set at, so the two
+     blocks read as the same kind of thing. It was the chapter's body
+     size for one revision and that was too loud beside screens this
+     small. */
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.wp-pts > li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.62em;
+  inline-size: 0.5rem; block-size: 0.5rem;
+  border-radius: 50%;
+  border: var(--hair) solid color-mix(in srgb, var(--hue-teal) 65%, transparent);
+  background: var(--surface-page);
+}
+
+/* The pair fills its column. .wp-shots lays out on auto-fit, which would
+   collapse the three tracks it has no items for and give two half-width
+   phones; auto-fill keeps them, so the pair takes the first two of
+   however many tracks the width affords. In a column that is two. */
+.wp-shots--pair { grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); margin-top: 0; }
+
+/* These two captions are a key and nothing else. .wp-shot__k sets its
+   bottom margin for the sentence that normally follows it; with no
+   sentence there, that margin is a gap under the last line of the
+   figure. */
+.wp-shots--pair .wp-shot__k:only-child { margin-bottom: 0; }
+
+
+/* ── 07d · the two live prototypes ───────────────────────────────────────
+   Parts B and C are running builds, not written chapters, so each is one
+   screen and the address that opens it. The capture is the door; the link
+   is the artefact, which is why the address is the link text rather than
+   a verb — it says where it goes before it is clicked.
+
+   Held to 26rem. These are desktop screens and at the reading column's
+   full width they would stand taller than the film above them, which is
+   the chapter's actual exhibit. --------------------------------------- */
+/* Scoped the way case.css scopes its own figure rule. A figure that is a
+   direct child of a section is caught by
+   `.case__main > .section > figure`, which sets max-width:100% and a
+   --step-10 block margin at a specificity this cannot reach from one
+   class. Same shape of selector, one class deeper. */
+.case__main > .section > .wp-proto {
+  margin-block: var(--step-6) 0;
+  margin-inline: 0;
+  max-inline-size: 30rem;   /* about the capture's own 1:1 size */
+}
+.wp-proto img {
+  display: block;
+  inline-size: 100%; block-size: auto;
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--ink-5);
+}
+.wp-proto figcaption { margin-block-start: var(--step-4); }
+
+/* The same underline the documentation close uses, one step down: this is
+   a link in the flow of a chapter rather than the end of one. */
+.wp-proto__cta {
+  display: inline-flex; align-items: center; gap: var(--step-2);
+  padding-block-end: var(--step-1);
+  border-block-end: 2px solid color-mix(in srgb, var(--hue-teal) 55%, transparent);
+  font-family: var(--font-label); font-size: var(--text-sm);
+  line-height: 1.3;
+  color: var(--hue-teal-light); text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: border-color var(--duration-base) var(--ease-smooth),
+              color var(--duration-base) var(--ease-smooth);
+}
+.wp-proto__cta:hover { border-block-end-color: var(--hue-teal); color: var(--text-primary); }
+.wp-proto__cta:focus-visible { outline: 2px solid var(--hue-teal); outline-offset: 4px; }
+.wp-proto__arrow {
+  flex: none;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.wp-proto__cta:hover .wp-proto__arrow { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) {
+  .wp-proto__cta, .wp-proto__arrow { transition: none; }
+  .wp-proto__cta:hover .wp-proto__arrow { transform: none; }
+}
+
+
+/* ── 08c · what shipped ──────────────────────────────────────────────────
+   The stack table and the device shot sit on one row: the table reads as
+   the written answer and the shot as the same answer in a picture, so
+   neither is worth a full reading column of its own.
+
+   The right track is fixed at 26rem rather than fractional, and the two
+   sides are made the same height — which is the whole trick here, and
+   worth spelling out. The photograph is portrait; left to its own aspect
+   ratio at this width it stands half again as tall as the five rows
+   beside it, and the row ends in a column of empty paper under the table.
+
+   So the table sets the height and the shot is cut to it. The <img> is
+   taken out of flow, which is what stops its intrinsic height counting
+   towards the grid row: the row is then sized by the table alone, the
+   shot stretches to whatever that comes to, and object-fit covers the
+   box. The crop is centred, and at these proportions it lands just
+   outside the phone on both edges, so nothing of the screen is lost.
+
+   .spec is a grid with a 20rem track minimum, which would overflow the
+   left column here, so inside this block it is a plain block and the one
+   table fills it.
+
+   The shared .spec table gives its key column 48%, which is sized for a
+   table running the full reading column. At this width that is a band of
+   empty paper between the layer and its choice, so the key column is
+   pulled back to 20% — about what the word "Navigation" actually needs —
+   and the two columns read as a pair. What the table gives up, the shot
+   takes.
+
+   The break moves out to 76rem. It was 64rem when the shot was 17rem
+   wide; at 26rem the left column would be down to roughly 240px just
+   above a 64rem break, which is a table of one word per line. Below the
+   break the row stacks, and the shot goes back to its own aspect ratio —
+   there is no table beside it to match, and a cut-down photo stacked on
+   its own is just a cropped photo.                                       */
+
+.wp-shipped {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 26rem;
+  gap: var(--step-6) var(--step-8);
+  align-items: stretch;
+}
+
+.wp-shipped .spec { display: block; }
+.wp-shipped .spec__table th { width: 20%; }
+
+.wp-shipped__shot {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+.wp-shipped__shot img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 76rem) {
+  .wp-shipped { grid-template-columns: minmax(0, 1fr); }
+  .wp-shipped__shot {
+    max-inline-size: 26rem;
+    border-radius: 0;
+    overflow: visible;
+  }
+  .wp-shipped__shot img {
+    position: static;
+    block-size: auto;
+    object-fit: fill;
+    border-radius: var(--radius-lg);
+  }
+}
+
+
+/* ── 09a · the spine, three across ───────────────────────────────────────
+   The chapter 09 workflow is the same kind of claim as the onboarding
+   spine and the build chain — this order, and no other — so it is drawn on
+   the same component rather than on a second one that looks nearly like
+   it. The only difference is the count: six stages, and notes that run to
+   a full sentence, which at six columns would be a column of one word per
+   line. Three and three, with the turn band doing exactly what it does in
+   chapter 07.
+
+   --sp-col is the geometry the turn's two legs are positioned from, so it
+   has to be restated for three columns or the run would come back down
+   into the wrong place.
+
+   The row-end connector moves from the fourth box to the third. Nothing
+   needs re-enabling at the fourth: in this markup the fourth child is the
+   turn <li>, so the base rule's :nth-child(4) matches no step at all.
+
+   Both the column count and that connector have to be restated below the
+   breakpoint. The base rules live earlier in this file, and at equal
+   specificity the later rule wins — so without these the stacked layout
+   would keep three columns and lose the line under 03.               */
+
+.wp-spine--3up {
+  --sp-col: calc((100% - var(--sp-g) * 2) / 3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.wp-spine--3up .wp-spine__step:nth-child(3)::after { display: none; }
+
+@media (max-width: 900px) {
+  .wp-spine--3up { grid-template-columns: minmax(0, 1fr); }
+  .wp-spine--3up .wp-spine__step:nth-child(3)::after { display: block; }
+}
+
+
+/* ── 10 · what's working today, and what's next ──────────────────────────
+   Two parts added 4 Nov 2026. The brief asked for a white presentation
+   ground; the page keeps its own ink and the artwork sits on the light
+   plates the landscape table, the flexi sheet and the roadmap already
+   use, so the story stays continuous. Restrained accents, hairlines
+   rather than boxes, and the whitespace carried by --step-* rather than
+   by a shadow.
+
+   Four state labels extend .wp-status. The existing four (--built,
+   --specified, --concept, --tested) are set in the deep hues because
+   they only ever appear inside the light design-system panels; these
+   four sit on the dark page, so they take the light ends of the same
+   ramps. --planned is dashed and uncoloured, the same way --concept
+   reads an absence rather than a state.                                */
+
+.wp-status--fbuild   { color: var(--hue-sage-light);  border-color: color-mix(in oklab, var(--hue-sage-light) 40%, transparent); }
+.wp-status--proto    { color: var(--hue-ochre-light); border-color: color-mix(in oklab, var(--hue-ochre-light) 40%, transparent); }
+.wp-status--progress { color: var(--hue-teal-light);  border-color: color-mix(in oklab, var(--hue-teal-light) 40%, transparent); }
+.wp-status--planned  { color: var(--text-tertiary);   border-style: dashed; }
+
+
+/* The journeys. A head line carrying the number, the title and the state,
+   a note under it, then the captures in run order. The sequence is a flex
+   row rather than a grid so a journey of five and a journey of one both
+   sit left and neither stretches to fill the measure — a lone capture
+   blown up to full width would read as more evidence than it is.      */
+
+.wp-jrn { margin-top: var(--step-10); }
+
+.wp-jrn__head {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--step-3) var(--step-4);
+}
+.wp-jrn__n {
+  margin: 0;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+.wp-jrn__t {
+  margin: 0; flex: 1 1 auto;
+  font-family: var(--font-display); font-weight: var(--weight-heading);
+  font-size: var(--text-h4); line-height: 1.3;
+  letter-spacing: var(--track-heading);
+  color: var(--text-primary);
+}
+.wp-jrn__d {
+  margin: var(--step-3) 0 0;
+  max-inline-size: 58ch;
+  font-size: var(--text-sm); line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+
+/* The run. Each capture holds the 409 × 876 frame .wp-shot sets, so a new
+   capture drops in without the row reflowing. Scrolls sideways under a
+   narrow viewport rather than shrinking a phone screen to a thumbnail. */
+.wp-jrn__seq {
+  display: flex;
+  gap: var(--step-6);
+  margin: var(--step-6) 0 0;
+  padding: 0 0 var(--step-3);
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+}
+.wp-jrn__shot {
+  position: relative;
+  flex: 0 0 9.5rem;
+  scroll-snap-align: start;
+}
+.wp-jrn__shot figure { margin: 0; display: grid; gap: var(--step-3); }
+.wp-jrn__shot img {
+  inline-size: 100%; block-size: auto;
+  aspect-ratio: 409 / 876;
+  object-fit: cover; object-position: top center;
+  border: var(--hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--ink-5);
+  display: block;
+}
+.wp-jrn__shot figcaption {
+  font-size: var(--text-sm); line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+.wp-jrn__k {
+  display: block;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  color: var(--text-tertiary);
+  margin-block-end: .25em;
+}
+
+/* The connector: a chevron in the gutter, drawn from two borders rather
+   than carried as an icon, and hidden from assistive technology because
+   the numbered captions already say which way the run goes. It sits on
+   the image's vertical centre, not the figure's, so the captions below
+   do not drag it off line. */
+.wp-jrn__shot:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(100% + var(--step-6) / 2);
+  inset-block-start: calc((9.5rem * 876 / 409) / 2);
+  inline-size: .4rem; block-size: .4rem;
+  margin-inline-start: -.2rem;
+  border-top: var(--hair) solid color-mix(in srgb, var(--hue-teal) 55%, transparent);
+  border-right: var(--hair) solid color-mix(in srgb, var(--hue-teal) 55%, transparent);
+  transform: translateY(-50%) rotate(45deg);
+}
+/* A single capture is not a sequence and takes no connector. */
+.wp-jrn__seq--one .wp-jrn__shot::after { display: none; }
+
+
+/* A sub-head inside a chapter part: smaller than .t-h3, and set in the
+   label face so it reads as a divider rather than as a new argument. */
+.wp-sub {
+  margin: var(--step-12) 0 0;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+
+/* The three surfaces. Three across on a desktop, two on a tablet, one on
+   a phone. The capture sits on a plate because two of the three are light
+   artwork; the device photograph brings its own ground and takes the
+   plate without harm, so the three cards stay identical.              */
+
+.wp-surf {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--step-6);
+  margin-top: var(--step-6);
+}
+.wp-surf__i {
+  display: grid; gap: var(--step-5); align-content: start;
+  padding: var(--step-5);
+  border: var(--hair) solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+.wp-surf__shot {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--ink-5);
+}
+.wp-surf__shot--light { background: var(--ink-100); padding: var(--step-3); }
+.wp-surf__shot img {
+  display: block;
+  inline-size: 100%; block-size: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover; object-position: top center;
+  border-radius: var(--radius-sm);
+}
+.wp-surf__meta { display: grid; gap: var(--step-3); justify-items: start; }
+.wp-surf__t {
+  margin: 0;
+  font-family: var(--font-display); font-weight: var(--weight-heading);
+  font-size: var(--text-h4); line-height: 1.3;
+  letter-spacing: var(--track-heading);
+  color: var(--text-primary);
+}
+.wp-surf__d {
+  margin: 0;
+  font-size: var(--text-sm); line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+/* The two portal links reuse .wp-proto__cta from chapter 07, which already
+   carries these same two URLs. A bespoke copy here wrapped its arrow onto a
+   line of its own inside the narrower card. */
+
+@media (max-width: 900px) { .wp-surf { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .wp-surf { grid-template-columns: minmax(0, 1fr); } }
+
+
+/* The technical strip. A definition list rather than a table: three rows,
+   two of which are a sentence, so a table would be ruling empty cells.
+   The state chip rides at the end of its own sentence rather than in a
+   column of its own, which keeps the row to one line of reading.      */
+
+.wp-tech {
+  margin: var(--step-10) 0 0;
+  border-block-start: var(--hair) solid var(--border-subtle);
+}
+.wp-tech__i {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: var(--step-4) var(--step-8);
+  padding: var(--step-5) 0;
+  border-block-end: var(--hair) solid var(--border-subtle);
+}
+.wp-tech__k {
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.wp-tech__v {
+  margin: 0;
+  font-size: var(--text-sm); line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+.wp-tech__v .wp-status { margin-inline-start: .6em; vertical-align: baseline; }
+
+@media (max-width: 640px) {
+  .wp-tech__i { grid-template-columns: minmax(0, 1fr); gap: var(--step-2); }
+}
+
+
+/* The roadmap spine. The same component chapters 08 and 09 use, with the
+   state chip pinned to the foot of each box so six boxes of uneven copy
+   still line their chips up. */
+.wp-spine--road .wp-spine__step { padding-block-end: var(--step-4); }
+.wp-spine--road .wp-status { margin-block-start: auto; align-self: start; }
+
+
+/* ── the closing ─────────────────────────────────────────────────────────
+   Not a chapter. It carries no number, no eyebrow and no rail entry, so
+   the only thing marking it as the end is the treatment: a hairline above
+   it, roughly double a section's usual air, and one headline set larger
+   than any h2 on the page. Everything else is taken away rather than
+   added — no plate, no card, no accent panel — which is what makes it
+   read as a close rather than as an eleventh argument.
+
+   It keeps the reading column the rest of the case study uses, so the
+   left edge never moves; the distinction is vertical, not horizontal. */
+
+.wp-end {
+  margin-block-start: var(--step-16);
+  padding-block: var(--step-20) var(--step-16);
+  border-block-start: var(--hair) solid var(--border-subtle);
+}
+
+.wp-end__in { display: grid; justify-items: start; gap: var(--step-8); }
+
+.wp-end__mark {
+  inline-size: 2.75rem; block-size: 2.75rem;
+  color: var(--hue-teal-light);
+}
+
+/* Larger than --text-h2 and smaller than --text-h1: the page's own
+   wordmark is the only thing that should out-set this, and a chapter
+   heading is the only thing it should out-set. */
+.wp-end__h {
+  margin: 0;
+  max-inline-size: 20ch;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: var(--track-display);
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.wp-end__lede {
+  margin: 0;
+  max-inline-size: var(--prose-max);
+  font-size: var(--text-lg, 1.0625rem);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+}
+
+/* The statement. A rule on the inline-start edge rather than quote marks
+   set in type: the copy supplies its own quotation in the source, and a
+   glyph plus a rule plus a size change would be three signals doing one
+   job. The rule carries the page's teal at the same strength the spine
+   connectors use. */
+.wp-end__q {
+  margin: 0;
+  padding-inline-start: var(--step-6);
+  border-inline-start: 2px solid color-mix(in srgb, var(--hue-teal) 55%, transparent);
+}
+.wp-end__q blockquote { margin: 0; }
+.wp-end__q p {
+  margin: 0;
+  max-inline-size: 26ch;
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  line-height: 1.3;
+  letter-spacing: var(--track-heading);
+  color: var(--text-primary);
+}
+
+/* The stamp and the way out, on one line on a desktop and stacked on a
+   phone. The stamp is set in the label face at the page's smallest size
+   because it is a colophon, not a statement. */
+.wp-end__foot {
+  inline-size: 100%;
+  margin-block-start: var(--step-4);
+  padding-block-start: var(--step-6);
+  border-block-start: var(--hair) solid var(--border-subtle);
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: var(--step-4) var(--step-8);
+}
+.wp-end__stamp {
+  margin: 0;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 640px) {
+  .wp-end { padding-block: var(--step-16) var(--step-12); }
+  .wp-end__in { gap: var(--step-6); }
+  .wp-end__foot { flex-direction: column; align-items: flex-start; }
+}

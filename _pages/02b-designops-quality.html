@@ -1,0 +1,380 @@
+<!--meta
+route: designops/quality
+title: Design Quality & Governance
+desc: A principles workshop, a UX evaluation instrument with one completed review, a design checklist and a critique method — the artefacts behind making design quality discussable.
+nav: designops
+case: yes
+case_kicker: DesignOps / Quality
+case_title: Design Quality &amp; Governance
+case_note: Four artefacts that make design quality discussable.
+case_project: Design Quality &amp; Governance
+case_sections: q-intro|The argument; q-tension|The tension; q-three|Three practices; q-principles|Principles; q-model|Five factors; q-scores|What it found; q-snapshot|A second set; q-checklist|The checklist; q-critique|Critique; q-synth|How they fit together; q-limits|Limits
+sheets: quality
+word_a: design
+word_b: quality
+tagline: Good design needs more than good judgement. These are the artefacts I used to turn quality into something a team can discuss, evaluate and argue about — shown with their real contents.
+-->
+
+<!-- 01 · HERO --------------------------------------------------------------- -->
+<section class="section" aria-labelledby="q-intro">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">DesignOps / 02</p>
+    <h2 class="t-h2" id="q-intro">Good design needs more than good judgement</h2>
+    <p class="prose">A senior designer can look at a screen and tell you it is wrong. That instinct is real, and it does not scale. The moment a team is twelve people across five squads, &ldquo;I don't think this is good enough&rdquo; stops being feedback and starts being a problem &mdash; because there is no shared way to say <em>why</em>, and no way for the person on the other side to disagree with it.</p>
+    <p class="prose">What follows is the work of making that argument possible: a workshop to agree what good means here, an evaluation instrument that turns it into twenty questions with a scale behind them, a checklist for the everyday review, and a critique method for the conversation itself.</p>
+  </div>
+
+  <figure class="plate plate--hero" data-reveal>
+    <img src="../../assets/img/quality/principles-cover.jpg"
+         alt="Opening slide of a design principles workshop, in pink and white: the words 'what design principles are? why we need them, and when and how to write them?' above illustrated hands arranging abstract shapes."
+         width="1600" height="900">
+    <figcaption class="plate__cap"><span class="plate__src">Workshop 01 &middot; 7 September 2023</span>
+    Opening slide, <em>Workshop &ndash; Design Principles</em>. My own deck.</figcaption>
+  </figure>
+
+  <ul class="chips" role="list" data-reveal>
+    <li class="chip">1 completed evaluation, 20 scored questions</li>
+    <li class="chip">4 versions of one instrument</li>
+    <li class="chip">19 checklist items</li>
+    <li class="chip">6 source files</li>
+  </ul>
+</section>
+
+<!-- 02 · THE TENSION -------------------------------------------------------- -->
+<section class="section" aria-labelledby="q-tension">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">02 &mdash; The tension</p>
+    <h2 class="t-h2" id="q-tension">Quality is easy to talk about and hard to evaluate</h2>
+  </div>
+
+  <figure class="pull" data-reveal>
+    <blockquote class="pull__quote">
+      <p>Small teams can rely on tribal knowledge, but as the team grows it's harder to stay aligned on what &ldquo;quality&rdquo; is.</p>
+    </blockquote>
+    <figcaption class="pull__cite">Workshop &ndash; Design Principles, slide 3</figcaption>
+  </figure>
+
+  <figure class="plate plate--narrow" data-reveal>
+    <img src="../../assets/img/quality/principles-why.jpg" loading="lazy"
+         alt="Workshop slide on a pink background headed 'Why do we need them', with three paragraphs explaining that design work needs quick decisions from many people, that small teams rely on tribal knowledge, and that products lose cohesion without a shared definition of quality."
+         width="1200" height="675">
+    <figcaption class="plate__cap"><span class="plate__src">Slide 3</span>
+    The slide that quote is taken from, in full.</figcaption>
+  </figure>
+
+  <div class="split" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/principles-lighthouse.jpg" loading="lazy"
+           alt="Workshop slide showing a lighthouse at night beaming light across dark water, with text describing design principles as a set of guidelines that act as a lighthouse to guide the design team."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Slide 2</span>
+      The metaphor the workshop opens with: principles as a lighthouse, not a rulebook &mdash;
+      something to steer by while making decisions, not a gate to pass through.</figcaption>
+    </figure>
+    <div class="split__text">
+      <p class="prose">The workshop's own reasoning, in its own order: design work requires quick decisions made by lots of different people all the time; small teams absorb that through proximity; and past a certain size the product stops feeling coherent because nobody is working from the same definition.</p>
+      <p class="prose">It also makes a sharper point, and this is the one I keep coming back to. Without clear benchmarks, design reviews become subject to whim and opinion. That is the actual failure mode. Not bad design &mdash; unarguable design.</p>
+      <p class="note">The workshop sets out this reasoning as an argument. It does not document a specific incident, and nothing in these files measures the problem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · THREE PRACTICES ---------------------------------------------------- -->
+<section class="section" aria-labelledby="q-three">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">03 &mdash; The shape of it</p>
+    <h2 class="t-h2" id="q-three">Three practices, one argument</h2>
+    <p class="prose">A synthesis of the supplied artefacts, not a framework any single file names. The files document the three parts separately; the relationship between them is my reading.</p>
+  </div>
+
+  <ol class="trio" data-reveal>
+    <li class="trio__item">
+      <p class="trio__n">01</p>
+      <h3 class="trio__title">Define</h3>
+      <p class="trio__body">Agree what good means <em>here</em> &mdash; specific, opinionated, grown from inside the team. Without this, everything downstream is preference.</p>
+      <p class="trio__src">Workshop &ndash; Design Principles</p>
+    </li>
+    <li class="trio__item">
+      <p class="trio__n">02</p>
+      <h3 class="trio__title">Evaluate</h3>
+      <p class="trio__body">Turn the definition into questions with a scale behind them, so two reviewers looking at one screen can land on the same number and discuss the gap.</p>
+      <p class="trio__src">Three evaluation workbooks &middot; UX Checklist</p>
+    </li>
+    <li class="trio__item">
+      <p class="trio__n">03</p>
+      <h3 class="trio__title">Discuss</h3>
+      <p class="trio__body">Give the conversation a shape &mdash; roles, timing, a way to disagree &mdash; so feedback ends in action items rather than in whoever is most senior.</p>
+      <p class="trio__src">Share &amp; Critique (third-party method)</p>
+    </li>
+  </ol>
+</section>
+
+<!-- 04 · PRINCIPLES --------------------------------------------------------- -->
+<section class="section" aria-labelledby="q-principles">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">04 &mdash; Define</p>
+    <h2 class="t-h2" id="q-principles">What makes a principle worth having</h2>
+    <p class="prose">The workshop spends its first half arguing that most design principles are useless, then says why. &ldquo;Delightful&rdquo; and &ldquo;simple&rdquo; are universal &mdash; true of every product, therefore decisive for none. A principle earns its place when it could plausibly have been written differently.</p>
+  </div>
+
+  <div class="split split--wide" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/principles-effective.jpg" loading="lazy"
+           alt="Workshop slide headed 'Effective principles' with three circles reading 'Specific and opinionated', 'Grown from within the team', and 'Decision-making tools'."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Slide 4</span>
+      Three tests for a principle. The note underneath is the one that matters:
+      good principles help a team decide faster.</figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="../../assets/img/quality/principles-objectives.jpg" loading="lazy"
+           alt="Workshop slide headed 'Objectives' with twelve circles including faster decisions, user-centered design adoption, framework to evaluate, cross platform consistency and better usability."
+           width="1200" height="675">
+      <figcaption class="plate__cap"><span class="plate__src">Slide 14</span>
+      What the team said it wanted principles to buy. &ldquo;Framework to evaluate&rdquo;
+      is in there &mdash; which is where the next section comes from.</figcaption>
+    </figure>
+  </div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">The exercise</h3>
+    <p class="prose">The workshop ends by handing the question back to the team. Everyone writes alone first, then the group looks for the patterns &mdash; which is the &ldquo;grown from within&rdquo; test made into a process.</p>
+  </div>
+
+  <div class="split" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/principles-exercise.jpg" loading="lazy"
+           alt="Workshop slide headed 'Exercise 1' on a yellow background, with a brain-dump space and four questions about brand attributes, values, user needs and existing principles."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Slide 16</span>
+      The four questions the team answered individually before grouping.</figcaption>
+    </figure>
+    <ol class="steps split__text">
+      <li class="steps__item"><span class="steps__n">1</span>Everyone writes down the keywords they think best describe the organisation and its products</li>
+      <li class="steps__item"><span class="steps__n">2</span>First part done alone, then brainstormed as a group</li>
+      <li class="steps__item"><span class="steps__n">3</span>As a group, identify the common themes and patterns across the ideas</li>
+      <li class="steps__item"><span class="steps__n">4</span>Each group presents back to the whole workshop</li>
+    </ol>
+  </div>
+
+  <p class="note" data-reveal><strong>Where this stops.</strong> These files contain the workshop that ran the discovery &mdash; the argument, the inspiration, the exercise and the team split into four groups. They do not contain a final, approved set of principles. I am not going to show you one, because I would have to invent it. What the artefact demonstrates is the method for getting there, not the output.</p>
+</section>
+
+<!-- 05 · THE INSTRUMENT ----------------------------------------------------- -->
+<section class="section" aria-labelledby="q-model">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">05 &mdash; Evaluate</p>
+    <h2 class="t-h2" id="q-model">Five factors, and what sits under them</h2>
+    <p class="prose">The evaluation model splits a product experience into five factors, each defined by what it should achieve for a user rather than by what a designer should produce. Under each factor sit the parameters a reviewer actually inspects.</p>
+  </div>
+
+  <div data-reveal><!--data:q-model--></div>
+</section>
+
+<section class="section" aria-labelledby="q-versions">
+  <div class="section__head" data-reveal>
+    <h3 class="t-h3" id="q-versions">Four versions, and only one of them filled in</h3>
+    <p class="prose">The workbooks hold the same instrument at four stages of revision. They are close enough to look interchangeable and are not, so they are laid out side by side rather than merged.</p>
+  </div>
+  <div data-reveal><!--data:q-versions--></div>
+</section>
+
+<section class="section" aria-labelledby="q-scale">
+  <div class="section__head" data-reveal>
+    <h3 class="t-h3" id="q-scale">The part that makes a score mean something</h3>
+  </div>
+  <div data-reveal><!--data:q-scale--></div>
+</section>
+
+<!-- 06 · THE RECORDED EVALUATION -------------------------------------------- -->
+<section class="section" aria-labelledby="q-scores">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">06 &mdash; The one completed review</p>
+    <h2 class="t-h2" id="q-scores">What it found</h2>
+    <p class="prose">One product review was completed and recorded. Every number below is the workbook's, and every dimension score was recomputed here from its own twenty question ratings &mdash; all five matched, and so did the total.</p>
+  </div>
+
+  <div data-reveal><!--data:q-scorecard--></div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">The twenty questions behind those five numbers</h3>
+    <p class="prose">A dimension score is only as interesting as what it is made of. Efficiency scores highest here and still contains a 3; Discoverability's lowest question sits at 1.5.</p>
+  </div>
+  <div data-reveal><!--data:q-questions--></div>
+
+  <p class="note" data-reveal><strong>What this is and is not.</strong> It is one recorded evaluation of one product at one point in time, in a file with no date, no named reviewer and no record of which product. It is not a team average, not a current score, and not a baseline that something later improved on. Nothing in these files records a second evaluation of the same thing.</p>
+</section>
+
+<!-- 07 · THE OTHER SNAPSHOT ------------------------------------------------- -->
+<section class="section" aria-labelledby="q-snapshot">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">07 &mdash; A separate record</p>
+    <h2 class="t-h2" id="q-snapshot">A second set of scores that does not line up</h2>
+    <p class="prose">A different workbook holds another set of scores, cut two ways &mdash; by factor and by parameter. It is the only sheet anywhere that scores the same review from both directions, which is genuinely the more interesting instrument. It is also impossible to tie to the review above.</p>
+  </div>
+
+  <div data-reveal><!--data:q-snapshot--></div>
+</section>
+
+<!-- 08 · THE CHECKLIST ------------------------------------------------------ -->
+<section class="section" aria-labelledby="q-checklist">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">08 &mdash; The everyday instrument</p>
+    <h2 class="t-h2" id="q-checklist">The checklist that runs before anyone else sees it</h2>
+    <p class="prose">A five-factor evaluation is a considered exercise. It is not what you run on a Tuesday before handing a screen to engineering. This is the short form &mdash; seven stages, phrased as things to catch rather than qualities to admire.</p>
+  </div>
+
+  <div data-reveal><!--data:q-checklist--></div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">Where a review was meant to land</h3>
+  </div>
+  <div data-reveal><!--data:q-review-layers--></div>
+</section>
+
+<!-- 09 · CRITIQUE ----------------------------------------------------------- -->
+<section class="section section--accent" aria-labelledby="q-critique">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">09 &mdash; Discuss</p>
+    <h2 class="t-h2" id="q-critique">Giving the conversation a shape</h2>
+    <p class="prose">Criteria tell you what to look at. They do not stop a review becoming the most senior person's opinion delivered slowly. The last piece is the conversation itself &mdash; who speaks when, for how long, and what the creator is expected to walk out with.</p>
+  </div>
+
+  <div data-reveal><!--data:q-credit--></div>
+
+  <div class="split" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/critique-cover.jpg" loading="lazy"
+           alt="Title slide reading 'Share and Critique, your way to a Culture of Collaboration' in yellow on white, credited to Shalini Raghunathan, Co-Founder, 3 Big Things, February 8 2025."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Cited with attribution</span>
+      The title slide, shown with its credit line intact.</figcaption>
+    </figure>
+    <div class="split__text">
+      <p class="prose">What makes this worth keeping is that it is specific where most feedback advice is not. It does not say &ldquo;be constructive&rdquo;. It says the collaborators write in silence first, for seven to ten minutes, and only then does anyone speak &mdash; which removes the advantage of whoever thinks fastest out loud.</p>
+      <p class="prose">And it ends with the creator writing down action items. Feedback that does not change what happens next is just commentary.</p>
+    </div>
+  </div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">The choreography</h3>
+  </div>
+  <div class="split" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/critique-choreography.jpg" loading="lazy"
+           alt="Slide headed 'Making it happen — Choreography', listing five numbered session stages with durations from 12-15 minutes down to 5 minutes, a stated total of 45-55 minutes, and a line describing the custodian's job."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Source slide, page 3</span>
+      The original, shown next to the reconstruction so the timings can be checked
+      against it.</figcaption>
+    </figure>
+    <div class="split__text"><!--data:q-choreography--></div>
+  </div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">Three roles, three C's</h3>
+    <p class="prose">The method's substance is here: each role gets the same three qualities, and they mean something different for each one. &ldquo;Concise&rdquo; for a creator means naming what you do <em>not</em> want feedback on. For a custodian it means keeping time.</p>
+  </div>
+  <div data-reveal><!--data:q-mindsets--></div>
+
+  <div class="split" data-reveal style="margin-top:var(--step-16)">
+    <div class="split__text">
+      <h3 class="t-h3">Positions, not personalities</h3>
+      <p class="prose">The deck borrows Kantor's model to describe how a group conversation actually moves. The point in context is the instruction attached to it: collaborators are expected to move through all four, rather than settle into the one that suits them.</p>
+    </div>
+    <div data-reveal><!--data:q-four-player--></div>
+  </div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">Frameworks for the feedback itself</h3>
+  </div>
+  <div data-reveal><!--data:q-frameworks--></div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">What you can bring, and when it is ready</h3>
+    <p class="prose">The list is deliberately wide &mdash; a research plan and a sprint plan both qualify. The readiness test is the useful part, and it is not &ldquo;when it's finished&rdquo;.</p>
+  </div>
+  <div data-reveal><!--data:q-wip--></div>
+</section>
+
+<!-- 10 · HOW THEY CONNECT --------------------------------------------------- -->
+<section class="section" aria-labelledby="q-synth">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">10 &mdash; The through-line</p>
+    <h2 class="t-h2" id="q-synth">How the four artefacts sit together</h2>
+    <p class="prose">A synthesis of the documented practices, not an operating model any of these files names. Each step is evidenced; the sequence connecting them is mine.</p>
+  </div>
+
+  <ol class="chain" data-reveal>
+    <li class="chain__link">
+      <h3 class="chain__title">Shared principles</h3>
+      <p class="chain__body">Establish what good means here, specifically enough to decide with.</p>
+      <p class="chain__src">Workshop &ndash; Design Principles</p>
+    </li>
+    <li class="chain__link">
+      <h3 class="chain__title">Evaluation criteria</h3>
+      <p class="chain__body">Five factors, their parameters, and a scale with a written meaning for every point.</p>
+      <p class="chain__src">Framework.xlsx &middot; DesignEvaluationMetrics.xlsx</p>
+    </li>
+    <li class="chain__link">
+      <h3 class="chain__title">Review checklist</h3>
+      <p class="chain__body">The short form of those criteria, for the review that happens every week.</p>
+      <p class="chain__src">UX Checklist.pptx</p>
+    </li>
+    <li class="chain__link">
+      <h3 class="chain__title">Collaborative critique</h3>
+      <p class="chain__body">A shape for the conversation so the findings get discussed rather than announced.</p>
+      <p class="chain__src">Share &amp; Critique &mdash; third-party method</p>
+    </li>
+    <li class="chain__link chain__link--end">
+      <h3 class="chain__title">Actions, and round again</h3>
+      <p class="chain__body">The creator leaves with written action items. Scores give the next review something to move.</p>
+      <p class="chain__src">Choreography, stage 5</p>
+    </li>
+  </ol>
+
+  <p class="prose prose--lead" data-reveal>The thing I would defend about this set is that it works at four different speeds. The workshop is a once-a-year argument. The evaluation is a considered deep read. The checklist is a Tuesday. The critique is a standing conversation. Design quality systems usually fail by picking one of those and pretending it covers the others.</p>
+</section>
+
+<!-- 11 · HONEST LIMITS ------------------------------------------------------ -->
+<section class="section" aria-labelledby="q-limits">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">11 &mdash; Provenance</p>
+    <h2 class="t-h2" id="q-limits">What these files prove, and what they don't</h2>
+  </div>
+
+  <div class="ledger" data-reveal>
+    <div class="ledger__col ledger__col--yes">
+      <h3 class="ledger__head">Evidenced here</h3>
+      <ul class="ledger__list">
+        <li>A design principles workshop, dated and delivered</li>
+        <li>An evaluation model: 5 factors, 21 parameters, written definitions</li>
+        <li>A 1&ndash;5 scale with 25 per-dimension descriptors</li>
+        <li>One completed review: 20 scored questions, arithmetic verified</li>
+        <li>A second scored snapshot, cut by factor and by parameter</li>
+        <li>A 19-item design checklist across 7 stages</li>
+      </ul>
+    </div>
+    <div class="ledger__col ledger__col--no">
+      <h3 class="ledger__head">Not evidenced, and not claimed</h3>
+      <ul class="ledger__list">
+        <li>A final, approved set of design principles</li>
+        <li>Which product was evaluated, when, or by whom</li>
+        <li>Any second evaluation, so no trend and no improvement</li>
+        <li>That the checklist was applied to any specific project</li>
+        <li>That Share &amp; Critique sessions were run, or how often</li>
+        <li>Adoption, team size, cadence or business impact of any of it</li>
+      </ul>
+    </div>
+  </div>
+
+  <ul class="chips" role="list" data-reveal>
+    <li class="chip">6 source files read in full</li>
+    <li class="chip">40 slide pages reviewed</li>
+    <li class="chip">9 workbook sheets parsed</li>
+    <li class="chip">10 source images published</li>
+    <li class="chip">0 names published</li>
+  </ul>
+
+  <p class="note" data-reveal>Every table, score and checklist on this page is generated from the source files by a build step rather than typed in by hand. The workshop slide showing the four breakout teams is deliberately not published: it lists twenty-four colleagues by name. Source files are not included in this repository.</p>
+</section>

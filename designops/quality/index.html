@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="mono" data-type="editorial" data-density="comfortable" data-radius="subtle" data-dense="yes">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design Quality & Governance — Arushi Prasad</title>
+  <meta name="description" content="A principles workshop, a UX evaluation instrument with one completed review, a design checklist and a critique method — the artefacts behind making design quality discussable.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preload" href="../../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=f874ed78">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=c3f7efb8">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=be3cf32e">
+  <link rel="stylesheet" href="../../assets/css/quality.css?v=d6062248">
+  <link rel="stylesheet" href="../../assets/css/case.css?v=703795f5">
+  <!-- Loaded before paint so a saved token preference is applied to <html>
+       without a flash of the defaults. -->
+  <script src="../../assets/js/tokens.js?v=a7c3e9c1"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+<defs>
+<symbol id="i-colour" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M8 2.2a5.8 5.8 0 0 1 0 11.6z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-type" viewBox="0 0 16 16"><path d="M3.2 13.6 8 2.6l4.8 11"/><path d="M5.3 9.4h5.4"/></symbol>
+<symbol id="i-spacing" viewBox="0 0 16 16"><path d="M2.2 3.6v8.8M13.8 3.6v8.8"/><path d="M5 8h6"/><path d="m6.6 6.4-1.7 1.6 1.7 1.6M9.4 6.4 11.1 8 9.4 9.6"/></symbol>
+<symbol id="i-radius" viewBox="0 0 16 16"><path d="M2.4 13.6V7.2a4.8 4.8 0 0 1 4.8-4.8h6.4"/><path d="M2.4 2.4h.01M13.6 13.6h.01"/></symbol>
+<symbol id="i-opacity" viewBox="0 0 16 16"><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2a4.6 4.6 0 1 1-9.2 0C3.4 6.8 8 2.2 8 2.2Z"/><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2A4.6 4.6 0 0 1 8 14z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-grid" viewBox="0 0 16 16"><rect x="2.4" y="2.4" width="11.2" height="11.2" rx="1.4"/><path d="M6.13 2.4v11.2M9.87 2.4v11.2M2.4 6.13h11.2M2.4 9.87h11.2"/></symbol>
+  <symbol id="i-surprise" viewBox="0 0 16 16"><path d="M7.1 2.6 8.35 6.05 11.8 7.3 8.35 8.55 7.1 12 5.85 8.55 2.4 7.3 5.85 6.05Z"/><path d="M12.3 10.1v2.9M10.85 11.55h2.9"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 16 16"><path d="M13.4 8a5.4 5.4 0 1 1-1.8-4"/><path d="M13.6 2.6v3.6H10"/></symbol>
+<symbol id="i-bars" viewBox="0 0 16 16"><path d="M2.4 4.6h11.2M2.4 8h11.2M2.4 11.4h11.2"/></symbol>
+<symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
+<symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
+<symbol id="i-tick" viewBox="0 0 16 16"><path d="m3.4 8.4 3 3 6.2-7"/></symbol>
+<!-- Recognition. Stroke-drawn on the same 16-unit grid and at the same
+     weight as the rest, so they sit in a line of text without shouting. -->
+<symbol id="i-trophy" viewBox="0 0 16 16"><path d="M4.9 2.7h6.2v3.5a3.1 3.1 0 0 1-6.2 0Z"/><path d="M4.9 3.7H3.3v.9a2 2 0 0 0 1.6 1.9M11.1 3.7h1.6v.9a2 2 0 0 1-1.6 1.9"/><path d="M8 9.3v2.1"/><path d="M6.5 11.4h3v1.9h-3Z"/></symbol>
+<symbol id="i-star" viewBox="0 0 16 16"><path d="m8 2.5 1.7 3.45 3.8.55-2.75 2.68.65 3.79L8 11.18l-3.4 1.79.65-3.79L2.5 6.5l3.8-.55Z"/></symbol>
+<symbol id="i-medal" viewBox="0 0 16 16"><circle cx="8" cy="10.1" r="3.5"/><path d="M6.1 7.1 4.3 2.6M9.9 7.1l1.8-4.5"/></symbol>
+<!-- Document types. A page outline each, told apart by what is on it: ruled
+     cells for a workbook, a folded corner for a PDF, one wide band for a
+     deck. Same 16-unit grid and weight as everything else. -->
+<symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
+<symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
+<symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
+</defs>
+</svg>
+<header class="nav-wrap">
+  <nav class="nav shell" aria-label="Primary">
+    <a class="nav__logo" href="../../" aria-label="Arushi Prasad, home">
+      <img class="nav__avatar" src="../../assets/img/avatar.png" alt="" width="58" height="58" decoding="async">
+    </a>
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a class="nav__link" href="../../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../designops/" aria-current="page" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../leadership/" aria-label="Leadership">leadership</a></li>
+      </ul>
+
+      <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
+    </div>
+  </nav>
+</header>
+<div class="nav-sheet" id="nav-sheet" data-open="false">
+  <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../../designops/" aria-current="page">Strategy<span>8</span></a></li><li><a class="nav-sheet__link" href="../../leadership/">Leadership<span>—</span></a></li><li><a class="nav-sheet__link" href="../../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../../about/">About<span>—</span></a></li><li><a class="nav-sheet__link" href="../../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../../snippets/">Snippets<span>5</span></a></li></ul>
+  <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
+</div>
+<main id="main" tabindex="-1">
+<div class="page ">
+<header class="page-hero shell">
+  <h1 class="page-hero__title" data-reveal>
+    <span class="page-hero__word page-hero__word-a">design</span>
+    <span class="page-hero__word page-hero__word-b">quality</span>
+  </h1>
+  <p class="page-hero__tagline" data-reveal>Good design needs more than good judgement. These are the artefacts I used to turn quality into something a team can discuss, evaluate and argue about — shown with their real contents.</p>
+  
+</header>
+<div class="case__prog" data-case-prog aria-hidden="true"><span class="case__prog-bar" data-case-prog-bar></span></div>
+<div class="case">
+<aside class="case__rail" data-case-rail data-open="false" aria-labelledby="case-project">
+  <button class="case__toc" type="button" data-case-toc aria-expanded="false" aria-controls="case-toc">
+    <span class="case__toc-eyebrow">
+      <span class="case__toc-word">Contents</span>
+      <span class="case__toc-name">Design Quality &amp; Governance</span>
+    </span>
+    <span class="case__toc-now" data-case-now>The argument</span>
+    <svg class="ico case__toc-ico" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg>
+  </button>
+  <div class="case__rail-in" id="case-toc">
+    <div class="case__about">
+      <div class="case__titlewrap">
+        <h2 class="case__project" id="case-project">Design Quality &amp; Governance</h2>
+      </div>
+      
+    </div>
+    <nav class="case__nav" aria-label="Sections in this case study">
+      <ol class="case__list" role="list">
+        <li class="case__item"><a class="case__link" href="#q-intro" data-case-link="q-intro"><span class="case__count">01</span><span class="case__label">The argument</span></a></li><li class="case__item"><a class="case__link" href="#q-tension" data-case-link="q-tension"><span class="case__count">02</span><span class="case__label">The tension</span></a></li><li class="case__item"><a class="case__link" href="#q-three" data-case-link="q-three"><span class="case__count">03</span><span class="case__label">Three practices</span></a></li><li class="case__item"><a class="case__link" href="#q-principles" data-case-link="q-principles"><span class="case__count">04</span><span class="case__label">Principles</span></a></li><li class="case__item"><a class="case__link" href="#q-model" data-case-link="q-model"><span class="case__count">05</span><span class="case__label">Five factors</span></a></li><li class="case__item"><a class="case__link" href="#q-scores" data-case-link="q-scores"><span class="case__count">06</span><span class="case__label">What it found</span></a></li><li class="case__item"><a class="case__link" href="#q-snapshot" data-case-link="q-snapshot"><span class="case__count">07</span><span class="case__label">A second set</span></a></li><li class="case__item"><a class="case__link" href="#q-checklist" data-case-link="q-checklist"><span class="case__count">08</span><span class="case__label">The checklist</span></a></li><li class="case__item"><a class="case__link" href="#q-critique" data-case-link="q-critique"><span class="case__count">09</span><span class="case__label">Critique</span></a></li><li class="case__item"><a class="case__link" href="#q-synth" data-case-link="q-synth"><span class="case__count">10</span><span class="case__label">How they fit together</span></a></li><li class="case__item"><a class="case__link" href="#q-limits" data-case-link="q-limits"><span class="case__count">11</span><span class="case__label">Limits</span></a></li>
+      </ol>
+    </nav>
+  </div>
+</aside>
+<div class="case__main">
+<!-- 01 · HERO --------------------------------------------------------------- -->
+<section class="section" aria-labelledby="q-intro">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">DesignOps / 02</p>
+    <h2 class="t-h2" id="q-intro">Good design needs more than good judgement</h2>
+    <p class="prose">A senior designer can look at a screen and tell you it is wrong. That instinct is real, and it does not scale. The moment a team is twelve people across five squads, &ldquo;I don't think this is good enough&rdquo; stops being feedback and starts being a problem &mdash; because there is no shared way to say <em>why</em>, and no way for the person on the other side to disagree with it.</p>
+    <p class="prose">What follows is the work of making that argument possible: a workshop to agree what good means here, an evaluation instrument that turns it into twenty questions with a scale behind them, a checklist for the everyday review, and a critique method for the conversation itself.</p>
+  </div>
+
+  <figure class="plate plate--hero" data-reveal>
+    <img src="../../assets/img/quality/principles-cover.jpg"
+         alt="Opening slide of a design principles workshop, in pink and white: the words 'what design principles are? why we need them, and when and how to write them?' above illustrated hands arranging abstract shapes."
+         width="1600" height="900">
+    <figcaption class="plate__cap"><span class="plate__src">Workshop 01 &middot; 7 September 2023</span>
+    Opening slide, <em>Workshop &ndash; Design Principles</em>. My own deck.</figcaption>
+  </figure>
+
+  <ul class="chips" role="list" data-reveal>
+    <li class="chip">1 completed evaluation, 20 scored questions</li>
+    <li class="chip">4 versions of one instrument</li>
+    <li class="chip">19 checklist items</li>
+    <li class="chip">6 source files</li>
+  </ul>
+</section>
+
+<!-- 02 · THE TENSION -------------------------------------------------------- -->
+<section class="section" aria-labelledby="q-tension">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">02 &mdash; The tension</p>
+    <h2 class="t-h2" id="q-tension">Quality is easy to talk about and hard to evaluate</h2>
+  </div>
+
+  <figure class="pull" data-reveal>
+    <blockquote class="pull__quote">
+      <p>Small teams can rely on tribal knowledge, but as the team grows it's harder to stay aligned on what &ldquo;quality&rdquo; is.</p>
+    </blockquote>
+    <figcaption class="pull__cite">Workshop &ndash; Design Principles, slide 3</figcaption>
+  </figure>
+
+  <figure class="plate plate--narrow" data-reveal>
+    <img src="../../assets/img/quality/principles-why.jpg" loading="lazy"
+         alt="Workshop slide on a pink background headed 'Why do we need them', with three paragraphs explaining that design work needs quick decisions from many people, that small teams rely on tribal knowledge, and that products lose cohesion without a shared definition of quality."
+         width="1200" height="675">
+    <figcaption class="plate__cap"><span class="plate__src">Slide 3</span>
+    The slide that quote is taken from, in full.</figcaption>
+  </figure>
+
+  <div class="split" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/principles-lighthouse.jpg" loading="lazy"
+           alt="Workshop slide showing a lighthouse at night beaming light across dark water, with text describing design principles as a set of guidelines that act as a lighthouse to guide the design team."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Slide 2</span>
+      The metaphor the workshop opens with: principles as a lighthouse, not a rulebook &mdash;
+      something to steer by while making decisions, not a gate to pass through.</figcaption>
+    </figure>
+    <div class="split__text">
+      <p class="prose">The workshop's own reasoning, in its own order: design work requires quick decisions made by lots of different people all the time; small teams absorb that through proximity; and past a certain size the product stops feeling coherent because nobody is working from the same definition.</p>
+      <p class="prose">It also makes a sharper point, and this is the one I keep coming back to. Without clear benchmarks, design reviews become subject to whim and opinion. That is the actual failure mode. Not bad design &mdash; unarguable design.</p>
+      <p class="note">The workshop sets out this reasoning as an argument. It does not document a specific incident, and nothing in these files measures the problem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · THREE PRACTICES ---------------------------------------------------- -->
+<section class="section" aria-labelledby="q-three">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">03 &mdash; The shape of it</p>
+    <h2 class="t-h2" id="q-three">Three practices, one argument</h2>
+    <p class="prose">A synthesis of the supplied artefacts, not a framework any single file names. The files document the three parts separately; the relationship between them is my reading.</p>
+  </div>
+
+  <ol class="trio" data-reveal>
+    <li class="trio__item">
+      <p class="trio__n">01</p>
+      <h3 class="trio__title">Define</h3>
+      <p class="trio__body">Agree what good means <em>here</em> &mdash; specific, opinionated, grown from inside the team. Without this, everything downstream is preference.</p>
+      <p class="trio__src">Workshop &ndash; Design Principles</p>
+    </li>
+    <li class="trio__item">
+      <p class="trio__n">02</p>
+      <h3 class="trio__title">Evaluate</h3>
+      <p class="trio__body">Turn the definition into questions with a scale behind them, so two reviewers looking at one screen can land on the same number and discuss the gap.</p>
+      <p class="trio__src">Three evaluation workbooks &middot; UX Checklist</p>
+    </li>
+    <li class="trio__item">
+      <p class="trio__n">03</p>
+      <h3 class="trio__title">Discuss</h3>
+      <p class="trio__body">Give the conversation a shape &mdash; roles, timing, a way to disagree &mdash; so feedback ends in action items rather than in whoever is most senior.</p>
+      <p class="trio__src">Share &amp; Critique (third-party method)</p>
+    </li>
+  </ol>
+</section>
+
+<!-- 04 · PRINCIPLES --------------------------------------------------------- -->
+<section class="section" aria-labelledby="q-principles">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">04 &mdash; Define</p>
+    <h2 class="t-h2" id="q-principles">What makes a principle worth having</h2>
+    <p class="prose">The workshop spends its first half arguing that most design principles are useless, then says why. &ldquo;Delightful&rdquo; and &ldquo;simple&rdquo; are universal &mdash; true of every product, therefore decisive for none. A principle earns its place when it could plausibly have been written differently.</p>
+  </div>
+
+  <div class="split split--wide" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/principles-effective.jpg" loading="lazy"
+           alt="Workshop slide headed 'Effective principles' with three circles reading 'Specific and opinionated', 'Grown from within the team', and 'Decision-making tools'."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Slide 4</span>
+      Three tests for a principle. The note underneath is the one that matters:
+      good principles help a team decide faster.</figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="../../assets/img/quality/principles-objectives.jpg" loading="lazy"
+           alt="Workshop slide headed 'Objectives' with twelve circles including faster decisions, user-centered design adoption, framework to evaluate, cross platform consistency and better usability."
+           width="1200" height="675">
+      <figcaption class="plate__cap"><span class="plate__src">Slide 14</span>
+      What the team said it wanted principles to buy. &ldquo;Framework to evaluate&rdquo;
+      is in there &mdash; which is where the next section comes from.</figcaption>
+    </figure>
+  </div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">The exercise</h3>
+    <p class="prose">The workshop ends by handing the question back to the team. Everyone writes alone first, then the group looks for the patterns &mdash; which is the &ldquo;grown from within&rdquo; test made into a process.</p>
+  </div>
+
+  <div class="split" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/principles-exercise.jpg" loading="lazy"
+           alt="Workshop slide headed 'Exercise 1' on a yellow background, with a brain-dump space and four questions about brand attributes, values, user needs and existing principles."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Slide 16</span>
+      The four questions the team answered individually before grouping.</figcaption>
+    </figure>
+    <ol class="steps split__text">
+      <li class="steps__item"><span class="steps__n">1</span>Everyone writes down the keywords they think best describe the organisation and its products</li>
+      <li class="steps__item"><span class="steps__n">2</span>First part done alone, then brainstormed as a group</li>
+      <li class="steps__item"><span class="steps__n">3</span>As a group, identify the common themes and patterns across the ideas</li>
+      <li class="steps__item"><span class="steps__n">4</span>Each group presents back to the whole workshop</li>
+    </ol>
+  </div>
+
+  <p class="note" data-reveal><strong>Where this stops.</strong> These files contain the workshop that ran the discovery &mdash; the argument, the inspiration, the exercise and the team split into four groups. They do not contain a final, approved set of principles. I am not going to show you one, because I would have to invent it. What the artefact demonstrates is the method for getting there, not the output.</p>
+</section>
+
+<!-- 05 · THE INSTRUMENT ----------------------------------------------------- -->
+<section class="section" aria-labelledby="q-model">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">05 &mdash; Evaluate</p>
+    <h2 class="t-h2" id="q-model">Five factors, and what sits under them</h2>
+    <p class="prose">The evaluation model splits a product experience into five factors, each defined by what it should achieve for a user rather than by what a designer should produce. Under each factor sit the parameters a reviewer actually inspects.</p>
+  </div>
+
+  <div data-reveal><div class="pm__grid"><article class="pm"><header class="pm__head"><h3 class="pm__name">Discoverability</h3><p class="pm__intent">Allow user to quickly understand what the product offers and how to navigate through it</p><p class="pm__count">3 parameters</p></header><ol class="pm__rows"><li class="pm__row"><span class="pm__param">Information Architecture</span><span class="pm__def">Well-organized navigation menus help users locate different sections of the product easily</span></li><li class="pm__row"><span class="pm__param">Information Design</span><span class="pm__def">Organize and present information effectively that help users understand the information and context easily.</span></li><li class="pm__row"><span class="pm__param">Searchability</span><span class="pm__def">Allow direct access to specific item / content help users find what they need quickly and easily</span></li></ol></article>
+<article class="pm"><header class="pm__head"><h3 class="pm__name">Learnability</h3><p class="pm__intent">Minimize the time and effort required for users to become proficient in using the product</p><p class="pm__count">5 parameters</p></header><ol class="pm__rows"><li class="pm__row"><span class="pm__param">Content</span><span class="pm__def">Simple text for labels, headings, CTAs make it easier for users to understand the context and instructions</span></li><li class="pm__row"><span class="pm__param">Consistency</span><span class="pm__def">Consistent design elements and patterns throughout the product helps users learn quickly how it works.</span></li><li class="pm__row"><span class="pm__param">Visual Design</span><span class="pm__def">Aesthetically pleasing visuals with clear visual cues and affordances help user understand the information and actions.</span></li><li class="pm__row"><span class="pm__param">Intuitiveness</span><span class="pm__def">Familiar design elements (navigation, gestures, patterns, flow, etc. that is widely recognized help users to interact effortlessly</span></li><li class="pm__row"><span class="pm__param">Guidance</span><span class="pm__def">Offers contextual help and tooltips that would guide users when they encounter errors and unfamiliar terms or actions.</span></li></ol></article>
+<article class="pm"><header class="pm__head"><h3 class="pm__name">Engagement</h3><p class="pm__intent">Captivate user attention and motivates them to explore and and assist in pursuing journey</p><p class="pm__count">4 parameters</p></header><ol class="pm__rows"><li class="pm__row"><span class="pm__param">Visual Design</span><span class="pm__def">Attractive visuals and well-defined layout that captures users&#x27; attention and create a positive impression</span></li><li class="pm__row"><span class="pm__param">User Flows</span><span class="pm__def">Guide users through the product with intuitive flow, allowing them to complete tasks efficiently</span></li><li class="pm__row"><span class="pm__param">Interaction</span><span class="pm__def">Interactive media (mico-interacations, gestures, touch, hover, sound, and etc.) that provide feedback, delight users, and enhance the overall user experience.</span></li><li class="pm__row"><span class="pm__param">Content</span><span class="pm__def">Compelling content that keeps the users engaged and encourages them to explore further - Product info, progressive disclosure, personalization, suggestions &amp; feedback messages to motivates the user to pursue journey</span></li></ol></article>
+<article class="pm"><header class="pm__head"><h3 class="pm__name">Efficiency</h3><p class="pm__intent">Allow users to accomplish tasks quickly and with minimal efforts</p><p class="pm__count">4 parameters</p></header><ol class="pm__rows"><li class="pm__row"><span class="pm__param">Information Design</span><span class="pm__def">Making essential features or actions easily accessible with prominent entry point &amp; CTAs</span></li><li class="pm__row"><span class="pm__param">Content</span><span class="pm__def">Provides straightforward and simple instructions that guide users through tasks efficiently.</span></li><li class="pm__row"><span class="pm__param">Interaction</span><span class="pm__def">Efficient input methods like auto-populating fields, predictive search, drag &amp; drop, templatization, and etc. help save users time and effort</span></li><li class="pm__row"><span class="pm__param">User Flows</span><span class="pm__def">User flows that align with users&#x27; mental models, minimizing the number of steps required to complete tasks to save on time.</span></li></ol></article>
+<article class="pm"><header class="pm__head"><h3 class="pm__name">Error Prevention and Handling</h3><p class="pm__intent">Minimize errors occurrence and provide clear actionable error messages to resolve them</p><p class="pm__count">5 parameters</p></header><ol class="pm__rows"><li class="pm__row"><span class="pm__param">User Flows</span><span class="pm__def">Guided user flows that lead users through complex processes step by step, reducing the likelihood of mistakes</span></li><li class="pm__row"><span class="pm__param">Content</span><span class="pm__def">Clear &amp; simple messages when user make mistakes or encounter error, indicating the exact problem and provide guidance (inline help / help module) to recover from errors</span></li><li class="pm__row"><span class="pm__param">Guidance</span><span class="pm__def">Providing context-sensitive help or prompts that assist users when they need it, without disrupting their workflow.</span></li><li class="pm__row"><span class="pm__param">Visual</span><span class="pm__def">Highlight elements with errors using visual cues - color, icon etc.</span></li><li class="pm__row"><span class="pm__param">Interaction</span><span class="pm__def">Microinteractions / animation for instant feeback, confirming that their actions are being processed</span></li></ol></article></div>
+<p class="srcnote">Source: Framework.xlsx / Sheet1 (2). Each factor is defined by what it should achieve, then broken into the parameters a reviewer actually looks at.</p></div>
+</section>
+
+<section class="section" aria-labelledby="q-versions">
+  <div class="section__head" data-reveal>
+    <h3 class="t-h3" id="q-versions">Four versions, and only one of them filled in</h3>
+    <p class="prose">The workbooks hold the same instrument at four stages of revision. They are close enough to look interchangeable and are not, so they are laid out side by side rather than merged.</p>
+  </div>
+  <div data-reveal><div class="vr__wrap">
+<table class="vr">
+  <caption class="srcnote">Four versions of one instrument, kept apart</caption>
+  <thead><tr><th scope="col">Version</th><th scope="col">Fifth factor</th>
+    <th scope="col">Rows</th><th scope="col">Scores</th><th scope="col">Source sheet</th></tr></thead>
+  <tbody><tr><th scope="row">Definitions<span class="vr__note">What each parameter means. No questions, no scores.</span></th><td data-label="Fifth factor"><span class="vr__fifth">Error Prevention and Handling</span></td><td data-label="Rows">21</td><td data-label="Scores"><span class="vr__blank">none</span></td><td data-label="Source" class="vr__src">Framework.xlsx / Sheet1 (2)</td></tr>
+<tr><th scope="row">Question set<span class="vr__note">The same model turned into reviewer questions. Blank &mdash; never filled in.</span></th><td data-label="Fifth factor"><span class="vr__fifth">Error Handling &amp; Guidance</span></td><td data-label="Rows">20</td><td data-label="Scores"><span class="vr__blank">none</span></td><td data-label="Source" class="vr__src">DesignEvaluationMetrics.xlsx / Design Evaluation</td></tr>
+<tr><th scope="row">Revised question set<span class="vr__note">A later revision. The fifth factor is renamed and regrouped.</span></th><td data-label="Fifth factor"><span class="vr__fifth">Guidance &amp; Handholding</span></td><td data-label="Rows">21</td><td data-label="Scores"><span class="vr__blank">none</span></td><td data-label="Source" class="vr__src">Framework.xlsx / Sheet4</td></tr>
+<tr class="vr__on"><th scope="row">Completed review<span class="vr__note">The one version with ratings in it.</span></th><td data-label="Fifth factor"><span class="vr__fifth">Error Handling &amp; Guidance</span></td><td data-label="Rows">20</td><td data-label="Scores">recorded</td><td data-label="Source" class="vr__src">Design_Evaluation_Template.xlsx / Evaluation Metrics + Report</td></tr></tbody>
+</table>
+</div>
+<p class="note">The first four factors are stable across all four. The fifth is not: it is
+<span class="tag">Error Prevention and Handling</span> in the definitions,
+<span class="tag">Error Handling &amp; Guidance</span> in the question set and the completed
+review, and <span class="tag">Guidance &amp; Handholding</span> in the revision &mdash; which
+also grows from five questions to six. These are not presented as one framework, because
+the files do not show them as one.</p></div>
+</section>
+
+<section class="section" aria-labelledby="q-scale">
+  <div class="section__head" data-reveal>
+    <h3 class="t-h3" id="q-scale">The part that makes a score mean something</h3>
+  </div>
+  <div data-reveal><div class="sc__wrap">
+<table class="sc">
+  <caption class="srcnote">What each point on the scale means, per dimension &mdash;
+  Design_Evaluation_Template.xlsx / Overview</caption>
+  <thead><tr><th scope="col">Level</th><th scope="col">Discoverability</th><th scope="col">Learnability</th><th scope="col">Engagement</th><th scope="col">Efficiency</th><th scope="col">Error Handling &amp; Guidance</th></tr></thead>
+  <tbody><tr><th scope="row"><span class="sc__n">1</span>Not at all</th><td data-label="Discoverability">Complex navigation that users find confusing, leading to frustration and difficulty finding basic features.</td><td data-label="Learnability">Users struggle to understand the design and instructions, resulting in difficulty knowing the purpose</td><td data-label="Engagement">No interesting user flow (content &amp; task) results in a lack of motivation to stay engaged.</td><td data-label="Efficiency">Users find the system difficult to use, confusing, and frustrating.</td><td data-label="Error Handling &amp; Guidance">It&#x27;s challenging for users to seek assistance when needed.</td></tr>
+<tr><th scope="row"><span class="sc__n">2</span>Somewhat</th><td data-label="Discoverability">Users can navigate through after some trial and error, but they encounter challenges in locating specific settings.</td><td data-label="Learnability">Users explore the interface before grasping how to complete tasks, leading to a moderate learning curve.</td><td data-label="Engagement">User expereince with interactivities and challenges, leads to moderate engagement.</td><td data-label="Efficiency">Users are able to complete tasks somehow; however, there were some difficulties or areas of confusion.</td><td data-label="Error Handling &amp; Guidance">Highlights errors after submission, but lacks clear instructions on how to correct the errors.</td></tr>
+<tr><th scope="row"><span class="sc__n">3</span>Moderately</th><td data-label="Discoverability">Users can easily find and understand the features, but some users need to search for the main CTAs button.</td><td data-label="Learnability">Provides signifiers and instructions for various features, helping users understand the basics.</td><td data-label="Engagement">Offers some level of personalization, encourages users to explore further.</td><td data-label="Efficiency">Clearly stated instructions and layouts allow users to complete tasks without any major difficulties.</td><td data-label="Error Handling &amp; Guidance">Provides moderately helpful instructions that explain the purpose of specific tasks but don&#x27;t offer a broader context.</td></tr>
+<tr><th scope="row"><span class="sc__n">4</span>Very Much</th><td data-label="Discoverability">Clean and intuitive design that allows users to quickly locate and access various features and settings.</td><td data-label="Learnability">User-friendly interface, clearly labeled tools, and guided tutorials that make it easy for users to get started.</td><td data-label="Engagement">Personalization that keeps users engaged by offering relevant and enjoyable content.</td><td data-label="Efficiency">Intuitive navigation and streamlined tasks allow users to efficiently complete the tasks with minimal clicks and distractions.</td><td data-label="Error Handling &amp; Guidance">Assists users through a step-by-step wizard in completing tasks, reducing the chances of errors.</td></tr>
+<tr><th scope="row"><span class="sc__n">5</span>Completely</th><td data-label="Discoverability">Prominently displays key functions, allowing users to work efficiently without confusion.</td><td data-label="Learnability">Offers a series of guided exercises during onboarding, helping users understand how to use the app effectively from the start.</td><td data-label="Engagement">Offers a blend of real-time updates, interactive features, and engaging content, keeping users actively involved.</td><td data-label="Efficiency">Smart processing features and digital assistance, allowing users to swiftly perform tasks efficiently, save both time and effort.</td><td data-label="Error Handling &amp; Guidance">Comprehensive help center that includes articles, video tutorials, community forums, and direct support channels.</td></tr>
+<tr><th scope="row"><span class="sc__n">0</span>Not applicable</th><td data-label="Discoverability"><span class="vr__blank">&mdash;</span></td><td data-label="Learnability"><span class="vr__blank">&mdash;</span></td><td data-label="Engagement"><span class="vr__blank">&mdash;</span></td><td data-label="Efficiency"><span class="vr__blank">&mdash;</span></td><td data-label="Error Handling &amp; Guidance"><span class="vr__blank">&mdash;</span></td></tr></tbody>
+</table>
+</div>
+<p class="note">This is the part that does the work. A 1&ndash;5 scale with no shared
+definition of 3 is just opinion with a number attached; these twenty-five descriptors are
+what let two reviewers land on the same score for the same screen. Level 0 is
+&ldquo;Not applicable&rdquo; and carries no descriptors.</p></div>
+</section>
+
+<!-- 06 · THE RECORDED EVALUATION -------------------------------------------- -->
+<section class="section" aria-labelledby="q-scores">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">06 &mdash; The one completed review</p>
+    <h2 class="t-h2" id="q-scores">What it found</h2>
+    <p class="prose">One product review was completed and recorded. Every number below is the workbook's, and every dimension score was recomputed here from its own twenty question ratings &mdash; all five matched, and so did the total.</p>
+  </div>
+
+  <div data-reveal><div class="score">
+  <div class="score__head">
+    <h3 class="score__title">UX evaluation &mdash; recorded scores</h3>
+    <p class="score__sub">One completed review. Each dimension is the mean of its own
+    question ratings on a 1&ndash;5 scale, where 1 is &ldquo;Not at all&rdquo; and 5 is
+    &ldquo;Completely&rdquo;.</p>
+  </div>
+  <ol class="score__rows"><li class="score__row"><span class="score__name">Discoverability</span><span class="score__track" role="img" aria-label="2.17 out of 5"><i class="score__fill" style="width:43.33%"></i></span><span class="score__val">2.17<span class="score__of">/5</span></span></li>
+<li class="score__row"><span class="score__name">Learnability</span><span class="score__track" role="img" aria-label="2.62 out of 5"><i class="score__fill" style="width:52.50%"></i></span><span class="score__val">2.62<span class="score__of">/5</span></span></li>
+<li class="score__row"><span class="score__name">Engagement</span><span class="score__track" role="img" aria-label="2.75 out of 5"><i class="score__fill" style="width:55.00%"></i></span><span class="score__val">2.75<span class="score__of">/5</span></span></li>
+<li class="score__row"><span class="score__name">Efficiency</span><span class="score__track" role="img" aria-label="3.5 out of 5"><i class="score__fill" style="width:70.00%"></i></span><span class="score__val">3.5<span class="score__of">/5</span></span></li>
+<li class="score__row"><span class="score__name">Error Handling &amp; Guidance</span><span class="score__track" role="img" aria-label="2.9 out of 5"><i class="score__fill" style="width:58.00%"></i></span><span class="score__val">2.9<span class="score__of">/5</span></span></li></ol>
+  <div class="score__axis"><span class="score__name"></span>
+    <span class="score__track"><span class="score__tick" style="left:0.0%"><i></i>0</span><span class="score__tick" style="left:20.0%"><i></i>1</span><span class="score__tick" style="left:40.0%"><i></i>2</span><span class="score__tick" style="left:60.0%"><i></i>3</span><span class="score__tick" style="left:80.0%"><i></i>4</span><span class="score__tick" style="left:100.0%"><i></i>5</span></span><span class="score__val"></span></div>
+  <p class="score__total"><span class="score__big">13.94</span>
+    <span class="score__totlab">out of 25 across five dimensions</span></p>
+</div>
+<p class="srcnote">Source: Design_Evaluation_Template.xlsx / Evaluation Metrics + Report. Every figure above was recomputed from the sheet&#x27;s own question ratings and matched its recorded value exactly.</p></div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">The twenty questions behind those five numbers</h3>
+    <p class="prose">A dimension score is only as interesting as what it is made of. Efficiency scores highest here and still contains a 3; Discoverability's lowest question sits at 1.5.</p>
+  </div>
+  <div data-reveal><div class="qq__wrap" data-questions>
+  <div class="qtabs" role="group" aria-label="Choose an evaluation dimension"><button type="button" class="qtab is-on" data-dim="0" aria-pressed="true"><span class="qtab__n">2.17</span><span class="qtab__name">Discoverability</span></button><button type="button" class="qtab" data-dim="1" aria-pressed="false"><span class="qtab__n">2.62</span><span class="qtab__name">Learnability</span></button><button type="button" class="qtab" data-dim="2" aria-pressed="false"><span class="qtab__n">2.75</span><span class="qtab__name">Engagement</span></button><button type="button" class="qtab" data-dim="3" aria-pressed="false"><span class="qtab__n">3.5</span><span class="qtab__name">Efficiency</span></button><button type="button" class="qtab" data-dim="4" aria-pressed="false"><span class="qtab__n">2.9</span><span class="qtab__name">Error Handling &amp; Guidance</span></button></div>
+  <div class="qq__panels"><section class="qq" data-dim="0"><header class="qq__head"><h4 class="qq__name">Discoverability</h4><p class="qq__def">Allow user to quickly understand what the product offers and how to navigate through it</p><p class="qq__mean">2.17<span class="score__of">/5</span><span class="qq__meanlab">mean of 3</span></p></header><ol class="qq__rows"><li class="qq__row"><span class="qq__score" data-band="low">1.5</span><span class="qq__text">Is your navigation clear and intuitive? Are you able to find the required entry points quickly? (Help, My claims, My Profile, etc.)</span></li><li class="qq__row"><span class="qq__score" data-band="mid">3</span><span class="qq__text">Does it assist you in quickly and easily locate information that you require? (quick links, search, help, etc.)</span></li><li class="qq__row"><span class="qq__score" data-band="low">2</span><span class="qq__text">Is the layout clear and organized, making it easy for you to quickly understand and locate informatrion &amp; features? (Information appearance, placement and order on landing page - Plan, benefits, vouchers, deals, and important quick entry points.</span></li></ol></section>
+<section class="qq" data-dim="1" hidden><header class="qq__head"><h4 class="qq__name">Learnability</h4><p class="qq__def">Minimize the time and effort required for users to become proficient in using the product</p><p class="qq__mean">2.62<span class="score__of">/5</span><span class="qq__meanlab">mean of 4</span></p></header><ol class="qq__rows"><li class="qq__row"><span class="qq__score" data-band="low">2</span><span class="qq__text">Is the text easy to understand and convey just the right amount of information with no jargons? (Labels, headings, instructions, CTAs, etc.)</span></li><li class="qq__row"><span class="qq__score" data-band="mid">3</span><span class="qq__text">Is there a consistent design scheme across the product, where all the components and patterns look same and behave similarly? (Shape, color, position, and states of components like button, icon, textbox, dropdown, including drawer, gestures, micro-interaction, feedabck, toast message, layout, and navigation)</span></li><li class="qq__row"><span class="qq__score" data-band="mid">2.5</span><span class="qq__text">Does the visual design create a inviting impression to quickly understand the purpose of design elements and how to use the interface and navigate through its features. (Layout, buttons, icons, navigation, cards, input fields, links, gesture, that is widely recognized help users to interact effortlessly )</span></li><li class="qq__row"><span class="qq__score" data-band="mid">3</span><span class="qq__text">Are the design components familiar with clear visual cues (affordance) for you to quickly understand the purpose and how to interact with for action? (Buttons, icons, navigation, cards, input fields, text links, gesture, navigation that is widely recognized help users to interact effortlessly)</span></li></ol></section>
+<section class="qq" data-dim="2" hidden><header class="qq__head"><h4 class="qq__name">Engagement</h4><p class="qq__def">Captivate user attention and motivates them to explore and and assist in pursuing journey</p><p class="qq__mean">2.75<span class="score__of">/5</span><span class="qq__meanlab">mean of 4</span></p></header><ol class="qq__rows"><li class="qq__row"><span class="qq__score" data-band="low">2</span><span class="qq__text">Is the UI aesthetically pleasing, with attractive visuals and appealing colors that capture users&#x27; attention and communicate the product&#x27;s value and benefits. (Page composition, use of colors &amp; typography, use of components, imageries, and interactivities)</span></li><li class="qq__row"><span class="qq__score" data-band="mid">3</span><span class="qq__text">Does it guide you through the journey with intuitive userflows and motivate you to complete tasks or reach your milestones? (Break jouneys into stages, Progressive disclosure, progress status, inline help to encourge , and feedback on the completion of tasks)</span></li><li class="qq__row"><span class="qq__score" data-band="low">2</span><span class="qq__text">Did you notice any small animated effects while interacting with design elements, indicating that your action was recognised? ( Micro-intercations / animation - hover, progress Bar, button pressed, sound, transition effects, etc.)</span></li><li class="qq__row"><span class="qq__score" data-band="high">4</span><span class="qq__text">Is the language familiar, easy, and persuasive enough to lessen cognitive load, establish an emotional connection, and inspire you to complete your tasks? (Labels, product info, headers, instructions, and messaging)</span></li></ol></section>
+<section class="qq" data-dim="3" hidden><header class="qq__head"><h4 class="qq__name">Efficiency</h4><p class="qq__def">Allow users to accomplish tasks quickly and with minimal efforts</p><p class="qq__mean">3.5<span class="score__of">/5</span><span class="qq__meanlab">mean of 4</span></p></header><ol class="qq__rows"><li class="qq__row"><span class="qq__score" data-band="mid">3</span><span class="qq__text">Do you see all the essential features or actions upfront, with prominent calls to action? And the remaining are called as on-demand basis. (Contextual navigation, view more, carousal, etc )</span></li><li class="qq__row"><span class="qq__score" data-band="high">4</span><span class="qq__text">Are you able to complete the tasks efficiently within a few clicks? In the case of complex or long tasks, do you perform them in manageable steps? (Progressive disclosure, save draft , inline contextual help)</span></li><li class="qq__row"><span class="qq__score" data-band="high">4</span><span class="qq__text">Do you get straightforward &amp; simple instructions that guide you through tasks efficiently? (Instructions, inline help, textual clues, etc.</span></li><li class="qq__row"><span class="qq__score" data-band="mid">3</span><span class="qq__text">Did you receive any auto-assistance support to help you complete a task in less time? ( Auto-populating fields, predictive search, templatization, etc..)</span></li></ol></section>
+<section class="qq" data-dim="4" hidden><header class="qq__head"><h4 class="qq__name">Error Handling &amp; Guidance</h4><p class="qq__def">Empower users and make them feel confident and capable while interacting with product</p><p class="qq__mean">2.9<span class="score__of">/5</span><span class="qq__meanlab">mean of 5</span></p></header><ol class="qq__rows"><li class="qq__row"><span class="qq__score" data-band="low">2</span><span class="qq__text">Are you able to locate any support feature when you are lost and don&#x27;t know what to do? (Help module, customer support, digital assistant, FAQ, etc.)</span></li><li class="qq__row"><span class="qq__score" data-band="mid">3</span><span class="qq__text">Are you guided through complex processes step by step to reduce the likelihood of getting lost and making mistakes? (Having relevent information and actions that facilites the jounery, provide inline contextual help, instant action validation, and show instructions to recover from error)</span></li><li class="qq__row"><span class="qq__score" data-band="mid">2.5</span><span class="qq__text">Are you assisted as and when you encounter errors and unfamiliar terms or actions? (Contextual help, tooltips, action oriented feedback)</span></li><li class="qq__row"><span class="qq__score" data-band="high">4</span><span class="qq__text">Is the error message clear and descriptive to explain what went wrong and provide meaningful instructions on how to fix the issue? (Upload failed. Ensure the file is in PDF format that is under 5 MB, and try again.)</span></li><li class="qq__row"><span class="qq__score" data-band="mid">3</span><span class="qq__text">Are the graphics used as visual cues to warn about mistakes or errors meaningful and easy to understand ? (Field highlighting, error Icons, error color)</span></li></ol></section></div>
+</div>
+<p class="srcnote">Source: Design_Evaluation_Template.xlsx / Evaluation Metrics + Report. All twenty questions and their individual ratings, as recorded. Every question on this page is the workbook&#x27;s own wording, including its typos.</p></div>
+
+  <p class="note" data-reveal><strong>What this is and is not.</strong> It is one recorded evaluation of one product at one point in time, in a file with no date, no named reviewer and no record of which product. It is not a team average, not a current score, and not a baseline that something later improved on. Nothing in these files records a second evaluation of the same thing.</p>
+</section>
+
+<!-- 07 · THE OTHER SNAPSHOT ------------------------------------------------- -->
+<section class="section" aria-labelledby="q-snapshot">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">07 &mdash; A separate record</p>
+    <h2 class="t-h2" id="q-snapshot">A second set of scores that does not line up</h2>
+    <p class="prose">A different workbook holds another set of scores, cut two ways &mdash; by factor and by parameter. It is the only sheet anywhere that scores the same review from both directions, which is genuinely the more interesting instrument. It is also impossible to tie to the review above.</p>
+  </div>
+
+  <div data-reveal><div class="snap"><div class="snap__col"><h3 class="snap__title">By factor</h3><ol class="score__rows"><li class="score__row"><span class="score__name">Discoverability</span><span class="score__track" role="img" aria-label="3.5 out of 5"><i class="score__fill score__fill--alt" style="width:70.00%"></i></span><span class="score__val">3.5<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Learnability</span><span class="score__track" role="img" aria-label="3 out of 5"><i class="score__fill score__fill--alt" style="width:60.00%"></i></span><span class="score__val">3<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Engagement</span><span class="score__track" role="img" aria-label="2 out of 5"><i class="score__fill score__fill--alt" style="width:40.00%"></i></span><span class="score__val">2<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Efficiency</span><span class="score__track" role="img" aria-label="2 out of 5"><i class="score__fill score__fill--alt" style="width:40.00%"></i></span><span class="score__val">2<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Guidance &amp; Handholding</span><span class="score__track" role="img" aria-label="2 out of 5"><i class="score__fill score__fill--alt" style="width:40.00%"></i></span><span class="score__val">2<span class="score__of">/5</span></span></li></ol></div><div class="snap__col"><h3 class="snap__title">By parameter</h3><ol class="score__rows"><li class="score__row"><span class="score__name">Navigation</span><span class="score__track" role="img" aria-label="3 out of 5"><i class="score__fill score__fill--alt" style="width:60.00%"></i></span><span class="score__val">3<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Design Composition</span><span class="score__track" role="img" aria-label="3.5 out of 5"><i class="score__fill score__fill--alt" style="width:70.00%"></i></span><span class="score__val">3.5<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Language</span><span class="score__track" role="img" aria-label="2.5 out of 5"><i class="score__fill score__fill--alt" style="width:50.00%"></i></span><span class="score__val">2.5<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Consistency</span><span class="score__track" role="img" aria-label="3 out of 5"><i class="score__fill score__fill--alt" style="width:60.00%"></i></span><span class="score__val">3<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Visual Communication</span><span class="score__track" role="img" aria-label="4 out of 5"><i class="score__fill score__fill--alt" style="width:80.00%"></i></span><span class="score__val">4<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Intuitiveness</span><span class="score__track" role="img" aria-label="3 out of 5"><i class="score__fill score__fill--alt" style="width:60.00%"></i></span><span class="score__val">3<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Userflow &amp; Paths</span><span class="score__track" role="img" aria-label="3 out of 5"><i class="score__fill score__fill--alt" style="width:60.00%"></i></span><span class="score__val">3<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Interactivity</span><span class="score__track" role="img" aria-label="2 out of 5"><i class="score__fill score__fill--alt" style="width:40.00%"></i></span><span class="score__val">2<span class="score__of">/5</span></span></li><li class="score__row"><span class="score__name">Error prevention &amp; Handling</span><span class="score__track" role="img" aria-label="2 out of 5"><i class="score__fill score__fill--alt" style="width:40.00%"></i></span><span class="score__val">2<span class="score__of">/5</span></span></li></ol></div></div>
+<p class="srcnote">Source: Framework.xlsx / Sheet5. The only sheet that scores the same review two ways.</p>
+<p class="note"><strong>These are not the scores above.</strong> They sit in a different
+workbook, score a fifth factor the completed review does not have
+(<span class="tag">Guidance &amp; Handholding</span>), and have no question-level rows
+behind them anywhere in the file. Nothing in the sources establishes what was reviewed,
+when, or by whom &mdash; so this is shown as a separate snapshot and never as a
+before-and-after. The two sets are not combined or averaged.</p></div>
+</section>
+
+<!-- 08 · THE CHECKLIST ------------------------------------------------------ -->
+<section class="section" aria-labelledby="q-checklist">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">08 &mdash; The everyday instrument</p>
+    <h2 class="t-h2" id="q-checklist">The checklist that runs before anyone else sees it</h2>
+    <p class="prose">A five-factor evaluation is a considered exercise. It is not what you run on a Tuesday before handing a screen to engineering. This is the short form &mdash; seven stages, phrased as things to catch rather than qualities to admire.</p>
+  </div>
+
+  <div data-reveal>
+<div class="ck__grid"><article class="ck"><p class="ck__n">01</p><h3 class="ck__title">I love my design, but only when?</h3><ul class="ck__items"><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Does every element on the screen deliver value?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Will the user achieve his goal with it?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Is it persona-checked?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>What could make the design fail?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Does it meet UX metrics if any?</li></ul></article>
+<article class="ck"><p class="ck__n">02</p><h3 class="ck__title">Error states provided</h3><p class="ck__why">Bad error handling paired with useless error messages will make your visitors leave</p><ul class="ck__items"><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Are all forms and input fields error-handled?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>What does the error page look like?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Can user recover from the error?</li></ul></article>
+<article class="ck"><p class="ck__n">03</p><h3 class="ck__title">Design system checked</h3><p class="ck__why">Consistency is key, and DS is the single source of truth</p><ul class="ck__items"><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Did you check if you reinvented elements that already exist in the design system?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Have you picked the right components as per the use case?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Did you introduce new font, icons, colors or shades of colors?</li></ul></article>
+<article class="ck"><p class="ck__n">04</p><h3 class="ck__title">Visual feedback on user actions</h3><p class="ck__why">When users click and nothing happens they will look for exit or click again.</p><ul class="ck__items"><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Have you considered adding microinteractions?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Did you use animation while content in loading up?</li></ul></article>
+<article class="ck"><p class="ck__n">05</p><h3 class="ck__title">Wording is awesome</h3><p class="ck__why">Writing copy needs experience too</p><ul class="ck__items"><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Do you speak the same language as your audience?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>What do your users need to know on this screen?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Avoid jargons, and keep it short and simple that anybody can understand it easily</li></ul></article>
+<article class="ck"><p class="ck__n">06</p><h3 class="ck__title">Ready for test / review?</h3><p class="ck__why">Prototype that gives real experience</p><ul class="ck__items"><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Did you cover all scenarios to test journeys?</li><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Did I replaced all dummy data with real data and removed all duplication?</li></ul></article>
+<article class="ck"><p class="ck__n">07</p><h3 class="ck__title">Developer handover prepared</h3><p class="ck__why">Make sure your developers have an effortless experience</p><ul class="ck__items"><li class="ck__item"><span class="ck__box" aria-hidden="true"></span>Make sure to write down every error state, blank state or animation placement.</li></ul></article></div>
+<p class="srcnote">Reconstructed from UX Checklist.pptx, slides 1&amp;ndash;8</p>
+<p class="note">A digital reconstruction, not a screenshot: the deck is 8 slides of live
+text with no embedded images, so there is nothing in it to export. Wording is the
+original's, including &ldquo;Did I replaced all dummy data&rdquo;. Seven review stages,
+19 checks. A checklist existing is not evidence that every design was reviewed against it,
+and the files record no completed reviews.</p></div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">Where a review was meant to land</h3>
+  </div>
+  <div data-reveal><ul class="chips" role="list"><li class="chip">Design Team Review</li><li class="chip">Squad Review</li><li class="chip">Service</li><li class="chip">Peer review</li></ul>
+<p class="srcnote">Source: Framework.xlsx / Sheet6</p>
+<p class="note">Four cells only. The sheet names review layers but records no criteria, cadence or results against them.</p></div>
+</section>
+
+<!-- 09 · CRITIQUE ----------------------------------------------------------- -->
+<section class="section section--accent" aria-labelledby="q-critique">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">09 &mdash; Discuss</p>
+    <h2 class="t-h2" id="q-critique">Giving the conversation a shape</h2>
+    <p class="prose">Criteria tell you what to look at. They do not stop a review becoming the most senior person's opinion delivered slowly. The last piece is the conversation itself &mdash; who speaks when, for how long, and what the creator is expected to walk out with.</p>
+  </div>
+
+  <div data-reveal><aside class="credit">
+  <p class="credit__lab">Source &amp; attribution</p>
+  <p class="credit__body"><strong>&ldquo;Share &amp; Critique your way to a Culture of Collaboration&rdquo;</strong> is the work of
+  <strong>Shalini Raghunathan</strong>, Co-Founder of 3 Big Things, dated February 8, 2025. It is not my material and I am not its author.
+  It sits here because it is the method I would reach for, and because a page about design
+  quality that quietly reused someone else's deck would fail its own argument.</p>
+  <p class="credit__src">5. Share &amp; Critique for Collaboration.pdf, page 1</p>
+</aside></div>
+
+  <div class="split" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/critique-cover.jpg" loading="lazy"
+           alt="Title slide reading 'Share and Critique, your way to a Culture of Collaboration' in yellow on white, credited to Shalini Raghunathan, Co-Founder, 3 Big Things, February 8 2025."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Cited with attribution</span>
+      The title slide, shown with its credit line intact.</figcaption>
+    </figure>
+    <div class="split__text">
+      <p class="prose">What makes this worth keeping is that it is specific where most feedback advice is not. It does not say &ldquo;be constructive&rdquo;. It says the collaborators write in silence first, for seven to ten minutes, and only then does anyone speak &mdash; which removes the advantage of whoever thinks fastest out loud.</p>
+      <p class="prose">And it ends with the creator writing down action items. Feedback that does not change what happens next is just commentary.</p>
+    </div>
+  </div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">The choreography</h3>
+  </div>
+  <div class="split" data-reveal>
+    <figure class="plate">
+      <img src="../../assets/img/quality/critique-choreography.jpg" loading="lazy"
+           alt="Slide headed 'Making it happen — Choreography', listing five numbered session stages with durations from 12-15 minutes down to 5 minutes, a stated total of 45-55 minutes, and a line describing the custodian's job."
+           width="1400" height="788">
+      <figcaption class="plate__cap"><span class="plate__src">Source slide, page 3</span>
+      The original, shown next to the reconstruction so the timings can be checked
+      against it.</figcaption>
+    </figure>
+    <div class="split__text"><ol class="ch"><li class="ch__stage" style="--hi:27.27%;--lo-rel:80.00%"><span class="ch__n">1</span><span class="ch__who">Creator</span><span class="ch__bar"><i></i></span><span class="ch__time">12&ndash;15 min</span><span class="ch__text">Creator shares work - 12-15 mins</span></li>
+<li class="ch__stage" style="--hi:9.09%;--lo-rel:60.00%"><span class="ch__n">2</span><span class="ch__who">Collaborators</span><span class="ch__bar"><i></i></span><span class="ch__time">3&ndash;5 min</span><span class="ch__text">Collaborators ask for clarifications, if needed, briefly. 3-5 mins</span></li>
+<li class="ch__stage" style="--hi:18.18%;--lo-rel:70.00%"><span class="ch__n">3</span><span class="ch__who">Collaborators</span><span class="ch__bar"><i></i></span><span class="ch__time">7&ndash;10 min</span><span class="ch__text">Collaborators write feedback and post to the gallery in silence - 7-10 mins</span><span class="ch__detail">Includes time for folks to read and react to others&#x27; comments.</span></li>
+<li class="ch__stage" style="--hi:36.36%;--lo-rel:75.00%"><span class="ch__n">4</span><span class="ch__who">Everyone</span><span class="ch__bar"><i></i></span><span class="ch__time">15&ndash;20 min</span><span class="ch__text">Round Robin feedback &amp; conversation - 15-20 mins</span><span class="ch__detail">Each collaborator reads out their post-its (and explains briefly, if needed). Nominates the next collaborator.</span></li>
+<li class="ch__stage" style="--hi:9.09%;--lo-rel:100.00%"><span class="ch__n">5</span><span class="ch__who">Creator</span><span class="ch__bar"><i></i></span><span class="ch__time">5 min</span><span class="ch__text">Creator records Action Items and schedules follow-ups - 5 mins</span></li></ol>
+<p class="ch__foot"><span class="ch__total">45-55 mins</span>
+<span class="ch__totlab">total, as the deck states it</span></p>
+<p class="srcnote">Reconstructed from page 3. Durations and wording are the source&#x27;s.</p>
+<p class="note">Custodian keeps time, facilitates the conversation, keeps it in scope. The stage timings sum to 42&ndash;55 minutes, so the deck's stated lower
+bound sits 3 minutes above the sum of its own minimums. The stated total is kept as
+written rather than quietly corrected.</p></div>
+  </div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">Three roles, three C's</h3>
+    <p class="prose">The method's substance is here: each role gets the same three qualities, and they mean something different for each one. &ldquo;Concise&rdquo; for a creator means naming what you do <em>not</em> want feedback on. For a custodian it means keeping time.</p>
+  </div>
+  <div data-reveal><div class="ms__wrap">
+<table class="ms">
+  <caption class="srcnote">Three roles &times; three C's, verbatim from the deck</caption>
+  <thead><tr><th scope="col">Role</th><th scope="col">Contextual</th><th scope="col">Concise</th><th scope="col">Curious</th></tr></thead>
+  <tbody><tr><th scope="row">Creator<span class="ms__pg">page 17</span></th><td data-label="Contextual"><ul><li>Share what the problem is and who are you solving it for.</li><li>Tell a story about your work&#x27;s journey, inspirations and challenges.</li><li>Define scope. Where are you in the project and design lifecycle?</li></ul></td><td data-label="Concise"><ul><li>What aspects of the design work are you seeking feedback on?</li><li>What aspects of the design work do you NOT want feedback on?</li><li>Structure your narrative to precisely articulate why you are seeking feedback at this time.</li></ul></td><td data-label="Curious"><ul><li>Do not defend or solve. Feedback is a gift.</li><li>Listen to absorb and understand, not to respond.</li><li>Use &quot;Why?&quot; and &quot;Yes, and...&quot; to dig deeper and get the best out of the session.</li><li>Reflect and interpret. Translate feedback into action items that advance the work.</li></ul></td></tr>
+<tr><th scope="row">Collaborator<span class="ms__pg">page 20</span></th><td data-label="Contextual"><ul><li>Frame your feedback to focus on user&#x27;s goals and objectives.</li><li>Stay within the scope of the feedback requested.</li><li>Critique the work, not the creator.</li></ul></td><td data-label="Concise"><ul><li>Provide feedback that is specific, objective and tangible.</li><li>Share your opinions with justification.</li><li>Offer insight, not solutions.</li></ul></td><td data-label="Curious"><ul><li>Highlight what&#x27;s working well. Don&#x27;t focus only on the negatives.</li><li>State your assumptions. Ask for clarifications. Probe.</li><li>Challenge to contribute, not to win. Disagree respectfully.</li></ul></td></tr>
+<tr><th scope="row">Custodian<span class="ms__pg">page 22</span></th><td data-label="Contextual"><ul><li>Stay neutral and objective.</li><li>Ensure collaborators move through the 4 Players roles.</li><li>Remember and remind the group of the “Why”.</li></ul></td><td data-label="Concise"><ul><li>Keep time.</li><li>Redirect in case of detours.</li><li>Diffuse tensions.</li></ul></td><td data-label="Curious"><ul><li>Ensure all voices are heard.</li><li>Challenge the group, if needed.</li><li>Critique the critique.</li></ul></td></tr></tbody>
+</table>
+</div></div>
+
+  <div class="split" data-reveal style="margin-top:var(--step-16)">
+    <div class="split__text">
+      <h3 class="t-h3">Positions, not personalities</h3>
+      <p class="prose">The deck borrows Kantor's model to describe how a group conversation actually moves. The point in context is the instruction attached to it: collaborators are expected to move through all four, rather than settle into the one that suits them.</p>
+    </div>
+    <div data-reveal><div class="fp"><ol class="fp__ring"><li class="fp__role">Mover</li><li class="fp__role">Opposer</li><li class="fp__role">Follower</li><li class="fp__role">Bystander</li></ol><p class="fp__mid">Collaborators Move through all 4 roles</p></div>
+<p class="srcnote">Kantor&#x27;s 4 Player Model, as cited on page 19. Named positions in a conversation that everyone moves through, not fixed personality types.</p></div>
+  </div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">Frameworks for the feedback itself</h3>
+  </div>
+  <div data-reveal><div class="fwk" data-frameworks>
+  <div class="ftabs" role="group" aria-label="Choose a critique framework"><button type="button" class="ftab is-on" data-fw="0" aria-pressed="true">Rose / Thorn / Bud</button><button type="button" class="ftab" data-fw="1" aria-pressed="false">I Like / I Wish / I Wonder</button><button type="button" class="ftab" data-fw="2" aria-pressed="false">4 Ls Retrospective (adapted)</button><button type="button" class="ftab" data-fw="3" aria-pressed="false">Hits / Misses / Improvements / Ideas</button></div>
+  <ul class="fwk__parts" data-fw="0"><li class="fwk__part"><span class="fwk__lab">Rose</span><span class="fwk__hint">Success</span></li><li class="fwk__part"><span class="fwk__lab">Thorn</span><span class="fwk__hint">Challenge</span></li><li class="fwk__part"><span class="fwk__lab">Bud</span><span class="fwk__hint">Potential</span></li></ul>
+<ul class="fwk__parts" data-fw="1" hidden><li class="fwk__part"><span class="fwk__lab">I like</span></li><li class="fwk__part"><span class="fwk__lab">I wish</span></li><li class="fwk__part"><span class="fwk__lab">I wonder</span></li></ul>
+<ul class="fwk__parts" data-fw="2" hidden><li class="fwk__part"><span class="fwk__lab">Liked</span><span class="fwk__hint">What did the team like?</span></li><li class="fwk__part"><span class="fwk__lab">Learned</span><span class="fwk__hint">What did the team learn?</span></li><li class="fwk__part"><span class="fwk__lab">Lacked</span><span class="fwk__hint">What did the team lack?</span></li><li class="fwk__part"><span class="fwk__lab">Longed for</span><span class="fwk__hint">What did the team long for?</span></li></ul>
+<ul class="fwk__parts" data-fw="3" hidden><li class="fwk__part"><span class="fwk__lab">Hits</span></li><li class="fwk__part"><span class="fwk__lab">Misses</span></li><li class="fwk__part"><span class="fwk__lab">Improvements</span></li><li class="fwk__part"><span class="fwk__lab">Ideas</span></li></ul>
+</div>
+<p class="srcnote">Digital reconstructions of the frameworks on pages 10, 11, 12, 13. The frameworks are established practice presented in the deck, not mine and not its author&#x27;s invention.</p></div>
+
+  <div class="section__head" data-reveal style="margin-top:var(--step-16)">
+    <h3 class="t-h3">What you can bring, and when it is ready</h3>
+    <p class="prose">The list is deliberately wide &mdash; a research plan and a sprint plan both qualify. The readiness test is the useful part, and it is not &ldquo;when it's finished&rdquo;.</p>
+  </div>
+  <div data-reveal><div class="wip">
+  <div class="wip__col"><h4 class="snap__title">What counts as work in progress</h4>
+    <ul class="chips" role="list"><li class="chip">Research plan</li><li class="chip">Discussion guide</li><li class="chip">Research synthesis</li><li class="chip">Research report</li><li class="chip">Concept sketches</li><li class="chip">Storyboard</li><li class="chip">Wireframes</li><li class="chip">Visual design</li><li class="chip">Portfolio</li><li class="chip">Social media post</li><li class="chip">Frameworks</li><li class="chip">Client/Stakeholder presentation deck</li><li class="chip">Team initiative plan</li><li class="chip">Workshop plan</li><li class="chip">project/sprint plan</li><li class="chip">Conference talk proposal</li></ul></div>
+  <div class="wip__col"><h4 class="snap__title">How it gets shared</h4>
+    <ul class="chips" role="list"><li class="chip">Physical Whiteboard</li><li class="chip">Digital workspace / Miro board</li><li class="chip">Document/Presentation</li><li class="chip">Confluence page</li><li class="chip">Paper sketch</li><li class="chip">Paper prototype</li><li class="chip">Low-fi digital wireframe</li><li class="chip">Hi-fi digital wireframe</li></ul></div>
+</div>
+<div class="ready">
+  <p class="ready__must"><span class="ready__lab">Must have</span>When you can articulate your ideas visually and verbally.</p>
+  <p class="ready__nice"><span class="ready__lab">Nice to have</span>When you have strong opinions, loosely held, about your work. When you have some clarity and some questions about your work.</p>
+</div>
+<p class="srcnote">Source: pages 5 and 7.</p></div>
+</section>
+
+<!-- 10 · HOW THEY CONNECT --------------------------------------------------- -->
+<section class="section" aria-labelledby="q-synth">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">10 &mdash; The through-line</p>
+    <h2 class="t-h2" id="q-synth">How the four artefacts sit together</h2>
+    <p class="prose">A synthesis of the documented practices, not an operating model any of these files names. Each step is evidenced; the sequence connecting them is mine.</p>
+  </div>
+
+  <ol class="chain" data-reveal>
+    <li class="chain__link">
+      <h3 class="chain__title">Shared principles</h3>
+      <p class="chain__body">Establish what good means here, specifically enough to decide with.</p>
+      <p class="chain__src">Workshop &ndash; Design Principles</p>
+    </li>
+    <li class="chain__link">
+      <h3 class="chain__title">Evaluation criteria</h3>
+      <p class="chain__body">Five factors, their parameters, and a scale with a written meaning for every point.</p>
+      <p class="chain__src">Framework.xlsx &middot; DesignEvaluationMetrics.xlsx</p>
+    </li>
+    <li class="chain__link">
+      <h3 class="chain__title">Review checklist</h3>
+      <p class="chain__body">The short form of those criteria, for the review that happens every week.</p>
+      <p class="chain__src">UX Checklist.pptx</p>
+    </li>
+    <li class="chain__link">
+      <h3 class="chain__title">Collaborative critique</h3>
+      <p class="chain__body">A shape for the conversation so the findings get discussed rather than announced.</p>
+      <p class="chain__src">Share &amp; Critique &mdash; third-party method</p>
+    </li>
+    <li class="chain__link chain__link--end">
+      <h3 class="chain__title">Actions, and round again</h3>
+      <p class="chain__body">The creator leaves with written action items. Scores give the next review something to move.</p>
+      <p class="chain__src">Choreography, stage 5</p>
+    </li>
+  </ol>
+
+  <p class="prose prose--lead" data-reveal>The thing I would defend about this set is that it works at four different speeds. The workshop is a once-a-year argument. The evaluation is a considered deep read. The checklist is a Tuesday. The critique is a standing conversation. Design quality systems usually fail by picking one of those and pretending it covers the others.</p>
+</section>
+
+<!-- 11 · HONEST LIMITS ------------------------------------------------------ -->
+<section class="section" aria-labelledby="q-limits">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">11 &mdash; Provenance</p>
+    <h2 class="t-h2" id="q-limits">What these files prove, and what they don't</h2>
+  </div>
+
+  <div class="ledger" data-reveal>
+    <div class="ledger__col ledger__col--yes">
+      <h3 class="ledger__head">Evidenced here</h3>
+      <ul class="ledger__list">
+        <li>A design principles workshop, dated and delivered</li>
+        <li>An evaluation model: 5 factors, 21 parameters, written definitions</li>
+        <li>A 1&ndash;5 scale with 25 per-dimension descriptors</li>
+        <li>One completed review: 20 scored questions, arithmetic verified</li>
+        <li>A second scored snapshot, cut by factor and by parameter</li>
+        <li>A 19-item design checklist across 7 stages</li>
+      </ul>
+    </div>
+    <div class="ledger__col ledger__col--no">
+      <h3 class="ledger__head">Not evidenced, and not claimed</h3>
+      <ul class="ledger__list">
+        <li>A final, approved set of design principles</li>
+        <li>Which product was evaluated, when, or by whom</li>
+        <li>Any second evaluation, so no trend and no improvement</li>
+        <li>That the checklist was applied to any specific project</li>
+        <li>That Share &amp; Critique sessions were run, or how often</li>
+        <li>Adoption, team size, cadence or business impact of any of it</li>
+      </ul>
+    </div>
+  </div>
+
+  <ul class="chips" role="list" data-reveal>
+    <li class="chip">6 source files read in full</li>
+    <li class="chip">40 slide pages reviewed</li>
+    <li class="chip">9 workbook sheets parsed</li>
+    <li class="chip">10 source images published</li>
+    <li class="chip">0 names published</li>
+  </ul>
+
+  <p class="note" data-reveal>Every table, score and checklist on this page is generated from the source files by a build step rather than typed in by hand. The workshop slide showing the four breakout teams is deliberately not published: it lists twenty-four colleagues by name. Source files are not included in this repository.</p>
+</section>
+</div>
+</div>
+</div>
+</main>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__base">
+      <p class="t-label">Arushi Prasad — Design leader</p>
+      <p class="t-label t-dim">Pune, India</p>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/site.js?v=8b13f207" defer></script>
+<script src="../../assets/js/case.js?v=fd4fa5e0" defer></script>
+</body>
+</html>

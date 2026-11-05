@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="mono" data-type="editorial" data-density="comfortable" data-radius="subtle">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Snippets — Arushi Prasad</title>
+  <meta name="description" content="Small interaction demonstrations — hover-responsive type, text reveal, colour transitions, card hover and an animated stepper.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preload" href="../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=f874ed78">
+  <link rel="stylesheet" href="../assets/css/base.css?v=c3f7efb8">
+  <link rel="stylesheet" href="../assets/css/components.css?v=be3cf32e">
+  <link rel="stylesheet" href="../assets/css/lab.css?v=59ffc906">
+  <!-- Loaded before paint so a saved token preference is applied to <html>
+       without a flash of the defaults. -->
+  <script src="../assets/js/tokens.js?v=a7c3e9c1"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+<defs>
+<symbol id="i-colour" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M8 2.2a5.8 5.8 0 0 1 0 11.6z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-type" viewBox="0 0 16 16"><path d="M3.2 13.6 8 2.6l4.8 11"/><path d="M5.3 9.4h5.4"/></symbol>
+<symbol id="i-spacing" viewBox="0 0 16 16"><path d="M2.2 3.6v8.8M13.8 3.6v8.8"/><path d="M5 8h6"/><path d="m6.6 6.4-1.7 1.6 1.7 1.6M9.4 6.4 11.1 8 9.4 9.6"/></symbol>
+<symbol id="i-radius" viewBox="0 0 16 16"><path d="M2.4 13.6V7.2a4.8 4.8 0 0 1 4.8-4.8h6.4"/><path d="M2.4 2.4h.01M13.6 13.6h.01"/></symbol>
+<symbol id="i-opacity" viewBox="0 0 16 16"><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2a4.6 4.6 0 1 1-9.2 0C3.4 6.8 8 2.2 8 2.2Z"/><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2A4.6 4.6 0 0 1 8 14z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-grid" viewBox="0 0 16 16"><rect x="2.4" y="2.4" width="11.2" height="11.2" rx="1.4"/><path d="M6.13 2.4v11.2M9.87 2.4v11.2M2.4 6.13h11.2M2.4 9.87h11.2"/></symbol>
+  <symbol id="i-surprise" viewBox="0 0 16 16"><path d="M7.1 2.6 8.35 6.05 11.8 7.3 8.35 8.55 7.1 12 5.85 8.55 2.4 7.3 5.85 6.05Z"/><path d="M12.3 10.1v2.9M10.85 11.55h2.9"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 16 16"><path d="M13.4 8a5.4 5.4 0 1 1-1.8-4"/><path d="M13.6 2.6v3.6H10"/></symbol>
+<symbol id="i-bars" viewBox="0 0 16 16"><path d="M2.4 4.6h11.2M2.4 8h11.2M2.4 11.4h11.2"/></symbol>
+<symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
+<symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
+<symbol id="i-tick" viewBox="0 0 16 16"><path d="m3.4 8.4 3 3 6.2-7"/></symbol>
+<!-- Recognition. Stroke-drawn on the same 16-unit grid and at the same
+     weight as the rest, so they sit in a line of text without shouting. -->
+<symbol id="i-trophy" viewBox="0 0 16 16"><path d="M4.9 2.7h6.2v3.5a3.1 3.1 0 0 1-6.2 0Z"/><path d="M4.9 3.7H3.3v.9a2 2 0 0 0 1.6 1.9M11.1 3.7h1.6v.9a2 2 0 0 1-1.6 1.9"/><path d="M8 9.3v2.1"/><path d="M6.5 11.4h3v1.9h-3Z"/></symbol>
+<symbol id="i-star" viewBox="0 0 16 16"><path d="m8 2.5 1.7 3.45 3.8.55-2.75 2.68.65 3.79L8 11.18l-3.4 1.79.65-3.79L2.5 6.5l3.8-.55Z"/></symbol>
+<symbol id="i-medal" viewBox="0 0 16 16"><circle cx="8" cy="10.1" r="3.5"/><path d="M6.1 7.1 4.3 2.6M9.9 7.1l1.8-4.5"/></symbol>
+<!-- Document types. A page outline each, told apart by what is on it: ruled
+     cells for a workbook, a folded corner for a PDF, one wide band for a
+     deck. Same 16-unit grid and weight as everything else. -->
+<symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
+<symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
+<symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
+</defs>
+</svg>
+<header class="nav-wrap">
+  <nav class="nav shell" aria-label="Primary">
+    <a class="nav__logo" href="../" aria-label="Arushi Prasad, home">
+      <img class="nav__avatar" src="../assets/img/avatar.png" alt="" width="58" height="58" decoding="async">
+    </a>
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a class="nav__link" href="../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../designops/" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../leadership/" aria-label="Leadership">leadership</a></li>
+      </ul>
+
+      <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
+    </div>
+  </nav>
+</header>
+<div class="nav-sheet" id="nav-sheet" data-open="false">
+  <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../designops/">Strategy<span>8</span></a></li><li><a class="nav-sheet__link" href="../leadership/">Leadership<span>—</span></a></li><li><a class="nav-sheet__link" href="../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../about/">About<span>—</span></a></li><li><a class="nav-sheet__link" href="../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../snippets/" aria-current="page">Snippets<span>5</span></a></li></ul>
+  <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
+</div>
+<main id="main" tabindex="-1">
+<div class="page ">
+<header class="page-hero shell">
+  <h1 class="page-hero__title" data-reveal>
+    <span class="page-hero__word page-hero__word-a">interaction</span>
+    <span class="page-hero__word page-hero__word-b">snippets</span>
+  </h1>
+  <p class="page-hero__tagline" data-reveal>Five behaviours, taken apart. Each one has a working preview, a sentence on what it is for, and the rule that does the work. All five respond to touch as well as a pointer.</p>
+  <div class="page-hero__cards" data-reveal><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-copper)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Type</span></div><div class="card__body"><h2 class="card__name">Proximity weight</h2><p class="card__premise">Letters respond to how close the pointer is.</p></div></article></div><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-sage)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Motion</span></div><div class="card__body"><h2 class="card__name">Masked reveal</h2><p class="card__premise">Lines arriving from behind their own edge.</p></div></article></div><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-teal)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Colour</span></div><div class="card__body"><h2 class="card__name">Hue transition</h2><p class="card__premise">Crossing between palette hues on a timer you control.</p></div></article></div></div>
+</header>
+<section class="section shell">
+  <div class="grid grid--2">
+
+    <!-- 01 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal aria-labelledby="sn-1">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-1">Hover-responsive typography</h2>
+        <p class="t-label t-dim">01</p>
+      </header>
+      <div class="demo__stage">
+        <p class="hover-type" data-hover-type aria-label="Systems">
+          <span aria-hidden="true">S</span><span aria-hidden="true">y</span><span aria-hidden="true">s</span><span aria-hidden="true">t</span><span aria-hidden="true">e</span><span aria-hidden="true">m</span><span aria-hidden="true">s</span>
+        </p>
+      </div>
+      <p class="demo__note">Each letter measures its distance to the pointer and takes one of three weights. On a touch screen the nearest letter to a tap lights instead, so the behaviour is demonstrated rather than disabled. The label is on the paragraph, so a screen reader hears one word rather than seven letters.</p>
+      <figure class="win" style="border:0;border-radius:0;border-top:var(--hair) solid var(--border-default)">
+        <pre class="win__pre"><i>/* Three bands, not a continuous curve: a discrete</i>
+<i>   response is readable, a continuous one is noise. */</i>
+.hover-type span.<b>is-near</b>  { <i>font-weight</i>: <b>700</b>; <i>color</i>: <b>var(--accent-light)</b>; }
+.hover-type span.<b>is-close</b> { <i>font-weight</i>: <b>500</b>; <i>color</i>: <b>var(--text-primary)</b>; }</pre>
+      </figure>
+    </section>
+
+    <!-- 02 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal data-reveal-delay="60" aria-labelledby="sn-2">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-2">Text reveal</h2>
+        <p class="t-label t-dim">02</p>
+      </header>
+      <div class="demo__stage">
+        <div class="reveal-lines" data-reveal-lines>
+          <span class="reveal-line"><span>Products,</span></span>
+          <span class="reveal-line"><span>systems,</span></span>
+          <span class="reveal-line"><span>and teams.</span></span>
+        </div>
+      </div>
+      <div class="demo__controls">
+        <button type="button" class="btn btn--ghost" data-reveal-play>Play again</button>
+      </div>
+      <p class="demo__note">Three masked lines, each arriving from behind its own bottom edge with an 80&#8239;ms offset. The mask is the parent's <code class="t-mono">overflow:hidden</code>, so no clip path is needed and it stays crisp at any size. Under reduced motion the lines are simply already in place.</p>
+    </section>
+
+    <!-- 03 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal aria-labelledby="sn-3">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-3">Colour transition</h2>
+        <p class="t-label t-dim">03</p>
+      </header>
+      <div class="demo__stage">
+        <div class="hue-strip" data-hue-strip aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="demo__controls">
+        <button type="button" class="btn btn--ghost" data-hue-step>Next hue</button>
+        <button type="button" class="btn btn--ghost" data-hue-auto aria-pressed="false">Auto</button>
+        <output class="demo__value" data-hue-readout>—</output>
+      </div>
+      <p class="demo__note">Five swatches crossing to the next hue in the active palette on a staggered delay. Auto is off by default and stops itself after one full cycle — a decorative loop that runs forever is a tax on every visitor who is not watching it.</p>
+    </section>
+
+    <!-- 04 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal data-reveal-delay="60" aria-labelledby="sn-4">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-4">Card hover behaviour</h2>
+        <p class="t-label t-dim">04</p>
+      </header>
+      <div class="demo__stage">
+        <a class="card" href="../work/" style="--art-hue:var(--accent);max-width:20rem">
+          <span class="card__art"></span>
+          <div class="card__meta"><span class="card__status">Try me</span></div>
+          <div class="card__body">
+            <h3 class="card__name">A real card <svg class="ico card__arrow" aria-hidden="true"><use href="#i-arrow"></use></svg></h3>
+            <p class="card__premise">Hover or focus it. Four properties move together; the link underneath still works.</p>
+          </div>
+          <ul class="chips" role="list"><li class="chip">Border</li><li class="chip">Lift</li><li class="chip">Art</li></ul>
+        </a>
+      </div>
+      <p class="demo__note">The border takes the accent, the surface lifts one step, the card rises 3&#8239;px and the art field scales 6%. Four small changes read as one object responding. It is the same component class the Work page uses — not a copy of it.</p>
+      <figure class="win" style="border:0;border-radius:0;border-top:var(--hair) solid var(--border-default)">
+        <pre class="win__pre">a.card:<b>hover</b>, a.card:<b>focus-visible</b> {
+  <i>border-color</i>: <b>var(--accent)</b>;
+  <i>background</i>:   <b>var(--surface-overlay)</b>;
+  <i>transform</i>:    <b>translateY(-3px)</b>;
+}
+<i>/* focus-visible is in the same rule, so the keyboard</i>
+<i>   gets the behaviour rather than a consolation outline. */</i></pre>
+      </figure>
+    </section>
+
+    <!-- 05 ------------------------------------------------------------- -->
+    <section class="demo" data-reveal style="grid-column:1/-1" aria-labelledby="sn-5">
+      <header class="demo__head">
+        <h2 class="demo__name" id="sn-5">Animated stepper</h2>
+        <p class="t-label t-dim">05</p>
+      </header>
+      <div class="demo__stage">
+        <div class="stepper" data-stepper>
+          <div class="stepper__track"><span class="stepper__fill"></span></div>
+          <div class="stepper__dots">
+            <span class="stepper__dot" data-on="true" data-current="true"></span>
+            <span class="stepper__dot"></span>
+            <span class="stepper__dot"></span>
+            <span class="stepper__dot"></span>
+          </div>
+          <p class="stepper__label t-label" data-stepper-label>Define</p>
+        </div>
+      </div>
+      <div class="demo__controls">
+        <button type="button" class="btn btn--ghost" data-stepper-prev disabled>Back</button>
+        <button type="button" class="btn btn--ghost" data-stepper-next>Next</button>
+        <output class="demo__value" data-stepper-readout>1 / 4</output>
+        <p class="sr-only" role="status" aria-live="polite" data-stepper-status></p>
+      </div>
+      <p class="demo__note">Four states — Define, Design, Build, Ship. The fill is a width transition, the dots scale, and the disabled state at each end is real rather than decorative: Back is actually disabled on the first step. The label is announced to assistive technology on every change.</p>
+    </section>
+
+  </div>
+</section>
+</div>
+</main>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__base">
+      <p class="t-label">Arushi Prasad — Design leader</p>
+      <p class="t-label t-dim">Pune, India</p>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/site.js?v=8b13f207" defer></script>
+<script src="../assets/js/lab.js?v=d21cee04" defer></script>
+</body>
+</html>

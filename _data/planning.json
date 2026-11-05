@@ -1,0 +1,2943 @@
+{
+ "source": {
+  "files": [
+   "Allocation Planning.xlsx",
+   "Everybody OKRs.xlsx",
+   "Everybody OKRs1.xlsx"
+  ],
+  "sheets": [
+   "Friday session calendar",
+   "July Allocation Sheet",
+   "Org Structure",
+   "Roles",
+   "Team Allocation - OLD",
+   "Team Allocation sheet",
+   "Weekly Leave Tracker | 2024-25",
+   "OKRs",
+   "Arushi Prasad",
+   "Sheet1"
+  ],
+  "note": "Private workbooks. Names removed, leave dates reduced to a three-state signal, levelling table excluded."
+ },
+ "allocation": {
+  "fields": [
+   {
+    "col": "B",
+    "name": "Story ID"
+   },
+   {
+    "col": "C",
+    "name": "Story"
+   },
+   {
+    "col": "D",
+    "name": "Squad"
+   },
+   {
+    "col": "E",
+    "name": "Sub Squad"
+   },
+   {
+    "col": "F",
+    "name": "PM"
+   },
+   {
+    "col": "G",
+    "name": "Requirement (UX / UI / Both)"
+   },
+   {
+    "col": "H",
+    "name": "Type (New Design / Enhancements)"
+   },
+   {
+    "col": "I",
+    "name": "Complexity Level (Low / Medium / High)"
+   },
+   {
+    "col": "J",
+    "name": "Priority level (0-5)"
+   },
+   {
+    "col": "K",
+    "name": "Start Date DD/MM/YY"
+   },
+   {
+    "col": "L",
+    "name": "Target Design Delivery (DD/MM/YY)"
+   },
+   {
+    "col": "M",
+    "name": "Target Go-live Sprint Cycle"
+   },
+   {
+    "col": "N",
+    "name": "UX Designer Assigned"
+   },
+   {
+    "col": "O",
+    "name": "UI Designer Assigned"
+   },
+   {
+    "col": "U",
+    "name": "Remarks"
+   }
+  ],
+  "stages": [
+   {
+    "col": "P",
+    "name": "Discover"
+   },
+   {
+    "col": "Q",
+    "name": "UX Design"
+   },
+   {
+    "col": "R",
+    "name": "UI Design"
+   },
+   {
+    "col": "S",
+    "name": "Tech handoff"
+   },
+   {
+    "col": "T",
+    "name": "Pre-Production Review & Fixes"
+   }
+  ],
+  "vocab": {
+   "squad": [
+    "DRx",
+    "HRx",
+    "Wellness"
+   ],
+   "sub squad": [
+    "Lab",
+    "Hospital",
+    "HealthPay",
+    "PMS",
+    "EMR",
+    "Abha",
+    "Others"
+   ],
+   "complexity": [
+    "High",
+    "Medium",
+    "Low"
+   ],
+   "priority": [
+    "P0",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5"
+   ],
+   "requirement": [
+    "UX",
+    "UI",
+    "UX&UI",
+    "UX Writing",
+    "Protytype",
+    "Presenation",
+    "Illustration",
+    "Video",
+    "Animation",
+    "Research",
+    "UT"
+   ],
+   "category": [
+    "Epic",
+    "Story"
+   ],
+   "type": [
+    "New",
+    "Enhancement",
+    "Workshop",
+    "Other"
+   ],
+   "design stage status": [
+    "To do",
+    "InProgress",
+    "Done",
+    "Delayed",
+    "Hold",
+    "Reopened"
+   ]
+  },
+  "exemplar": {
+   "fields": [
+    {
+     "name": "Story ID",
+     "value": "176215"
+    },
+    {
+     "name": "Story",
+     "value": "Promotional Push Notifications and In-app User Journey tutorial for CY app"
+    },
+    {
+     "name": "Squad",
+     "value": "HRx"
+    },
+    {
+     "name": "Sub Squad",
+     "value": "PMS"
+    },
+    {
+     "name": "PM",
+     "value": ""
+    },
+    {
+     "name": "Requirement (UX / UI / Both)",
+     "value": "UX"
+    },
+    {
+     "name": "Type (New Design / Enhancements)",
+     "value": "Enhancement"
+    },
+    {
+     "name": "Complexity Level (Low / Medium / High)",
+     "value": "Medium"
+    },
+    {
+     "name": "Priority level (0-5)",
+     "value": "P0"
+    },
+    {
+     "name": "Start Date DD/MM/YY",
+     "value": "6 Jun 2024"
+    },
+    {
+     "name": "Target Design Delivery (DD/MM/YY)",
+     "value": "20 Jun 2024"
+    },
+    {
+     "name": "Target Go-live Sprint Cycle",
+     "value": "6D"
+    },
+    {
+     "name": "UX Designer Assigned",
+     "value": "UX 02"
+    },
+    {
+     "name": "UI Designer Assigned",
+     "value": "UI 04"
+    },
+    {
+     "name": "Remarks",
+     "value": ""
+    }
+   ],
+   "stages": [
+    {
+     "name": "Discover",
+     "value": "6 Aug 2024"
+    },
+    {
+     "name": "UX Design",
+     "value": "InProgress"
+    },
+    {
+     "name": "UI Design",
+     "value": "To do"
+    },
+    {
+     "name": "Tech handoff",
+     "value": ""
+    },
+    {
+     "name": "Pre-Production Review & Fixes",
+     "value": ""
+    }
+   ]
+  },
+  "july_fields": [
+   "UX Designers",
+   "Designer",
+   "Squad",
+   "Story no",
+   "Description",
+   "PM",
+   "Status",
+   "Start Date",
+   "End Date"
+  ],
+  "records": [
+   {
+    "n": 1,
+    "story_id": "",
+    "pm": "PM 01",
+    "owner": "UX 01",
+    "discipline": "UX&UI Lead",
+    "squad": "Wellness",
+    "story": "Program Architecture",
+    "status": "In progress",
+    "start": "3 Jun 2024",
+    "target": "-",
+    "start_iso": "2024-06-03",
+    "target_iso": ""
+   },
+   {
+    "n": 2,
+    "story_id": "",
+    "pm": "PM 02",
+    "owner": "UX 01",
+    "discipline": "UX&UI Lead",
+    "squad": "Wellness",
+    "story": "Smart Reports Enhacements",
+    "status": "UI closed",
+    "start": "24 Jun 2024",
+    "target": "4 Jul 2024",
+    "start_iso": "2024-06-24",
+    "target_iso": "2024-07-04"
+   },
+   {
+    "n": 3,
+    "story_id": "",
+    "pm": "PM 03",
+    "owner": "UX 01",
+    "discipline": "UX&UI Lead",
+    "squad": "Wellness",
+    "story": "Help and Support",
+    "status": "In progress",
+    "start": "26 Jun 2024",
+    "target": "4 Jul 2024",
+    "start_iso": "2024-06-26",
+    "target_iso": "2024-07-04"
+   },
+   {
+    "n": 4,
+    "story_id": "",
+    "pm": "PM 04",
+    "owner": "UX 01",
+    "discipline": "UX&UI Lead",
+    "squad": "Wellness",
+    "story": "Diabetes",
+    "status": "To Pick",
+    "start": "-",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 5,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 02",
+    "discipline": "UX Designer",
+    "squad": "Vidal",
+    "story": "Claims section update for vidal",
+    "status": "In progress",
+    "start": "4 Jul 2024",
+    "target": "5 Jul 2024",
+    "start_iso": "2024-07-04",
+    "target_iso": "2024-07-05"
+   },
+   {
+    "n": 6,
+    "story_id": "",
+    "pm": "PM 05",
+    "owner": "UX 02",
+    "discipline": "UX Designer",
+    "squad": "Vidal",
+    "story": "Recamp-Syncing App and portal designs. enhancement",
+    "status": "yet to begin",
+    "start": "12 Jul 2024",
+    "target": "-",
+    "start_iso": "2024-07-12",
+    "target_iso": ""
+   },
+   {
+    "n": 7,
+    "story_id": "",
+    "pm": "PM 06",
+    "owner": "UX 02",
+    "discipline": "UX Designer",
+    "squad": "Vidal",
+    "story": "International Vidal portal designs",
+    "status": "Waiting for approval",
+    "start": "13 Jun 2024",
+    "target": "4 Jul 2024",
+    "start_iso": "2024-06-13",
+    "target_iso": "2024-07-04"
+   },
+   {
+    "n": 8,
+    "story_id": "",
+    "pm": "PM 07",
+    "owner": "UX 02",
+    "discipline": "UX Designer",
+    "squad": "Drx",
+    "story": "Canva for doctors flow",
+    "status": "UX in progress",
+    "start": "1 Jul 2024",
+    "target": "-",
+    "start_iso": "2024-07-01",
+    "target_iso": ""
+   },
+   {
+    "n": 9,
+    "story_id": "",
+    "pm": "PM 08",
+    "owner": "UX 02",
+    "discipline": "UX Designer",
+    "squad": "Drx",
+    "story": "Lab integration; package recommendations",
+    "status": "UX In progress",
+    "start": "28 Jun 2024",
+    "target": "6 Jul 2024",
+    "start_iso": "2024-06-28",
+    "target_iso": "2024-07-06"
+   },
+   {
+    "n": 10,
+    "story_id": "",
+    "pm": "PM 04",
+    "owner": "UX 03",
+    "discipline": "UX Designer",
+    "squad": "SFDC",
+    "story": "Diabetes Plan Calculator",
+    "status": "In progress",
+    "start": "4th July 2024",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 11,
+    "story_id": "",
+    "pm": "PM 09",
+    "owner": "UX 03",
+    "discipline": "UX Designer",
+    "squad": "DRx",
+    "story": "ABHA Self listing journey",
+    "status": "In progress",
+    "start": "-",
+    "target": "5th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 12,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 03",
+    "discipline": "UX Designer",
+    "squad": "Design DRx",
+    "story": "Collating all DRx designs into a single common file",
+    "status": "In progress",
+    "start": "-",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 13,
+    "story_id": "",
+    "pm": "PM 10",
+    "owner": "UX 04",
+    "discipline": "UX Designer",
+    "squad": "Labs",
+    "story": "Age based Health risk prediction feature",
+    "status": "UX Approved",
+    "start": "-",
+    "target": "4 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-04"
+   },
+   {
+    "n": 14,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 04",
+    "discipline": "UX Designer",
+    "squad": "DLS",
+    "story": "Stepper enhancements",
+    "status": "To be picked",
+    "start": "-",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 15,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 04",
+    "discipline": "UX Designer",
+    "squad": "Labs",
+    "story": "Health timeline documentation case study",
+    "status": "To be picked",
+    "start": "-",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 16,
+    "story_id": "",
+    "pm": "PM 11",
+    "owner": "UX 05",
+    "discipline": "UX Designer",
+    "squad": "Utilisation",
+    "story": "My Claims Module",
+    "status": "In Review",
+    "start": "3rd July 2024",
+    "target": "5th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 17,
+    "story_id": "",
+    "pm": "PM 11",
+    "owner": "UX 05",
+    "discipline": "UX Designer",
+    "squad": "Utilisation",
+    "story": "Camera upload guidelines",
+    "status": "Yet to Pick",
+    "start": "3rd July 2024",
+    "target": "5th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 18,
+    "story_id": "",
+    "pm": "PM 11",
+    "owner": "UX 05",
+    "discipline": "UX Designer",
+    "squad": "Utilisation",
+    "story": "Document submission guidlines walkthrough",
+    "status": "Yet to Pick",
+    "start": "3rd July 2024",
+    "target": "5th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 19,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 05",
+    "discipline": "UX Designer",
+    "squad": "DLS",
+    "story": "Product Listing Template DWEB",
+    "status": "In progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 20,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 05",
+    "discipline": "UX Designer",
+    "squad": "DLS",
+    "story": "Seamless Payments Template",
+    "status": "Dweb In Progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 21,
+    "story_id": "",
+    "pm": "PM 10",
+    "owner": "Designer 01",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "Redesign Provider Listing Page",
+    "status": "In Progress",
+    "start": "3rd July 2024",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 22,
+    "story_id": "",
+    "pm": "PM 01",
+    "owner": "Designer 01",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "ABHA Login",
+    "status": "In Progress",
+    "start": "4th July 2024",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 23,
+    "story_id": "",
+    "pm": "PM 12",
+    "owner": "UI 01",
+    "discipline": "UI Designer",
+    "squad": "Utilisation",
+    "story": "Partner Switch",
+    "status": "In Progress",
+    "start": "3rd July 2024",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 24,
+    "story_id": "",
+    "pm": "PM 12",
+    "owner": "UI 01",
+    "discipline": "UI Designer",
+    "squad": "Utilisation",
+    "story": "Tele MER",
+    "status": "In Progress",
+    "start": "3rd July 2024",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 25,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 01",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Empty States Template",
+    "status": "Yet to Pick",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 26,
+    "story_id": "",
+    "pm": "PM 02",
+    "owner": "UX 06",
+    "discipline": "UX Designer",
+    "squad": "Wellness",
+    "story": "CGM Health Monitoring Journey",
+    "status": "In Progress",
+    "start": "25th June 2024",
+    "target": "6th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 27,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 06",
+    "discipline": "UX Designer",
+    "squad": "Wellness",
+    "story": "Diabetes Programme | Personalized Task List",
+    "status": "Yet to Pick",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 28,
+    "story_id": "",
+    "pm": "PM 13",
+    "owner": "Designer 02",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "Simplify and enhance the flow for Help and Support page",
+    "status": "In progress",
+    "start": "20th June 2024",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 29,
+    "story_id": "",
+    "pm": "PM 14",
+    "owner": "Designer 02",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "Refining the Labs Provider page",
+    "status": "In progress",
+    "start": "4th July 2024",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 30,
+    "story_id": "",
+    "pm": "PM 15",
+    "owner": "UX 07",
+    "discipline": "UX Designer",
+    "squad": "Drx",
+    "story": "Lab Transaction History",
+    "status": "In Progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 31,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 07",
+    "discipline": "UX Designer",
+    "squad": "DLS",
+    "story": "Landing Page",
+    "status": "In Progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 32,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 07",
+    "discipline": "UX Designer",
+    "squad": "DLS",
+    "story": "Listing Page- D-Web",
+    "status": "In Progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 33,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 07",
+    "discipline": "UX Designer",
+    "squad": "Deck",
+    "story": "UX Writing- product deck",
+    "status": "In Progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 34,
+    "story_id": "262227",
+    "pm": "PM 14",
+    "owner": "Designer 03",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "Labs DIY Rebooking Journey ( Mweb + Dweb)",
+    "status": "Completed",
+    "start": "",
+    "target": "7 Feb 2024",
+    "start_iso": "",
+    "target_iso": "2024-02-07"
+   },
+   {
+    "n": 35,
+    "story_id": "270601",
+    "pm": "PM 14",
+    "owner": "Designer 03",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "Labs DIY- Rx upload flow",
+    "status": "In Progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 36,
+    "story_id": "248810",
+    "pm": "PM 16",
+    "owner": "Designer 03",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "Post booking page Revamp+ Scenarios( Offline & Online )",
+    "status": "In Progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 37,
+    "story_id": "263860",
+    "pm": "PM 16",
+    "owner": "Designer 03",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "Labs -Cancellation flow",
+    "status": "In Progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 38,
+    "story_id": "266387",
+    "pm": "PM 16",
+    "owner": "Designer 03",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "Confirmation TAT",
+    "status": "Completed",
+    "start": "",
+    "target": "7 Jan 2024",
+    "start_iso": "",
+    "target_iso": "2024-01-07"
+   },
+   {
+    "n": 39,
+    "story_id": "",
+    "pm": "PM 16",
+    "owner": "Designer 03",
+    "discipline": "",
+    "squad": "Labs",
+    "story": "Order Modification",
+    "status": "In Progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 40,
+    "story_id": "",
+    "pm": "",
+    "owner": "Designer 03",
+    "discipline": "",
+    "squad": "DLS",
+    "story": "Booking details page",
+    "status": "UI is pending",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 41,
+    "story_id": "269496",
+    "pm": "PM 17",
+    "owner": "Designer 03",
+    "discipline": "",
+    "squad": "SG",
+    "story": "SG Design: Chatbot UI for customer facing bot",
+    "status": "In Review",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 42,
+    "story_id": "265600",
+    "pm": "PM 18",
+    "owner": "Designer 03",
+    "discipline": "",
+    "squad": "SG",
+    "story": "Chatbot backend POC design",
+    "status": "In Review",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 43,
+    "story_id": "",
+    "pm": "PM 04",
+    "owner": "UX 08",
+    "discipline": "UX Designer",
+    "squad": "Wellness",
+    "story": "Program Architecture Entry Points",
+    "status": "UX closed",
+    "start": "21 Jun 2024",
+    "target": "4 Jul 2024",
+    "start_iso": "2024-06-21",
+    "target_iso": "2024-07-04"
+   },
+   {
+    "n": 44,
+    "story_id": "",
+    "pm": "PM 19",
+    "owner": "UX 08",
+    "discipline": "UX Designer",
+    "squad": "Wellness",
+    "story": "Diabetes Doctor Report",
+    "status": "In progress",
+    "start": "1 Jun 2024",
+    "target": "6 Jul 2024",
+    "start_iso": "2024-06-01",
+    "target_iso": "2024-07-06"
+   },
+   {
+    "n": 45,
+    "story_id": "",
+    "pm": "PM 20",
+    "owner": "UX 08",
+    "discipline": "UX Designer",
+    "squad": "Wellness",
+    "story": "Diet and Nutrition",
+    "status": "UX closed",
+    "start": "3 Jul 2024",
+    "target": "4 Jul 2024",
+    "start_iso": "2024-07-03",
+    "target_iso": "2024-07-04"
+   },
+   {
+    "n": 46,
+    "story_id": "",
+    "pm": "PM 21",
+    "owner": "UX 08",
+    "discipline": "UX Designer",
+    "squad": "Wellness",
+    "story": "Activity Tracker",
+    "status": "To pick",
+    "start": "-",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 47,
+    "story_id": "",
+    "pm": "",
+    "owner": "UX 08",
+    "discipline": "UX Designer",
+    "squad": "DLS",
+    "story": "Breadcrumbs",
+    "status": "In documentation",
+    "start": "24 Jun 2024",
+    "target": "-",
+    "start_iso": "2024-06-24",
+    "target_iso": ""
+   },
+   {
+    "n": 48,
+    "story_id": "",
+    "pm": "PM 22",
+    "owner": "Designer 04",
+    "discipline": "",
+    "squad": "Wellness",
+    "story": "Activity Tracker PWA",
+    "status": "In progress",
+    "start": "",
+    "target": "6th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 49,
+    "story_id": "",
+    "pm": "",
+    "owner": "Designer 04",
+    "discipline": "",
+    "squad": "Wellness",
+    "story": "Weight Management",
+    "status": "",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 50,
+    "story_id": "",
+    "pm": "PM 09",
+    "owner": "UI 02",
+    "discipline": "UI Designer",
+    "squad": "Drx",
+    "story": "Adhaar Based Patient Registration | ABHA Compliance",
+    "status": "Yet to Pick",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 51,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 02",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Documentation of Location search Dweb",
+    "status": "In progress",
+    "start": "",
+    "target": "5th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 52,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 02",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Sliders",
+    "status": "In Progress",
+    "start": "",
+    "target": "5th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 53,
+    "story_id": "",
+    "pm": "PM 04",
+    "owner": "UI 03",
+    "discipline": "UI Designer",
+    "squad": "Wellness",
+    "story": "Diabtes Care Program",
+    "status": "In progress",
+    "start": "",
+    "target": "4 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-04"
+   },
+   {
+    "n": 54,
+    "story_id": "",
+    "pm": "PM 21",
+    "owner": "UI 03",
+    "discipline": "UI Designer",
+    "squad": "Wellness",
+    "story": "Milestone Cards",
+    "status": "In Progress",
+    "start": "",
+    "target": "5 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-05"
+   },
+   {
+    "n": 55,
+    "story_id": "",
+    "pm": "PM 21",
+    "owner": "UI 03",
+    "discipline": "UI Designer",
+    "squad": "Wellness",
+    "story": "Cluster Jump edge jump",
+    "status": "Yet to pick",
+    "start": "",
+    "target": "5 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-05"
+   },
+   {
+    "n": 56,
+    "story_id": "",
+    "pm": "PM 21",
+    "owner": "UI 03",
+    "discipline": "UI Designer",
+    "squad": "Wellness",
+    "story": "EBC UI enhancements",
+    "status": "Yet to pick",
+    "start": "",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 57,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 03",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Date & Time Picker",
+    "status": "In Progress",
+    "start": "",
+    "target": "8 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-08"
+   },
+   {
+    "n": 58,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 03",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Date & Slot selection - Template",
+    "status": "Yet to pick",
+    "start": "",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 59,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 03",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Wellness landing pages - template",
+    "status": "On Hold",
+    "start": "",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 60,
+    "story_id": "",
+    "pm": "PM 10",
+    "owner": "UI 04",
+    "discipline": "UI Designer",
+    "squad": "Labs",
+    "story": "Age based health risk prediction",
+    "status": "In progress",
+    "start": "4th July 2024",
+    "target": "15th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 61,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 04",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Progress Bar",
+    "status": "In progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 62,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 04",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Document Upload",
+    "status": "In progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 63,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 04",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Dividers",
+    "status": "In progress",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 64,
+    "story_id": "",
+    "pm": "PM 23",
+    "owner": "UI 05",
+    "discipline": "UI Designer",
+    "squad": "HealthPay",
+    "story": "Skip and Pay to be included in Timeline view",
+    "status": "In Progress",
+    "start": "",
+    "target": "5 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-05"
+   },
+   {
+    "n": 65,
+    "story_id": "",
+    "pm": "PM 24",
+    "owner": "UI 05",
+    "discipline": "UI Designer",
+    "squad": "DRx",
+    "story": "WhatsApp message",
+    "status": "Completed",
+    "start": "",
+    "target": "5 Jun 2024",
+    "start_iso": "",
+    "target_iso": "2024-06-05"
+   },
+   {
+    "n": 66,
+    "story_id": "",
+    "pm": "PM 23",
+    "owner": "UI 05",
+    "discipline": "UI Designer",
+    "squad": "HealthPay",
+    "story": "HealthPay Plus journey handling if plan is expired",
+    "status": "In Progress",
+    "start": "",
+    "target": "8 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-08"
+   },
+   {
+    "n": 67,
+    "story_id": "",
+    "pm": "PM 23",
+    "owner": "UI 05",
+    "discipline": "UI Designer",
+    "squad": "HealthPay",
+    "story": "Co-pay negative amount handling scenario",
+    "status": "Yet to Pick",
+    "start": "",
+    "target": "8 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-08"
+   },
+   {
+    "n": 68,
+    "story_id": "",
+    "pm": "PM 23",
+    "owner": "UI 05",
+    "discipline": "UI Designer",
+    "squad": "HealthPay",
+    "story": "CO-pay drawer standardized across journey",
+    "status": "In progress",
+    "start": "",
+    "target": "5 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-05"
+   },
+   {
+    "n": 69,
+    "story_id": "",
+    "pm": "PM 23",
+    "owner": "UI 05",
+    "discipline": "UI Designer",
+    "squad": "HealthPay",
+    "story": "Display txn id and claim id in timeline view page",
+    "status": "Yet to pick",
+    "start": "",
+    "target": "8 Jul 2024",
+    "start_iso": "",
+    "target_iso": "2024-07-08"
+   },
+   {
+    "n": 70,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 05",
+    "discipline": "UI Designer",
+    "squad": "HealthPay",
+    "story": "Pay directly at network provider location journey on App",
+    "status": "",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 71,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 05",
+    "discipline": "UI Designer",
+    "squad": "HealthPay",
+    "story": "Display txn id and claim id in timeline view page",
+    "status": "",
+    "start": "",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 72,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 05",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Checkbox & Radio Button, Graphs UI, Profile Switcher",
+    "status": "Yet to pick",
+    "start": "",
+    "target": "-",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 73,
+    "story_id": "",
+    "pm": "PM 07",
+    "owner": "UI 06",
+    "discipline": "UI Designer",
+    "squad": "DRx",
+    "story": "Homepage",
+    "status": "Approved. Scenarios IP",
+    "start": "1st July 2024",
+    "target": "8th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 74,
+    "story_id": "",
+    "pm": "PM 25",
+    "owner": "UI 06",
+    "discipline": "UI Designer",
+    "squad": "DRx",
+    "story": "Dental Chart",
+    "status": "In Progress",
+    "start": "4th July 2024",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 75,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 06",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Loaders",
+    "status": "In Progress",
+    "start": "21st June 2024",
+    "target": "9th July 2024",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 76,
+    "story_id": "",
+    "pm": "",
+    "owner": "UI 06",
+    "discipline": "UI Designer",
+    "squad": "DLS",
+    "story": "Product Detail Template",
+    "status": "On Hold",
+    "start": "1st June 2024",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   },
+   {
+    "n": 77,
+    "story_id": "",
+    "pm": "PM 26",
+    "owner": "UI 06",
+    "discipline": "UI Designer",
+    "squad": "Wellness",
+    "story": "Deck",
+    "status": "On Hold",
+    "start": "1st July 2024",
+    "target": "",
+    "start_iso": "",
+    "target_iso": ""
+   }
+  ],
+  "pm_count": 26
+ },
+ "availability": {
+  "months": [
+   "Apr",
+   "Apr",
+   "Apr",
+   "Apr",
+   "Apr",
+   "May",
+   "May",
+   "May",
+   "May",
+   "May",
+   "Jun",
+   "Jun",
+   "Jun",
+   "Jun",
+   "Jul",
+   "Jul",
+   "Jul",
+   "Jul",
+   "Aug",
+   "Aug",
+   "Aug",
+   "Aug",
+   "Sep",
+   "Sep",
+   "Sep",
+   "Sep",
+   "Oct",
+   "Oct",
+   "Oct",
+   "Oct",
+   "Nov",
+   "Nov",
+   "Nov",
+   "Nov",
+   "Dec",
+   "Dec",
+   "Dec",
+   "Dec"
+  ],
+  "weeks": [
+   "Week 1",
+   "Week 2",
+   "Week 3",
+   "Week 4",
+   "Week 5",
+   "Week 1",
+   "Week 2",
+   "Week 3",
+   "Week 4",
+   "Week 5",
+   "Week 1",
+   "Week 2",
+   "Week 3",
+   "Week 4",
+   "Week 1",
+   "Week 2",
+   "Week 3",
+   "Week 4",
+   "Week 1",
+   "Week 2",
+   "Week 3",
+   "Week 4",
+   "Week 1",
+   "Week 2",
+   "Week 3",
+   "Week 4",
+   "Week 1",
+   "Week 2",
+   "Week 3",
+   "Week 4",
+   "Week 1",
+   "Week 2",
+   "Week 3",
+   "Week 4",
+   "Week 1",
+   "Week 2",
+   "Week 3",
+   "Week 4"
+  ],
+  "rows": [
+   {
+    "res": "ME",
+    "self": true,
+    "squad": "Horizontal",
+    "cells": [
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "leave",
+     "leave",
+     "leave",
+     "available",
+     "available",
+     "available",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UI 02",
+    "self": false,
+    "squad": "UI",
+    "cells": [
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "leave",
+     "leave",
+     "leave",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UI 04",
+    "self": false,
+    "squad": "UI",
+    "cells": [
+     "available",
+     "leave",
+     "leave",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "leave",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UI 03",
+    "self": false,
+    "squad": "UI",
+    "cells": [
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "leave",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 05",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "partial",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "partial",
+     "available",
+     "leave",
+     "leave",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UI 01",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "partial",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UI 05",
+    "self": false,
+    "squad": "Intern",
+    "cells": [
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "leave",
+     "leave",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UI 06",
+    "self": false,
+    "squad": "UI",
+    "cells": [
+     "available",
+     "available",
+     "available",
+     "leave",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 01",
+    "self": false,
+    "squad": "Wellness",
+    "cells": [
+     "available",
+     "partial",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "partial",
+     "available",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 06",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "available",
+     "available",
+     "partial",
+     "available",
+     "partial",
+     "leave",
+     "",
+     "",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "partial",
+     "",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 08",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "partial",
+     "partial",
+     "available",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "Designer 04",
+    "self": false,
+    "squad": "UX/UI",
+    "cells": [
+     "partial",
+     "partial",
+     "partial",
+     "partial",
+     "partial",
+     "partial",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "partial",
+     "",
+     "available",
+     "available",
+     "available",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 10",
+    "self": false,
+    "squad": "Labs",
+    "cells": [
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "leave",
+     "available",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 04",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "leave",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "partial",
+     "partial",
+     "available",
+     "available",
+     "leave",
+     "available",
+     "available",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "Designer 03",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "partial",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 09",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "partial",
+     "available",
+     "partial",
+     "partial",
+     "partial",
+     "partial",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 11",
+    "self": false,
+    "squad": "Drx & B2C",
+    "cells": [
+     "available",
+     "available",
+     "available",
+     "partial",
+     "partial",
+     "available",
+     "partial",
+     "partial",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 02",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 03",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   {
+    "res": "UX 07",
+    "self": false,
+    "squad": "UX",
+    "cells": [
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "available",
+     "available",
+     "partial",
+     "available",
+     "available",
+     "available",
+     "",
+     "partial",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  ],
+  "tally": {
+   "available": 222,
+   "leave": 19,
+   "partial": 83,
+   "": 436
+  },
+  "span": "Apr 2024 - Dec 2024"
+ },
+ "okr": {
+  "a": {
+   "label": "Framework as first written",
+   "source": "Everybody OKRs.xlsx / OKRs",
+   "themes": [
+    {
+     "col": "B",
+     "name": "Design System Implementation - 5X",
+     "blurb": "Building a centralized library of standardized design elements, patterns, and guidelines that would be used to create consistent and cohesive look & feel and interaction patterns across different products & platforms",
+     "tracks": [
+      {
+       "col": "B",
+       "name": "Building",
+       "blurb": "Participate in building, reviews, testing, documentation and handoff to tech"
+      },
+      {
+       "col": "C",
+       "name": "Implementation",
+       "blurb": "Roll out the design system, encourage designers to practice precisely, and collaborate with stakeholders for adoption across the organization"
+      },
+      {
+       "col": "D",
+       "name": "Maintenance",
+       "blurb": "Routine maintenance and governance that includes validation and identifying missing use-cases."
+      }
+     ]
+    },
+    {
+     "col": "E",
+     "name": "5X Transformation of Critical Journeys",
+     "blurb": "Elevate user experience across products. This would involve a substantial enhancement of the user journey to make a larger impact on business and user satisfaction.",
+     "tracks": [
+      {
+       "col": "E",
+       "name": "Design strategy & direction",
+       "blurb": "based on UT results, expert reviews, system data or new research insights"
+      },
+      {
+       "col": "F",
+       "name": "Design revamp",
+       "blurb": "Participate in reimagining the existing journey"
+      },
+      {
+       "col": "G",
+       "name": "Design impact",
+       "blurb": "CSAT / SUS etc. (UT)"
+      }
+     ]
+    },
+    {
+     "col": "H",
+     "name": "Streamlining Design Processes & Tools",
+     "blurb": "Establish standardized design processes (UCD), workflows, tools, and methods that would allow the entire team to work cohesively",
+     "tracks": [
+      {
+       "col": "H",
+       "name": "Standardizing the way of working",
+       "blurb": "Process, methods, and tools"
+      },
+      {
+       "col": "I",
+       "name": "Design Kit  & Repository",
+       "blurb": "Templates, research data, design inspirations, artefacts, etc."
+      }
+     ]
+    },
+    {
+     "col": "J",
+     "name": "Delivery Excellence",
+     "blurb": "This involves project management, resource allocation, stakeholder management & collaboration, design excellence, leadership, and quality assurance.",
+     "tracks": [
+      {
+       "col": "J",
+       "name": "Design Quality -Reviews, check points and achieving quality scoring",
+       "blurb": ""
+      },
+      {
+       "col": "K",
+       "name": "Innovation",
+       "blurb": "Exploration of the alternate solution / way of working (leverage AI in design )"
+      },
+      {
+       "col": "L",
+       "name": "Timelines",
+       "blurb": "Meeting commitment of delivery schedule"
+      },
+      {
+       "col": "M",
+       "name": "Management- Oversee the execution plan, estimation, effective allocation & utilization",
+       "blurb": ""
+      }
+     ]
+    },
+    {
+     "col": "N",
+     "name": "Building and Nurturing High-Performance Team",
+     "blurb": "Foster a collaborative work environment, driving team growth, encourge participation, including setting goals, trainings, performance metrics.",
+     "tracks": [
+      {
+       "col": "N",
+       "name": "Self Growth",
+       "blurb": "Completing assigned trainings & certifications."
+      },
+      {
+       "col": "O",
+       "name": "Talent Building",
+       "blurb": "Organize plan for trainings, mentoring & coaching"
+      },
+      {
+       "col": "P",
+       "name": "Team Engagement",
+       "blurb": ""
+      },
+      {
+       "col": "Q",
+       "name": "Talent Hiring",
+       "blurb": "Participate in planning, forecasting, and evaluation"
+      }
+     ]
+    }
+   ],
+   "cascade": [
+    {
+     "who": "Design lead",
+     "self": false,
+     "lead": true,
+     "entries": {
+      "B": "Driving the plan, design, reviews, and documentation, including collaborating with tech team for implementation to successfully transform the user experience with consistent UI & interaction across all products. Q1 - Key Result 1 - Design completion of phases 1, 2 & 3 components, including documentation and handoff to Tech team Key Result 2 - About 50% design completion of page-level templates. Key Result 3 - Get the design team started using the phase 1 & 2 components across the HRx & B2C products Q2 - Key Result 1 - Collaborate tech team to support phase 1 & 2 components implementation in production. Key Result 2 - Design completion of all templates of phase 3 Key Result 3 - Design completion of Phase 4 ( revision of components for missing use cases, including use cases for DRx product's journeys ) Q3 - Key Result 1 - Collaborate tech team to support phase 3 & 4 components implementation in production. Key Result 2 - Design completion of phase 5 (Revision of HRx components & templates + creation of DRx templates) Q4 - Key Result 1 - Collaborate with tech team to support all design system phases and templates implementation in production. Key Result 2 -",
+      "E": "Driving the initiative that includes stakeholder buy-in, supporting the team on strategy, planning, solutioning, reviews, and setting directions to show an impact by design. Will target at least 4 major journeys for the 5X transformation for this year 2024-25 Q1 - Key Result 1 - Lab journey: Design strategy & directions with solution concepts and prototyping. Key Result 2 - Identify 3-4 additional journeys that require 5X transformation which would significantly enhance user experience by the end of Q4 Q2 - Key Result 1 - Lab journey: Detailed Design for both UX & UI Key Result 2 - Initiate 2-3 more 5X of Journeys (to be identified): Design strategy & directions with solution concepts and prototyping. Q3 - Key Result 1 - Lab journey: achieving UX success score - SUS - #% or CSAT #% Key Result 2 - 5X journeys (to be identified): Detailed Design for both UX & UI. Q4 - Key Result 1 - 5X journeys: Show UX success - SUS - #% or CSAT #% Key Result 2 - 5X journeys (to be identified): Detailed Design for both UX & UI.",
+      "H": "Driving the initiative to set the processes and methods for design and project management and building a repository of reusable assets to make the design operations efficient. Q1 - Key Result 1 - Prepare a first cut of the customizable design process with a bare minimum step, in line with a user-centric approach with key deliverables Key Result 2 - Introduce a central repository for knowledge storage. Q2 - Key Result 1 - Finalize the design process with defined guidelines and structure. Conduct 2-3 design process sessions Key Result 2 - Have all the templates, references, and reusable assets (data / images / icons / references, reports, guidelines) published on central repository for access by the team Q3 - Key Result 1 - to be identified Key Result 2 - to be identified Q4 - Key Result 1 - to be identified Key Result 2 - to be identified",
+      "J": "Carry out the design reviews regularly with all squads and provide suitable design direction so that they adhere to design standards Q1 - Key Result 1 - Improve design quality and consistency - Conduct design reviews to help the team with design decisions and direction to enhance the overall quality of designs. Key Result 2 - Fullfilment of demand > Visiblity of product roadmap for capacity planning, efficient utilization & allocation, and timely delivery Key Result 3 - Innovation through AI - Facilitate the environment (tool subscriptions, learning sessions, work opportunities) and encourage the team to start leveraging AI tools for design exploration Q2 - Key Result 1 - Meeting quality standards (evaluation criteria) > Design audits per squad to ensure that designs are in line with quality standards + success metrics Key Result 2 - Fullfilment of demand > Visiblity of product roadmap for capacity planning, efficient utilization & allocation, and timely delivery Key Result 3 - Optimize design delivery > Implement a streamlined design workflow that reduces the average design review & project completion time. Key Result 3 - Innovation through AI - Facilitate the environment (tool subscriptions, learning sessions, work opportunities) and encourage the team to start leveraging AI tools for design exploration Q3 - Key Result 1 - Key Result 2 - Q4 - Key Result 1 - Key Result 2 -",
+      "N": "Take initiatives to foster a culture of continuous learning and collaboration, enabling everyone on the design team to achieve personal and professional growth. Q1 - Key Result 1 - Drive professional growth and development - Implement a competency plan and assign courses & certifications for each team member . Key Result 2 - Mentoring & Coaching - Conduct regular one-on-one sessions with direct reportees and handhold them driving initiatives Key Result 3 - Team Enagagement - Encourage team members to conducting a sessions in a quater (design talk, team game, workshops) Key Result 3 - Team Enagagement - Establish a resource library (books, online community) Key Result 4 - Building Team - Q2 - Key Result 1 - Drive professional growth and development - Ensure 100% completion of assigned course & certifications Key Result 2 - Mentoring & Coaching - Key Result 3 - Team Enagagement - Key Result 4 - Building Team - Q3 - Key Result 1 - Key Result 2 - Q4 - Key Result 1 - Key Result 2 -"
+     },
+     "filled": 5
+    },
+    {
+     "who": "Me",
+     "self": true,
+     "lead": false,
+     "entries": {
+      "B": "Planning, Review & direction - > Completion of Milestones - Readiness of design kit in Figma",
+      "C": "Collaborate with stakeholders (Tech & product) for implementation, promote DS across squads, and enforce DS adoption - > 100% consistency of components across products",
+      "D": "Manage continuous improvements and fill gaps - > All use cases are covered"
+     },
+     "filled": 3
+    },
+    {
+     "who": "UX 01",
+     "self": false,
+     "lead": false,
+     "entries": {
+      "B": "Review & direction - > Completion of Milestones - Readiness of design kit in Figma - Build and maintain illustration and icon libraries - Build template repository for Wellness products to promote reuse",
+      "C": "Collaborate with stakeholders (Tech & product) for implementation, promote DS across squads, and enforce DS adoption - > 100% consistency of components across products",
+      "D": "Manage continuous improvements and fill gaps - > All use cases are covered",
+      "E": "Standardisation of : - - Program & Plan Architecture - Aligning and standardising wellness product journeys - AI touchpoints across the team process Usability : - Track UX metrics and improve them by usability testing and AI scoring - Test products with real users and enhance user experience basis feedback",
+      "H": "Methods and Processes : - File Hygiene and File Management on Figma Repository : - Document wellness research and processes - Inspiration library for userful articles, books, links categorised Others : - Maintain access and permission on Figma",
+      "J": "Operational : - Manage and oversee team and deliveries in the squad Team : - Keep resources utilised and engaged - Build ownership mindset in team",
+      "N": "Trainings : - Build competencies for team and development plans around it"
+     },
+     "filled": 7
+    },
+    {
+     "who": "UX 10",
+     "self": false,
+     "lead": false,
+     "entries": {
+      "B": "Review & Validation of journeys in Lab & Hospitals - > Support to meet the timelines & milestones",
+      "C": "Advocate & enforce DS adoption -> 100% consistency of components across products in Lab & Hospitals",
+      "D": "Reporting use cases / gaps / recommendations - > All use cases are covered"
+     },
+     "filled": 3
+    },
+    {
+     "who": "UX 11",
+     "self": false,
+     "lead": false,
+     "entries": {
+      "B": "Review & Validation of journeys in Lab & Hospitals - > Support to meet the timelines & milestones",
+      "C": "Advocate & enforce DS adoption -> 100% consistency of components across products in DRx squads",
+      "D": "Reporting use cases / gaps / recommendations - > All use cases are covered"
+     },
+     "filled": 3
+    },
+    {
+     "who": "UX 06",
+     "self": false,
+     "lead": false,
+     "entries": {
+      "B": "Building (List of components, assigned) - > Meet timelines with expected quality standards, and covers all major use cases",
+      "C": "DS adoption for both new & existing designs in Figma, coordinate with design team in other squads and tech team for implementation support - > Ready to use components (fully tested across all scenarios and use cases) + 100% consistency of components in assigned journeys",
+      "D": "Identify gaps and missing use cases to build new or enhance components. Address any query raised by design team or any other stakeholders - > Keeping components up-to-date. Work on at least 3 components or patterns per quarter",
+      "E": "Design Reviews - Identify the gaps",
+      "G": "Conduct usability testing Increase CSAT / SUS score by ?",
+      "J": "Deliver high-fidelity wireframes"
+     },
+     "filled": 6
+    },
+    {
+     "who": "UX 08",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UX 09",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "Designer 03",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UX 04",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UX 07",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UX 03",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UX 02",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UI 04",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UI 06",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UI 03",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UI 05",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UI 07",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UI 02",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UI 01",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    },
+    {
+     "who": "UX 05",
+     "self": false,
+     "lead": false,
+     "entries": {},
+     "filled": 0
+    }
+   ]
+  },
+  "b": {
+   "label": "Framework as later revised",
+   "source": "Everybody OKRs1.xlsx / Sheet1",
+   "themes": [
+    {
+     "col": "B",
+     "name": "Design System - 5X",
+     "blurb": "Building a centralized library of standardized design elements, patterns, and guidelines that would be used to create consistent and cohesive look & feel and interaction patterns across different products & platforms",
+     "tracks": [
+      {
+       "col": "B",
+       "name": "Building",
+       "blurb": "Participate in building, reviews, testing, documentation and handover"
+      },
+      {
+       "col": "C",
+       "name": "Implementation",
+       "blurb": "Putting into practice"
+      },
+      {
+       "col": "D",
+       "name": "Maintenance",
+       "blurb": "Routine maintenance and governance. identify gaps use cases Post development validation and correction of"
+      }
+     ]
+    },
+    {
+     "col": "E",
+     "name": "5X Transformation",
+     "blurb": "Elevate user experience across products. This would involve a substantial enhancement of the user journey to make a larger impact on business and user behaviour.",
+     "tracks": [
+      {
+       "col": "E",
+       "name": "Design strategy & direction",
+       "blurb": "based on UT results, expert reviews, system data or new research insights"
+      },
+      {
+       "col": "F",
+       "name": "Design revamp",
+       "blurb": "Participate in reimagining the existing journey"
+      },
+      {
+       "col": "G",
+       "name": "Design impact",
+       "blurb": "CSAT / SUS etc. (UT)"
+      }
+     ]
+    },
+    {
+     "col": "H",
+     "name": "Streamlining Processes & Tools",
+     "blurb": "Establish standardized design processes (UCD), workflows, tools, and methods that would allow the the entire team to work cohesively",
+     "tracks": [
+      {
+       "col": "H",
+       "name": "Standardizing the way of working",
+       "blurb": "Process, methods, and tools"
+      },
+      {
+       "col": "I",
+       "name": "Design Kit  & Repository",
+       "blurb": "Templates, research data, design inspirations, artefacts, etc."
+      }
+     ]
+    },
+    {
+     "col": "J",
+     "name": "Delivery",
+     "blurb": "This involves project management, resource allocation, stakeholder management & collaboration, design excellence, leadership, and quality assurance.",
+     "tracks": [
+      {
+       "col": "J",
+       "name": "Design Quality -Reviews, check points and achieving quality scoring",
+       "blurb": ""
+      },
+      {
+       "col": "K",
+       "name": "Timelines",
+       "blurb": "Meeting commitment of delivery schedule"
+      },
+      {
+       "col": "L",
+       "name": "Management- Oversee the execution plan, estimation, effective allocation & utilization",
+       "blurb": ""
+      }
+     ]
+    },
+    {
+     "col": "M",
+     "name": "Talent",
+     "blurb": "Foster a collaborative work environment, nurturing team growth, including setting goals, trainings, performance metrics. Also, fulfilling the required capacity by building/hiring designers.",
+     "tracks": [
+      {
+       "col": "M",
+       "name": "Self Growth",
+       "blurb": "Completing assigned trainings & certifications."
+      },
+      {
+       "col": "N",
+       "name": "Mentoring & Coaching",
+       "blurb": "provide subordinates"
+      },
+      {
+       "col": "O",
+       "name": "Participate in Learning Bites",
+       "blurb": ""
+      },
+      {
+       "col": "P",
+       "name": "Talent Hiring",
+       "blurb": "Participate in planning, forecasting, and evaluation"
+      }
+     ]
+    },
+    {
+     "col": "Q",
+     "name": "AI in Design",
+     "blurb": "",
+     "tracks": [
+      {
+       "col": "Q",
+       "name": "Direction",
+       "blurb": "Participate in exploration and identify the areas to focus"
+      },
+      {
+       "col": "R",
+       "name": "Practice",
+       "blurb": "Use AI in Design process"
+      }
+     ]
+    }
+   ]
+  },
+  "mine": {
+   "themes": [
+    {
+     "col": "B",
+     "name": "Design System Implementation - 5X"
+    },
+    {
+     "col": "D",
+     "name": "5X Transformation of Critical Journeys"
+    },
+    {
+     "col": "F",
+     "name": "Streamlining Design Processes & Tools"
+    },
+    {
+     "col": "H",
+     "name": "Delivery Excellence"
+    },
+    {
+     "col": "J",
+     "name": "Building and Nurturing High-Performance Team"
+    }
+   ],
+   "tracks": [
+    {
+     "col": "B",
+     "name": "Building & Implementation"
+    },
+    {
+     "col": "C",
+     "name": "Maintenance"
+    },
+    {
+     "col": "D",
+     "name": "Design strategy & Impact"
+    },
+    {
+     "col": "E",
+     "name": "Design revamp"
+    },
+    {
+     "col": "F",
+     "name": "Standardizing"
+    },
+    {
+     "col": "G",
+     "name": "Design Kit"
+    },
+    {
+     "col": "H",
+     "name": "Design Quality & Innovation"
+    },
+    {
+     "col": "I",
+     "name": "Timelines & Management"
+    },
+    {
+     "col": "J",
+     "name": "Self Growth"
+    },
+    {
+     "col": "K",
+     "name": "Talent Building & Engagement"
+    },
+    {
+     "col": "L",
+     "name": "Talent Hiring"
+    }
+   ],
+   "quarters": [
+    {
+     "name": "Q1 (1 Apr - 30 Jun)",
+     "items": {
+      "B": [
+       "Complete design of phases 1, 2 & 3 components, including documentation and handoff to the Tech team.",
+       "Achieve 50% design completion of page-level templates."
+      ],
+      "C": [
+       "Manage continuous improvements and fill gaps identified during the implementation in Phase1.",
+       "Ensure the design team starts using Phase 1, 2 & 3 components across HRx."
+      ],
+      "E": [
+       "Participate in reimagining the existing journey | Utlisation"
+      ],
+      "F": [
+       "Achieve 95% accuracy rate in design-to-development consistency."
+      ],
+      "H": [
+       "Encourage and support team members in leveraging AI tools for design exploration through organizing tool subscriptions and learning sessions."
+      ],
+      "I": [
+       "Team Allocation Status",
+       "Weekly Leave Tracker"
+      ],
+      "J": [
+       "Self-leadership program"
+      ],
+      "K": [
+       "Encourage team members to conduct and participate a session on Fridays (design talk, team game, workshops).",
+       "Implement a competency plan and assign courses & certifications for each team member by Q1."
+      ],
+      "L": [
+       "Participate in planning, forecasting and evaluation."
+      ]
+     }
+    },
+    {
+     "name": "Q2 (1 Jul - 30 Sep)",
+     "items": {
+      "B": [
+       "Complete all templates and identify new ones",
+       "Identify remaining elements/components in Phase4",
+       "Research on the illustration and build our own style",
+       "Start in Drx",
+       "Micro Interaction - UI 05, UI 06 under UX 01"
+      ],
+      "C": [
+       "Participate in building, reviews, testing, documentation, and handoff to tech",
+       "Review implemented Phase 1 components in UAT",
+       "Revisiting Design System Components with UX 01, UI 05 & UX 05"
+      ],
+      "D": [
+       "Hrx Homepage (Contest to be considered)"
+      ],
+      "E": [
+       "Participate in auditing the existing journey as per DLS | Utlisation",
+       "Aduiting end to end wellness journey - UI 03 and UX 01",
+       "Participate in auditing the existing journey as per DLS | Health Pay plus"
+      ],
+      "F": [
+       "Manage DevOps Designboard"
+      ],
+      "G": [
+       "Design Guard",
+       "Design Handoff"
+      ],
+      "H": [
+       "Design Quality - Reviews, checkpoints, and achieving quality scoring."
+      ],
+      "I": [
+       "Weekly Leave Tracker",
+       "Publish calendar for friday's session"
+      ],
+      "J": [
+       "Self-leadership program"
+      ],
+      "K": [
+       "Implement a competency plan and assign courses & certifications for each team member by Q1.",
+       "Encourage team members to conduct and participate a session on Fridays (design talk, team game, workshops).",
+       "Support in building the next leaders in the team who can lead."
+      ],
+      "L": [
+       "Participate in planning, forecasting and evaluation."
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "roster": {
+  "counted": 22,
+  "disciplines": [
+   "UI Designer",
+   "UI Lead",
+   "UX Designer",
+   "UX Lead",
+   "UX&UI Lead"
+  ]
+ }
+}

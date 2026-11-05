@@ -1,0 +1,373 @@
+/* ===========================================================================
+   TILES — the colourful editorial card system.
+   Page-scoped: loaded only by work/ and designops/ through the `sheets:` meta
+   key, so every other page keeps the quiet card it already had.
+
+   A tile is .card plus .card--tile. The base supplies the flex column, the
+   focus ring and the radius transition; this file supplies the colour field,
+   the ink, the slots and the shared interaction. The bespoke drawing inside
+   each tile lives in figures.css — one file is the system, the other is the
+   seven individual pieces, and neither reaches into the other except through
+   the four custom properties declared here.
+
+   A page that wants cards without drawings simply omits the figure slot and
+   does not load figures.css — the Work grid is exactly that, type on a
+   colour field, and it still takes the whole hover response below.
+
+   One deliberate exception to the token system: the seven tile colours do NOT
+   move with the Colour control. They are a fixed editorial palette, the same
+   way --hue-signal is a fixed navigation green. The page, the nav and the
+   background grid still re-tint around them; the tiles are the constant. The
+   Radius, Spacing and reduced-motion controls all still reach them, because
+   everything below is expressed in --radius-*, --step-* and --duration-*.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   1 · THE PALETTE
+   Seven grounds, one per card, no repeats. Each ink is the same hue as its
+   ground walked down in lightness — tonal, not black — and chosen by solving
+   for contrast rather than by eye: the lightest ink at which body copy set in
+   --tile-soft still clears 4.5:1. The tightest pair is cobalt at 5.31:1;
+   titles, which take the full ink, run 6.17–7.13:1.
+   ------------------------------------------------------------------------ */
+/* The seven pairs themselves now live in tokens.css: the Work list uses the
+   same grounds for its hover cards without loading this whole file, and one
+   palette with two consumers should be declared once. The contrast solved
+   for above is the contrast of those values. */
+
+/* One class sets the ground and the ink; the four derived values below come
+   with them, so no card ever carries a colour literal in its markup. */
+.t-lime     { --tile-bg:var(--t-lime-bg);      --tile-ink:var(--t-lime-ink); }
+.t-coral    { --tile-bg:var(--t-coral-bg);     --tile-ink:var(--t-coral-ink); }
+.t-pink     { --tile-bg:var(--t-pink-bg);      --tile-ink:var(--t-pink-ink); }
+.t-cobalt   { --tile-bg:var(--t-cobalt-bg);    --tile-ink:var(--t-cobalt-ink); }
+.t-turquoise{ --tile-bg:var(--t-turquoise-bg); --tile-ink:var(--t-turquoise-ink); }
+.t-lavender { --tile-bg:var(--t-lavender-bg);  --tile-ink:var(--t-lavender-ink); }
+.t-orange   { --tile-bg:var(--t-orange-bg);    --tile-ink:var(--t-orange-ink); }
+
+/* ---------------------------------------------------------------------------
+   2 · THE TILE, AND THE ONE SWITCH THAT DRIVES ITS RESPONSE
+   Hover and focus set two numbers on the card and nothing else: --tile-on,
+   which the zoom and the stacking order read, and --fig-on, which the drawing
+   reads. Two switches rather than one because a touch device raises the
+   drawing on scroll (figures.css) without the card ever being zoomed, and
+   because a tap leaves :hover stuck — a card that cannot flip --tile-on
+   cannot be left sitting zoomed after the finger has gone.
+
+   Holding the state in numbers is also what keeps the zoom in one place: the
+   distance is --tile-zoom, so reduced motion takes it to 0 and every rule
+   below carries on working against a card that simply does not move.
+   ------------------------------------------------------------------------ */
+.card--tile{
+  /* --tile-soft carries every piece of small text: the premise, the meta row,
+     the chips and the call to action. 88% is the step the palette above was
+     solved against. --tile-draw is the weight the figures draw at; --tile-line
+     is decorative only, so it sits below text contrast on purpose. */
+  --tile-soft:color-mix(in srgb, var(--tile-ink) 88%, transparent);
+  --tile-draw:color-mix(in srgb, var(--tile-ink) 70%, transparent);
+  --tile-line:color-mix(in srgb, var(--tile-ink) 45%, transparent);
+  --tile-wash:color-mix(in srgb, var(--tile-ink) 12%, transparent);
+
+  --tile-on:0;
+  --fig-on:0;
+  /* 4% — far enough to feel like the card answered, short enough that a row
+     of them does not read as a carousel. The gutter is --step-6, over three
+     times the distance a card's edge travels, so nothing ever touches. */
+  --tile-zoom:0.04;
+  /* The base card moves at --duration-base, which is the right pace for a
+     3px nudge and too quick for a zoom. */
+  --tile-zoom-dur:0.3s;
+
+  background:var(--tile-bg);
+  color:var(--tile-ink);
+  /* The ground is the edge. A border would be a second outline on a shape
+     that already has one. */
+  border-color:transparent;
+  border-radius:var(--radius-xl);
+  padding:var(--step-5);
+  gap:var(--step-3);
+  overflow:hidden;
+
+  /* Centre-anchored, so the card grows into the gutter evenly on both sides
+     rather than drifting towards one of them. */
+  transform-origin:50% 50%;
+  /* The zoom rides on `scale`, not on `transform`, and that is the whole
+     reason it works. These cards are [data-reveal] elements, and base.css
+     drives that entrance with `.js [data-reveal].is-in{ transform:none }` —
+     three classes, which no `a.card--tile:hover` rule can outrank. A zoom
+     written as a transform is therefore thrown away the moment the card
+     scrolls into view, which is exactly what had happened to the last one.
+     `scale` is its own property: the entrance keeps transform, the card
+     keeps scale, and the two compose instead of fighting. */
+  scale:calc(1 + var(--tile-on) * var(--tile-zoom));
+  /* Nothing overlaps at these gutters, but a scaled card should still pass in
+     front if a narrow column ever brings its neighbour close. */
+  z-index:calc(1 + var(--tile-on));
+  transition:border-color var(--duration-base) var(--ease-smooth),
+             background-color var(--duration-base) var(--ease-smooth),
+             scale var(--tile-zoom-dur) var(--ease-out),
+             border-radius var(--duration-slow) var(--ease-smooth);
+}
+
+/* `transition` is a single declaration, so whichever rule wins it supplies
+   the whole list — and for a revealed card that is base.css's entrance pair,
+   which knows nothing about scale and would leave the zoom to snap. The pair
+   is restated here exactly as base.css sets it, with the card's own
+   properties added: the entrance is untouched and the zoom gets its pace. */
+.js [data-reveal].card--tile{
+  transition:opacity var(--duration-enter) var(--ease-out),
+             transform var(--duration-enter) var(--ease-out),
+             scale var(--tile-zoom-dur) var(--ease-out),
+             border-color var(--duration-base) var(--ease-smooth),
+             background-color var(--duration-base) var(--ease-smooth),
+             border-radius var(--duration-slow) var(--ease-smooth);
+}
+
+/* The switch. :focus-visible flips it everywhere — a keyboard is a keyboard
+   on any device — while :hover flips it only where hovering is something a
+   pointer can actually do, which is what keeps a tap from leaving a phone
+   with one card sitting zoomed. */
+a.card--tile:focus-visible{ --tile-on:1; --fig-on:1; }
+@media (hover:hover){
+  a.card--tile:hover{ --tile-on:1; --fig-on:1; }
+}
+
+/* components.css repaints a hovered card to --surface-overlay and lifts it
+   3px. The repaint turns a coloured ground grey, and the lift is a second
+   movement competing with the zoom, so both are held here. */
+a.card--tile:hover,
+a.card--tile:focus-visible{
+  background:var(--tile-bg);
+  border-color:transparent;
+  transform:none;
+}
+
+/* Reduced motion keeps the response — the drawing still appears, the pills
+   still come up — and takes the travel out of it. */
+@media (prefers-reduced-motion:reduce){
+  .card--tile{ --tile-zoom:0; }
+}
+
+/* ---------------------------------------------------------------------------
+   3 · THE TOP ROW — index left, status right
+   ------------------------------------------------------------------------ */
+.card--tile .card__meta{
+  justify-content:space-between;
+  align-items:baseline;
+  color:var(--tile-soft);
+  gap:var(--step-4);
+}
+.tile__index{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--tile-soft);
+  font-variant-numeric:tabular-nums;
+}
+.card--tile .card__status{ color:var(--tile-soft); }
+.card--tile .card__status::before{ background:currentColor; }
+.card--tile .card__role{ color:var(--tile-soft); }
+
+/* ---------------------------------------------------------------------------
+   4 · THE TYPE
+   ------------------------------------------------------------------------ */
+.card--tile .card__body{
+  flex:0 1 auto;
+  gap:var(--step-2);
+  /* Copy at the top, everything after it bottom-aligned, so the slack in a
+     short tile collects into one band of flat colour rather than a hole. */
+  margin-bottom:auto;
+}
+.card--tile .card__name{
+  font-size:var(--text-h3);
+  font-weight:var(--weight-display);
+  letter-spacing:var(--track-display);
+  line-height:1.05;
+  color:var(--tile-ink);
+  text-wrap:balance;
+}
+.card--tile .card__premise{
+  color:var(--tile-soft);
+  font-size:var(--text-sm);
+  line-height:1.5;
+}
+
+/* ---------------------------------------------------------------------------
+   5 · THE FIGURE SLOT
+   Every tile draws something different here; figures.css owns what. This only
+   reserves the room and sets the drawing weight, so the row stays aligned
+   however different the pieces are. The room is reserved whether or not the
+   drawing is showing — figures.css keeps each one out of the resting card and
+   brings it up on hover, and the reserved slot is what stops that from moving
+   the card or its neighbours.
+   ------------------------------------------------------------------------ */
+.tile__fig{
+  display:block;
+  position:relative;
+  width:100%;
+  /* The figure scales by width, so this is what sets its height. The
+     percentage keeps it proportional inside its column; the rem ceiling stops
+     it ballooning on a card that spans a two-column tablet row. */
+  max-width:min(72%, 22rem);
+  margin-top:var(--step-3);
+  color:var(--tile-draw);
+  /* A figure must never push the card taller on hover. */
+  flex:none;
+  pointer-events:none;
+}
+/* The Work marks are the same system at a fraction of the volume: a
+   shallow 3:1 figure held to 44% of the column against the DesignOps 2:1 at
+   72%, which is a little over a quarter of the area, and figures.css damps
+   their movement to match. They are a mark on a card, not a diagram. */
+.tile__fig--mini{ max-width:min(44%, 11rem); }
+
+/* Scaled by width, not boxed to a fixed height. A fixed height letterboxes
+   the drawing inside the slot and leaves it stranded in the middle of a wide
+   card; scaling by width lets each figure fill the column it is given, and
+   the two grids simply get the same drawing at two sizes. */
+.tile__fig svg{ display:block; width:100%; height:auto; overflow:visible; }
+.tile__fig text{
+  font-family:var(--font-label);
+  /* In viewBox units. A figure held well below its column width scales this
+     down with everything else, so it is set larger than it looks here. */
+  font-size:8.5px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  fill:currentColor;
+  stroke:none;
+}
+
+/* ---------------------------------------------------------------------------
+   6 · THE PILLS
+   Outlined, never filled: a filled pill on a saturated ground reads as a
+   second surface and the tile stops being one shape.
+   ------------------------------------------------------------------------ */
+.card--tile .chips{ gap:var(--step-2); }
+.card--tile .chip{
+  border-color:var(--tile-line);
+  color:var(--tile-soft);
+  padding:var(--step-1) var(--step-3);
+}
+a.card--tile:hover .chip,
+a.card--tile:focus-visible .chip{ border-color:var(--tile-ink); color:var(--tile-ink); }
+
+/* ---------------------------------------------------------------------------
+   7 · THE CALL TO ACTION
+   A span, not a link: the whole tile is the link, and nesting one inside
+   another gives the keyboard two stops for one destination.
+   ------------------------------------------------------------------------ */
+.tile__cta{
+  display:block;
+  padding-top:var(--step-2);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  line-height:1.5;
+  color:var(--tile-soft);
+  transition:color var(--duration-base) var(--ease-smooth);
+}
+.tile__cta .ico{
+  /* base.css resets every svg to display:block, which drops the arrow onto a
+     line of its own. It belongs after the last word. */
+  display:inline-block;
+  margin-left:0.4em;
+  font-size:var(--text-label);
+  vertical-align:-0.1em;
+  transition:transform var(--duration-base) var(--ease-out);
+}
+a.card--tile:hover .tile__cta,
+a.card--tile:focus-visible .tile__cta{ color:var(--tile-ink); }
+a.card--tile:hover .tile__cta .ico,
+a.card--tile:focus-visible .tile__cta .ico{ transform:translate(3px,-3px); }
+@media (prefers-reduced-motion:reduce){
+  a.card--tile:hover .tile__cta .ico{ transform:none; }
+}
+
+/* ---------------------------------------------------------------------------
+   8 · THE NON-LINK TILE
+   One project has no case study. It keeps its colour, its figure and its
+   place in the grid, and loses the lift, the arrow and the pointer — the
+   hierarchy says what the note says rather than dressing it up as a
+   destination.
+   ------------------------------------------------------------------------ */
+.card--tile.is-static{ cursor:default; }
+.card--tile.is-static .card__premise{ max-width:46ch; }
+/* components.css carries two .note rules — a dashed, dimmed callout box and a
+   plain block of small print. Reset both, then draw the one hairline wanted. */
+.card--tile .note{
+  display:block;
+  margin:0;
+  max-width:none;
+  padding:var(--step-3) 0 0;
+  border:0;
+  border-top:var(--hair) solid var(--tile-line);
+  border-radius:0;
+  opacity:1;
+  color:var(--tile-soft);
+  font-size:var(--text-sm);
+}
+.card--tile .note span{ color:inherit; }
+
+/* ---------------------------------------------------------------------------
+   9 · THE GRIDS
+   Work is four cards, so two columns divide it cleanly and three would
+   leave an orphan. DesignOps is three, so it takes the full three-column row.
+   Both collapse through the same two breakpoints.
+   ------------------------------------------------------------------------ */
+.tile-grid{
+  display:grid;
+  gap:var(--step-6);
+  align-items:stretch;
+  /* One height for a tile, so Work and DesignOps agree instead of each
+     settling on whatever its own copy happens to wrap to. Left to themselves
+     the two pages never match: measured across 1040–1440px a DesignOps card
+     runs 389–434px and a Work card 288–362px, because one carries a
+     diagram and three pills and the other a mark and four. 27.5rem clears
+     the tallest of them, so both pages are sized by this number rather than
+     by their contents, and the slack lands where the card already collects
+     it — the band of flat colour above the pills.
+
+     minmax, not 1fr: the floor equalises every row on both pages, and `auto`
+     lets a row grow if its content ever outgrows the floor rather than
+     overflowing the card. (1fr also had a quiet bug — where a short page let
+     the grid stretch, 1fr rows absorbed the slack and the cards grew with
+     the window.) */
+  --tile-h:27.5rem;
+  grid-auto-rows:minmax(var(--tile-h), auto);
+}
+.tile-grid--2{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+.tile-grid--3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+
+@media (max-width:1040px){
+  .tile-grid--3{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  /* An odd card in a two-column row spans it rather than sitting half-empty. */
+  .tile-grid--3 > *:last-child:nth-child(odd){ grid-column:1 / -1; }
+}
+@media (max-width:760px){
+  .tile-grid--2,.tile-grid--3{ grid-template-columns:1fr; gap:var(--step-5); }
+  .tile-grid--3 > *:last-child:nth-child(odd){ grid-column:auto; }
+  .card--tile{ padding:var(--step-5); }
+  .card--tile .card__premise{ max-width:none; }
+  /* One card per row: there is no neighbour to line up with, and no second
+     page on screen to match. Holding the desktop floor here would only add
+     80-odd pixels of empty colour to every card on a phone, so the cards go
+     back to their own height and 1fr keeps them equal to each other. */
+  .tile-grid{ grid-auto-rows:1fr; }
+}
+
+/* ---------------------------------------------------------------------------
+   10 · TOUCH
+   A tap leaves :hover applied until something else is tapped. The zoom and
+   the drawing are already safe — both read switches that `hover:hover`
+   guards — but these three are set from :hover directly, and a card left
+   with its pills inked and its arrow stepped out, minutes after the finger
+   has gone, is the stuck state in miniature. Put them back.
+   ------------------------------------------------------------------------ */
+@media (hover:none){
+  /* Nothing held behind hover can ever be seen here, so the card's own
+     content switch is flipped as the card scrolls in instead. The zoom is
+     not: --tile-on stays 0, and a touch card never sits enlarged. */
+  .card--tile.is-in{ --fig-on:1; }
+
+  a.card--tile:hover .chip{ border-color:var(--tile-line); color:var(--tile-soft); }
+  a.card--tile:hover .tile__cta{ color:var(--tile-soft); }
+  a.card--tile:hover .tile__cta .ico{ transform:none; }
+}

@@ -1,0 +1,941 @@
+/* ===========================================================================
+   CASE — the case-study layout.
+   Page-scoped: loaded by any fragment with `case: yes`. It owns three things
+   and nothing else, so a Work or a Leadership case study can load it
+   unchanged:
+
+     1 · the two columns — a sticky rail and the reading column
+     2 · the rail itself — where you are, and what else is here
+     3 · the parts a case study is written out of — a stage card, a process
+         diagram, an activity index — each driven by a --stage colour the
+         page sets, never by a colour written down in here.
+
+   It sits on top of tiles.css: a stage card IS a tile, with the same zoom,
+   the same --tile-on / --fig-on switch, the same touch and reduced-motion
+   behaviour. Nothing about the interaction is re-invented here; what this
+   file adds is what the reveal contains, which is different for each kind
+   of card — a stage reveals its activities, the diagram draws its line.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   1 · THE PAGE GRID
+   Two columns — a sticky rail and the reading column — inside THE PAGE
+   CONTAINER, which is the same container the navigation and the footer are
+   in. That is the one thing this block has to get right, and the thing it
+   used to get wrong.
+
+   It used to be anchored to the left of the WINDOW instead, at a margin of
+   `clamp(--page-pad, 6vw, 7.5rem)`, with no max-width at all. The intent was
+   to keep the slack at wide widths on the right rather than splitting it in
+   two. The cost was that the page had two left edges that moved
+   independently: the rail's was a share of the viewport and the chrome's was
+   half of whatever a 76rem cap left over, so they agreed at about 1264px and
+   nowhere else. Measured, at 1440px the rail started 73.6px to the LEFT of
+   the navigation's first link; at 1280px the reading column ended 28.8px to
+   the RIGHT of the navigation's last; at 1024px the rail started 20.4px to
+   the right of it. Every one of those is the same bug, and none of it is
+   fixable by nudging the margin — a fixed margin and a centred cap are two
+   different functions of the window and will always cross.
+
+   So the block is .shell's geometry, written out of the same two tokens: the
+   rail's first pixel IS the navigation's first pixel, and the reading
+   column's last IS the footer's last, at every width, by construction.
+
+   The rail is a grid column, not a floated or absolutely-placed element, so
+   it cannot overlap the reading column at any width.
+
+   The rail item must STRETCH — the grid default, stated here because it is
+   load-bearing. A sticky box can only travel inside its parent's content
+   box, so a rail item sized to its own content (align-self:start) sticks for
+   the height of the rail and then scrolls away with the page, which is
+   exactly the "trapped in an incorrectly constrained parent" failure. Full
+   row height is what lets it stay for the whole case study.
+   ------------------------------------------------------------------------ */
+/* The rail's own numbers live at :root rather than on .case because the
+   reading measure below is derived from them and the breakpoints resize
+   them. This stylesheet is page-scoped — only a `case: yes` fragment links
+   it — so nothing outside a case study sees them. */
+:root{
+  --rail-w:17.5rem;
+  --rail-gap:var(--step-8);
+  --rail-pad:var(--step-10);
+  /* The reading measure is not a number of its own. It is whatever the page
+     container has left once the rail and the gutter between the columns are
+     taken out of it, so the reading column's last pixel lands on the
+     container's last pixel — the same pixel the footer ends on — and a
+     breakpoint that resizes the rail does not also have to be told what the
+     reading measure became. At the 1440px reference: 1200 - 280 - 40 = 880.
+     Running text is not set to this; .prose caps paragraphs at --prose-max,
+     38rem, as it does everywhere else on the site. This is the measure of
+     the things that are not running text — the plates, the exhibits, the
+     tables and the diagrams. */
+  --read-max:calc(var(--content-max) - var(--rail-w) - var(--rail-pad));
+}
+
+.case{
+  /* The rail has a width rather than being sized by max-content: it opens
+     with the project summary, and a summary cannot be set to the width of
+     the longest word in it — the rows would be a different width on every
+     case study and the metadata would set the column rather than the
+     contents. So it is one number, the same on every page, and the section
+     names ellipsis past it.
+     The type is set below the body scale on purpose: this is a legend, read
+     in glances, and legend type that matches running text competes with it. */
+  --rail-max:var(--rail-w);
+  --rail-text:0.653rem;
+  --rail-num:0.619rem;
+  /* The nav is fixed to the top of the window, so every sticky thing below
+     it and every anchor jump has to clear it. One number, read by the rail,
+     by scroll-margin and by case.js. */
+  --case-top:calc(var(--nav-height) + var(--step-5));
+
+  display:grid;
+  grid-template-columns:var(--rail-w) minmax(0, 1fr);
+  gap:0;
+
+  /* THE PAGE CONTAINER — the same three declarations as .shell, so the two
+     cannot disagree. minmax(0, 1fr) on the second column is what keeps a
+     wide figure or a long table from pushing the grid past it: the track
+     refuses to grow, and the figure scrolls or scales inside its own box. */
+  width:100%;
+  max-width:var(--shell-max);
+  margin-inline:auto;
+  padding-inline:var(--page-pad);
+}
+
+.case__rail{ align-self:stretch; padding-right:var(--rail-gap); }
+.case__rail-in{
+  position:sticky;
+  top:var(--case-top);
+  display:flex;
+  flex-direction:column;
+  gap:var(--step-6);
+  /* A rail taller than the window would strand its last items where nothing
+     can reach them. Past that height its contents scroll — the navigation
+     first, on its own, so the summary stays put while the contents move
+     under it. This outer scroll is the backstop for the case where the
+     summary alone is taller than the window. */
+  max-height:calc(100svh - var(--case-top) - var(--step-6));
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+/* The hairline between the columns is drawn by the reading column, not by
+   the rail: the rail is only as tall as its own content, so a border there
+   stops a third of the way down the page and reads as an unfinished rule. */
+.case__main{
+  min-width:0;
+  /* The reading measure for RUNNING TEXT, which is not the same thing as the
+     width of the column. The column is 980px at the 1440px reference and the
+     plates, tables and diagrams in it fill all of that; a paragraph set to
+     980px would be about 122 characters a line, roughly double what anyone
+     can track back to, so it is capped — and capped here rather than at
+     :root, because --prose-max is also read by the Leadership, Work and
+     Writing pages, which are not being changed.
+
+     46rem is 736px, about 92 characters. Wider than the 38rem the rest of
+     the site uses, on the argument that a case study is read beside a rail
+     with exhibits breaking it up rather than as one unbroken page of text,
+     and it leaves 244px of air to the right of a paragraph instead of 372.
+     Everything that is not running text still goes to the full 980.
+
+     Nothing below 1264px sees this: the column is narrower than 736px by
+     then, so the cap simply stops applying and no breakpoint is needed. */
+  --prose-max:46rem;
+  /* Capped here as well as on each section, so a figure or a table that is
+     not inside a .section cannot stretch into the space on the right and
+     break the single left-to-right rhythm the page is set to. */
+  max-width:calc(var(--read-max) + var(--rail-pad));
+  /* Not the same gap on both sides of the rule. The rail is a legend and sits
+     close to the line that ends it; the reading column is the page and starts
+     clear of it. */
+  padding-left:var(--rail-pad);
+  border-left:var(--hair) solid var(--border-default);
+}
+
+/* ---------------------------------------------------------------------------
+   1b · THE READING-PROGRESS LINE
+   A 1.5px rule across the window, sitting on the header's bottom edge
+   rather than on the top of the viewport. --nav-bar is the header's full
+   height with its border included, which is exactly the offset wanted
+   here: the line lands on the first pixel below the bar and never over
+   it. The header is sticky at top:0 and --nav-bar is one value at every
+   breakpoint, so the two stay together at any width and at any scroll
+   position without anything measuring either of them.
+
+   Still fixed and still above --z-nav. It is 1.5px of accent on the seam
+   the header already draws, so it overlaps no content: the reading column
+   starts at --case-top, a --step-5 below it, and anything passing behind
+   the header is behind the header's own plate.
+
+   It is scaled, not resized: transform is the only property here that does
+   not make the browser lay the page out again, and this one is written on
+   every scroll frame. Transform-origin is logical, so the line fills from
+   the reading edge in both directions.
+
+   No transition. case.js already writes it once per animation frame, so a
+   transition on top of that is a second, slower animation chasing the
+   first. Without script there is nothing to fill it, so it is not drawn.
+   ------------------------------------------------------------------------ */
+.case__prog{
+  position:fixed;
+  inset-block-start:var(--nav-bar);
+  inset-inline:0;
+  block-size:1.5px;
+  z-index:calc(var(--z-nav) + 1);
+  pointer-events:none;
+  background:transparent;
+}
+.case__prog-bar{
+  display:block;
+  block-size:100%;
+  inline-size:100%;
+  transform:scaleX(0);
+  transform-origin:left center;
+  background:var(--accent-light);
+}
+html:not(.js) .case__prog{ display:none; }
+
+/* ---------------------------------------------------------------------------
+   2 · THE RAIL
+   The crumb, then the project summary, then the numbered contents. The
+   summary's rows are the ones the case study already prints in its reading
+   column — _build.py reads them out of the fragment rather than having them
+   written down twice — so this is a second rendering of one set of facts
+   and not a second set.
+
+   The contents button above it all is the phone's whole rail and is
+   display:none here. See section 9.
+   ------------------------------------------------------------------------ */
+/* --- the project summary -------------------------------------------------
+   It does not scroll with the contents. The rail is a flex column; this part
+   is fixed at its own height and the navigation under it takes what is left,
+   so a reader three quarters of the way down a twenty-four chapter contents
+   list can still see which project they are reading. */
+.case__about{ flex:0 0 auto; }
+
+/* The project's own name, at the top, once. It is a heading rather than a
+   styled paragraph because it is what names this landmark — the rail carries
+   aria-labelledby pointing at it, so "complementary, WorkPerks" is what a
+   screen reader announces on entering the column.
+
+   It is not SHOWN at the top of the page. The hero is carrying the same
+   title at full size two hundred pixels above it, and the same words twice
+   on one screen is one time too many — so the rail's copy waits until the
+   hero's has scrolled off and then arrives in its place.
+
+   The wrap is a grid row rather than a height, because a height cannot be
+   animated from nothing and the metadata underneath has to slide rather
+   than jump. Collapsed only under .js: without a script there is nothing to
+   open it, and a title only a script can reveal is a title a reader without
+   one never sees. */
+.case__titlewrap{
+  display:grid;
+  grid-template-rows:1fr;
+}
+.js .case__titlewrap{
+  grid-template-rows:0fr;
+  transition:grid-template-rows 420ms var(--ease-smooth);
+}
+.js .case__titlewrap > *{
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(-0.4rem);
+  transition:opacity 240ms var(--ease-smooth),
+             transform 320ms var(--ease-smooth);
+}
+[data-case-titled="true"] .case__titlewrap{ grid-template-rows:1fr; }
+[data-case-titled="true"] .case__titlewrap > *{
+  opacity:1;
+  transform:none;
+  /* After the row has started opening, so the words rise into a space that
+     is already making room for them rather than into a closed one. */
+  transition-delay:90ms;
+}
+.case__project{
+  /* No space of its own, in either direction. The wrap above collapses to a
+     zero-height grid row, and that row only truly reaches zero if the box
+     inside it has no margin and no padding to hold it open — a margin is
+     outside the clip, and padding sets a floor under the border box. Both
+     left 16px of empty rail above the metadata. None is needed anyway: the
+     crumb that this used to be spaced away from is gone, so the title is
+     the first thing in the rail, and --case-top already places it. */
+  margin:0;
+  padding:0;
+  font-family:var(--font-display);
+  font-size:var(--text-h4);
+  font-weight:var(--weight-heading);
+  letter-spacing:var(--track-heading);
+  line-height:1.15;
+  color:var(--text-primary);
+  text-wrap:balance;
+}
+
+/* The metadata. A two-column grid per row rather than a table: the label
+   column is a fixed width so every value starts on the same axis, and the
+   value is free to wrap to as many lines as it needs. Nothing is clamped or
+   truncated — a scope line that runs to four lines runs to four lines,
+   because shortening it here would be editing the page's facts from the
+   stylesheet. */
+.case__meta{
+  margin:var(--step-5) 0 0;
+  display:flex;
+  flex-direction:column;
+  /* The rule separates the metadata FROM THE TITLE. With no title above it
+     yet it would be a line drawn across the top of the rail against
+     nothing, so it arrives with the title it belongs to. */
+  border-top:var(--hair) solid transparent;
+  transition:border-color 300ms var(--ease-smooth);
+}
+[data-case-titled="true"] .case__meta{ border-top-color:var(--border-subtle); }
+/* No script, no scroll state, so the rule is simply there. */
+html:not(.js) .case__meta{ border-top-color:var(--border-subtle); }
+
+/* The title arrives and leaves; a reader who asked for less movement gets
+   the arrival without the travel, and the row still opens because that is
+   what makes room for it rather than decoration on top. */
+@media (prefers-reduced-motion:reduce){
+  .js .case__titlewrap > *{ transform:none; transition:opacity 1ms linear; }
+  .js .case__titlewrap{ transition:none; }
+  [data-case-titled="true"] .case__titlewrap > *{ transform:none; transition-delay:0ms; }
+  .case__toc-word,.case__toc-name{ transform:none !important; transition:opacity 1ms linear; }
+}
+.case__meta-row{
+  display:grid;
+  grid-template-columns:4.4rem minmax(0, 1fr);
+  column-gap:var(--step-2);
+  padding-block:var(--step-2);
+  border-bottom:var(--hair) solid var(--border-subtle);
+}
+.case__meta-k{
+  font-family:var(--font-label);
+  font-size:var(--rail-num);
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  line-height:1.5;
+}
+/* The last row draws no floor. It and .case__nav's ceiling below were two
+   hairlines within a few pixels of each other — one join, drawn twice. The
+   contents keeps its rule, because it is the stronger of the two and it is
+   on the block that needs separating. */
+.case__meta-row:last-child{ border-bottom:0; padding-bottom:0; }
+.case__meta-v{
+  margin:0;
+  font-size:var(--rail-text);
+  line-height:1.45;
+  color:var(--text-secondary);
+  overflow-wrap:break-word;
+}
+
+/* --- the contents --------------------------------------------------------
+   The one part of the rail that scrolls. min-height keeps it from being
+   squeezed out of existence by a long summary on a short window; past that
+   the rail's own scroll takes over. */
+.case__nav{
+  flex:1 1 auto;
+  min-height:8rem;
+  min-width:0;
+  margin-top:var(--step-3);
+  padding-top:var(--step-3);
+  border-top:var(--hair) solid var(--border-default);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+.case__list{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; }
+/* Two columns inside the item: the section number, then the label. The number
+   is the hanging indent every label aligns to, which is what lets the rail be
+   this narrow and still scan as a list rather than as wrapped text.
+   There are no rules between the items. Sixteen hairlines in a column this
+   narrow read as a table, and the numbers already say where one entry stops
+   and the next starts. */
+.case__link{
+  display:grid;
+  grid-template-columns:0.95rem minmax(0, 1fr);
+  column-gap:0.2rem;
+  align-items:baseline;
+  padding-block:0.28rem;
+  text-decoration:none;
+  color:var(--text-tertiary);
+  font-size:var(--rail-text);
+  line-height:1.35;
+  transition:color var(--duration-base) var(--ease-smooth);
+}
+.case__link:hover{ color:var(--text-primary); }
+
+/* The number is the marker. A dot beside it was the same signal said twice,
+   and the number is the half of it the writing refers to ("see section 03"),
+   so the dot is gone and the number takes the accent instead. */
+.case__count{
+  grid-area:1 / 1;
+  font-family:var(--font-mono); font-size:var(--rail-num);
+  color:var(--text-tertiary);
+  font-variant-numeric:tabular-nums;
+  transition:color var(--duration-base) var(--ease-smooth);
+}
+/* Placed, not auto-placed. An item that somehow renders without its number
+   would otherwise flow the label into the number's column and set the whole
+   label one character wide. */
+/* One line per name, never two. The rail is sized from --rail-w, so the only
+   thing that can break the promise is a label longer than that, and that one
+   is clipped rather than allowed to widen the column. */
+.case__label{
+  grid-area:1 / 2;
+  white-space:nowrap;
+  max-width:var(--rail-max);
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.case__link.is-on{ color:var(--text-primary); }
+.case__link.is-on .case__count{ color:var(--accent-light); }
+
+/* The active item's accent, as an edge rather than only as a colour. It is
+   drawn on the item and not on the list, so it travels with the marker, and
+   it is an inline-start border on a transparent track the whole list shares —
+   so switching it on moves nothing. */
+.case__item{ border-inline-start:2px solid transparent; }
+.case__item .case__link{ padding-inline-start:var(--step-3); }
+.case__item:has(.case__link.is-on){ border-inline-start-color:var(--accent-light); }
+
+/* A sub-section — 16.1, 16.2. Its number is twice as many characters as a
+   chapter's, so it takes a wider number column; indenting the whole link on
+   top of that is what makes the hierarchy readable at this size, since the
+   number alone is too small to carry it. The label column therefore starts
+   further right than a chapter's, which is the indent. */
+.case__item--sub .case__link{
+  grid-template-columns:1.85rem minmax(0, 1fr);
+  padding-inline-start:calc(var(--step-3) + 0.55rem);
+}
+.case__item--sub .case__label{ max-width:calc(var(--rail-max) - 1.5rem); }
+
+/* A contents entry whose section is not on the page yet. It reads exactly
+   like the others — the numbering and the order are the point of it — but
+   it is a span, so it must not answer to a hover the way a link does. */
+.case__link--flat{ cursor:default; }
+.case__link--flat:hover{ color:var(--text-tertiary); }
+
+/* --- the contents button -------------------------------------------------
+   Not on the desktop, where the rail it would open is already open beside
+   the reading column. display:none rather than hidden by opacity, so it is
+   out of the accessibility tree and out of the tab order too. */
+.case__toc{ display:none; }
+
+/* ---------------------------------------------------------------------------
+   3 · THE READING COLUMN
+   The sections keep the components they already had. What changes here is
+   the rhythm and the measure: a case study read in one capped column wants
+   more air BETWEEN its parts than a landing page does and less width inside
+   them, and every section has to clear the fixed nav when it is jumped to.
+   ------------------------------------------------------------------------ */
+/* The measure is set on the section rather than on .case__main alone, so a
+   section is free to hold a scroll box wider than itself and the box is
+   the thing that scrolls — the column never does. */
+.case__main > .section{ max-width:var(--read-max); }
+
+/* The chapter rhythm. One figure, used twice, so the air above a chapter and
+   the air below the one before it are the same — a separator with more room
+   on one side reads as belonging to the chapter on that side rather than to
+   the join. */
+.case__main .section{ padding-block:var(--step-20); }
+.case__main .section:first-child{ padding-block-start:var(--step-8); }
+/* One hairline between chapters. It is on the top edge rather than the
+   bottom so the last chapter does not close on a rule with nothing under
+   it, and it stops at the measure rather than running the full column,
+   which keeps the page's right edge quiet. */
+.case__main > .section + .section{
+  border-top:var(--hair) solid var(--border-subtle);
+}
+/* The last chapter still needs a floor, or the footer arrives directly under
+   the final line of type. */
+.case__main > .section:last-child{ padding-block-end:var(--step-24); }
+
+.case__main .section__head{ margin-bottom:var(--step-10); }
+/* A section head that follows the opening — rather than starting the
+   section — is a continuation of it and needs the gap put back. */
+.case__main .section > * + .section__head{ margin-top:var(--step-10); }
+.case__main [id]{ scroll-margin-top:var(--case-top); }
+
+/* Running text. The measure is .prose's own --prose-max; what is set here is
+   the rag, which at this width is what separates type that has been laid out
+   from type that has been poured. `pretty` is ignored where it is not
+   supported, so there is nothing to fall back to. */
+.case__main .prose{ text-wrap:pretty; }
+
+/* The exhibits, on one axis. Every plate, figure and video in the column
+   starts on the reading column's left edge and ends no later than its
+   measure, and carries the same air above and below it, so the page has a
+   single left-to-right rhythm from the first chapter to the last.
+   Direct children only. The art-directed pages compose figures inside their
+   own grids and rails — vytals' image rails, workperks' exhibit rows — and
+   those set their own spacing, which this must not reach into. */
+.case__main > .section > figure,
+.case__main > .section > .plate{
+  margin-inline:0;
+  margin-block:var(--step-10);
+  max-width:100%;
+}
+.case__main > .section > .section__head + figure,
+.case__main > .section > .section__head + .plate{ margin-block-start:0; }
+.case__main > .section > figure:last-child,
+.case__main > .section > .plate:last-child{ margin-block-end:0; }
+
+/* The wide artefacts — allocation sheet, question matrix, score tables —
+   each sit in a `*__wrap` box that scrolls them. In a full-width section
+   that was enough. In a column a third of their width, Chrome still counted
+   their size towards the document's scrollable width, which let the whole
+   page be dragged sideways into empty space. `contain:paint` says what the
+   box already means: nothing inside it affects anything outside it. */
+.case__main [class$="__wrap"]{ contain:paint; }
+
+/* A .tag is set on one line by default, which is right for a row of short
+   labels across a full-width section. In a column this narrow a long one —
+   an OKR track name, say — has nowhere to go and pushes the page sideways
+   instead, so here it is allowed to break. */
+.case__main .tag{ white-space:normal; overflow-wrap:break-word; }
+
+/* Same argument, two more components that are set on one line by default and
+   are read inside a column rather than across a full-width section.
+
+   A .chip is a pill, so it is `white-space:nowrap` everywhere else on the
+   site and should be: a pill that breaks over two lines is not a pill. But a
+   chip longer than the column it is in cannot stay one — measured, the
+   longest chip on the planning page is 387px inside a 335px phone column, so
+   it was being clipped mid-word by the page's overflow-x. Allowed to break,
+   it is still a pill on every chip that fits, which is all of them above a
+   phone.
+
+   A .note is a flex row — an icon or a label, then the aside — with no
+   wrap, so a .tag at the end of one had nowhere to go either. */
+.case__main .chip{
+  max-width:100%;
+  white-space:normal;
+  overflow-wrap:break-word;
+}
+.case__main .note{ flex-wrap:wrap; }
+
+/* The opening. One place where the type is allowed to be large. */
+.case__lede{
+  margin:0;
+  max-width:34ch;
+  font-family:var(--font-display);
+  font-size:var(--text-h1);
+  font-weight:var(--weight-display);
+  letter-spacing:var(--track-display);
+  line-height:1.03;
+  text-wrap:balance;
+}
+.case__standfirst{
+  margin:var(--step-6) 0 0;
+  max-width:var(--prose-max);
+  font-size:var(--text-lg);
+  line-height:1.5;
+  color:var(--text-secondary);
+}
+
+/* A row of facts under the opening — the only numbers on the page that are
+   not activity counts, and they are counted from the content below. */
+.case__facts{
+  display:flex; flex-wrap:wrap; gap:var(--step-6) var(--step-8);
+  margin:var(--step-8) 0 0; padding:var(--step-6) 0 0;
+  border-top:var(--hair) solid var(--border-default);
+  list-style:none;
+}
+.case__fact{ display:flex; flex-direction:column; gap:var(--step-1); }
+.case__fact b{
+  font-family:var(--font-display); font-size:var(--text-h3);
+  font-weight:var(--weight-display); letter-spacing:var(--track-display);
+  color:var(--text-primary);
+  font-variant-numeric:tabular-nums;
+}
+.case__fact span{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+
+/* ---------------------------------------------------------------------------
+   4 · THE STAGE COLOURS
+   Four of the seven editorial tile colours, in the order the process runs.
+   The page says which stage is which colour once, here, and every component
+   below reads --stage and --stage-ink rather than naming a colour itself —
+   which is what lets the same card, diagram and index be reused by a case
+   study with a different palette.
+   ------------------------------------------------------------------------ */
+[data-stage="discover"] { --stage:var(--t-lime-bg);      --stage-ink:var(--t-lime-ink); }
+[data-stage="design"]   { --stage:var(--t-turquoise-bg); --stage-ink:var(--t-turquoise-ink); }
+[data-stage="detailed"] { --stage:var(--t-orange-bg);    --stage-ink:var(--t-orange-ink); }
+[data-stage="validation"]{ --stage:var(--t-pink-bg);     --stage-ink:var(--t-pink-ink); }
+
+/* ---------------------------------------------------------------------------
+   5 · THE STAGE CARD
+   A tile, so the zoom, the stacking, the focus ring, the touch behaviour and
+   reduced motion all come from tiles.css. What belongs to this page is what
+   the card holds back: its activities. They are in the markup at all times —
+   a screen reader and a search engine read the full list — and only their
+   paint is deferred, so hovering a stage is a preview of the section it
+   links to rather than a different set of facts.
+   ------------------------------------------------------------------------ */
+.stage-grid{
+  --tile-h:20rem;
+  grid-template-columns:repeat(4, minmax(0,1fr));
+}
+.stage-card{
+  --tile-bg:var(--stage);
+  --tile-ink:var(--stage-ink);
+}
+.stage-card .card__body{ margin-bottom:var(--step-3); }
+/* Four cards to a row leaves a 184px column at 1440. The meta row and the
+   call to action are the two pieces of fixed phrasing that have to survive
+   it, so neither is allowed to break mid-phrase. */
+.stage-card .card__status,
+.stage-card .tile__cta{ white-space:nowrap; }
+.stage-card .card__meta{ gap:var(--step-2); }
+
+/* The held-back list. Space is reserved for it at rest — the card is the
+   same height hovered and not — and only opacity and a small rise move. */
+.stage-acts{
+  margin:0 0 auto; padding:0;
+  list-style:none;
+  display:flex; flex-direction:column; gap:var(--step-1);
+  border-top:var(--hair) solid var(--tile-line);
+  padding-top:var(--step-3);
+}
+.stage-acts li{
+  font-size:var(--text-sm);
+  line-height:1.3;
+  color:var(--tile-soft);
+  opacity:var(--fig-on);
+  transform:translateY(calc((1 - var(--fig-on)) * 4px));
+  transition:opacity var(--duration-base) var(--ease-smooth),
+             transform var(--tile-zoom-dur) var(--ease-out);
+  transition-delay:calc(var(--i, 0) * 45ms);
+}
+/* The rule above the list is the only part that stays: it is the card's
+   floor, and a line appearing from nowhere would read as a layout shift. */
+.stage-acts__more{ color:var(--tile-line); }
+
+@media (prefers-reduced-motion:reduce){
+  .stage-acts li{ transform:none; transition-delay:0ms; }
+}
+/* Nothing is behind the pointer when there is no script to flip the switch
+   on scroll — a touch reader would otherwise never see the list at all. */
+html:not(.js) .stage-acts li{ opacity:1; transform:none; }
+
+/* ---------------------------------------------------------------------------
+   6 · THE PROCESS DIAGRAM
+   The four stages on one line, drawn at the size the page can actually use.
+   Unlike the cards, this one is not driven by the pointer: it plays once as
+   it scrolls into view, because it is the argument the section is making
+   and the reader should not have to find it with a cursor.
+   ------------------------------------------------------------------------ */
+.proc{
+  display:block;
+  width:100%;
+  margin:0;
+}
+.proc svg{ display:block; width:100%; height:auto; overflow:visible; }
+.proc text{
+  font-family:var(--font-label);
+  font-size:11px;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  fill:var(--text-tertiary);
+  stroke:none;
+}
+.proc .proc__name{
+  font-family:var(--font-display);
+  font-size:15px;
+  letter-spacing:0;
+  text-transform:none;
+  fill:var(--text-primary);
+}
+.proc .proc__count{ fill:var(--text-secondary); font-size:12px; }
+
+/* The finished diagram is the default — a drawn line, filled nodes, bars at
+   their real heights. Without JavaScript that is what is served, which is
+   the only state that is honest about the numbers. The *held* state is what
+   is conditional: it applies to a diagram that is going to be played, which
+   is `.js` and not yet seen. */
+.proc .proc__rail{ stroke:var(--border-default); }
+.proc .proc__line{
+  stroke:var(--accent-light);
+  stroke-dasharray:1000; stroke-dashoffset:0;
+  transition:stroke-dashoffset 1.1s var(--ease-out);
+}
+.proc .proc__node{
+  fill:var(--stage);
+  stroke:var(--stage);
+  transition:fill var(--duration-slow) var(--ease-smooth),
+             stroke var(--duration-slow) var(--ease-smooth);
+  transition-delay:calc(var(--i,0) * 180ms + 220ms);
+}
+.proc .proc__bar{
+  fill:var(--stage);
+  opacity:1;
+  transform-origin:center bottom;
+  transform-box:fill-box;
+  transition:opacity var(--duration-slow) var(--ease-smooth),
+             transform var(--duration-slow) var(--ease-out);
+  transition-delay:calc(var(--i,0) * 180ms + 320ms);
+}
+
+/* Held back until the figure has been seen. site.js adds .is-in once and
+   then stops observing it, so scrolling back up never replays the draw. */
+.js .proc:not(.is-in) .proc__line{ stroke-dashoffset:1000; }
+.js .proc:not(.is-in) .proc__node{ fill:var(--surface-page); stroke:var(--border-strong); }
+.js .proc:not(.is-in) .proc__bar{ opacity:0.25; transform:scaleY(0.15); }
+
+/* ---------------------------------------------------------------------------
+   7 · THE ACTIVITY INDEX
+   The existing .rows component, given the stage's colour. Each stage reads
+   as part of its card above without the page turning into eighteen more
+   coloured boxes.
+   ------------------------------------------------------------------------ */
+.stage-head{
+  display:flex; align-items:center; gap:var(--step-3);
+  margin-bottom:var(--step-4);
+}
+.stage-head__chip{
+  display:inline-flex; align-items:center; gap:var(--step-2);
+  padding:var(--step-1) var(--step-3);
+  border-radius:var(--radius-full);
+  background:var(--stage);
+  color:var(--stage-ink);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+}
+.stage-head__count{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--text-tertiary);
+  font-variant-numeric:tabular-nums;
+}
+
+.rows--stage .row__num{ color:var(--stage); }
+.rows--stage .row:hover{
+  background:color-mix(in srgb, var(--stage) 7%, transparent);
+}
+/* The hairline that separates activities picks up a trace of the stage, so
+   the index is tinted rather than outlined. */
+.rows--stage{ border-top-color:color-mix(in srgb, var(--stage) 28%, transparent); }
+.rows--stage .row{ border-bottom-color:color-mix(in srgb, var(--stage) 18%, transparent); }
+
+/* ---------------------------------------------------------------------------
+   8 · THE CLOSE
+   One quiet panel at the end, no colour: the page has made its point by
+   then, and a fifth coloured block would compete with the four that matter.
+   ------------------------------------------------------------------------ */
+.case__close{
+  padding:var(--step-8);
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-lg);
+  background:var(--surface-raised);
+}
+.case__close p{ margin:0; max-width:var(--prose-max); }
+.case__close p + p{ margin-top:var(--step-4); }
+
+/* ---------------------------------------------------------------------------
+   9 · NARROWER
+   Two steps down, on the boundaries the layout actually has.
+
+   Above 1264px the container is a constant 1200px, so 1440px and 1280px are
+   the SAME layout — there is nothing for a breakpoint to do between them,
+   and the old 1180/1080 pair were resizing the rail at widths where the
+   space it was competing for had not changed. Below 1264px the container
+   starts tracking the window, and that is where the rail has to give up
+   width: one step at 1279px, covering standard and small laptops.
+
+   Then at 1023px it stops being a column at all — it becomes a button that
+   names the section being read and opens the same rail, summary and contents
+   both, as a panel under the navigation. That is the tablet and phone
+   layout: one column, full gutters, no second axis to hold.
+   ------------------------------------------------------------------------ */
+
+/* 1024–1279px — standard laptop and small laptop. The rail loses width and
+   both gutters tighten; --read-max follows on its own, because it is
+   computed from them. It is not clamped harder than that: the 1fr track is
+   already narrower than the measure here, and the track is what wins. */
+@media (max-width:1279px){
+  :root{
+    --rail-w:15.5rem;
+    --rail-gap:var(--step-6);
+    --rail-pad:var(--step-8);
+  }
+  /* The summary is set tighter to survive the narrower rail — the section
+     names are what the rail is for, and a column of ellipses is no contents
+     at all. */
+  .case__project{ font-size:var(--text-body); }
+  .case__meta-row{ grid-template-columns:3.9rem minmax(0, 1fr); }
+  .stage-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+
+/* 1023px and down — tablet and phone. The rail becomes a bar. */
+@media (max-width:1023px){
+  :root{ --read-max:none; }
+  .case{
+    display:block;
+    padding-inline:0;
+    /* No rail beside it any more, so the column IS the page: a cap here
+       would only push the reading matter off to the left of its own
+       gutters. The measure comes back when the rail does. */
+    --read-max:none;
+  }
+  .case__main{
+    max-width:none;
+    padding-inline:var(--page-pad);
+    padding-left:var(--page-pad);
+    border-left:0;
+  }
+
+  /* The bar. It holds the button and, when the panel is open, the panel —
+     both inside one sticky box, so the reading column scrolls under the
+     whole thing and the type below can never show through it. */
+  .case__rail{
+    position:sticky;
+    top:var(--nav-height);
+    z-index:20;
+    padding-right:0;
+    background:var(--surface-page);
+    border-bottom:var(--hair) solid var(--border-default);
+  }
+
+  /* Two lines in the left-hand cell — the fixed word, then the section being
+     read — and the chevron spanning both on the right. The section name is
+     written by case.js from the rail's own active item; with no script it is
+     the first section's name, which is the one a reader at the top of the
+     page is in. */
+  .case__toc{
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) auto;
+    align-items:center;
+    gap:var(--step-2) var(--step-3);
+    width:100%;
+    padding:var(--step-3) var(--page-pad);
+    background:none;
+    border:0;
+    text-align:left;
+    color:var(--text-primary);
+    cursor:pointer;
+    font:inherit;
+  }
+  /* There is no rail column on this layout, so the title lands here: the
+     bar's first line holds "Contents" and the project name stacked in one
+     grid cell, and they cross-fade on the same signal the desktop rail
+     uses. One cell, so the bar's height cannot change as they swap — every
+     anchor on the page is measured against it. */
+  .case__toc-eyebrow{
+    grid-area:1 / 1;
+    display:grid;
+    min-width:0;
+    font-family:var(--font-label);
+    font-size:var(--rail-num);
+    letter-spacing:var(--track-label);
+    text-transform:uppercase;
+    color:var(--text-tertiary);
+  }
+  .case__toc-word,.case__toc-name{
+    grid-area:1 / 1;
+    min-width:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    transition:opacity 240ms var(--ease-smooth),
+               transform 300ms var(--ease-smooth);
+  }
+  .case__toc-name{
+    opacity:0;
+    transform:translateY(-0.3rem);
+    color:var(--text-secondary);
+  }
+  [data-case-titled="true"] .case__toc-word{
+    opacity:0;
+    transform:translateY(0.3rem);
+  }
+  [data-case-titled="true"] .case__toc-name{ opacity:1; transform:none; }
+  /* With no script neither state is ever set, so the bar keeps the word it
+     has always had and the name stays out of the way. */
+  html:not(.js) .case__toc-name{ display:none; }
+  .case__toc-now{
+    grid-area:2 / 1;
+    font-size:var(--text-sm);
+    line-height:1.3;
+    /* One line. The names are set on one line everywhere else in this
+       component and a two-line button would change the bar's height as the
+       reader scrolls, which moves every anchor on the page. */
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .case__toc-ico{
+    grid-area:1 / 2 / span 2 / span 1;
+    width:1.1rem; height:1.1rem;
+    color:var(--text-tertiary);
+    transition:transform var(--duration-base) var(--ease-smooth);
+  }
+  .case__rail[data-open="true"] .case__toc-ico{ transform:rotate(180deg); }
+
+  /* Closed is a scripted state, so it is written on `.js` only: with no
+     script there is nothing to open the panel and the contents would be
+     unreachable on a phone, so the panel is simply open. */
+  .case__rail-in{
+    position:static;
+    max-height:none;
+    overflow:visible;
+    gap:var(--step-5);
+    padding:0 var(--page-pad) var(--step-5);
+    border-right:0;
+  }
+  .js .case__rail-in{ display:none; }
+  .js .case__rail[data-open="true"] .case__rail-in{
+    display:flex;
+    /* The panel is a sheet over the reading matter, not a thing that pushes
+       it: past this height the panel scrolls inside itself. */
+    max-height:min(68svh, 32rem);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+  }
+  /* The contents come first in the panel. A reader who opened it opened it
+     to jump somewhere, and on a phone the summary above the list is seven
+     rows of metadata between the question and the answer. The summary is
+     still here, under the list, which is where it is read rather than
+     scrolled past. Order, not markup: the source stays summary-then-nav,
+     which is the order it is read in on the desktop and by a screen reader
+     that ignores the visual order. */
+  .case__rail-in{ flex-direction:column; }
+  .case__nav{ order:1; border-top:0; padding-top:var(--step-2); }
+  .case__about{ order:2; padding-top:var(--step-4); border-top:var(--hair) solid var(--border-default); }
+  /* The navigation is the reason the panel was opened, so it is not the
+     part that scrolls inside it — the panel scrolls as one piece. */
+  .case__nav{
+    min-height:0;
+    overflow:visible;
+    margin-top:0;
+  }
+  .case__label{ max-width:none; white-space:normal; overflow:visible; }
+  .case__link{ padding-block:var(--step-2); }
+
+  /* Anchors now have to clear the nav and the bar. The bar is the button
+     alone — the panel closes on a jump, so its height is never in the way
+     of the section being landed on. */
+  .case__main [id]{ scroll-margin-top:calc(var(--nav-height) + 4.25rem); }
+}
+
+/* 767px and down — phone. One step, not two: the 760/620 pair were 140px
+   apart and the things they changed both want to change at the point the
+   layout stops being a tablet. */
+@media (max-width:767px){
+  /* The diagram is four labelled columns. Scaled to a phone it is still four
+     labelled columns, at a type size nobody can read — so below this width it
+     keeps a legible size and scrolls inside its own box instead. The box is
+     the only thing on the page that scrolls sideways, and the cards under it
+     carry the same four stages for anyone who does not scroll it. */
+  .proc{
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    padding-bottom:var(--step-2);
+  }
+  .proc svg{ min-width:34rem; }
+  /* Two stage cards in 335px of phone is two cards nobody can read. */
+  .stage-grid{ grid-template-columns:1fr; }
+  .case__facts{ gap:var(--step-5) var(--step-6); }
+}

@@ -1,0 +1,827 @@
+{
+ "source": {
+  "file": "3. AI-Design-Operating-System.md",
+  "lines": 1578
+ },
+ "gaps": [
+  "clarify collaboration model with engineering",
+  ""
+ ],
+ "layers": [
+  {
+   "n": 1,
+   "name": "Strategy",
+   "define": [
+    "business problem",
+    "user problem",
+    "product opportunity",
+    "success criteria",
+    "constraints",
+    "strategic priorities"
+   ],
+   "ai": [
+    "synthesise information",
+    "identify patterns",
+    "challenge assumptions",
+    "generate hypotheses",
+    "structure ambiguous information"
+   ],
+   "ai_label": "AI role",
+   "human": [
+    "deciding what matters",
+    "prioritisation",
+    "strategic trade-offs",
+    "business judgment"
+   ],
+   "shared": [],
+   "groups": [],
+   "quote": "",
+   "arrows": []
+  },
+  {
+   "n": 2,
+   "name": "Product Thinking",
+   "define": [],
+   "ai": [
+    "product definition",
+    "user journeys",
+    "problem decomposition",
+    "opportunity mapping",
+    "edge-case discovery",
+    "feature exploration",
+    "hypothesis generation"
+   ],
+   "ai_label": "AI can support",
+   "human": [
+    "defining the actual problem",
+    "deciding scope",
+    "prioritising customer value",
+    "understanding organisational constraints"
+   ],
+   "shared": [],
+   "groups": [],
+   "quote": "",
+   "arrows": []
+  },
+  {
+   "n": 3,
+   "name": "Experience Design",
+   "define": [],
+   "ai": [
+    "user-flow exploration",
+    "IA alternatives",
+    "interaction patterns",
+    "content variations",
+    "visual directions",
+    "prototype generation",
+    "conversational interfaces",
+    "recommendation experiences",
+    "AI-assisted usability review"
+   ],
+   "ai_label": "Potential applications",
+   "human": [],
+   "shared": [],
+   "groups": [],
+   "quote": "More meaningful exploration before committing to a direction.",
+   "arrows": []
+  },
+  {
+   "n": 4,
+   "name": "Design Systems",
+   "define": [],
+   "ai": [
+    "identify repeated patterns",
+    "generate component variants",
+    "document usage",
+    "detect inconsistencies",
+    "suggest token usage",
+    "map patterns across products",
+    "assist developers with implementation",
+    "identify design-system gaps"
+   ],
+   "ai_label": "AI can help",
+   "human": [
+    "principles",
+    "governance",
+    "quality",
+    "accessibility",
+    "brand decisions",
+    "component standards",
+    "exceptions"
+   ],
+   "shared": [],
+   "groups": [],
+   "quote": "",
+   "arrows": [
+    "Components \u2192 Documentation \u2192 Handoff",
+    "Components \u2192 Rules \u2192 Context \u2192 Variants \u2192 Usage \u2192 Feedback \u2192 Evolution"
+   ]
+  },
+  {
+   "n": 5,
+   "name": "Build",
+   "define": [],
+   "ai": [
+    "code generation",
+    "scaffolding",
+    "implementation iterations",
+    "debugging support",
+    "repetitive engineering work",
+    "exploration of technical approaches",
+    "documentation",
+    "transformation of design decisions into working interfaces"
+   ],
+   "ai_label": "AI-assisted",
+   "human": [
+    "product intent",
+    "experience architecture",
+    "interaction decisions",
+    "design quality",
+    "component behaviour",
+    "visual language",
+    "prioritisation",
+    "acceptance criteria",
+    "product judgment"
+   ],
+   "shared": [],
+   "groups": [],
+   "quote": "",
+   "arrows": []
+  },
+  {
+   "n": 6,
+   "name": "Quality",
+   "define": [],
+   "ai": [],
+   "ai_label": "",
+   "human": [],
+   "shared": [],
+   "groups": [
+    {
+     "label": "Experience quality",
+     "items": [
+      "usability",
+      "hierarchy",
+      "interaction clarity",
+      "consistency"
+     ]
+    },
+    {
+     "label": "Visual quality",
+     "items": [
+      "typography",
+      "spacing",
+      "composition",
+      "brand consistency"
+     ]
+    },
+    {
+     "label": "System quality",
+     "items": [
+      "component reuse",
+      "tokens",
+      "patterns",
+      "variants"
+     ]
+    },
+    {
+     "label": "Accessibility",
+     "items": [
+      "WCAG considerations",
+      "keyboard behaviour",
+      "contrast",
+      "semantics",
+      "assistive technology"
+     ]
+    },
+    {
+     "label": "Technical quality",
+     "items": [
+      "responsiveness",
+      "performance",
+      "implementation fidelity",
+      "API behaviour"
+     ]
+    },
+    {
+     "label": "Product quality",
+     "items": [
+      "task completion",
+      "conversion",
+      "adoption",
+      "engagement",
+      "retention",
+      "business outcomes"
+     ]
+    }
+   ],
+   "quote": "",
+   "arrows": [
+    "Design \u2192 Build \u2192 Validate \u2192 Learn \u2192 Improve"
+   ]
+  },
+  {
+   "n": 7,
+   "name": "Knowledge",
+   "define": [],
+   "ai": [],
+   "ai_label": "",
+   "human": [],
+   "shared": [],
+   "groups": [
+    {
+     "label": "Product knowledge",
+     "items": [
+      "product principles",
+      "user journeys",
+      "requirements",
+      "business rules"
+     ]
+    },
+    {
+     "label": "Design knowledge",
+     "items": [
+      "patterns",
+      "components",
+      "decisions",
+      "research",
+      "usability findings"
+     ]
+    },
+    {
+     "label": "Engineering knowledge",
+     "items": [
+      "APIs",
+      "implementation constraints",
+      "technical patterns"
+     ]
+    },
+    {
+     "label": "Organisational knowledge",
+     "items": [
+      "strategy",
+      "priorities",
+      "governance",
+      "decision history"
+     ]
+    }
+   ],
+   "quote": "Design knowledge should compound instead of disappearing after delivery.",
+   "arrows": []
+  }
+ ],
+ "matrix": [
+  {
+   "activity": "Problem framing",
+   "ai": "Pattern discovery",
+   "human": "Define the real problem"
+  },
+  {
+   "activity": "Research synthesis",
+   "ai": "Summarisation",
+   "human": "Interpret user context"
+  },
+  {
+   "activity": "Ideation",
+   "ai": "Generate alternatives",
+   "human": "Select meaningful directions"
+  },
+  {
+   "activity": "UX flows",
+   "ai": "Explore options",
+   "human": "Decide experience architecture"
+  },
+  {
+   "activity": "UI exploration",
+   "ai": "Generate variants",
+   "human": "Define quality bar"
+  },
+  {
+   "activity": "Copy",
+   "ai": "Generate alternatives",
+   "human": "Approve tone and meaning"
+  },
+  {
+   "activity": "Prototyping",
+   "ai": "Accelerate creation",
+   "human": "Validate interaction"
+  },
+  {
+   "activity": "Coding",
+   "ai": "Generate implementation",
+   "human": "Direct product behaviour"
+  },
+  {
+   "activity": "Testing",
+   "ai": "Identify issues",
+   "human": "Decide severity and action"
+  },
+  {
+   "activity": "Documentation",
+   "ai": "Structure information",
+   "human": "Establish truth"
+  },
+  {
+   "activity": "Design system",
+   "ai": "Detect patterns",
+   "human": "Govern standards"
+  },
+  {
+   "activity": "Product analytics",
+   "ai": "Surface patterns",
+   "human": "Make decisions"
+  },
+  {
+   "activity": "Product strategy",
+   "ai": "Challenge assumptions",
+   "human": "Set direction"
+  }
+ ],
+ "workflows": {
+  "old": {
+   "stages": [
+    "Brief",
+    "Research",
+    "Design",
+    "Review",
+    "Handoff",
+    "Build",
+    "QA"
+   ],
+   "traits": [
+    "sequential",
+    "handoff-heavy",
+    "artifact-oriented",
+    "expensive iteration",
+    "design separated from implementation"
+   ]
+  },
+  "new": {
+   "stages": [
+    "Context",
+    "Define",
+    "Explore",
+    "Prototype",
+    "Build",
+    "Test",
+    "Learn",
+    "Repeat"
+   ],
+   "traits": [
+    "continuous",
+    "collaborative",
+    "system-oriented",
+    "faster iteration",
+    "design closer to implementation",
+    "knowledge continuously reused"
+   ]
+  }
+ },
+ "operating_model": [
+  {
+   "title": "Context",
+   "note": "Every designer understands: - product strategy - users - business model - technical constraints",
+   "items": [
+    "product strategy",
+    "users",
+    "business model",
+    "technical constraints"
+   ]
+  },
+  {
+   "title": "Intelligence",
+   "note": "Teams use AI to: - research - synthesise - analyse - explore",
+   "items": [
+    "research",
+    "synthesise",
+    "analyse",
+    "explore"
+   ]
+  },
+  {
+   "title": "Creation",
+   "note": "Designers create: - flows - prototypes - systems - interfaces - content",
+   "items": [
+    "flows",
+    "prototypes",
+    "systems",
+    "interfaces",
+    "content"
+   ]
+  },
+  {
+   "title": "Build",
+   "note": "Designers work closer to: - frontend - APIs - backend - engineering",
+   "items": [
+    "frontend",
+    "APIs",
+    "backend",
+    "engineering"
+   ]
+  },
+  {
+   "title": "Validation",
+   "note": "Teams validate: - usability - accessibility - visual quality - technical fidelity - product outcomes",
+   "items": [
+    "usability",
+    "accessibility",
+    "visual quality",
+    "technical fidelity",
+    "product outcomes"
+   ]
+  },
+  {
+   "title": "Learning",
+   "note": "Every project contributes knowledge back to: - design system - documentation - pattern library - team playbook",
+   "items": [
+    "design system",
+    "documentation",
+    "pattern library",
+    "team playbook"
+   ]
+  }
+ ],
+ "rituals": [
+  {
+   "title": "Weekly AI Design Critique",
+   "note": "Discuss: - where AI was used - what worked - where it failed - what required human judgment - reusable prompts/workflows",
+   "items": [
+    "where AI was used",
+    "what worked",
+    "where it failed",
+    "what required human judgment",
+    "reusable prompts/workflows"
+   ]
+  },
+  {
+   "title": "Design + Engineering Review",
+   "note": "Review: - implementation - component behaviour - technical constraints - design-system consistency",
+   "items": [
+    "implementation",
+    "component behaviour",
+    "technical constraints",
+    "design-system consistency"
+   ]
+  },
+  {
+   "title": "AI Quality Review",
+   "note": "Review: - hallucinations - incorrect assumptions - accessibility - brand drift - privacy/security considerations - output quality",
+   "items": [
+    "hallucinations",
+    "incorrect assumptions",
+    "accessibility",
+    "brand drift",
+    "privacy/security considerations",
+    "output quality"
+   ]
+  },
+  {
+   "title": "Prompt / Workflow Library",
+   "note": "Store: - successful workflows - reusable instructions - design-system context - product context - failure cases",
+   "items": [
+    "successful workflows",
+    "reusable instructions",
+    "design-system context",
+    "product context",
+    "failure cases"
+   ]
+  },
+  {
+   "title": "AI Pattern Review",
+   "note": "Track emerging patterns: - assistants - recommendations - conversational search - generative UI - adaptive experiences",
+   "items": [
+    "assistants",
+    "recommendations",
+    "conversational search",
+    "generative UI",
+    "adaptive experiences"
+   ]
+  }
+ ],
+ "governance": [
+  {
+   "title": "Privacy",
+   "note": "What information can be shared with AI systems?",
+   "items": []
+  },
+  {
+   "title": "Security",
+   "note": "What data, credentials, repositories or customer information must never be exposed?",
+   "items": []
+  },
+  {
+   "title": "Accuracy",
+   "note": "How are AI-generated outputs verified?",
+   "items": []
+  },
+  {
+   "title": "Brand",
+   "note": "How do we prevent AI-generated experiences from drifting from brand principles?",
+   "items": []
+  },
+  {
+   "title": "Accessibility",
+   "note": "How do we prevent AI from generating inaccessible experiences?",
+   "items": []
+  },
+  {
+   "title": "Bias",
+   "note": "How do we identify problematic recommendations, language or assumptions?",
+   "items": []
+  },
+  {
+   "title": "Ownership",
+   "note": "Who owns the final decision?",
+   "items": []
+  }
+ ],
+ "metrics": [
+  {
+   "title": "Speed",
+   "note": "",
+   "items": [
+    "concept \u2192 prototype time",
+    "prototype \u2192 build time",
+    "design \u2192 development handoff time",
+    "iteration cycle time"
+   ]
+  },
+  {
+   "title": "Quality",
+   "note": "",
+   "items": [
+    "design defects",
+    "implementation mismatches",
+    "accessibility issues",
+    "design-system violations"
+   ]
+  },
+  {
+   "title": "Product",
+   "note": "",
+   "items": [
+    "conversion",
+    "adoption",
+    "completion",
+    "engagement",
+    "retention"
+   ]
+  },
+  {
+   "title": "Team",
+   "note": "",
+   "items": [
+    "designer satisfaction",
+    "engineering satisfaction",
+    "onboarding time",
+    "knowledge reuse"
+   ]
+  },
+  {
+   "title": "System",
+   "note": "",
+   "items": [
+    "component reuse",
+    "pattern reuse",
+    "documentation coverage",
+    "AI workflow adoption"
+   ]
+  },
+  {
+   "title": "AI",
+   "note": "Every metric that has not been measured should be marked:",
+   "items": [
+    "percentage of workflow AI-assisted",
+    "time saved",
+    "output acceptance rate",
+    "AI error rate",
+    "human review rate"
+   ]
+  }
+ ],
+ "generations": [
+  {
+   "title": "Generation 1",
+   "note": "A collection of reusable components.",
+   "items": []
+  },
+  {
+   "title": "Generation 2",
+   "note": "Components + rules + governance.",
+   "items": []
+  },
+  {
+   "title": "Generation 3",
+   "note": "Components + rules + context + organisational knowledge + AI assistance + validation.",
+   "items": []
+  }
+ ],
+ "blueprint": [
+  {
+   "title": "Step 1 \u2014 Map the existing workflow",
+   "note": "Identify: - where designers spend time - where handoffs happen - where information is lost - where quality issues emerge",
+   "items": [
+    "where designers spend time",
+    "where handoffs happen",
+    "where information is lost",
+    "where quality issues emerge"
+   ]
+  },
+  {
+   "title": "Step 2 \u2014 Identify AI opportunities",
+   "note": "Classify tasks into:",
+   "items": []
+  },
+  {
+   "title": "Step 3 \u2014 Establish guardrails",
+   "note": "Define: - privacy - security - quality - accessibility - brand - approval",
+   "items": [
+    "privacy",
+    "security",
+    "quality",
+    "accessibility",
+    "brand",
+    "approval"
+   ]
+  },
+  {
+   "title": "Step 4 \u2014 Build reusable context",
+   "note": "Create: - product context - design-system context - research context - technical context",
+   "items": [
+    "product context",
+    "design-system context",
+    "research context",
+    "technical context"
+   ]
+  },
+  {
+   "title": "Step 5 \u2014 Connect design to build",
+   "note": "Introduce: - code-aware workflows - prototypes - engineering collaboration - implementation validation",
+   "items": [
+    "code-aware workflows",
+    "prototypes",
+    "engineering collaboration",
+    "implementation validation"
+   ]
+  },
+  {
+   "title": "Step 6 \u2014 Create feedback loops",
+   "note": "Measure: - speed - quality - product impact - team experience",
+   "items": [
+    "speed",
+    "quality",
+    "product impact",
+    "team experience"
+   ]
+  },
+  {
+   "title": "Step 7 \u2014 Institutionalise learning",
+   "note": "Turn successful workflows into: - playbooks - prompts - patterns - components - documentation",
+   "items": [
+    "playbooks",
+    "prompts",
+    "patterns",
+    "components",
+    "documentation"
+   ]
+  }
+ ],
+ "build_split": {
+  "designer": [
+   "product intent",
+   "experience architecture",
+   "interaction decisions",
+   "design quality",
+   "component behaviour",
+   "visual language",
+   "prioritisation",
+   "acceptance criteria",
+   "product judgment"
+  ],
+  "ai": [
+   "code generation",
+   "scaffolding",
+   "implementation iterations",
+   "debugging support",
+   "repetitive engineering work",
+   "exploration of technical approaches",
+   "documentation",
+   "transformation of design decisions into working interfaces"
+  ],
+  "shared": []
+ },
+ "codebase": {
+  "project": "WorkPerks employee app",
+  "stack": "Expo / React Native / TypeScript",
+  "ts_files": 167,
+  "loc": 35718,
+  "routes": 71,
+  "screen_files": 24,
+  "ui_files": 28,
+  "primitives": [
+   "Accordion",
+   "Atmosphere",
+   "Avatar",
+   "Beat",
+   "Brand",
+   "CategoryTile",
+   "ChatBlocks",
+   "FlexiDonut",
+   "Header",
+   "ModePill",
+   "NightCard",
+   "Press",
+   "Rolling",
+   "Sample",
+   "Segmented",
+   "Sheet",
+   "Skeleton",
+   "SlideAction",
+   "Stagger",
+   "States",
+   "SwipeRail",
+   "TabBar",
+   "Toast",
+   "Toggle",
+   "VendorLogo",
+   "icons",
+   "motion",
+   "primitives"
+  ],
+  "route_names": [
+   "Award",
+   "AwardTypes",
+   "Category",
+   "Certificate",
+   "Challenge",
+   "ChallengeDone",
+   "ChallengeJoined",
+   "Challenges",
+   "Chat",
+   "Claim",
+   "Claims",
+   "Coins",
+   "Collection",
+   "Company",
+   "Detail",
+   "Entitlement",
+   "Explore",
+   "Flexi",
+   "FlexiPick",
+   "Flow",
+   "Home",
+   "Intro",
+   "JourneyMap",
+   "Learn",
+   "Loading",
+   "Location",
+   "Milestones",
+   "Momentum",
+   "MonthStory",
+   "MyBenefits",
+   "MyClaims",
+   "MyNominations",
+   "MyRecognition",
+   "MyVouchers",
+   "NewClaim",
+   "Nominate",
+   "NotificationPrefs",
+   "Notifications",
+   "Order",
+   "Orders",
+   "OrgFinding",
+   "OrgFound",
+   "OrgId",
+   "OrgNone",
+   "Partner",
+   "Permission",
+   "PersonProfile",
+   "Profile",
+   "Programme",
+   "Programmes",
+   "Recognition",
+   "RecognitionHow",
+   "RecognitionNotifs",
+   "ReimbursementHead",
+   "Returning",
+   "RewardBalance",
+   "Saved",
+   "Search",
+   "ShareAward",
+   "Splash",
+   "Tabs",
+   "VerifyCertificate",
+   "VoucherCatalogue",
+   "VoucherCode",
+   "VoucherDenominations",
+   "VoucherFail",
+   "Wall",
+   "Wellness",
+   "WellnessConsent",
+   "WellnessEnd",
+   "Winners"
+  ],
+  "measured": "2026-09-24",
+  "method": "Counted from the working tree, excluding node_modules, build output and native project folders. Routes are the distinct names registered on a navigator in source."
+ }
+}

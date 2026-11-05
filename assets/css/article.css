@@ -1,0 +1,42 @@
+/* ===========================================================================
+   ARTICLE — long-form reading inside the case layout.
+
+   The case layout already supplies the rail, the progress bar and the reading
+   column. This sheet only does what an essay needs that a case study does not:
+   a slightly larger body size, a paragraph rhythm set for continuous reading
+   rather than for scanning, and emphasis that is legible without shouting.
+   ========================================================================= */
+
+/* Continuous prose wants a little more size and air than case-study copy,
+   which is read in bursts between exhibits. The measure stays at --prose-max;
+   it is already about seventy characters at this size. */
+.case__main .section .prose{
+  font-size:var(--text-lg);
+  line-height:1.62;
+  text-wrap:pretty;
+}
+.case__main .section .prose + .prose{ margin-top:var(--step-5); }
+
+/* The opening paragraph of a chapter, one step up. */
+.case__main .case__lede{ text-wrap:pretty; }
+
+/* Emphasis inside the essay. Italic carries the quoted question or term;
+   bold opens a paragraph that is making a numbered point in prose rather
+   than in a list, so it needs to read as a lead-in, not as a highlight. */
+.case__main .prose em{ color:var(--text-primary); font-style:italic; }
+.case__main .prose strong{
+  color:var(--text-primary);
+  font-weight:var(--weight-emphasis);
+}
+
+/* The fact strip reads as a figure here rather than as a summary of the page,
+   so it sits in the flow with air on both sides. */
+.case__main .case__facts{ margin-block:var(--step-8); }
+
+/* The evidence chapter uses the shared numbered rows. Its bodies are prose,
+   not bullet lists, so they want the body measure rather than the row's. */
+.case__main #a-evidence .row__body p{ max-width:var(--prose-max); margin:0; }
+
+@media (max-width:640px){
+  .case__main .section .prose{ font-size:var(--text-body); line-height:1.6; }
+}

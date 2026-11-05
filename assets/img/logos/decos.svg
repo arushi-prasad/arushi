@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Decos">
+  <rect width="64" height="64" fill="#35788A"/>
+  <path fill="#fff" d="M7 31.2l4.6-3.3 4.6 3.3-4.6 3.3z"/>
+  <text x="19" y="35.8" fill="#fff" font-family="Inter Tight, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" textLength="38" lengthAdjust="spacingAndGlyphs">DECOS</text>
+</svg>

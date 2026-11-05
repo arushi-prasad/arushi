@@ -1,0 +1,2069 @@
+<!--meta
+route: work/vidal/health-claims
+title: Health Claim Management System — one claim, two interfaces, and the gap between them
+desc: A health insurance claim passes from the member filing it to the adjuster deciding it, through two interfaces that share no view of the same claim. An analysis of the live member portal, and a redesigned four stage claim workflow for the side where the decision is made.
+nav: work
+case: yes
+case_kicker: Product design / Case study
+case_title: Health Claim Management System
+case_note: Health claims · 2026 · member portal analysis and a redesigned claim workflow.
+case_project: Health Claims
+case_sections: vd-overview|Project Overview|01; vd-existing|The Existing Experience|02; vd-problem|The Problem|03; vd-research|Research & Discovery|04; vd-findings|Key Findings|05; vd-strategy|Design Strategy|06; vd-structure|Architecture & Workflow|07; vd-decisions|Key Design Decisions|08; vd-solution|The Redesigned Experience|09; vd-states|Edge Cases & States|10; vd-outcomes|Outcomes & Current State|11; vd-learnings|Learnings & Reflection|12
+sheets: vidal
+js: vidal
+word_a: health
+word_b: claims
+tagline: A claim is one object. The person filing it and the person deciding it have never been able to see the same version of it.
+-->
+
+<!-- The Health Claim Management System case study.
+
+     Two artefacts sit behind this page and they are different products:
+
+       · eight captures of the LIVE Vidal Health member portal, taken
+         29 Oct 2026. A production product, not designed here. They are
+         evidence about an existing experience, and they are cropped and
+         redacted — the originals carry a member ID, a date of birth, two
+         mobile numbers, a work email and a named Vidal employee's contact
+         details.
+
+       · ai_studio_code.html, a STATIC mockup of a claims adjuster tool.
+         It renders stage one. Stages two, three and four are empty rows
+         carrying a number and a label. Nothing in it is wired: no state,
+         no handlers, no data, no model.
+
+     So this is not a before and after of one product. It is one claim
+     followed across two interfaces that do not share a view of it, which is
+     the argument the page makes.
+
+     The four stage workflow in section 09 is designed work, built for this
+     case study. Stages two to four did not exist before it. The frame around
+     it says so, and section 09 shows the original mockup beside it so a
+     reader can see exactly what was added.
+
+     Where a design decision has no redesigned screen behind it — the three
+     member-side decisions in section 08 — the page says so in the place the
+     screen would have gone, using .vd-gap. Do not fill those with a mockup.
+
+     Evidence labels used throughout, defined once in section 01:
+       Captured   seen in a screenshot of the live product
+       Observed   a design observation from that evidence, not a user finding
+       Designed   design work produced for this case study
+       Not run    research or validation that has not happened
+-->
+
+
+<!-- 01 · PROJECT OVERVIEW --------------------------------------------------- -->
+<section class="section" id="vd-overview" aria-labelledby="h-vd-overview" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">01 &mdash; Project Overview</p>
+    <h2 class="t-h2" id="h-vd-overview">A claim is one object, and nobody involved can see all of it.</h2>
+    <p class="prose">A health claim management system is the machinery between a hospital bill and a
+      bank transfer. A member raises a claim, names an ailment, attaches documents and waits. An
+      adjuster receives those documents, reconciles them against a policy, decides what is covered and
+      produces a figure. Both of those are the same claim. They happen in two different interfaces
+      that share no view of it.</p>
+    <p class="prose">I took the member portal I use myself as the starting evidence, followed one
+      claim across the handoff, and redesigned the adjuster side as a four stage workflow where every
+      figure carries the clause it was decided under.</p>
+  </div>
+
+  <figure class="plate plate--hero" data-reveal>
+    <img src="../../../assets/img/vidal/vidal-full.png" width="3360" height="2000" loading="eager"
+         alt="The ClaimFlow mockup: a four item navigation rail on the left, an open Add Documents card in the centre showing two verified documents, three collapsed placeholder rows beneath it, and a Claim Companion chat panel on the right.">
+    <figcaption class="plate__cap"><span class="plate__src">The starting artefact</span>
+      The claims adjuster mockup this project began from, shown as it actually is. Stage one is
+      designed. Stages two, three and four are a number and a label on an empty row, and the large
+      area of blank canvas underneath is the gap this project had to close. The redesigned workflow
+      is running in <a class="link-out" href="#vd-solution">section&nbsp;09</a>.</figcaption>
+  </figure>
+
+  <div class="split" data-reveal style="margin-top:var(--step-12)">
+    <div class="split__text">
+      <h3 class="t-h3">What the system does, and who is in it</h3>
+      <p class="prose">The member side handles intimation, hospital selection, document submission
+        and claim history, across cashless and reimbursement routes. The adjuster side handles
+        everything after the handoff: establishing that a document set is complete, tying each
+        document to the policy clause it evidences, deciding each bill line, and producing a
+        settlement figure that has to survive being questioned months later.</p>
+      <p class="prose">Four parties touch a claim. The member files it. The adjuster decides it. The
+        hospital billing desk needs to know whether the stay is cashless, and the employer who owns
+        the policy sets the terms every deduction is taken under. Only the first two have an
+        interface. <a class="link-out" href="#vd-research">Section&nbsp;04</a> sets out what each
+        needs and which of them this project could actually observe.</p>
+    </div>
+    <div class="split__text">
+      <h3 class="t-h3">My role</h3>
+      <p class="prose">Design Leader. I set the framing, ran the analysis of the existing portal,
+        defined the experience architecture, designed the claim workflow and built it as a working
+        demo so the argument could be tested rather than described.</p>
+      <p class="prose">What that covered, in order: capturing and reading the live member portal;
+        establishing what the source mockup actually contained; modelling the claim across the
+        handoff; designing three stages that did not previously exist; specifying the system states a
+        real claim spends its time in; and writing the validation this work still needs before any of
+        it should be built.</p>
+    </div>
+  </div>
+
+  <ul class="case__facts" role="list" data-reveal>
+    <li class="case__fact"><b>Design Leader</b><span>Role</span></li>
+    <li class="case__fact"><b>Health insurance claims, India</b><span>Domain</span></li>
+    <li class="case__fact"><b>Member portal analysis · experience architecture · workflow design · interface design · a working demo</b><span>Scope</span></li>
+    <li class="case__fact"><b>Responsive web, desktop first</b><span>Platform</span></li>
+    <li class="case__fact"><b>2026</b><span>Year</span></li>
+    <li class="case__fact"><b>Not recorded</b><span>Team</span></li>
+    <li class="case__fact"><b>Not recorded</b><span>Duration</span></li>
+    <li class="case__fact"><b>Design exploration, not implemented</b><span>Status</span></li>
+  </ul>
+
+  <p class="note" data-reveal><span>Team and duration read <strong>Not recorded</strong> because
+    neither is written down anywhere in the project files. They are left visible rather than removed,
+    so the gap is part of the record instead of a silence. The role is stated as you confirmed
+    it.</span></p>
+
+  <div class="vd-legend" data-reveal>
+    <div class="vd-legend__i">
+      <span class="vd-ev vd-ev--seen">Captured</span>
+      <p class="vd-legend__d">Visible in a screenshot of the live member portal, taken 29 October 2026.</p>
+    </div>
+    <div class="vd-legend__i">
+      <span class="vd-ev vd-ev--obs">Observed</span>
+      <p class="vd-legend__d">A design observation drawn from that evidence. Not a user research finding.</p>
+    </div>
+    <div class="vd-legend__i">
+      <span class="vd-ev vd-ev--proposed">Designed</span>
+      <p class="vd-legend__d">Design work produced for this case study. It has not been built or shipped.</p>
+    </div>
+    <div class="vd-legend__i">
+      <span class="vd-ev vd-ev--none">Not run</span>
+      <p class="vd-legend__d">Research or validation that has not happened, named so its absence is visible.</p>
+    </div>
+  </div>
+
+  <p class="note" data-reveal><span>No user research was conducted for this project. There are no
+    interviews, no usability sessions, no analytics and no stakeholder findings, and none are claimed
+    anywhere on this page. <a class="link-out" href="#vd-outcomes">Section&nbsp;11</a> sets out the
+    validation this work would need before it could be built.</span></p>
+</section>
+
+
+<!-- 02 · THE EXISTING EXPERIENCE -------------------------------------------- -->
+<section class="section" id="vd-existing" aria-labelledby="h-vd-existing" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">02 &mdash; The Existing Experience</p>
+    <h2 class="t-h2" id="h-vd-existing">What the member portal does today, screen by screen.</h2>
+    <p class="prose">Eight captures of the live Vidal Health member portal, taken on 29 October 2026
+      from my own account. This is a production product I did not design, and it does a great deal
+      correctly: the policy is legible at a glance, the claim routes are all reachable from one place,
+      and the escalation path is named, which most portals do not bother to do. What follows are
+      design observations from the visible interface, not findings about users.</p>
+  </div>
+
+  <p class="note" data-reveal><span>These screenshots are cropped to remove the browser and desktop,
+    and redacted where they carried a member ID, a date of birth, two mobile numbers, an email
+    address, and the name, work email and mobile number of a Vidal employee listed on the escalation
+    panel. The redaction bars are deliberate and labelled. Original files are untouched.</span></p>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">The dashboard</h3>
+  <p class="prose" data-reveal>The landing screen after sign-in. It carries the policy, the health
+    card and the global navigation, and it is the only screen in the portal that shows coverage and
+    claims in the same view.</p>
+
+  <figure class="vd-shot" data-reveal style="margin-top:var(--step-6)">
+    <img src="../../../assets/img/vidal/portal-home.png" width="2940" height="1519" loading="lazy"
+         alt="The member portal dashboard: a dark green header with six navigation items, a greeting, an active policy selector, and a Your Policy Snapshot panel listing policy name, covers, members covered, sum insured, joining date and expiry, beside a Health Card panel with the member ID covered by a labelled redaction bar.">
+    <span class="vd-shot__pin" style="left:33%;top:5%">1</span>
+    <span class="vd-shot__pin" style="left:30%;top:61%">2</span>
+    <span class="vd-shot__pin" style="left:13%;top:70%">3</span>
+    <span class="vd-shot__pin" style="left:71%;top:77%">4</span>
+  </figure>
+  <div class="vd-notes" data-reveal>
+    <div class="vd-note"><span class="vd-note__n">1</span><p><b>Six top-level destinations.</b>
+      Home, My Policy, Claims, E-Cards, Network Hospitals and Wellness. Claims and Network Hospitals
+      are siblings, so the search that establishes whether a hospital is in network sits in a
+      different branch of the navigation from the claim that depends on the answer.</p></div>
+    <div class="vd-note"><span class="vd-note__n">2</span><p><b>Covers: Hospitalisation Only.</b>
+      The cover is described in two words. Room rent eligibility, co-payment and the sub-limits that
+      actually decide a settlement are not on this screen, and the member will not meet them until a
+      deduction has already been applied.</p></div>
+    <div class="vd-note"><span class="vd-note__n">3</span><p><b>Available &#8377;4,00,000 of
+      &#8377;4,00,000.</b> The one coverage figure the dashboard carries, and a good one: it is the
+      balance rather than the headline. It is also the only number a member can check an estimate
+      against.</p></div>
+    <div class="vd-note"><span class="vd-note__n">4</span><p><b>The health card.</b> Member ID,
+      name and relationship, redacted here. This is the artefact a hospital desk asks for, and
+      putting it on the dashboard is the right call.</p></div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">Navigation and information hierarchy</h3>
+  <p class="prose" data-reveal>Under Claims, hospitalisation opens as three equally weighted routes.
+    The choice between them is the first decision a member has to make and the hardest one to make
+    correctly.</p>
+
+  <figure class="vd-shot" data-reveal style="margin-top:var(--step-6)">
+    <img src="../../../assets/img/vidal/portal-ipd-entries.png" width="2940" height="924" loading="lazy"
+         alt="The Hospitalisation and IPD section of the member portal, showing three equally weighted cards side by side: Reimbursements, Cashless services, and Network Hospitals.">
+    <span class="vd-shot__pin" style="left:17%;top:72%">1</span>
+    <span class="vd-shot__pin" style="left:49%;top:72%">2</span>
+    <span class="vd-shot__pin" style="left:81%;top:72%">3</span>
+  </figure>
+  <div class="vd-notes" data-reveal>
+    <div class="vd-note"><span class="vd-note__n">1</span><p><b>Reimbursements.</b> For a claim the
+      member has already paid for. Correct only if the hospital was out of network, or if cashless
+      was not arranged in time.</p></div>
+    <div class="vd-note"><span class="vd-note__n">2</span><p><b>Cashless services.</b> For a claim
+      arranged before or during admission, at a network hospital. Correct only if both of those
+      hold.</p></div>
+    <div class="vd-note"><span class="vd-note__n">3</span><p><b>Network Hospitals.</b> The search
+      that answers whether card 2 is available at all. It sits third, after the two choices that
+      depend on it.</p></div>
+  </div>
+  <p class="plate__cap vy-cap" data-reveal style="margin-top:var(--step-5)">
+    <span class="vd-ev vd-ev--obs">Observed</span>
+    Three equally weighted routes. The information needed to pick between them lives behind the third
+    one, so the ordering asks the member to decide before they can find out.</p>
+
+  <figure class="plate" data-reveal style="margin-top:var(--step-10)">
+    <img src="../../../assets/img/vidal/portal-reimb-entries.png" width="2928" height="580" loading="lazy"
+         alt="The Hospitalization Reimbursement screen with three cards: Intimation, Claim Submission and Claim History.">
+    <figcaption class="plate__cap"><span class="plate__src">Captured</span>
+      One level down, reimbursement splits again into Intimation, Claim Submission and Claim History.
+      These are three stages of one claim, presented as three destinations, so a member mid-claim has
+      to know which stage they are in before the navigation can help them.</figcaption>
+  </figure>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">Claim initiation</h3>
+  <p class="prose" data-reveal>Intimate Your Claim is where a claim becomes a record. Two panels:
+    eight fields of claim detail, and a hospital to attach to it.</p>
+
+  <div class="split" data-reveal style="margin-top:var(--step-6)">
+    <div class="split__text">
+      <p class="prose">Eight fields in a four by two grid, seven of them required — Alternate Mobile
+        Number is the only optional one. Ailment is free text. Estimated Amount is asked for in rupees
+        with no basis offered and no indication of what it affects. Likely Date of Admission and
+        Expected Discharge Date carry no stated relationship to each other.</p>
+      <p class="prose">Below it, Hospital Details reduces to a single action. The hint under it reads
+        <em>Hospital name, phone number, address, pincode</em>, which describes four ways to find a
+        hospital.</p>
+      <p class="prose">Nothing on this screen is wrong. It collects what the process needs. What it
+        does not do is tell the member which of these answers will shape the outcome, or what happens
+        next.</p>
+    </div>
+    <figure class="plate">
+      <img src="../../../assets/img/vidal/portal-intimate-empty.png" width="2940" height="1519" loading="lazy"
+           alt="The empty Intimate Your Claim form: a Claim Details panel with eight fields in a four by two grid — Select Name slash Relationship, Ailment, Mobile Number, Alternate Mobile Number, Likely Date of Admission, Expected Discharge Date, Estimated Amount and Email ID — and a Hospital Details panel below it with a single Search slash Add Hospital action.">
+      <figcaption class="plate__cap"><span class="plate__src">Captured</span>
+        Intimate Your Claim, empty. Two panels, eight fields, one search.</figcaption>
+    </figure>
+  </div>
+
+  <figure class="vd-shot" data-reveal style="margin-top:var(--step-10)">
+    <img src="../../../assets/img/vidal/portal-intimate-filled.png" width="2940" height="768" loading="lazy"
+         alt="The same form filled in: name and relationship selected, Ailment reading Bone Surgery, both dates set to 31 October 2026, estimated amount 200000, and three fields covered by labelled redaction bars.">
+    <span class="vd-shot__pin" style="left:26%;top:55%">1</span>
+    <span class="vd-shot__pin" style="left:11%;top:80%">2</span>
+    <span class="vd-shot__pin" style="left:36%;top:80%">3</span>
+  </figure>
+  <div class="vd-notes" data-reveal>
+    <div class="vd-note"><span class="vd-note__n">1</span><p><b>Ailment is free text.</b> "Bone
+      Surgery" is what was typed. The clause that decides the claim depends on the procedure, so a
+      free text field here pushes the classification work downstream to the adjuster.</p></div>
+    <div class="vd-note"><span class="vd-note__n">2</span><p><b>Both dates are the same day.</b> The
+      form accepts an admission and a discharge on 31 October with no warning. A same day stay fails
+      the twenty-four hour hospitalisation condition in most policies, which is a decidable fact at
+      the point of entry.</p></div>
+    <div class="vd-note"><span class="vd-note__n">3</span><p><b>Estimated Amount, unanchored.</b>
+      Two hundred thousand rupees &mdash; exactly half the sum insured shown on the dashboard, though
+      nothing on this screen says so. It is entered with no reference to the balance, the room rent
+      eligibility or the co-payment, and it will not resemble the settlement.</p></div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">Hospital search</h3>
+  <p class="prose" data-reveal>The search opens as a panel over the claim form, which stays filled
+    behind it. Keeping the member in the claim rather than sending them to a separate destination is
+    the right pattern. What the panel returns is the problem.</p>
+
+  <figure class="vd-shot" data-reveal style="margin-top:var(--step-6)">
+    <img src="../../../assets/img/vidal/portal-hospital-results.png" width="2940" height="1519" loading="lazy"
+         alt="The hospital search panel open over the dimmed claim form, with Ruby hall Clinic, Maharashtra and PUNE entered. Three results are listed. The first reads Grant Medical Foundation Ruby Hall Clinic with Rohini 1232 and Empanelment Number HOS-MUM-77; the second reads Ruby Hall Clinic with Rohini 38164 and is selected.">
+    <span class="vd-shot__pin" style="left:72%;top:19%">1</span>
+    <span class="vd-shot__pin" style="left:73%;top:51%">2</span>
+    <span class="vd-shot__pin" style="left:78%;top:73%">3</span>
+    <span class="vd-shot__pin" style="left:19%;top:48%">4</span>
+  </figure>
+  <div class="vd-notes" data-reveal>
+    <div class="vd-note"><span class="vd-note__n">1</span><p><b>State and city are required.
+      Hospital name is not.</b> The asterisks are on the two administrative fields. A member who
+      knows the hospital but not the state it files under cannot run the search, and the four ways
+      of finding a hospital promised on the previous screen &mdash; name, phone, address, pincode
+      &mdash; reduce here to name plus two dropdowns.</p></div>
+    <div class="vd-note"><span class="vd-note__n">2</span><p><b>Three hospitals found.</b> One
+      hospital name, one city, three entries, plus an <em>Add New Hospital</em> action if none of
+      them is right.</p></div>
+    <div class="vd-note"><span class="vd-note__n">3</span><p><b>Registry identifiers, not
+      relationships.</b> The results are separated by a Rohini number and an empanelment number.
+      Notably, the first result in a <em>Pune</em> search carries empanelment number
+      <em>HOS-MUM-77</em>. Neither identifier answers the only question the member has: is this
+      hospital in network for my policy, and is cashless available here.</p></div>
+    <div class="vd-note"><span class="vd-note__n">4</span><p><b>The claim stays behind the panel.</b>
+      The form is dimmed rather than discarded, so selecting a hospital returns the member to a claim
+      they have already part-filled. This is the part of the flow that works.</p></div>
+  </div>
+
+  <figure class="plate" data-reveal style="margin-top:var(--step-10)">
+    <img src="../../../assets/img/vidal/portal-hospital-search.png" width="2940" height="1519" loading="lazy"
+         alt="The empty hospital search panel requiring hospital name, state and city before searching.">
+    <figcaption class="plate__cap"><span class="plate__src">Captured</span>
+      The search before anything is entered. Three fields stand between a member and the answer to
+      whether their hospital is covered.</figcaption>
+  </figure>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">Claim details and tracking</h3>
+  <p class="prose" data-reveal>Claim History is a separate destination from Intimation and Claim
+    Submission, so a claim in progress is read by going to a different screen from the one it was
+    filed on. The member record carries the other half of the support experience.</p>
+
+  <figure class="plate" data-reveal style="margin-top:var(--step-6)">
+    <img src="../../../assets/img/vidal/portal-member.png" width="2940" height="1519" loading="lazy"
+         alt="The member details screen with a health card, demographic fields, and an escalation matrix listing an organisation, location, escalation level and a contact, with personal and third party details redacted.">
+    <figcaption class="plate__cap"><span class="plate__src">Captured</span>
+      The escalation matrix names a level and a named contact, which is more than most portals offer
+      and genuinely useful. It is also the only route available when the claim itself cannot explain
+      what is happening to it.</figcaption>
+  </figure>
+
+  <p class="note" data-reveal><span>Every statement in this section is an observation about what is
+    on screen. None of it is a measured usability finding, because no usability work was run. A
+    reader should treat these as the hypotheses that shaped the design, and
+    <a class="link-out" href="#vd-outcomes">section&nbsp;11</a> as the test that would confirm or
+    kill them.</span></p>
+</section>
+
+
+<!-- 03 · THE PROBLEM -------------------------------------------------------- -->
+<section class="section" id="vd-problem" aria-labelledby="h-vd-problem" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">03 &mdash; The Problem</p>
+    <h2 class="t-h2" id="h-vd-problem">Seven problems, one failure.</h2>
+    <p class="prose">It would be easy to list what is hard about filing a health claim and call that
+      a problem statement. It would also be wrong, because these are not seven independent usability
+      issues. They are one failure expressed seven times: at no point does the system assemble a
+      single view of the claim, so every interface asks someone to act on a fragment of it.</p>
+    <p class="prose">The chain below is how that compounds. Each link opens with the state the
+      previous one left the claim in.</p>
+  </div>
+
+  <div class="vd-chain" data-reveal>
+    <div class="vd-chain__link">
+      <p class="vd-chain__k">Link 01 &mdash; before the form</p>
+      <h3 class="vd-chain__t">Everything a member must already know before a claim form can help them.</h3>
+      <div class="vd-chain__set">
+        <div class="vd-chain__cell"><b>Which route applies</b><span>Cashless, reimbursement or hospital search sit side by side as equals. The right one depends on facts answered elsewhere.</span></div>
+        <div class="vd-chain__cell"><b>What the policy covers</b><span>The dashboard says <em>Hospitalisation Only</em> and gives a balance. Room rent eligibility, co-payment and sub-limits are what decide the settlement.</span></div>
+        <div class="vd-chain__cell"><b>Whether the hospital is in network</b><span>The search that answers this is a sibling of Claims in the navigation, not a step inside it.</span></div>
+      </div>
+      <p class="vd-chain__out"><b>Which leaves the claim:</b> started on a route the member chose
+        before they could find out whether it was the right one.</p>
+    </div>
+
+    <div class="vd-chain__link">
+      <p class="vd-chain__k">Link 02 &mdash; in the form</p>
+      <h3 class="vd-chain__t">A form that collects exactly what the process needs, and gives nothing back.</h3>
+      <div class="vd-chain__set">
+        <div class="vd-chain__cell"><b>Eight fields, seven required</b><span>Including a mobile number and an email the account already holds, and an alternate mobile number that is the one optional field.</span></div>
+        <div class="vd-chain__cell"><b>Ailment as free text</b><span>The clause that decides the claim depends on the procedure. Typing it as prose defers the classification to someone downstream.</span></div>
+        <div class="vd-chain__cell"><b>An estimate with no anchor</b><span>A rupee figure requested with no reference to the balance, the room cap or the co-payment, and no statement of what it affects.</span></div>
+        <div class="vd-chain__cell"><b>A search that returns registry numbers</b><span>Rohini and empanelment identifiers, where the member needs network status for this policy.</span></div>
+      </div>
+      <p class="vd-chain__out"><b>Which leaves the claim:</b> recorded, with a classification nobody
+        has made and a number nobody has checked against the policy it will be decided under.</p>
+    </div>
+
+    <div class="vd-chain__link">
+      <p class="vd-chain__k">Link 03 &mdash; after the handoff</p>
+      <h3 class="vd-chain__t">The window where a claim is most decidable is the window where it is least visible.</h3>
+      <div class="vd-chain__set">
+        <div class="vd-chain__cell"><b>Status without state</b><span>Claim History is a separate destination from the screens the claim was filed on, and it reports a stage rather than what that stage is waiting for.</span></div>
+        <div class="vd-chain__cell"><b>No next step</b><span>Nothing tells the member what the claim needs from them, or what would release it.</span></div>
+        <div class="vd-chain__cell"><b>Reasons produced, then discarded</b><span>The adjuster establishes, clause by clause, exactly why each amount is what it is. None of that reasoning is kept with the figure.</span></div>
+      </div>
+      <p class="vd-chain__out"><b>Which leaves the member:</b> with a settled amount, a remembered
+        estimate, and no account of the distance between them. That distance is what people mean when
+        they say a claim went wrong.</p>
+    </div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">The handoff, drawn</h3>
+  <p class="prose" data-reveal>The same claim, as each side meets it. Neither lane can see the
+    other, and the row between them is where the continuity is lost.</p>
+
+  <div class="vd-lanes" data-reveal>
+    <div class="vd-lane">
+      <p class="vd-lane__k">The claim, as the member meets it</p>
+      <div class="vd-lane__row">
+        <div class="vd-lane__cell"><b>Choose a route</b><span>Cashless, reimbursement, or find a hospital.</span></div>
+        <div class="vd-lane__cell"><b>Intimate the claim</b><span>Eight fields, including an estimated amount.</span></div>
+        <div class="vd-lane__cell"><b>Find the hospital</b><span>Name, state and city, then pick from the results.</span></div>
+        <div class="vd-lane__cell"><b>Submit documents</b><span>Then wait.</span></div>
+      </div>
+    </div>
+    <p class="vd-lane__gap">The handoff. Neither side sees the other's view of the same claim.</p>
+    <div class="vd-lane">
+      <p class="vd-lane__k">The claim, as the adjuster meets it</p>
+      <div class="vd-lane__row">
+        <div class="vd-lane__cell"><b>A pile of documents</b><span>Of unknown completeness.</span></div>
+        <div class="vd-lane__cell"><b>A policy</b><span>With clauses that have to be applied line by line.</span></div>
+        <div class="vd-lane__cell"><b>A decision</b><span>That has to be defensible months later.</span></div>
+        <div class="vd-lane__cell"><b>A figure</b><span>The member will compare against their estimate.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="prose" data-reveal style="margin-top:var(--step-8)">So the problem to solve is not a
+    better claim form. It is a shared view of one claim: the same documents, the same clauses and the
+    same arithmetic, visible to the person filing and the person deciding. This project takes the
+    adjuster half of that, because it is where the reasons are produced and currently thrown
+    away.</p>
+</section>
+
+
+<!-- 04 · RESEARCH & DISCOVERY ----------------------------------------------- -->
+<section class="section" id="vd-research" aria-labelledby="h-vd-research" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">04 &mdash; Research &amp; Discovery</p>
+    <h2 class="t-h2" id="h-vd-research">What was actually done, and what was not.</h2>
+    <p class="prose">This section exists to make the evidence base checkable. Five activities were
+      carried out. Four of the activities a case study like this usually claims were not, and they
+      are listed in the same table rather than left out of it.</p>
+  </div>
+
+  <div class="vd-meth" data-reveal>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">First-hand product use</p>
+      <p class="vd-meth__v">I hold a live policy on the Vidal Health member portal and use it as a
+        member. The analysis starts from my own account rather than from a demo environment, which is
+        why the screens carry real policy data and had to be redacted.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--seen">Captured</span></p>
+    </div>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">Interface capture</p>
+      <p class="vd-meth__v">Eight screens captured on 29 October 2026, covering the dashboard,
+        hospitalisation routes, reimbursement sub-navigation, claim intimation empty and filled,
+        hospital search empty and with results, and the member record.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--seen">Captured</span></p>
+    </div>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">Heuristic review</p>
+      <p class="vd-meth__v">A structured pass over those eight screens against the questions a member
+        has to answer to file correctly. Every issue named in section 02 is anchored to a pin on a
+        screenshot, so each one can be checked against the evidence rather than taken on trust.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--obs">Observed</span></p>
+    </div>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">Claim route and requirement review</p>
+      <p class="vd-meth__v">Reading the portal's own content for what it asks and offers: three
+        hospitalisation routes, a two-word cover description, a required field set of seven, and a
+        hospital record identified by Rohini and empanelment numbers.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--obs">Observed</span></p>
+    </div>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">Source artefact audit</p>
+      <p class="vd-meth__v">Reading the adjuster mockup as a file rather than as a picture:
+        what it renders, what it only labels, and what is wired. The result is in
+        <a class="link-out" href="#vd-outcomes">section&nbsp;11</a> and it is the reason this project
+        scoped three stages of design work rather than a visual refresh.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--obs">Observed</span></p>
+    </div>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">Member interviews</p>
+      <p class="vd-meth__v">Not conducted. No members other than myself were spoken to, surveyed or
+        observed filing a claim.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--none">Not run</span></p>
+    </div>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">Adjuster interviews and contextual enquiry</p>
+      <p class="vd-meth__v">Not conducted. The adjuster's workload, deadlines and audit obligations
+        are inferred from how claims adjudication works, not from observation.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--none">Not run</span></p>
+    </div>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">Usability testing</p>
+      <p class="vd-meth__v">Not conducted, on either the existing portal or the designed workflow.
+        The plan that would test it is in section 11.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--none">Not run</span></p>
+    </div>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">Analytics and operational data</p>
+      <p class="vd-meth__v">Not available. No claim volumes, cycle times, rejection rates, query
+        rates or drop-off figures were seen, and none appear anywhere on this page.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--none">Not run</span></p>
+    </div>
+    <div class="vd-meth__i">
+      <p class="vd-meth__k">Stakeholder and operations input</p>
+      <p class="vd-meth__v">Not conducted. No insurer, TPA or hospital stakeholder contributed
+        requirements, and no business case was discussed.</p>
+      <p class="vd-meth__e"><span class="vd-ev vd-ev--none">Not run</span></p>
+    </div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">What is observed, and what is assumed</h3>
+  <p class="prose" data-reveal>The distinction that matters most on this page. The left column is
+    checkable against a screenshot. The right column is reasoning, and it is where the design could
+    be wrong.</p>
+
+  <div class="spec" data-reveal>
+    <table class="spec__table">
+      <caption class="sr-only">Interface facts observed on screen, set against the assumption the design draws from each</caption>
+      <thead><tr><th scope="col">Observed on screen</th><th scope="col">Assumed from it</th><th scope="col">How it could be wrong</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-l="Observed">Network Hospitals is a sibling of Claims, and the third of three cards under hospitalisation.</td>
+          <td data-l="Assumed">Members reach the route choice before they know whether cashless is available.</td>
+          <td data-l="Could be wrong">Members may learn their hospital's status from the hospital itself, before they ever open the portal.</td>
+        </tr>
+        <tr>
+          <td data-l="Observed">Ailment is a free text field.</td>
+          <td data-l="Assumed">Classification work moves downstream to the adjuster.</td>
+          <td data-l="Could be wrong">The backend may already classify from the discharge summary, making the field incidental.</td>
+        </tr>
+        <tr>
+          <td data-l="Observed">Estimated Amount is required, with no reference to the sum insured.</td>
+          <td data-l="Assumed">The estimate sets an expectation the settlement will not meet.</td>
+          <td data-l="Could be wrong">Members may treat the field as an administrative formality and form no expectation at all.</td>
+        </tr>
+        <tr>
+          <td data-l="Observed">Admission and discharge on the same day are accepted without warning.</td>
+          <td data-l="Assumed">A decidable eligibility problem is passed through to adjudication.</td>
+          <td data-l="Could be wrong">Day-care procedures are covered under many policies, so the rule is not universal and the warning would need to be policy-aware.</td>
+        </tr>
+        <tr>
+          <td data-l="Observed">Results carry Rohini and empanelment numbers, not network status.</td>
+          <td data-l="Assumed">Members cannot tell which of three identical names to pick.</td>
+          <td data-l="Could be wrong">Members may simply pick the first result and let operations correct it, at a cost nobody has measured.</td>
+        </tr>
+        <tr>
+          <td data-l="Observed">Intimation, Claim Submission and Claim History are three destinations.</td>
+          <td data-l="Assumed">A claim in progress has no single place to be read.</td>
+          <td data-l="Could be wrong">Claim History may be sufficient on its own, and the split may cost nothing in practice.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">Who the claim passes through</h3>
+
+  <div class="spec" data-reveal>
+    <table class="spec__table">
+      <caption class="sr-only">The parties to a health claim, what each one needs, and which interface serves them</caption>
+      <thead><tr><th scope="col">Party</th><th scope="col">What they need from the claim</th><th scope="col">Interface</th><th scope="col">Evidence</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-l="Party">Member filing the claim</td>
+          <td data-l="What they need">To know which route applies, what will be needed, and roughly what comes back.</td>
+          <td data-l="Interface">Vidal Health member portal</td>
+          <td data-l="Evidence"><span class="vd-ev vd-ev--seen">Captured</span></td>
+        </tr>
+        <tr>
+          <td data-l="Party">Claims adjuster</td>
+          <td data-l="What they need">A complete document set, the clauses that apply, and a decision they can defend later.</td>
+          <td data-l="Interface">The workflow designed in this case study</td>
+          <td data-l="Evidence"><span class="vd-ev vd-ev--proposed">Designed</span></td>
+        </tr>
+        <tr>
+          <td data-l="Party">Hospital billing desk</td>
+          <td data-l="What they need">To know whether the stay is cashless and what the insurer will pay for.</td>
+          <td data-l="Interface">Neither. Appears only as a Rohini number in a search result.</td>
+          <td data-l="Evidence"><span class="vd-ev vd-ev--obs">Observed</span></td>
+        </tr>
+        <tr>
+          <td data-l="Party">Employer and policy owner</td>
+          <td data-l="What they need">The cover terms that decide every deduction on the claim.</td>
+          <td data-l="Interface">Neither. Present only as a policy name on the snapshot.</td>
+          <td data-l="Evidence"><span class="vd-ev vd-ev--obs">Observed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="split" data-reveal style="margin-top:var(--step-12)">
+    <div class="split__text">
+      <h3 class="t-h3">What I know about these people, and what I do not</h3>
+      <p class="prose">I am a member of the portal in section 02, so the member side rests on my own
+        use of a live product and on what the interface visibly does. That is a real but narrow
+        vantage point: one policy, one employer, one claim type, one person who designs software for
+        a living and is therefore the least representative member available.</p>
+      <p class="prose">For the adjuster I have no equivalent. The role, the volume, the deadline and
+        the audit obligations are all inferred from how claims adjudication works and from what the
+        source mockup itself asserts by naming its user a Claims Adjuster. The design is built on
+        that inference, and section 11 is where it would be tested.</p>
+    </div>
+    <div class="panel">
+      <p class="t-label section__eyebrow">Not run</p>
+      <h3 class="t-h3" style="margin-top:var(--step-4)">No research was conducted for this project.</h3>
+      <ul class="prose" style="margin-top:var(--step-5)">
+        <li>No member interviews or surveys</li>
+        <li>No adjuster interviews or contextual enquiry</li>
+        <li>No usability testing of either interface</li>
+        <li>No analytics, claim volumes or cycle times</li>
+        <li>No stakeholder or operations input</li>
+      </ul>
+      <p class="prose">Naming the absence is the point. Everything downstream of here is a design
+        argument from visible evidence, and it is labelled that way.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- 05 · KEY FINDINGS ------------------------------------------------------- -->
+<section class="section" id="vd-findings" aria-labelledby="h-vd-findings" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">05 &mdash; Key Findings &amp; Opportunities</p>
+    <h2 class="t-h2" id="h-vd-findings">Six themes, three of which decide the rest.</h2>
+    <p class="prose">Each theme is read the same way: what was difficult, why that mattered, and
+      where the opening is. Three are marked primary, because a findings section in which everything
+      is equally loud has not prioritised anything. Those three are the ones that make the other
+      three expensive.</p>
+  </div>
+
+  <div class="vd-find" data-reveal>
+
+    <article class="vd-find__i vd-find__i--lead">
+      <header class="vd-find__h">
+        <p class="vd-find__n">01 <span class="vd-find__pri">Primary</span> <span class="vd-ev vd-ev--obs">Observed</span></p>
+        <h3 class="vd-find__t">Information hierarchy and discoverability</h3>
+      </header>
+      <div class="vd-find__grid">
+        <div class="vd-find__f">
+          <p class="vd-find__k">What was difficult</p>
+          <p class="vd-find__v">The facts that decide a claim are distributed across screens by
+            subject rather than by decision. Network status is a sibling of Claims. Cover terms are a
+            two-word summary on the dashboard. A claim in progress is on a third screen from the one
+            it was filed on.</p>
+        </div>
+        <div class="vd-find__f">
+          <p class="vd-find__k">Why it mattered</p>
+          <p class="vd-find__v">Every one of the other five themes is a consequence of this. A route
+            is chosen badly because the deciding fact is elsewhere; an estimate is unanchored because
+            the balance is elsewhere; a status is opaque because the reason is elsewhere.</p>
+        </div>
+        <div class="vd-find__f vd-find__f--open">
+          <p class="vd-find__k">The opportunity</p>
+          <p class="vd-find__v">Organise around the claim rather than around the subject. One claim,
+            one place, carrying its documents, its clauses and its arithmetic together.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="vd-find__i">
+      <header class="vd-find__h">
+        <p class="vd-find__n">02 <span class="vd-ev vd-ev--obs">Observed</span></p>
+        <h3 class="vd-find__t">Claim initiation and navigation</h3>
+      </header>
+      <div class="vd-find__grid">
+        <div class="vd-find__f">
+          <p class="vd-find__k">What was difficult</p>
+          <p class="vd-find__v">Three equally weighted routes, where the correct one depends on
+            whether the hospital is in network and whether the member is before or after admission.
+            One level down, reimbursement splits again into three destinations that are really three
+            stages of one claim.</p>
+        </div>
+        <div class="vd-find__f">
+          <p class="vd-find__k">Why it mattered</p>
+          <p class="vd-find__v">A wrong route is not a wrong click. Picking reimbursement when
+            cashless was available means the member pays the hospital in full and waits, which is the
+            most expensive navigation error in the product.</p>
+        </div>
+        <div class="vd-find__f vd-find__f--open">
+          <p class="vd-find__k">The opportunity</p>
+          <p class="vd-find__v">Ask the two questions that determine the route &mdash; where, and
+            when &mdash; and let the system name the route, rather than presenting the routes and
+            asking the member to self-select.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="vd-find__i">
+      <header class="vd-find__h">
+        <p class="vd-find__n">03 <span class="vd-ev vd-ev--obs">Observed</span></p>
+        <h3 class="vd-find__t">Form usability and data entry</h3>
+      </header>
+      <div class="vd-find__grid">
+        <div class="vd-find__f">
+          <p class="vd-find__k">What was difficult</p>
+          <p class="vd-find__v">Eight fields, seven required, in one flat grid. Mobile number and
+            email are asked for on a screen reached from an authenticated account. Ailment is free
+            text. Two dates are collected with no stated relationship to each other.</p>
+        </div>
+        <div class="vd-find__f">
+          <p class="vd-find__k">Why it mattered</p>
+          <p class="vd-find__v">Each field is cheap on its own. Together they make a form that
+            cannot validate what it collects: a same-day admission and discharge passes, and a free
+            text ailment cannot be checked against any clause.</p>
+        </div>
+        <div class="vd-find__f vd-find__f--open">
+          <p class="vd-find__k">The opportunity</p>
+          <p class="vd-find__v">Drop what the account already holds, structure the one field that
+            decides the clause, and validate the pair of dates against the condition that actually
+            governs them.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="vd-find__i">
+      <header class="vd-find__h">
+        <p class="vd-find__n">04 <span class="vd-ev vd-ev--obs">Observed</span></p>
+        <h3 class="vd-find__t">Hospital search and selection</h3>
+      </header>
+      <div class="vd-find__grid">
+        <div class="vd-find__f">
+          <p class="vd-find__k">What was difficult</p>
+          <p class="vd-find__v">State and city are required; the hospital name is not. One name in
+            one city returns three entries, separated by a Rohini number and an empanelment number
+            &mdash; one of which, in a Pune search, is coded for Mumbai.</p>
+        </div>
+        <div class="vd-find__f">
+          <p class="vd-find__k">Why it mattered</p>
+          <p class="vd-find__v">The search surfaces the operational identity of a hospital and
+            withholds its relationship to the member's cover. That relationship is the only part the
+            member can act on, and the one that decides which route they should have taken.</p>
+        </div>
+        <div class="vd-find__f vd-find__f--open">
+          <p class="vd-find__k">The opportunity</p>
+          <p class="vd-find__v">Lead each result with network status for this policy, then the
+            address a person would recognise, then the registry number. Make the administrative
+            fields optional filters rather than a gate.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="vd-find__i vd-find__i--lead">
+      <header class="vd-find__h">
+        <p class="vd-find__n">05 <span class="vd-find__pri">Primary</span> <span class="vd-ev vd-ev--obs">Observed</span></p>
+        <h3 class="vd-find__t">Policy and coverage visibility</h3>
+      </header>
+      <div class="vd-find__grid">
+        <div class="vd-find__f">
+          <p class="vd-find__k">What was difficult</p>
+          <p class="vd-find__v">The policy is summarised as <em>Hospitalisation Only</em> with a
+            balance of &#8377;4,00,000. Room rent eligibility, co-payment, sub-limits and the
+            non-payable list &mdash; the four things that produce almost every deduction &mdash; are
+            not on the screen where a claim is filed.</p>
+        </div>
+        <div class="vd-find__f">
+          <p class="vd-find__k">Why it mattered</p>
+          <p class="vd-find__v">A room rent cap does not only cap the room. In most policies it
+            prorates the surgeon, theatre and anaesthetist charges with it. That is the single
+            largest deduction on a typical claim and the one members are least likely to have
+            anticipated.</p>
+        </div>
+        <div class="vd-find__f vd-find__f--open">
+          <p class="vd-find__k">The opportunity</p>
+          <p class="vd-find__v">Put clauses where they bite rather than in a reference document:
+            attached to the line they govern, in words, at the moment the figure changes.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="vd-find__i vd-find__i--lead">
+      <header class="vd-find__h">
+        <p class="vd-find__n">06 <span class="vd-find__pri">Primary</span> <span class="vd-ev vd-ev--obs">Observed</span></p>
+        <h3 class="vd-find__t">Claim status and progress transparency</h3>
+      </header>
+      <div class="vd-find__grid">
+        <div class="vd-find__f">
+          <p class="vd-find__k">What was difficult</p>
+          <p class="vd-find__v">After submission there are four consecutive stages &mdash; document
+            review, policy mapping, coverage decision, settlement &mdash; in which the member sees
+            nothing. Claim History reports that a claim is in progress. It does not report what the
+            claim is waiting for.</p>
+        </div>
+        <div class="vd-find__f">
+          <p class="vd-find__k">Why it mattered</p>
+          <p class="vd-find__v">Those four stages are exactly where the reasons are produced. The
+            adjuster establishes, clause by clause, why each amount is what it is, and then the system
+            keeps the amount and discards the reasoning.</p>
+        </div>
+        <div class="vd-find__f vd-find__f--open">
+          <p class="vd-find__k">The opportunity</p>
+          <p class="vd-find__v">Design the adjuster's work so that the reasons are a by-product of
+            doing it, rather than a note someone has to remember to write. Then they exist to be
+            carried back.</p>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="note" data-reveal><span>These are design findings from visible evidence, not validated
+    research findings. Nobody has been observed failing at any of these tasks, and the page does not
+    claim otherwise.</span></p>
+</section>
+
+
+<!-- 06 · DESIGN STRATEGY ---------------------------------------------------- -->
+<section class="section" id="vd-strategy" aria-labelledby="h-vd-strategy" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">06 &mdash; Defining the Design Strategy</p>
+    <h2 class="t-h2" id="h-vd-strategy">One commitment, and the seven principles it produces.</h2>
+    <p class="prose">The commitment: <strong>a claim should carry its own reasoning</strong>. Every
+      figure the system produces should arrive with the rule that produced it, at the moment it
+      changes, in words a person can read. Most of what follows is that one idea applied to a
+      different part of the journey.</p>
+    <p class="prose">Each principle below names the observation it answers, so it can be traced back
+      to a screen rather than taken as a slogan.</p>
+  </div>
+
+  <div class="vd-prin" data-reveal>
+    <article class="vd-prin__i">
+      <p class="vd-prin__n">01</p>
+      <h3 class="vd-prin__t">Simplify the journey by removing decisions, not steps</h3>
+      <p class="vd-prin__v"><b>Answers</b> Three equally weighted routes whose correct answer depends
+        on facts held elsewhere.</p>
+      <p class="vd-prin__v"><b>In the design</b> The claim is staged in dependency order, so the
+        system decides what can be worked on next and the person decides only what needs judgement.
+        Four stages is more navigation than one worksheet; it is fewer choices.</p>
+    </article>
+
+    <article class="vd-prin__i">
+      <p class="vd-prin__n">02</p>
+      <h3 class="vd-prin__t">Put the deciding fact next to the decision</h3>
+      <p class="vd-prin__v"><b>Answers</b> Network status sitting in a different navigation branch
+        from the claim that depends on it.</p>
+      <p class="vd-prin__v"><b>In the design</b> The hospital and its network status travel together
+        in the claim header, so the fact that changes the arithmetic is never more than one read
+        away.</p>
+    </article>
+
+    <article class="vd-prin__i">
+      <p class="vd-prin__n">03</p>
+      <h3 class="vd-prin__t">Reduce effort by asking less, not by hiding more</h3>
+      <p class="vd-prin__v"><b>Answers</b> Seven required fields on an authenticated screen,
+        including a mobile number and an email the account already holds.</p>
+      <p class="vd-prin__v"><b>In the design</b> Nothing is collected that the record can supply.
+        Progressive disclosure is not used to make a long form look short &mdash; the stage rail shows
+        the whole shape of the work at all times.</p>
+    </article>
+
+    <article class="vd-prin__i">
+      <p class="vd-prin__n">04</p>
+      <h3 class="vd-prin__t">A form should validate what it collects</h3>
+      <p class="vd-prin__v"><b>Answers</b> An admission and a discharge accepted on the same day,
+        and an ailment typed as prose.</p>
+      <p class="vd-prin__v"><b>In the design</b> Structure the field that decides the clause, and
+        check a rule at the point it is decidable rather than passing it to adjudication. A claim
+        that fails a known condition should fail where it was typed.</p>
+    </article>
+
+    <article class="vd-prin__i">
+      <p class="vd-prin__n">05</p>
+      <h3 class="vd-prin__t">Policy terms belong on the line they govern</h3>
+      <p class="vd-prin__v"><b>Answers</b> A two-word cover description standing in for room
+        eligibility, co-payment and sub-limits.</p>
+      <p class="vd-prin__v"><b>In the design</b> Each coverage line and each settlement deduction
+        names its clause, on the same row, in sentence form. Not a reason code, not a link to a PDF
+        &mdash; a reason that survives being read out loud months later.</p>
+    </article>
+
+    <article class="vd-prin__i">
+      <p class="vd-prin__n">06</p>
+      <h3 class="vd-prin__t">Progress means naming what is holding the claim</h3>
+      <p class="vd-prin__v"><b>Answers</b> Four stages of silence, and a history screen that reports
+        a stage rather than a blocker.</p>
+      <p class="vd-prin__v"><b>In the design</b> Every state is specific: not <em>in review</em> but
+        <em>one implant sticker outstanding, and this is the line it is holding</em>. A status is only
+        useful if it implies an action.</p>
+    </article>
+
+    <article class="vd-prin__i">
+      <p class="vd-prin__n">07</p>
+      <h3 class="vd-prin__t">Be predictable about what is settled and what is not</h3>
+      <p class="vd-prin__v"><b>Answers</b> An estimate typed by the member, and a settlement returned
+        later, with nothing connecting the two.</p>
+      <p class="vd-prin__v"><b>In the design</b> Confirmed figures and provisional figures are
+        visually and verbally distinct. The settlement stage is titled an estimate, states its
+        assumptions, quantifies what would change them, and says plainly that nothing on the screen
+        authorises a payment.</p>
+    </article>
+  </div>
+
+  <p class="prose" data-reveal style="margin-top:var(--step-10)">What this strategy deliberately does
+    not do is make the claim look simpler than it is. A health claim is genuinely complicated: a dozen
+    documents, a policy with clauses that interact, and an outcome with money attached. The design
+    does not hide that complexity behind a progress bar. It makes it inspectable, which is a different
+    goal and a harder one.</p>
+</section>
+
+
+<!-- 07 · ARCHITECTURE & WORKFLOW -------------------------------------------- -->
+<section class="section" id="vd-structure" aria-labelledby="h-vd-structure" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">07 &mdash; Information Architecture &amp; Workflow</p>
+    <h2 class="t-h2" id="h-vd-structure">The claim stops being a destination and becomes the root.</h2>
+    <p class="prose">The existing portal is organised by subject: policy here, claims there,
+      hospitals somewhere else. That is a reasonable way to structure a product and a poor way to
+      structure a claim, because a claim needs all three at once. The redesign inverts it. One claim
+      is the root, and everything else hangs off it.</p>
+  </div>
+
+  <div class="vd-ia" data-reveal>
+    <div class="vd-ia__col">
+      <p class="vd-ia__k"><b>Today</b> member portal &mdash; organised by subject <span class="vd-ev vd-ev--seen">Captured</span></p>
+      <ul class="vd-tree">
+        <li><b>Home</b> <span>&mdash; policy snapshot, health card, coverage &amp; benefits</span></li>
+        <li><b>My Policy</b></li>
+        <li><b>Claims</b>
+          <ul>
+            <li><b>Hospitalisation / IPD</b>
+              <ul>
+                <li><b>Reimbursements</b>
+                  <ul>
+                    <li>Intimation</li>
+                    <li>Claim Submission</li>
+                    <li>Claim History <span>&mdash; four levels from Home</span></li>
+                  </ul>
+                </li>
+                <li><b>Cashless services</b></li>
+                <li><b>Network Hospitals</b> <span>&mdash; the answer the two routes above depend on</span></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><b>E-Cards</b></li>
+        <li><b>Network Hospitals</b> <span>&mdash; again, at top level</span></li>
+        <li><b>Wellness</b></li>
+        <li><b>Member details</b> <span>&mdash; health card, demographics, escalation matrix</span></li>
+      </ul>
+    </div>
+    <div class="vd-ia__col">
+      <p class="vd-ia__k"><b>Designed</b> claim workflow &mdash; organised by the claim <span class="vd-ev vd-ev--proposed">Designed</span></p>
+      <ul class="vd-tree">
+        <li data-state="new"><b>The claim</b> <span>&mdash; number, member, hospital and network status, in the header throughout</span>
+          <ul>
+            <li data-state="new"><b>Where am I</b> <span>&mdash; the stage rail</span>
+              <ul>
+                <li>1 &middot; Add Documents</li>
+                <li>2 &middot; Policy Mapping</li>
+                <li>3 &middot; Coverage Decision</li>
+                <li>4 &middot; Estimated Settlement</li>
+              </ul>
+            </li>
+            <li data-state="new"><b>What does this stage need</b> <span>&mdash; one stage of work at a time</span>
+              <ul>
+                <li>Documents, each with a state and a reason</li>
+                <li>Clauses, each paired with its evidence</li>
+                <li>Bill lines, each covered, capped or held</li>
+                <li>The arithmetic, deduction by deduction</li>
+              </ul>
+            </li>
+            <li data-state="new"><b>Who can I ask</b> <span>&mdash; the Claim Companion</span>
+              <ul>
+                <li>Answers derived from this claim, each citing its source</li>
+                <li>Escalation, when no lookup fits</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="split" data-reveal style="margin-top:var(--step-10)">
+    <div class="split__text">
+      <h3 class="t-h3">What changed in the navigation</h3>
+      <p class="prose">Three things. <strong>Depth collapsed:</strong> reading a claim in progress
+        today takes four levels from Home, and in the redesign the claim is the top level.
+        <strong>The duplicate resolved:</strong> Network Hospitals appears twice in the existing tree,
+        once as a global destination and once as a route card, and in neither place is it part of the
+        claim &mdash; so the redesign makes network status an attribute of the claim's hospital
+        instead of a place to visit.</p>
+      <p class="prose"><strong>Stages stopped being destinations:</strong> Intimation, Claim
+        Submission and Claim History are three screens describing one claim at three points in its
+        life. In the redesign they are states of a single object, and the rail shows which one it is
+        in.</p>
+    </div>
+    <div class="split__text">
+      <h3 class="t-h3">What the stage order encodes</h3>
+      <p class="prose">The order is not presentational. Documents come first because a clause cannot
+        be mapped to evidence that is not there. Mapping comes before coverage because a line decided
+        without a clause is a line nobody can defend. Settlement comes last because it is arithmetic
+        over decisions already made, and reordering it would mean producing a figure before the
+        reasons for it exist.</p>
+      <p class="prose">That dependency is what makes the rail useful rather than decorative: a stage
+        that cannot be completed tells you precisely which earlier stage is blocking it.</p>
+    </div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">The claim submission journey</h3>
+
+  <figure class="vd-dia" data-reveal>
+    <p class="vd-dia__k">Today <span class="vd-ev vd-ev--seen">Captured</span></p>
+    <div class="vd-flow">
+      <div class="vd-flow__n"><b>Choose a route</b><span>Three cards, no guidance.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n"><b>Intimate</b><span>Eight fields, seven required.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n"><b>Search hospital</b><span>State and city required first.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n"><b>Pick a result</b><span>Separated by registry numbers.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n"><b>Submit documents</b><span>A separate destination.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--dark"><b>Wait</b><span>Status, but not a blocker.</span></div>
+    </div>
+    <figcaption class="vd-dia__cap">Six steps, and the two facts that determine whether the first one
+      was correct &mdash; network status and admission timing &mdash; are discovered at step three or
+      not at all.</figcaption>
+  </figure>
+
+  <figure class="vd-dia" data-reveal>
+    <p class="vd-dia__k">Proposed <span class="vd-ev vd-ev--proposed">Designed</span> &mdash; member side, not built</p>
+    <div class="vd-flow">
+      <div class="vd-flow__n vd-flow__n--new"><b>Where, and when</b><span>The hospital, and whether admission has happened.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--new"><b>The route is named</b><span>Cashless or reimbursement, decided from those two answers.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--new"><b>Claim opened</b><span>With the document list the treatment implies.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--new"><b>Submit</b><span>Against that list, in the claim.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--new"><b>Tracked by blocker</b><span>What is outstanding, not which stage it is in.</span></div>
+    </div>
+    <figcaption class="vd-dia__cap">The same journey with the deciding facts moved to the front. This
+      is an architecture proposal, not a built screen: no member-side interface was designed in this
+      project, and <a class="link-out" href="#vd-decisions">section&nbsp;08</a> explains why that was
+      a deliberate sequencing choice rather than an omission.</figcaption>
+  </figure>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">The hospital search journey</h3>
+
+  <figure class="vd-dia" data-reveal>
+    <p class="vd-dia__k">Today, and the proposed order <span class="vd-ev vd-ev--seen">Captured</span> <span class="vd-ev vd-ev--proposed">Designed</span></p>
+    <div class="vd-flow">
+      <div class="vd-flow__n"><b>Enter state</b><span>Required.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n"><b>Enter city</b><span>Required.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n"><b>Enter name</b><span>Optional.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n"><b>Three results</b><span>Rohini and empanelment numbers.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--dark"><b>Network status</b><span>Not shown anywhere.</span></div>
+    </div>
+    <div class="vd-flow" style="margin-top:var(--step-5)">
+      <div class="vd-flow__n vd-flow__n--new"><b>Type the name</b><span>The only thing the member reliably knows.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--new"><b>Results, led by status</b><span>In network for this policy, or not.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--new"><b>Then the address</b><span>What distinguishes three identical names to a person.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--new"><b>Then the registry number</b><span>Kept, for operations.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--new"><b>Route confirmed</b><span>Cashless available, or not.</span></div>
+    </div>
+    <figcaption class="vd-dia__cap">The same four pieces of data, reordered by who needs them. State
+      and city become filters rather than a gate; the registry identifiers stay, because operations
+      genuinely need them, and move behind the fact the member can act on.</figcaption>
+  </figure>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">Claim tracking, and the four dark stages</h3>
+
+  <figure class="vd-dia" data-reveal>
+    <p class="vd-dia__k">What happens after the handoff</p>
+    <div class="vd-flow">
+      <div class="vd-flow__n"><b>Handoff</b><span>The claim moves to adjudication.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--dark"><b>Document review</b><span>Member sees nothing.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--dark"><b>Policy mapping</b><span>Member sees nothing.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--dark"><b>Coverage decision</b><span>Member sees nothing.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n vd-flow__n--dark"><b>Settlement</b><span>Member sees nothing.</span></div>
+      <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="vd-flow__n"><b>A figure</b><span>Compared against a remembered estimate.</span></div>
+    </div>
+    <figcaption class="vd-dia__cap">Four consecutive stages in which the member sees nothing is the
+      finding this project is built on. Each of those stages produces a reason the member will
+      eventually want, and this is where the redesign puts its work: not making the stages visible to
+      the member yet, but making them produce reasons worth carrying back.</figcaption>
+  </figure>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">The claim lifecycle, stage by stage</h3>
+
+  <div class="spec" data-reveal>
+    <table class="spec__table">
+      <caption class="sr-only">The claim lifecycle, what happens at each stage, what the member can see, and the state of the evidence</caption>
+      <thead><tr><th scope="col">Stage</th><th scope="col">What happens</th><th scope="col">What the member can see</th><th scope="col">Evidence</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Stage">Choose a route</td><td data-l="What happens">Cashless, reimbursement or hospital search.</td><td data-l="Member sees">Three cards, no guidance on which applies.</td><td data-l="Evidence"><span class="vd-ev vd-ev--seen">Captured</span></td></tr>
+        <tr><td data-l="Stage">Intimate</td><td data-l="What happens">Eight fields, including a free text ailment and an estimated amount.</td><td data-l="Member sees">The form, and a confirmation.</td><td data-l="Evidence"><span class="vd-ev vd-ev--seen">Captured</span></td></tr>
+        <tr><td data-l="Stage">Select hospital</td><td data-l="What happens">Name, state and city, then a result list.</td><td data-l="Member sees">Registry numbers. Not network status.</td><td data-l="Evidence"><span class="vd-ev vd-ev--seen">Captured</span></td></tr>
+        <tr><td data-l="Stage">Submit documents</td><td data-l="What happens">Documents are uploaded against the claim.</td><td data-l="Member sees">A submission screen, separate from intimation.</td><td data-l="Evidence"><span class="vd-ev vd-ev--seen">Captured</span></td></tr>
+        <tr><td data-l="Stage">Handoff</td><td data-l="What happens">The claim moves to adjudication.</td><td data-l="Member sees">Claim history, and a status.</td><td data-l="Evidence"><span class="vd-ev vd-ev--obs">Observed</span></td></tr>
+        <tr><td data-l="Stage">Document review</td><td data-l="What happens">Completeness and legibility are established.</td><td data-l="Member sees">Nothing.</td><td data-l="Evidence"><span class="vd-ev vd-ev--proposed">Designed</span></td></tr>
+        <tr><td data-l="Stage">Policy mapping</td><td data-l="What happens">Each document is tied to the clause it evidences.</td><td data-l="Member sees">Nothing.</td><td data-l="Evidence"><span class="vd-ev vd-ev--proposed">Designed</span></td></tr>
+        <tr><td data-l="Stage">Coverage decision</td><td data-l="What happens">Each bill line is covered, capped or held, with a reason.</td><td data-l="Member sees">Nothing.</td><td data-l="Evidence"><span class="vd-ev vd-ev--proposed">Designed</span></td></tr>
+        <tr><td data-l="Stage">Settlement estimate</td><td data-l="What happens">The deductions are applied and a figure is produced.</td><td data-l="Member sees">A final amount, after the fact.</td><td data-l="Evidence"><span class="vd-ev vd-ev--proposed">Designed</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">Three panels, each answering a different question</h3>
+  <p class="prose" data-reveal>The source mockup established a three panel shell, and it is the right
+    shape. Each panel answers one question and does not try to answer the others.</p>
+
+  <div class="vd-arch" data-reveal>
+    <div class="vd-arch__band">
+      <p class="vd-arch__k">Left &middot; where am I in this claim</p>
+      <div class="vd-arch__row">
+        <div class="vd-arch__cell"><b>Stage rail</b><span>Four stages in dependency order, each showing whether it is done, current or not yet reachable.</span></div>
+      </div>
+    </div>
+    <div class="vd-arch__band">
+      <p class="vd-arch__k">Centre &middot; what does this stage need</p>
+      <div class="vd-arch__row">
+        <div class="vd-arch__cell vd-arch__cell--spine"><b>The work</b><span>One stage at a time. Documents, then clause mapping, then coverage lines, then the arithmetic.</span></div>
+      </div>
+    </div>
+    <div class="vd-arch__band">
+      <p class="vd-arch__k">Right &middot; who can I ask</p>
+      <div class="vd-arch__row">
+        <div class="vd-arch__cell"><b>Claim Companion</b><span>Answers derived from the same claim data, each naming its source.</span></div>
+      </div>
+    </div>
+    <p class="vd-arch__rule">The claim number sits in the header throughout, because all three questions are about one specific claim.</p>
+  </div>
+
+  <figure class="plate" data-reveal style="margin-top:var(--step-8)">
+    <img src="../../../assets/img/vidal/vidal-sidebar.png" width="600" height="1936" loading="lazy"
+         alt="The mockup's navigation rail: the ClaimFlow brand mark above four stage items, with Add Documents selected and the other three in a lighter inactive style, and a user profile card at the bottom reading Claims Adjuster."
+         style="max-width:14rem">
+    <figcaption class="plate__cap"><span class="plate__src">Captured</span>
+      The rail as the source mockup established it, including the one place the mockup names its
+      user.</figcaption>
+  </figure>
+</section>
+
+
+<!-- 08 · KEY DESIGN DECISIONS ----------------------------------------------- -->
+<section class="section" id="vd-decisions" aria-labelledby="h-vd-decisions" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">08 &mdash; Key Design Decisions</p>
+    <h2 class="t-h2" id="h-vd-decisions">Six decisions, what each one gave up, and which two were not built.</h2>
+    <p class="prose">Each decision is set out the same way: the challenge in the existing experience,
+      what was decided and why, where the new experience can be seen, and what the change enables.
+      The fourth of those is the one most case studies overclaim, so nothing in this section is
+      stated as a measured improvement &mdash; none of it has been measured.</p>
+    <p class="prose">Two of the six are decisions I took and did not build. They say so in the place
+      the redesigned screen would have gone, rather than being quietly left out.</p>
+  </div>
+
+  <article class="vd-story" data-reveal>
+    <header class="vd-story__h">
+      <p class="vd-story__n">Decision 01 <span class="vd-ev vd-ev--proposed">Designed</span> <span class="vd-ev vd-ev--none">Not built</span></p>
+      <h3 class="t-h3">Simplifying the member dashboard &mdash; and deciding not to do it yet</h3>
+    </header>
+    <div class="vd-story__body">
+      <div class="vd-story__fields">
+        <div class="vd-story__f">
+          <p class="vd-story__k">The challenge</p>
+          <p class="vd-story__v">The dashboard summarises a policy as <em>Hospitalisation Only</em>
+            with a balance of &#8377;4,00,000. Room rent eligibility, co-payment, sub-limits and the
+            non-payable list are not on it. The obvious move is to put them there.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The design decision</p>
+          <p class="vd-story__v">Not to. Adding clause text to the member dashboard would show a
+            member four more terms they cannot act on, at a moment when no claim exists for them to
+            apply to. The terms only become meaningful attached to a figure they changed &mdash; and
+            that figure is produced on the adjuster side, which currently discards the reasoning that
+            produced it.</p>
+          <p class="vd-story__v">So the sequencing decision was: fix the side that generates the
+            reasons first, then carry them back. Redesigning the dashboard before those reasons exist
+            would move the opacity rather than remove it.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The new experience</p>
+          <p class="vd-story__v">There isn't one. This is the decision that scoped the project, and
+            the reason every redesigned screen in this case study belongs to the adjuster.</p>
+        </div>
+      </div>
+      <div class="vd-story__media">
+        <figure>
+          <img src="../../../assets/img/vidal/portal-home.png" width="2940" height="1519" loading="lazy"
+               alt="The member portal dashboard showing the policy snapshot with policy name, covers, members covered, sum insured balance, joining date and expiry.">
+          <figcaption><span class="vd-ev vd-ev--seen">Captured</span> The dashboard as it stands. The
+            balance is the right number to lead with. What is missing is everything that will reduce
+            it.</figcaption>
+        </figure>
+        <div class="vd-gap">
+          <p class="vd-gap__k">No redesigned screen</p>
+          <p>The member dashboard was not redesigned in this project. It is named as a remaining
+            opportunity in <a class="link-out" href="#vd-outcomes">section&nbsp;11</a>, with the
+            dependency that has to be satisfied first.</p>
+        </div>
+      </div>
+    </div>
+    <div class="vd-story__impact">
+      <p class="vd-story__k">The impact</p>
+      <p class="vd-story__v">What this enables is a correct order of work rather than an outcome.
+        The member-side improvement this project is aiming at &mdash; a settlement that arrives with
+        its reasons &mdash; is only possible once those reasons are captured somewhere, which is what
+        decisions 02 to 06 build.</p>
+    </div>
+  </article>
+
+  <article class="vd-story" data-reveal>
+    <header class="vd-story__h">
+      <p class="vd-story__n">Decision 02 <span class="vd-ev vd-ev--proposed">Designed</span> <span class="vd-ev vd-ev--seen">Built in the demo</span></p>
+      <h3 class="t-h3">Making policy and coverage information accessible</h3>
+    </header>
+    <div class="vd-story__body">
+      <div class="vd-story__fields">
+        <div class="vd-story__f">
+          <p class="vd-story__k">The challenge</p>
+          <p class="vd-story__v">A coverage decision is only as good as the reason behind it, and
+            reasons are usually recorded somewhere other than the figure. The member feels this as a
+            number that arrives with no account of itself; the adjuster feels it as a decision they
+            have to reconstruct months later from memory.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The design decision</p>
+          <p class="vd-story__v">The clause sits on the row, in words, next to the amount it
+            changed. The alternatives were a link to the policy document and a reason code; both were
+            rejected, because a reason that requires a second lookup will not survive either the audit
+            conversation or the member conversation.</p>
+          <p class="vd-story__v"><b>The trade-off:</b> denser rows, and a dependency on clause text
+            being written in language a person can read &mdash; which is a content problem this design
+            creates and does not solve.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The new experience</p>
+          <p class="vd-story__v">Stages 2 and 3 of the running workflow in
+            <a class="link-out" href="#vd-solution">section&nbsp;09</a>. Policy Mapping pairs each
+            clause with the document that evidences it; Coverage Decision marks each bill line
+            covered, capped or held and names the clause that decided it, including the room rent cap
+            that also prorates the surgeon, theatre and anaesthetist charges.</p>
+        </div>
+      </div>
+      <div class="vd-story__media">
+        <figure>
+          <img src="../../../assets/img/vidal/portal-intimate-filled.png" width="2940" height="768" loading="lazy"
+               alt="The filled intimation form showing Ailment as Bone Surgery, both dates set to 31 October 2026, and an estimated amount of 200000, with three fields covered by labelled redaction bars.">
+          <figcaption><span class="vd-ev vd-ev--seen">Captured</span> The cost of invisible terms:
+            &#8377;2,00,000 entered as an estimate, with none of the clauses that will reduce it
+            visible on any screen the member has seen.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="vd-story__impact">
+      <p class="vd-story__k">The impact</p>
+      <p class="vd-story__v">Every deduction becomes attributable to a specific clause at the moment
+        it is applied. That makes the decision reconstructable by someone who was not there, and it
+        is the precondition for ever showing a member why their settlement differs from their
+        estimate. Whether it changes how accurately adjusters explain decisions is untested.</p>
+    </div>
+  </article>
+
+  <article class="vd-story" data-reveal>
+    <header class="vd-story__h">
+      <p class="vd-story__n">Decision 03 <span class="vd-ev vd-ev--proposed">Designed</span> <span class="vd-ev vd-ev--seen">Built in the demo</span></p>
+      <h3 class="t-h3">Streamlining claim initiation by staging the work</h3>
+    </header>
+    <div class="vd-story__body">
+      <div class="vd-story__fields">
+        <div class="vd-story__f">
+          <p class="vd-story__k">The challenge</p>
+          <p class="vd-story__v">A claim carries documents, clauses, line items and arithmetic. Shown
+            together they are unreadable; shown as separate destinations &mdash; which is what the
+            member portal does with Intimation, Submission and History &mdash; they lose their
+            connection to each other.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The design decision</p>
+          <p class="vd-story__v">Four stages in dependency order: documents, then mapping, then
+            coverage, then settlement. Each stage is a precondition for the next, so the order is not
+            presentational. Mapping a clause to a document that is missing is wasted work, and
+            deciding coverage before mapping produces a figure nobody can trace.</p>
+          <p class="vd-story__v"><b>The trade-off:</b> more navigation than a single worksheet. An
+            experienced adjuster working a simple claim will feel the extra steps, and that is the
+            first thing a usability session should check.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The new experience</p>
+          <p class="vd-story__v">The rail and all four stages in
+            <a class="link-out" href="#vd-solution">section&nbsp;09</a>. A stage that cannot be
+            completed names the earlier stage blocking it, which is what makes the rail load-bearing
+            rather than decorative.</p>
+        </div>
+      </div>
+      <div class="vd-story__media">
+        <figure>
+          <img src="../../../assets/img/vidal/vidal-stepper.png" width="1816" height="444" loading="lazy"
+               alt="Three collapsed rows from the source mockup, each a grey numbered square and a label: Policy Mapping, Coverage Decision and Estimated Settlement, with no content.">
+          <figcaption><span class="vd-ev vd-ev--seen">Captured</span> What the source mockup had
+            behind stages two, three and four: a number, a label, and nothing else. The dependency
+            order, the states and the content of all three are the design work.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="vd-story__impact">
+      <p class="vd-story__k">The impact</p>
+      <p class="vd-story__v">The work can be picked up and put down. An adjuster returning to a
+        half-finished claim can see which stage it is in and what is blocking it without re-reading
+        the file, and a reviewer can follow the same path the decision took. No throughput claim is
+        made; this is a structural change, not a measured one.</p>
+    </div>
+  </article>
+
+  <article class="vd-story" data-reveal>
+    <header class="vd-story__h">
+      <p class="vd-story__n">Decision 04 <span class="vd-ev vd-ev--proposed">Designed</span> <span class="vd-ev vd-ev--none">Member search not built</span></p>
+      <h3 class="t-h3">Improving hospital search and selection</h3>
+    </header>
+    <div class="vd-story__body">
+      <div class="vd-story__fields">
+        <div class="vd-story__f">
+          <p class="vd-story__k">The challenge</p>
+          <p class="vd-story__v">The search returns registry identity &mdash; a Rohini number and an
+            empanelment number &mdash; and withholds the relationship to the member's cover. Three
+            results for one hospital name in one city, and no way to tell which one is in network, or
+            whether any of them is.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The design decision</p>
+          <p class="vd-story__v">Show the relationship to this policy first, then the identifier.
+            On the member side that reorders the result card. On the adjuster side it does something
+            more structural: the hospital and its network status travel together in the claim header,
+            because network status is an input to almost every coverage line and should not be a
+            lookup.</p>
+          <p class="vd-story__v"><b>The trade-off:</b> this assumes network status for a given policy
+            is resolvable at search time. If the panel data cannot answer that per policy, the result
+            card can only show a weaker fact, and the decision changes.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The new experience</p>
+          <p class="vd-story__v">The claim header in
+            <a class="link-out" href="#vd-solution">section&nbsp;09</a> carries the hospital and its
+            status. The member-side result card was specified in
+            <a class="link-out" href="#vd-structure">section&nbsp;07</a> as a flow, and not
+            designed.</p>
+        </div>
+      </div>
+      <div class="vd-story__media">
+        <figure>
+          <img src="../../../assets/img/vidal/portal-hospital-results.png" width="2940" height="1519" loading="lazy"
+               alt="The hospital search panel over the dimmed claim form, showing three results for Ruby Hall Clinic in Pune, each identified by a Rohini number, the first also carrying empanelment number HOS-MUM-77.">
+          <figcaption><span class="vd-ev vd-ev--seen">Captured</span> Three results, two registry
+            numbers, and no network status. The first result in a Pune search is empanelled as
+            HOS-MUM-77.</figcaption>
+        </figure>
+        <div class="vd-gap">
+          <p class="vd-gap__k">No redesigned screen</p>
+          <p>The member-side hospital search was not redesigned. The reordering above is an
+            architecture decision; the interface that would express it does not exist.</p>
+        </div>
+      </div>
+    </div>
+    <div class="vd-story__impact">
+      <p class="vd-story__k">The impact</p>
+      <p class="vd-story__v">On the adjuster side, a fact that currently requires a lookup becomes
+        part of the claim's identity, so no coverage line is decided without it. On the member side
+        this remains a recommendation, and it is listed as such in section 11.</p>
+    </div>
+  </article>
+
+  <article class="vd-story" data-reveal>
+    <header class="vd-story__h">
+      <p class="vd-story__n">Decision 05 <span class="vd-ev vd-ev--proposed">Designed</span> <span class="vd-ev vd-ev--seen">Built in the demo</span></p>
+      <h3 class="t-h3">Simplifying forms and data entry by grading what is missing</h3>
+    </header>
+    <div class="vd-story__body">
+      <div class="vd-story__fields">
+        <div class="vd-story__f">
+          <p class="vd-story__k">The challenge</p>
+          <p class="vd-story__v">Document requirements depend on the treatment &mdash; an implant
+            needs a sticker and an invoice, a day procedure needs neither &mdash; and nothing surfaces
+            that dependency at the point the claim is opened. Everything absent looks equally absent,
+            which is the same failure as everything being equally required on the intimation
+            form.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The design decision</p>
+          <p class="vd-story__v">Four document states rather than a tick: verified, needs a look,
+            blocked, and not yet needed. The distinction that does the work is the last one. Bank
+            details are absent on purpose, because they are needed to <em>pay</em> a claim and not to
+            <em>decide</em> one, and marking them urgent would make the two genuine blockers harder to
+            see.</p>
+          <p class="vd-story__v">Each problem document carries its specific reason: a receipt total
+            short by a stated amount, and an implant sticker that clause 4.9 requires before the
+            implant line can be assessed at all.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The new experience</p>
+          <p class="vd-story__v">Stage 1 of the running workflow in
+            <a class="link-out" href="#vd-solution">section&nbsp;09</a>. Eight expected documents,
+            each with a state, with the two that are holding the claim distinguished from the three
+            that are simply not due yet.</p>
+        </div>
+      </div>
+      <div class="vd-story__media">
+        <figure>
+          <img src="../../../assets/img/vidal/portal-intimate-empty.png" width="2940" height="1519" loading="lazy"
+               alt="The empty Intimate Your Claim form showing eight fields in a four by two grid, seven of them marked required with a red asterisk.">
+          <figcaption><span class="vd-ev vd-ev--seen">Captured</span> The same failure upstream: seven
+            of eight fields marked required with the same asterisk, so the form cannot tell a member
+            which answers will shape the outcome.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="vd-story__impact">
+      <p class="vd-story__k">The impact</p>
+      <p class="vd-story__v">What is blocking the claim is legible in the first stage rather than
+        discovered in the fourth, and a request to the member can name one specific document and the
+        clause that needs it. Whether that reduces the back-and-forth that dominates claim cycle time
+        is exactly the thing to measure, and it has not been measured.</p>
+    </div>
+  </article>
+
+  <article class="vd-story" data-reveal>
+    <header class="vd-story__h">
+      <p class="vd-story__n">Decision 06 <span class="vd-ev vd-ev--proposed">Designed</span> <span class="vd-ev vd-ev--seen">Built in the demo</span></p>
+      <h3 class="t-h3">Making claim progress easier to understand</h3>
+    </header>
+    <div class="vd-story__body">
+      <div class="vd-story__fields">
+        <div class="vd-story__f">
+          <p class="vd-story__k">The challenge</p>
+          <p class="vd-story__v">The sample claim has an implant line with no supporting sticker, and
+            the settlement figure has to be produced anyway. The tidy options are to exclude the line
+            silently or to assume it and flag later. A silently excluded line is the single most
+            common way a settlement surprises a member.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The design decision</p>
+          <p class="vd-story__v">Hold it, visibly. The full billed amount stays on screen rather than
+            being zeroed, the clause is named, and the settlement stage states that the estimate
+            assumes the hold and quantifies what would change if the document arrived.</p>
+          <p class="vd-story__v">Paired with that, the settlement stage is titled
+            <em>Estimated Settlement</em>, states its assumptions, and says plainly that nothing on
+            the screen authorises a payment. A number this consequential should be hard to mistake for
+            a decision.</p>
+          <p class="vd-story__v"><b>The trade-off:</b> a less tidy number, and an interface that
+            admits incompleteness instead of hiding it.</p>
+        </div>
+        <div class="vd-story__f">
+          <p class="vd-story__k">The new experience</p>
+          <p class="vd-story__v">Stages 3 and 4 in
+            <a class="link-out" href="#vd-solution">section&nbsp;09</a>, where the held line keeps
+            its billed amount and the total carries its caveat.</p>
+        </div>
+      </div>
+      <div class="vd-story__media">
+        <figure>
+          <img src="../../../assets/img/vidal/vidal-workflow.png" width="1976" height="2000" loading="lazy"
+               alt="The source mockup's work column: an Active Claim header reading hash CLM-88219 with an AI Active chip, an open Add Documents stage showing two documents both marked Verified, and three empty collapsed rows below it.">
+          <figcaption><span class="vd-ev vd-ev--seen">Captured</span> The mockup's only state is
+            everything verified: two documents, both green, and three stages with nothing behind them.
+            Real claims spend most of their life in the other states, which is why the demo was built
+            around a claim that is stuck.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="vd-story__impact">
+      <p class="vd-story__k">The impact</p>
+      <p class="vd-story__v">A hold becomes an action someone can take rather than a deduction
+        someone has to explain afterwards. It also means the adjuster and any later reviewer can see
+        what is at stake in the hold &mdash; the amount is still on the screen. No claim has been
+        processed through this, so nothing is claimed about accuracy or dispute rates.</p>
+    </div>
+  </article>
+</section>
+
+
+<!-- 09 · THE REDESIGNED EXPERIENCE ------------------------------------------ -->
+<section class="section" id="vd-solution" aria-labelledby="h-vd-solution" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">09 &mdash; The Redesigned Experience</p>
+    <h2 class="t-h2" id="h-vd-solution">Four stages, working, with a sample claim running through them.</h2>
+    <p class="prose">The redesigned experience in this project is the adjuster's. It is below, built
+      and interactive rather than shown as a picture: move through the stages from the rail or the
+      continue action, select any document to see what it contributes, and ask the companion a
+      question. The sample claim is deliberately imperfect &mdash; one receipt does not reconcile and
+      one document is missing &mdash; because a claim that goes through cleanly demonstrates
+      nothing.</p>
+    <p class="prose">What this section does not contain is a redesigned member journey. There is no
+      new member dashboard, policy detail screen, intimation form, hospital search or claim history,
+      because none was designed. <a class="link-out" href="#vd-decisions">Decision&nbsp;01</a> is the
+      argument for why that side comes second, and section 11 lists it as the largest remaining
+      piece of work.</p>
+  </div>
+
+  <h3 class="t-h3" data-reveal>What the source mockup contained, and what this project added</h3>
+
+  <div class="vd-ba" data-reveal>
+    <figure class="vd-ba__side">
+      <p class="vd-ba__k"><b>Source</b> the static mockup</p>
+      <img src="../../../assets/img/vidal/vidal-stepper.png" width="1816" height="444" loading="lazy"
+           alt="Three collapsed rows from the mockup, each a grey numbered square and a label: Policy Mapping, Coverage Decision and Estimated Settlement, with no content.">
+      <figcaption>Stages two, three and four as the mockup leaves them. A number, a label, and nothing
+        behind either. <span class="vd-ev vd-ev--seen">Captured</span></figcaption>
+    </figure>
+    <figure class="vd-ba__side">
+      <p class="vd-ba__k"><b>Added</b> the three stages designed out</p>
+      <img src="../../../assets/img/vidal/vidal-step1.png" width="1816" height="454" loading="lazy"
+           alt="The mockup's completed Add Documents stage, showing a dark header with the stage number and title and two verified document cards beneath it.">
+      <figcaption>Stage one was the only completed pattern. The three missing stages were designed to
+        it, and the result is the working workflow below.
+        <span class="vd-ev vd-ev--proposed">Designed</span></figcaption>
+    </figure>
+  </div>
+
+  <p class="note" data-reveal><span>This is the honest version of the before and after. The mockup
+    established a shell, a palette and one finished stage. Three quarters of the workflow it names did
+    not exist, and designing them is the substance of this project rather than a refinement of
+    it.</span></p>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">The workflow, running</h3>
+
+  <div class="cf-frame" data-reveal>
+    <div class="cf-frame__bar">
+      <p class="cf-frame__k">Designed for this case study</p>
+      <p class="cf-frame__note">A working demo, not a shipped product. Stage one follows the source
+        mockup; stages two, three and four are design work. The sample claim and all figures are
+        illustrative.</p>
+      <button class="cf-frame__reset" type="button" data-cf-reset>Restart</button>
+    </div>
+
+    <div class="cf" data-claimflow>
+      <div class="cf__rail">
+        <div class="cf__brand">
+          <span class="cf__mark" aria-hidden="true">CF</span>
+          <span><b>ClaimFlow</b><span>Enterprise</span></span>
+        </div>
+        <div class="cf__steps" data-cf-steps>
+          <!-- Without JavaScript this is the one stage the source mockup has. -->
+          <p class="cf__nojs">Stage one only. The remaining stages need JavaScript, which is also
+            true of the source mockup: it renders stage one and leaves the rest empty.</p>
+        </div>
+        <div class="cf__who">
+          <span class="cf__mark" aria-hidden="true">AP</span>
+          <span><b>A. Prasad</b><span>Claims adjuster</span></span>
+        </div>
+      </div>
+
+      <div class="cf__work" data-cf-work>
+        <div class="cf__panel">
+          <div class="cf__stagehead">
+            <div>
+              <span class="cf__stagen" aria-hidden="true">1</span>
+              <div><h4>Add Documents</h4><p>5 of 8 verified</p></div>
+            </div>
+          </div>
+          <p class="cf__nojs">The interactive stages load with JavaScript enabled.</p>
+        </div>
+      </div>
+
+      <div class="cf__panel cf__comp">
+        <div>
+          <p class="cf__kicker">Claim Companion</p>
+          <p style="font-size:.6875rem;color:#7D9595">Answers derived from this claim. Nothing generated.</p>
+        </div>
+        <div class="cf__compdoc" data-cf-messages role="log" aria-live="polite" aria-label="Claim Companion conversation"></div>
+        <div class="cf__asks" data-cf-asks aria-label="Suggested questions"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rows" data-reveal style="margin-top:var(--step-10)">
+    <div class="row">
+      <p class="row__num">01</p>
+      <h3 class="row__title">Add Documents</h3>
+      <div class="row__body"><p>Eight expected documents, each with a state rather than a tick.
+        Verified, needs a look, blocked, or not yet needed. The two problem documents carry their
+        specific reason: a receipt total that is short by a stated amount, and an implant sticker
+        that clause 4.9 requires before the implant line can be assessed at all.</p>
+        <p><b>The decision here</b> is to separate "not yet needed" from "missing". Bank details are
+        absent on purpose, because they are needed to pay a claim and not to decide one, and marking
+        them urgent would make the two genuine blockers harder to see.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">02</p>
+      <h3 class="row__title">Policy Mapping</h3>
+      <div class="row__body"><p>Each clause that applies to this claim, paired with the document
+        that evidences it. Three states: matched, partly matched, and no evidence. The clause with no
+        evidence behind it is the one that will stall the claim, so it is stated here rather than
+        surfacing two stages later as an unexplained deduction.</p>
+        <p><b>The decision here</b> is that mapping runs clause first rather than document first. A
+        document with no clause is merely unused; a clause with no document is a hole in the
+        decision.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">03</p>
+      <h3 class="row__title">Coverage Decision</h3>
+      <div class="row__body"><p>A line per bill item with its billed amount and a state: covered,
+        capped, or held. Every line names the clause behind it, including the room rent cap that also
+        prorates the surgeon, theatre and anaesthetist charges, which is the deduction members are
+        least likely to anticipate.</p>
+        <p><b>The decision here</b> is to show the full billed amount on a held line rather than
+        zeroing it. The adjuster needs to see what is at stake in the hold, and so does anyone
+        reviewing the decision later.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">04</p>
+      <h3 class="row__title">Estimated Settlement</h3>
+      <div class="row__body"><p>The arithmetic, line by line, from the billed total down through
+        each deduction to a figure. Beside it, the sum insured remaining, because the two numbers are
+        read together.</p>
+        <p><b>The decision here</b> is the caveat. The screen states that this is an estimate rather
+        than an approval, names the assumption it rests on, quantifies what would change if the
+        missing document arrived, and says that nothing here authorises a payment. A number this
+        consequential should be hard to mistake for a decision.</p></div>
+    </div>
+  </div>
+
+  <p class="note" data-reveal><span>Every figure in the demo is sample data chosen to make the
+    workflow legible. They are interface content, not outcomes, and nothing in this project has
+    processed a real claim.</span></p>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">What the companion is allowed to say</h3>
+  <p class="prose" data-reveal>The source mockup puts a Claim Companion in the third panel, labels it
+    "Online &amp; Ready" and seeds it with one message offering to answer questions about coverage,
+    deductibles and policy terms. Nothing behind it is implemented. The design question is not whether
+    to add a model. It is what an assistant on a claims screen should be permitted to assert.</p>
+
+  <div class="split" data-reveal>
+    <figure class="plate">
+      <img src="../../../assets/img/vidal/vidal-companion.png" width="720" height="1936" loading="lazy"
+           alt="The mockup's Claim Companion panel: a header reading Claim Companion and Online and Ready, one seeded message about reviewing documents for the claim, and an input box with a send button."
+           style="max-width:15rem">
+      <figcaption class="plate__cap"><span class="plate__src">Captured</span>
+        The companion as the mockup leaves it. One fixed message, an unwired input, and a status
+        label asserting readiness.</figcaption>
+    </figure>
+    <div class="split__text">
+      <h3 class="t-h3">The model routes. The code answers.</h3>
+      <p class="prose">In the demo, answers are composed in application code from the same claim
+        object the stages render from. Each one names the clause or document it came from. The result
+        is an assistant that cannot contradict the screen beside it, because both read the same
+        source.</p>
+      <p class="prose">That is a deliberate limit rather than a limitation of the prototype. A
+        settlement figure produced by a language model is a figure nobody can audit, and on a claims
+        screen that is the difference between a tool and a liability.</p>
+      <p class="prose">Where a model does belong is the step before: reading a free text question
+        and deciding which of a fixed set of lookups answers it. That is classification, it is
+        reviewable, and it never touches the arithmetic.</p>
+    </div>
+  </div>
+
+  <div class="vd-arch" data-reveal>
+    <div class="vd-arch__band">
+      <p class="vd-arch__k">Proposed architecture</p>
+      <div class="vd-arch__row">
+        <div class="vd-arch__cell"><b>01 &middot; The question</b><span>Asked in the adjuster's own words, beside the claim.</span></div>
+        <div class="vd-arch__cell"><b>02 &middot; Route it</b><span>A model picks one of a fixed set of lookups. It does not answer. <span class="vd-ev vd-ev--proposed">Designed</span></span></div>
+        <div class="vd-arch__cell"><b>03 &middot; Look it up</b><span>Against the claim record and the policy clauses, under the adjuster's own permissions.</span></div>
+        <div class="vd-arch__cell vd-arch__cell--spine"><b>04 &middot; Compose in code</b><span>The answer is assembled from the result and cites its clause. Deterministic and testable.</span></div>
+        <div class="vd-arch__cell"><b>05 &middot; Or escalate</b><span>If no lookup fits, it says so and offers a person rather than guessing.</span></div>
+      </div>
+    </div>
+    <p class="vd-arch__rule">The model never sees a settlement figure and never writes one. In the demo, step 02 is replaced by a fixed question list, so even the routing is deterministic.</p>
+  </div>
+
+  <div class="split" data-reveal style="margin-top:var(--step-8)">
+    <div class="split__text">
+      <p class="t-label">Safeguards the design assumes</p>
+      <ul class="prose">
+        <li>Every answer cites the clause or document it rests on</li>
+        <li>An estimate is always named as an estimate, never as an entitlement</li>
+        <li>No answer is phrased as a coverage decision, because the assistant does not make one</li>
+        <li>A question with no matching lookup returns a route to a person</li>
+        <li>Health details reach the lookup, not the routing model</li>
+      </ul>
+    </div>
+    <div class="split__text">
+      <p class="t-label">What is verified, and what is not</p>
+      <ul class="prose">
+        <li><span class="vd-ev vd-ev--seen">Captured</span> The companion panel, its header and its seeded message exist in the mockup</li>
+        <li><span class="vd-ev vd-ev--none">Not implemented</span> The mockup's input is not wired to anything</li>
+        <li><span class="vd-ev vd-ev--none">Not implemented</span> No AI service, policy engine or claim data is connected anywhere in the source file</li>
+        <li><span class="vd-ev vd-ev--proposed">Designed</span> The answering behaviour in the demo, and the architecture above</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- 10 · EDGE CASES & SYSTEM STATES ----------------------------------------- -->
+<section class="section" id="vd-states" aria-labelledby="h-vd-states" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">10 &mdash; Edge Cases &amp; System States</p>
+    <h2 class="t-h2" id="h-vd-states">The states a claim actually spends its time in.</h2>
+    <p class="prose">The source mockup has one state: everything verified. Real claims spend most of
+      their life in the other ones, so the demo was built around a claim that is stuck. The last
+      column says which of these are built and which are recommendations with nothing behind
+      them.</p>
+  </div>
+
+  <div class="spec" data-reveal>
+    <table class="spec__table">
+      <caption class="sr-only">Claim states, what triggers each, what the adjuster sees, and where it goes next</caption>
+      <thead><tr><th scope="col">State</th><th scope="col">Trigger</th><th scope="col">What is shown</th><th scope="col">Next</th><th scope="col">In the demo</th></tr></thead>
+      <tbody>
+        <tr><td data-l="State">Document missing</td><td data-l="Trigger">A clause requires evidence that is not on the claim.</td><td data-l="Shown">The document marked blocked, with the clause and what it governs.</td><td data-l="Next">Request from member, or decide without the line and hold it.</td><td data-l="Demo">Yes</td></tr>
+        <tr><td data-l="State">Figures do not reconcile</td><td data-l="Trigger">Receipts total less than the bill total.</td><td data-l="Shown">The document marked needs a look, with both figures and the difference.</td><td data-l="Next">Request the missing receipt, or accept with a note.</td><td data-l="Demo">Yes</td></tr>
+        <tr><td data-l="State">Clause with no evidence</td><td data-l="Trigger">Mapping finds a clause nothing supports.</td><td data-l="Shown">The mapping row marked no evidence.</td><td data-l="Next">Back to documents.</td><td data-l="Demo">Yes</td></tr>
+        <tr><td data-l="State">Line held</td><td data-l="Trigger">A bill line cannot be assessed.</td><td data-l="Shown">Billed amount kept visible, marked held, clause named.</td><td data-l="Next">Reopens when the document arrives.</td><td data-l="Demo">Yes</td></tr>
+        <tr><td data-l="State">Capped by policy</td><td data-l="Trigger">A line exceeds an eligibility limit.</td><td data-l="Shown">Marked capped, with the limit and the knock-on proration.</td><td data-l="Next">Carries into the settlement arithmetic.</td><td data-l="Demo">Yes</td></tr>
+        <tr><td data-l="State">Unreadable document</td><td data-l="Trigger">A file cannot be parsed or opened.</td><td data-l="Shown">Marked blocked, distinguished from missing.</td><td data-l="Next">Request a re-upload.</td><td data-l="Demo">No. Recommended.</td></tr>
+        <tr><td data-l="State">Ambiguous clause</td><td data-l="Trigger">Two clauses could apply to one line.</td><td data-l="Shown">Both offered, with the adjuster choosing and recording why.</td><td data-l="Next">Manual review.</td><td data-l="Demo">No. Recommended.</td></tr>
+        <tr><td data-l="State">Sum insured exhausted</td><td data-l="Trigger">The estimate exceeds what remains on the policy.</td><td data-l="Shown">The estimate capped at the remaining balance, stated as the reason.</td><td data-l="Next">Member informed before settlement.</td><td data-l="Demo">No. Recommended.</td></tr>
+        <tr><td data-l="State">Processing failure</td><td data-l="Trigger">A lookup or service is unavailable.</td><td data-l="Shown">The stage reports what it could not reach, rather than showing a zero.</td><td data-l="Next">Retry, or continue with the gap named.</td><td data-l="Demo">No. Recommended.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="prose" data-reveal style="margin-top:var(--step-6)">Five of the nine are built into the
+    demo and can be seen by moving through it. The remaining four are design recommendations with no
+    implementation behind them, and the column says which is which. The distinction between an
+    unreadable document and a missing one matters more than it looks: they need different messages
+    and different actions, and collapsing them produces a request the member cannot act on.</p>
+
+  <p class="note" data-reveal><span>No member-facing error, empty or confirmation states are shown,
+    because none were designed. The submission confirmation, the rejection notice and the
+    clarification request all live on the member side, which this project did not
+    redesign.</span></p>
+</section>
+
+
+<!-- 11 · OUTCOMES & CURRENT STATE ------------------------------------------- -->
+<section class="section" id="vd-outcomes" aria-labelledby="h-vd-outcomes" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">11 &mdash; Outcomes &amp; Current State</p>
+    <h2 class="t-h2" id="h-vd-outcomes">What changed, what exists, and what has not been measured.</h2>
+    <p class="prose">This project produced design artefacts and a working demo. It has not been
+      implemented, piloted or measured, so there are no results to report and none are claimed. What
+      follows is the qualitative change, set against the existing experience, and then an honest
+      account of the state the work is actually in.</p>
+  </div>
+
+  <h3 class="t-h3" data-reveal>Old against new, concept by concept</h3>
+  <p class="prose" data-reveal>These are two different products for two different users, so a screen
+    for screen comparison would be dishonest. Each row compares the same concept as each side handles
+    it.</p>
+
+  <div class="spec" data-reveal>
+    <table class="spec__table">
+      <caption class="sr-only">The same claim concept as the member portal and the designed workflow each handle it</caption>
+      <thead><tr><th scope="col">Concept</th><th scope="col">Member portal, today</th><th scope="col">Designed workflow</th><th scope="col">Why it matters</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-l="Concept">Information hierarchy</td>
+          <td data-l="Today">Organised by subject. A claim in progress is four levels from Home, and network status is in a different branch from the claim.</td>
+          <td data-l="Designed">Organised by the claim. One claim is the root, carrying its documents, clauses, hospital and network status together.</td>
+          <td data-l="Why">The facts that decide a claim stop being a navigation problem.</td>
+        </tr>
+        <tr>
+          <td data-l="Concept">Documents</td>
+          <td data-l="Today">A submission screen, separate from intimation. Requirements depend on treatment and are not surfaced.</td>
+          <td data-l="Designed">Every expected document listed with one of four states, including the specific reason each outstanding one is needed.</td>
+          <td data-l="Why">The two documents holding the sample claim are visible in the first stage rather than found in the fourth.</td>
+        </tr>
+        <tr>
+          <td data-l="Concept">Policy information</td>
+          <td data-l="Today">A snapshot with sum insured and a two-word cover description. Room eligibility, co-payment and sub-limits are elsewhere.</td>
+          <td data-l="Designed">Clauses appear where they bite, attached to the document or the line they govern, in sentence form.</td>
+          <td data-l="Why">The clauses that decide the figure become part of the work rather than reference material.</td>
+        </tr>
+        <tr>
+          <td data-l="Concept">Workflow</td>
+          <td data-l="Today">Intimation, Claim Submission and Claim History as three destinations describing one claim.</td>
+          <td data-l="Designed">Four stages in dependency order, where a blocked stage names the earlier stage blocking it.</td>
+          <td data-l="Why">The claim can be picked up and put down without re-reading the file.</td>
+        </tr>
+        <tr>
+          <td data-l="Concept">Coverage</td>
+          <td data-l="Today">Not shown. Decided after the handoff, in four stages the member cannot see.</td>
+          <td data-l="Designed">A line per bill item, marked covered, capped or held, each naming its clause.</td>
+          <td data-l="Why">This is the stage that produces the reasons, and today they are produced and then discarded.</td>
+        </tr>
+        <tr>
+          <td data-l="Concept">The amount</td>
+          <td data-l="Today">An estimate typed by the member up front, and a settled figure returned later.</td>
+          <td data-l="Designed">Every deduction shown as its own line, with the total labelled an estimate and its assumptions stated.</td>
+          <td data-l="Why">The arithmetic becomes inspectable, so the gap between expectation and outcome has an explanation attached.</td>
+        </tr>
+        <tr>
+          <td data-l="Concept">Progress</td>
+          <td data-l="Today">A status on a separate screen, reporting a stage rather than a blocker.</td>
+          <td data-l="Designed">Specific states throughout: not <em>in review</em>, but which document is outstanding and which line it is holding.</td>
+          <td data-l="Why">A status is only useful if it implies an action.</td>
+        </tr>
+        <tr>
+          <td data-l="Concept">Getting help</td>
+          <td data-l="Today">An escalation matrix with a level and a named contact.</td>
+          <td data-l="Designed">A companion beside the work answering from the claim, with escalation as the route when it cannot.</td>
+          <td data-l="Why">Escalation stays available. It stops being the first resort for a question the data can answer.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="split" data-reveal style="margin-top:var(--step-12)">
+    <div class="split__text">
+      <p class="t-label">Delivered</p>
+      <ul class="prose">
+        <li>An analysis of the live member portal across eight screens, cropped and redacted for publication</li>
+        <li>A connected problem model, and a two lane journey following one claim across the handoff</li>
+        <li>An old and new information architecture, and four workflow diagrams</li>
+        <li>Six design decisions, two of them recorded as taken and not built</li>
+        <li>Four stages designed, three of which did not previously exist</li>
+        <li>A working interactive demo with a seeded imperfect claim</li>
+        <li>A companion answering model that derives rather than generates</li>
+        <li>A state and exception map, five states built and four recommended</li>
+        <li>A validation plan with falsification conditions</li>
+      </ul>
+    </div>
+    <div class="split__text">
+      <p class="t-label">Not claimed</p>
+      <ul class="prose">
+        <li><span class="vd-ev vd-ev--none">None</span> No adjuster time, accuracy or throughput figures</li>
+        <li><span class="vd-ev vd-ev--none">None</span> No member satisfaction or comprehension data</li>
+        <li><span class="vd-ev vd-ev--none">None</span> No claim cycle time, rework or query volumes</li>
+        <li><span class="vd-ev vd-ev--none">None</span> No stakeholder feedback, approval or implementation commitment</li>
+        <li><span class="vd-ev vd-ev--none">None</span> No business case or cost modelling</li>
+      </ul>
+      <p class="prose">No stakeholder review took place, so there is no feedback to report. That is a
+        gap in the project, not a modesty.</p>
+    </div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">Implementation status</h3>
+
+  <div class="split" data-reveal>
+    <div class="split__text">
+      <p class="prose">Nothing here has shipped. The design exists as this case study and the demo
+        inside it, and the artefact the project started from is a single HTML file of roughly nine
+        kilobytes: Tailwind and an icon library from CDNs, one web font, a small block of custom CSS
+        for the scrollbar, and one line of JavaScript that draws the icons.</p>
+      <p class="prose">There is no state, no event handling, no routing, no data layer, no API call
+        and no AI integration in it. Both the upload action and the companion input are unwired. The
+        header reads "8 Files Configured" above a grid containing two document cards, which is the
+        kind of inconsistency a static mockup carries and a built interface cannot.</p>
+      <p class="prose">None of that is a criticism of the file. It is a visual proposal and it does
+        that job. It is a criticism of reading a visual proposal as evidence of a system, which is the
+        mistake this section exists to prevent.</p>
+    </div>
+    <div class="panel">
+      <p class="t-label section__eyebrow">Verified from the source</p>
+      <div class="spec" style="margin-top:var(--step-5)">
+        <table class="spec__table">
+          <caption class="sr-only">What the source file contains</caption>
+          <tbody>
+            <tr><td data-l="Item">Stages rendered</td><td data-l="Value">1 of 4</td></tr>
+            <tr><td data-l="Item">Document cards</td><td data-l="Value">2, against a header claiming 8</td></tr>
+            <tr><td data-l="Item">Interactive elements wired</td><td data-l="Value">0</td></tr>
+            <tr><td data-l="Item">Application JavaScript</td><td data-l="Value">One icon call</td></tr>
+            <tr><td data-l="Item">Data sources</td><td data-l="Value">None</td></tr>
+            <tr><td data-l="Item">AI integration</td><td data-l="Value">None</td></tr>
+            <tr><td data-l="Item">Backend or API</td><td data-l="Value">None</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">What a real build would have to resolve</h3>
+  <p class="prose" data-reveal>Proposed, not designed against a known stack. Each of these is a
+    design dependency rather than only an engineering one, because each changes what the interface can
+    honestly say.</p>
+
+  <div class="spec" data-reveal>
+    <table class="spec__table">
+      <caption class="sr-only">Implementation dependencies and their design consequences</caption>
+      <thead><tr><th scope="col">Dependency</th><th scope="col">Why the design depends on it</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Dependency">Document extraction</td><td data-l="Why">Stage one claims to have read a bill total and a receipt total. Without extraction those states are manual, which changes the stage from a summary into a data entry screen.</td></tr>
+        <tr><td data-l="Dependency">Machine readable policy clauses</td><td data-l="Why">Every row in stages two to four names a clause. If clauses exist only as a PDF, the mapping stage cannot be built as designed.</td></tr>
+        <tr><td data-l="Dependency">A claim record with line items</td><td data-l="Why">The coverage stage decides per bill line. A claim stored as a single amount cannot support it.</td></tr>
+        <tr><td data-l="Dependency">Permissions and audit</td><td data-l="Why">An adjuster decision has to be attributable and reconstructable later. That is what makes the clause on the row worth recording.</td></tr>
+        <tr><td data-l="Dependency">Health data handling</td><td data-l="Why">Diagnoses and reports pass through this interface. The routing model in section 09 must not be the component that sees them.</td></tr>
+        <tr><td data-l="Dependency">Network status for a hospital</td><td data-l="Why">Decision 04 argues this belongs in the claim header. It requires the panel data the member portal already holds and does not surface.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-16)">What would have to be tested before any of this is built</h3>
+  <p class="prose" data-reveal>No validation has been run. This is the plan, written as a plan rather
+    than dressed up as a result.</p>
+
+  <div class="rows" data-reveal>
+    <div class="row">
+      <p class="row__num">01</p>
+      <h3 class="row__title">The question the study would answer</h3>
+      <div class="row__body"><p>Can an adjuster reach a defensible coverage decision faster, and
+        explain it afterwards more accurately, using a staged workflow than using a single worksheet?
+        The second half matters more than the first: a faster decision nobody can defend is a worse
+        outcome.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">02</p>
+      <h3 class="row__title">Method and tasks</h3>
+      <div class="row__body"><p>Moderated task sessions with practising claims adjusters, using a
+        seeded claim with known defects. The demo in section 09 is already close to usable for this,
+        which is a reason to build a demo rather than a slide.</p>
+        <p>The tasks: identify what is blocking the claim; explain why the room rent deduction is
+        what it is; state what the member would receive and why; say what would change if the missing
+        document arrived; decide whether the claim can be settled today.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">03</p>
+      <h3 class="row__title">Measures</h3>
+      <div class="row__body"><p>Task completion. Time to locate the blocking item. Accuracy of the
+        explanation against the clause that actually applies. Whether participants treat the estimate
+        as an estimate. Error rate when asked to recall the reason for a deduction unprompted.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">04</p>
+      <h3 class="row__title">What would falsify the design</h3>
+      <div class="row__body"><p>If adjusters route around the stages to reach the figure, the
+        dependency order is wrong. If they read the estimate as an approval, the caveat has failed
+        and needs to be structural rather than textual. If the clause text on each row goes unread,
+        the central decision of section 08 does not hold.</p></div>
+    </div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">The measurement plan</h3>
+
+  <div class="spec" data-reveal>
+    <table class="spec__table">
+      <caption class="sr-only">Proposed measures, what each would show, and its current state</caption>
+      <thead><tr><th scope="col">Measure</th><th scope="col">What it would show</th><th scope="col">Result</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Measure">Document completeness on first submission</td><td data-l="Shows">Whether naming requirements earlier reduces the back and forth that dominates claim cycle time.</td><td data-l="Result">Not yet measured</td></tr>
+        <tr><td data-l="Measure">Additional information request rate</td><td data-l="Shows">The most direct proxy for the gap this design targets.</td><td data-l="Result">Not yet measured</td></tr>
+        <tr><td data-l="Measure">Time to locate a blocking item</td><td data-l="Shows">Whether stage one does the job it was designed for.</td><td data-l="Result">Not yet measured</td></tr>
+        <tr><td data-l="Measure">Explanation accuracy after the decision</td><td data-l="Shows">Whether attaching clauses to lines survives contact with a real workload.</td><td data-l="Result">Not yet measured</td></tr>
+        <tr><td data-l="Measure">Estimate to settlement variance</td><td data-l="Shows">Whether the member's expectation and the outcome converge.</td><td data-l="Result">Not yet measured</td></tr>
+        <tr><td data-l="Measure">Support contact rate on settled claims</td><td data-l="Shows">Whether reasons travelling with the figure reduces the follow-up call.</td><td data-l="Result">Not yet measured</td></tr>
+        <tr><td data-l="Measure">Manual review effort per claim</td><td data-l="Shows">The operational case, and the one a buyer would ask for first.</td><td data-l="Result">Not yet measured</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">Remaining opportunities</h3>
+
+  <div class="rows" data-reveal>
+    <div class="row">
+      <p class="row__num">01</p>
+      <h3 class="row__title">The member side, carrying the reasons back</h3>
+      <div class="row__body"><p>The largest remaining piece, and the point of the whole argument.
+        Stages two and three now produce exactly what the member is missing &mdash; the clause behind
+        every deduction &mdash; and nothing yet carries it across the handoff.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">02</p>
+      <h3 class="row__title">The member dashboard and intimation form</h3>
+      <div class="row__body"><p>Deferred in decision 01, not dismissed. The route-naming flow and the
+        reordered hospital result card in section 07 are specified as architecture and have no
+        interface behind them.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">03</p>
+      <h3 class="row__title">The four unbuilt states</h3>
+      <div class="row__body"><p>Starting with the unreadable document, which is the most common of
+        the four and the one most often collapsed into "missing".</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">04</p>
+      <h3 class="row__title">Whether policy clauses exist in a machine readable form</h3>
+      <div class="row__body"><p>A dependency, not an opportunity, but it ranks here because the
+        mapping stage does not survive without it and nobody has checked.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 12 · LEARNINGS & REFLECTION --------------------------------------------- -->
+<section class="section" id="vd-learnings" aria-labelledby="h-vd-learnings" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">12 &mdash; Learnings &amp; Reflection</p>
+    <h2 class="t-h2" id="h-vd-learnings">What this project taught me about designing around a decision.</h2>
+  </div>
+
+  <div class="rows" data-reveal>
+    <div class="row">
+      <p class="row__num">01</p>
+      <h3 class="row__title">A healthcare workflow tool is a record of reasoning, not a sequence of screens</h3>
+      <div class="row__body"><p>The useful output of a claims interface is not the settlement
+        figure. It is the set of reasons behind it, which is what gets asked for weeks later by a
+        member, an auditor or a regulator. Designing the stages so that reasons are a by-product of
+        doing the work, rather than a note somebody has to remember to write, was the whole move.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">02</p>
+      <h3 class="row__title">Member needs and operational requirements were the same requirement here</h3>
+      <div class="row__body"><p>I expected to be trading one against the other: give the member more
+        explanation, cost the adjuster more time. It did not turn out that way. The clause on the row
+        is what lets the adjuster defend the decision in an audit <em>and</em> what the member needs
+        to understand their settlement. The place they genuinely conflict is speed &mdash; four stages
+        is slower than one worksheet for a simple claim &mdash; and that is a real cost I have not
+        measured.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">03</p>
+      <h3 class="row__title">The most useful sample claim is a broken one</h3>
+      <div class="row__body"><p>The source mockup shows two verified documents and nothing else.
+        That is the state a claim is in least often and the state a demo always chooses. Seeding the
+        demo with a missing sticker and a receipt that does not reconcile surfaced four design
+        problems the clean version could not have shown.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">04</p>
+      <h3 class="row__title">An assistant beside a decision has to be less capable, not more</h3>
+      <div class="row__body"><p>The interesting constraint was not what the companion could answer.
+        It was ruling out a class of answers entirely: anything that would constitute a coverage
+        decision. Deriving answers in code rather than generating them is a smaller assistant and a
+        defensible one, and on a screen where money is decided that trade is not close.</p></div>
+    </div>
+    <div class="row">
+      <p class="row__num">05</p>
+      <h3 class="row__title">Designing from a product I use has a specific blind spot</h3>
+      <div class="row__body"><p>Being a member of the portal gave me real evidence and one vantage
+        point. It tells me nothing about a member filing their first claim under stress, or about an
+        adjuster working forty of them in a day. The design rests on inference about the second group
+        in particular, and that is the honest limit of this case study.</p></div>
+    </div>
+  </div>
+
+  <div class="split" data-reveal style="margin-top:var(--step-12)">
+    <div class="split__text">
+      <h3 class="t-h3">What I would validate, and what I would change next</h3>
+      <p class="prose">First, whether the dependency order holds under real workload. If adjusters
+        skip to stage four to get the number, the staging is wrong and I would collapse stages two and
+        three into a single annotated worksheet rather than defend the model.</p>
+      <p class="prose">Second, whether the caveat on the settlement screen actually works. It is
+        currently a paragraph, and paragraphs lose to large numbers. If participants read the estimate
+        as an approval, the fix is structural &mdash; the figure itself has to be rendered differently
+        from a confirmed one, not merely footnoted.</p>
+      <p class="prose">Third, the thing I would do differently from the start: design the member
+        side and the adjuster side in the same pass. I split them for good reasons, and the split
+        still produced a case study where half the argument has a working interface and the other
+        half has a diagram.</p>
+    </div>
+    <div class="panel">
+      <p class="t-label section__eyebrow">Status</p>
+      <h3 class="t-h3" style="margin-top:var(--step-4)">A design exploration with a working demo, and no implementation behind it.</h3>
+      <p class="prose" style="margin-top:var(--step-5)">The analysis is grounded in a live product.
+        The workflow is designed and interactive. Nothing has been validated, built or shipped, and
+        this page says so at every point where that distinction matters.</p>
+      <p class="prose"><a class="link-out" href="mailto:arushi.ald@gmail.com">arushi.ald@gmail.com</a></p>
+    </div>
+  </div>
+
+  <nav class="onward" aria-label="Related pages" data-reveal>
+    <a class="btn btn--ghost" href="../../">All selected work</a>
+    <a class="btn btn--ghost" href="../../workperks/">WorkPerks</a>
+    <a class="btn btn--ghost" href="../../vytals/">Vytals</a>
+  </nav>
+</section>

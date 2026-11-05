@@ -1,0 +1,2340 @@
+<!--meta
+route: work/workperks
+title: WorkPerks, an employee benefits platform taken to a working app
+desc: A 0 to 1 employee benefits platform at Bajaj Finserv Health, taken from product definition to a running React Native application. Product strategy, experience architecture, a design system, an AI assisted build workflow and a connected backend.
+nav: work
+case: yes
+case_kicker: Product design / Case study
+case_title: From product concept to a working, AI assisted product
+case_note: WorkPerks · 2026 · product definition through to a running application.
+case_project: WorkPerks
+case_meta: Role|Product & Design Lead; Team|2 PMs · 2 Designers; Scope|Product Strategy · Team Leadership · Supplier Research · Design System · AI Assisted Build; Category|B2B2C SaaS · Employee Benefits · Product Design; Technology|React Native · Expo · TypeScript · Supabase on Postgres · Claude Code
+hero_meta: Duration|August 2026 to ongoing
+case_sections: wp-shift|Overview|02; wp-landscape|Research|05; wp-strategy|Product Strategy & Discovery|07; wp-workflows|Key Decisions|10; wp-principles|Design Principles|12; wp-system|The Design System|13; wp-experience|Product Experience; wp-app|The Build and Implementation; wp-aibuild|AI-Assisted Development; wp-outcomes|Outcomes & Current State
+sheets: workperks, wpds
+js: wpds
+word_a: work
+word_b: perks
+-->
+
+<!-- The WorkPerks case study, on the portfolio's shared case layout.
+
+     The source was a standalone page at 02. Work/01. Workperks/case-study/
+     carrying its own stylesheet, its own shell and an internal authoring
+     audit. Its content is carried across and its markup rewritten onto this
+     site's components, so the page reads like Vytals and Vidal rather than
+     like a second site — the same move _convert_vytals.py made, and for the
+     same reason. The authored original is not modified.
+
+     The source ran eighteen chapters. They group into the sections
+     the rail lists; nothing was dropped, and the figures were re-counted
+     from the working tree rather than carried over. Where a count moved,
+     this page carries the new one and says what it was counted from.
+
+     Two rules the copy keeps throughout:
+       · every status word is Built, Tested, Specified or Concept, and means
+         exactly one thing. The legend that defined them was removed at
+         Arushi's instruction; the words are now used without a key.
+       · no adoption, revenue, retention or pilot figure appears, because
+         none is supported by the evidence. The empty slots are deliberate.
+-->
+
+
+<!-- 01 · ABOUT ---------------------------------------------------------- -->
+<!-- The opening statement and the evidence for it. The facts table and the
+     status legend moved out to chapter 02; the terminal shot came back here,
+     so the sequence is headline, what the product is, proof it runs, and
+     only then the particulars and the category argument. -->
+<section class="section" id="wp-overview" aria-labelledby="h-wp-overview" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <h2 class="t-h2 wp-open__h" id="h-wp-overview">Every workplace benefit, in one place.</h2>
+    <p class="prose">WorkPerks is an employee benefits platform. It brings Flexi Pay, wellness,
+      OPD, reimbursements, rewards and recognition into one employee experience, and it sits on top
+      of the HR stack a company already runs rather than asking to replace it.</p>
+  </div>
+
+  <figure class="plate wp-term" data-reveal>
+    <img src="../../assets/img/workperks/exhibit/claude-code-session.png" alt="Claude Code running in an editor against the WorkPerks repository. The file tree shows the project folders and the mobile app; the terminal pane shows the agent's summary of the eight product surfaces followed by a caveat section stating that only one backend is live and read only, that there is no write path anywhere, that nobody is signed in, and that balances and other values run on local design data tagged with a visible sample marker." width="2410" height="1608" loading="lazy">
+    <figcaption class="wp-exh__cap">The Making of WorkPerks</figcaption>
+  </figure>
+</section>
+
+
+<!-- 02 · PROJECT SUMMARY ---------------------------------------------------- -->
+<!-- 03 · UNDERSTANDING THE GAP ------------------------------------------------- -->
+<!-- Slide 03 of the WorkPerks Concept Deck (8 August 2026), reproduced rather
+     than re-interpreted: the same headline, the same three columns in the same
+     order, the same closing line. The slide's three-way colour coding is kept
+     — neutral for THEN, green for NOW, amber for THE GAP — but taken from this
+     site's own teal and ochre tokens, because the deck's #1f5a4c and #6f4610
+     were chosen for white paper and go illegible on this page's dark ground.
+     The deck's em dash is left in place: the slide copy is a quotation. -->
+<section class="section" id="wp-shift" aria-labelledby="h-wp-shift" tabindex="-1">
+  <div class="wp-shift__top">
+    <div class="section__head" data-reveal>
+      <p class="t-label section__eyebrow">01 &mdash; Overview</p>
+      <h2 class="t-h2 wp-shift__h" id="h-wp-shift">Employee benefits are no longer insurance and meal
+        cards. Companies are investing in a better employee experience &mdash; but the way benefits
+        reach people hasn&rsquo;t changed.</h2>
+
+      <ul class="wp-shift__points" role="list">
+        <li class="wp-shift__point">
+          <span class="wp-shift__pk">Then</span>
+          <span class="wp-shift__pt">Insurance. Meal cards. Reimbursement.</span>
+        </li>
+        <li class="wp-shift__point">
+          <span class="wp-shift__pk">Now</span>
+          <span class="wp-shift__pt">Health, learning, experiences, family and financial
+            wellbeing.</span>
+        </li>
+        <li class="wp-shift__point wp-shift__point--gap">
+          <span class="wp-shift__pk">The gap</span>
+          <span class="wp-shift__pt">More money is being spent. Employees still can&rsquo;t find or
+            use most of it.</span>
+        </li>
+      </ul>
+    </div>
+
+    <figure class="wp-shift__art" data-reveal>
+      <img src="../../assets/img/workperks/exhibit/benefits-evolution.png" alt="Five benefit category cards — Mental Wellbeing, Wellness and Fitness, Food and Nutrition, Learning and Growth, and Family and Care — floating in front of a dark phone showing a plain benefits list, each card carrying its own icon and a chevron into it." width="828" height="522" loading="lazy">
+    </figure>
+  </div>
+
+  <!-- part 1 · the problem, folded into this chapter at Arushi's instruction.
+       It was chapter 02 with a rail entry of its own; it is the same argument
+       as the shift above it, so it is a part of this chapter now. Set as
+       .wp-part, the same shape the three parts below it already use. The old
+       section id travels with it, so #wp-problem still lands here.
+
+       One continuous problem narrative, in four parts: the three stage
+       opening, the utilisation gap, today's journey, and the opportunity. The
+       last two are the former chapters 05 and 04, moved here whole and in
+       that order at Arushi's instruction. Their markup, figures and wording
+       are unchanged and their ids travel with them, so #wp-journey and
+       #wp-opportunity still land on the same content.
+
+       The opening is slide "Why this matters" from
+       ~/Desktop/WorkPerks/Decks/WorkPerks_Execution_Plan.html, rebuilt as
+       live markup rather than pasted as a picture: three stages that reflow
+       down the page on a phone. The heading, the standfirst, the three stage
+       names, their sublines, every item and the closing line are the slide's
+       own. Its em dash is kept for the same reason the heading above keeps
+       one: the line is a quotation.
+
+       The two utilisation numerals read 30% and 70% AT THE AUTHOR'S
+       INSTRUCTION (3 Nov 2026), and they are not sourced from anything in the
+       project files. Every deck in 02. Work/01. Workperks/Decks/ and
+       ~/Desktop/WorkPerks/Decks/ was searched: the only 30% is a
+       revenue-capture share of an employee's allowance on the Concept Deck's
+       "The opportunity · F8" slide, and the only 70% is a staffing ratio from
+       the financial model. Neither is a benefits utilisation rate.
+       WorkPerks_Execution_Plan.html lists utilisation as measurement area 02,
+       instrumented from day one, with "targets get set with HR once the pilot
+       population is confirmed" — so a measured figure does not exist yet.
+       Treat these two as the author's own estimate, not as measured data. -->
+  <div class="wp-part" id="wp-problem">
+    <h3 class="t-h3 wp-part__h" id="h-wp-problem" data-reveal>The problem we are solving.</h3>
+    <p class="prose" data-reveal>The money is already committed. What is missing is a single place
+      where employees meet their benefits and HR can see the programme end to end.</p>
+
+  <!-- The three stage opening, as the artwork draws it. It was live markup
+       — .wp-prob, three stage cards rebuilt out of the "Why this matters"
+       slide — and at Arushi's instruction it is the drawn diagram again,
+       the same call chapters 03 and 05 took. Same content: the three stage
+       names, their sublines and every item are the slide's own, and they
+       are carried in the alt text. The .wp-prob rules stay in
+       workperks.css, unreferenced, beside .wp-how and .wp-ecos. The
+       artwork carries its own light ground, #F3F3F3, to all four edges, so
+       it takes no plate — only the page's corner radius. -->
+  <figure class="wp-prob__art" data-reveal>
+    <img src="../../assets/img/workperks/exhibit/problem-stages.png" alt="The problem, in three stages. Stage 01, benefits are funded: the company already pays for these — flexi allowance, wellness, OPD and health, rewards, recognition and programmes. An arrow leads to stage 02, the experience fragments: each one lives somewhere different — separate portals, email and forms, spreadsheets and vendor sites, drawn as boxes stepped out of line with one another. A second arrow leads to stage 03, value goes unrealised: low visibility, high manual effort — allowance left unallocated, claims and approvals chased by hand, and no single view of spend or uptake, each written over an empty dotted rule." width="2458" height="712" loading="lazy">
+  </figure>
+  </div>
+
+  <!-- part 2 · the utilisation gap -->
+  <div class="wp-part" id="wp-gap">
+    <h3 class="t-h3 wp-part__h" data-reveal>The utilisation gap</h3>
+    <p class="prose" data-reveal>Employees had access to benefits, but fragmented platforms and
+      complex processes made them difficult to discover, understand and use.</p>
+
+    <dl class="wp-metric" data-reveal>
+      <div class="wp-metric__item">
+        <dd class="wp-metric__v">30%</dd>
+        <dt class="wp-metric__k">Benefits utilisation</dt>
+      </div>
+      <div class="wp-metric__item">
+        <dd class="wp-metric__v wp-metric__v--loss">70%</dd>
+        <dt class="wp-metric__k">Benefits left unutilised</dt>
+      </div>
+    </dl>
+
+    <!-- Three causes and what each one meant. It was a two-column table; a
+         table is the right element for values compared DOWN a column, and
+         these are independent pairs read one at a time, which as rows were
+         lines of grey across a wide column. As cards the pair stays together
+         and the cause carries the weight it has in the argument. Every word
+         is the table's own — the left cell is the heading, the right cell
+         the line under it.
+
+         Cut back at Arushi's instruction: the Unutilised value card is gone,
+         the two column-header labels above the grid are gone, the hue rule
+         across each card top is gone, and the three that remain sit in one
+         row and are counted 01 to 03. The hues are the ones this chapter
+         already uses: teal for the funded benefit, rust for the fragmenting,
+         slate as a neutral third. No new colour and no new copy. -->
+    <div class="wp-gapmade" data-reveal>
+      <div class="wp-gapmade__head">
+        <p class="t-label wp-gapmade__cap">What the gap was made of</p>
+      </div>
+      <ol class="wp-gapmade__grid" role="list">
+        <li class="wp-gapmade__item wp-gapmade__item--util">
+          <h4 class="wp-gapmade__h">Low utilisation</h4>
+          <p class="wp-gapmade__t">Employees weren&rsquo;t fully engaging with available benefits.</p>
+        </li>
+        <li class="wp-gapmade__item wp-gapmade__item--platforms">
+          <h4 class="wp-gapmade__h">Multiple platforms</h4>
+          <p class="wp-gapmade__t">A fragmented employee experience.</p>
+        </li>
+        <li class="wp-gapmade__item wp-gapmade__item--funding">
+          <h4 class="wp-gapmade__h">Multiple funding models</h4>
+          <p class="wp-gapmade__t">Confusion around how to pay for, access and redeem benefits.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- part 3 · today's journey, moved here whole from the former chapter 05 -->
+  <div class="wp-part" id="wp-journey">
+    <h3 class="t-h3 wp-part__h" id="h-wp-journey" data-reveal>Why today&rsquo;s experience
+      breaks.</h3>
+    <p class="prose" data-reveal>One benefit becomes a long, manual journey&thinsp;&mdash;&thinsp;for
+      the employee and for HR.</p>
+
+<div class="wp-jr" data-reveal>
+    <div class="wp-jr__rail">
+      <div class="wp-jr__head">
+        <p class="wp-jr__k" id="wp-jr-employee">Employee journey</p>
+        <p class="wp-jr__n">05 steps</p>
+      </div>
+      <ol class="wp-jr__steps" aria-labelledby="wp-jr-employee">
+        <li class="wp-jr__step"><span class="wp-jr__sn">01</span><span class="wp-jr__st">Benefit announced</span></li>
+        <li class="wp-jr__step"><span class="wp-jr__sn">02</span><span class="wp-jr__st">Check eligibility</span></li>
+        <li class="wp-jr__step"><span class="wp-jr__sn">03</span><span class="wp-jr__st">Find and pay a vendor</span></li>
+        <li class="wp-jr__step"><span class="wp-jr__sn">04</span><span class="wp-jr__st">Upload proof</span></li>
+        <li class="wp-jr__step"><span class="wp-jr__sn">05</span><span class="wp-jr__st">Missed or unused</span></li>
+      </ol>
+    </div>
+
+    <div class="wp-jr__rail">
+      <div class="wp-jr__head">
+        <p class="wp-jr__k" id="wp-jr-employer">Employer journey</p>
+        <p class="wp-jr__n">05 steps</p>
+      </div>
+      <ol class="wp-jr__steps" aria-labelledby="wp-jr-employer">
+        <li class="wp-jr__step"><span class="wp-jr__sn">01</span><span class="wp-jr__st">Find vendors</span></li>
+        <li class="wp-jr__step"><span class="wp-jr__sn">02</span><span class="wp-jr__st">Evaluate and negotiate</span></li>
+        <li class="wp-jr__step"><span class="wp-jr__sn">03</span><span class="wp-jr__st">Contract and integrate</span></li>
+        <li class="wp-jr__step"><span class="wp-jr__sn">04</span><span class="wp-jr__st">Launch and support</span></li>
+        <li class="wp-jr__step"><span class="wp-jr__sn">05</span><span class="wp-jr__st">Reconcile and renew</span></li>
+      </ol>
+    </div>
+  </div>
+  </div>
+
+</section>
+
+<!-- 06 · CURRENT LANDSCAPE -------------------------------------------------- -->
+<!-- Slide 06 of the WorkPerks Concept Deck (8 August 2026), reproduced in
+     full, including the deck's own sources-and-caveats note, which is the
+     part that stops the figures being read as like-for-like. These are
+     third-party figures taken from the deck's teardowns, not WorkPerks
+     numbers; the page's no-own-figures rule is untouched by them.
+     The table scrolls sideways inside its own wrapper rather than making
+     the page scroll. -->
+<section class="section" id="wp-landscape" aria-labelledby="h-wp-landscape" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">02 &mdash; Research</p>
+    <h2 class="t-h2" id="h-wp-landscape">Who is in this market today.</h2>
+    <p class="prose">Everyone here is a payments company or a rewards company. Nobody is a services
+      company.</p>
+  </div>
+
+  <!-- What the table below says, read out before it is shown. This replaced
+       the deck's sources-and-caveats note at Arushi's instruction. The
+       caveats are not lost: every figure that needed one carries it inline
+       — group rather than India, gross rather than net — which is the whole
+       of what the note was there to do. Every number is the deck's own, from
+       slide 06 of the Concept Deck (8 August 2026); none is a WorkPerks
+       figure and the page's no-own-figures rule is untouched. -->
+  <aside class="wp-mkt__note" data-reveal>
+    <dl class="wp-mkt__stats">
+      <div class="wp-mkt__stat">
+        <dd class="wp-mkt__stat-v">17,300<span class="wp-mkt__stat-s">+</span></dd>
+        <dt class="wp-mkt__stat-k">Clients between them</dt>
+      </div>
+      <div class="wp-mkt__stat">
+        <dd class="wp-mkt__stat-v">13<span class="wp-mkt__stat-s">M</span></dd>
+        <dt class="wp-mkt__stat-k">Employees reached</dt>
+      </div>
+      <div class="wp-mkt__stat">
+        <dd class="wp-mkt__stat-v">&#8377;49&ndash;60<span class="wp-mkt__stat-s">L</span></dd>
+        <dt class="wp-mkt__stat-k">Per client, per year</dt>
+      </div>
+      <div class="wp-mkt__stat wp-mkt__stat--tell">
+        <dd class="wp-mkt__stat-v">&lt;1<span class="wp-mkt__stat-s">offer</span></dd>
+        <dt class="wp-mkt__stat-k">Redeemed per user, ever</dt>
+      </div>
+    </dl>
+
+  </aside>
+
+  <figure class="wp-mkt__art" data-reveal>
+    <div class="wp-mkt__art-scroll" tabindex="0" role="region" aria-label="Competitive landscape table, scrolls sideways">
+      <img src="../../assets/img/workperks/exhibit/competitive-landscape.jpg" alt="A competitive comparison table across Pluxee India, Zaggle, Advantage Club, Vantage Circle and PeopleStrong, with twelve rows: what they are, what they own, what they do not, clients, employees, revenue, per client per year, margin, how they earn, licence, supply network and the usage number. The figures are the ones set out in the concept deck's teardown and carry the caveats noted above." width="1800" height="1130" loading="lazy">
+    </div>
+  </figure>
+
+  <!-- part 1 · the two spending pools, moved into this chapter at Arushi's
+       instruction. It was part 4 of chapter 01 and before that a chapter of
+       its own; it is market evidence, so it reads with the teardown above
+       it and the white space below it. Markup, figures and wording are
+       unchanged, and #wp-opportunity travels with it. -->
+  <div class="wp-part" id="wp-opportunity">
+    <h3 class="t-h3 wp-part__h" id="h-wp-opportunity" data-reveal>Two spending pools already
+      exist.</h3>
+    <p class="prose" data-reveal>Neither needs more money. Both need better utilisation.</p>
+
+<div class="wp-pool" data-reveal>
+    <article class="wp-pool__card wp-pool__card--wallet">
+      <p class="wp-pool__k">Pool 01 &middot; Employee wallet</p>
+      <h3 class="wp-pool__h">Tax-advantaged value inside CTC.</h3>
+
+      <dl class="wp-pool__rows">
+        <div class="wp-pool__row">
+          <dt class="wp-pool__rk">What it is</dt>
+          <dd class="wp-pool__rv">The flexi allowance inside their CTC.</dd>
+        </div>
+        <div class="wp-pool__row">
+          <dt class="wp-pool__rk">Why it exists</dt>
+          <dd class="wp-pool__rv">So they can save tax.</dd>
+        </div>
+      </dl>
+
+      <p class="wp-pool__fk">Per employee / year</p>
+      <p class="wp-pool__fv"><b class="wp-pool__fn">~&#8377;60,000&ndash;1,05,000</b>
+        <span class="wp-pool__fc">typical flexi benefit</span></p>
+
+      <ul class="chips wp-pool__heads" role="list"><li class="chip">Meal</li><li class="chip">Fuel</li><li class="chip">Telephone</li><li class="chip">Books</li><li class="chip">LTA</li><li class="chip">Learning</li><li class="chip">Uniform</li><li class="chip">Driver salary</li><li class="chip">Other flexible benefits</li></ul>
+    </article>
+
+    <article class="wp-pool__card wp-pool__card--spend">
+      <p class="wp-pool__k">Pool 02 &middot; Employer spend</p>
+      <h3 class="wp-pool__h">Investment already committed.</h3>
+
+      <dl class="wp-pool__rows">
+        <div class="wp-pool__row">
+          <dt class="wp-pool__rk">What it is</dt>
+          <dd class="wp-pool__rv">Wellness, engagement, rewards and L&amp;D budgets.</dd>
+        </div>
+        <div class="wp-pool__row">
+          <dt class="wp-pool__rk">Why it exists</dt>
+          <dd class="wp-pool__rv">So the company can look after its people.</dd>
+        </div>
+      </dl>
+
+      <p class="wp-pool__fk">Per employee / year</p>
+      <p class="wp-pool__fv"><b class="wp-pool__fn">&#8377;3,000&ndash;8,000</b>
+        <span class="wp-pool__fc">typical annual budget</span></p>
+
+      <ul class="chips wp-pool__heads" role="list"><li class="chip">Wellness</li><li class="chip">Learning</li><li class="chip">Rewards</li><li class="chip">Recognition</li><li class="chip">Experiences</li><li class="chip">Events</li><li class="chip">Financial wellbeing</li><li class="chip">Insurance</li><li class="chip">Engagement</li></ul>
+    </article>
+  </div>
+  </div>
+
+  <!-- part 2 · the white space, folded into this chapter at Arushi's
+       instruction. It was chapter 04 with a rail entry of its own; it is
+       the same market read as the table above it, so it is a part of this
+       chapter now rather than a chapter after it. Set as .wp-part, the same
+       shape the three parts of chapter 02 use: a rule, then a t-h3. Slide
+       07, reproduced as the deck draws it: a two by two with the employee
+       experience axis running up and the enterprise infrastructure axis
+       running across, WorkPerks alone in the open quadrant. On a phone the
+       quadrants stack and the axis labels become plain headings, because a
+       rotated label on a 390px screen is unreadable. -->
+  <div class="wp-part" id="wp-whitespace">
+    <h3 class="t-h3 wp-part__h" id="h-wp-whitespace" data-reveal>The white space nobody
+      occupies.</h3>
+
+    <div class="wp-ws" data-reveal>
+      <p class="wp-ws__axis wp-ws__axis--y">Owns the employee experience &rarr;</p>
+      <div class="wp-ws__grid">
+        <div class="wp-ws__q wp-ws__q--eng">
+          <span class="wp-ws__qk">Engagement layer</span>
+          <ul class="wp-ws__names" role="list"><li class="wp-ws__name"><b>Advantage Club</b> <span>rewards, 100% partnered supply</span></li><li class="wp-ws__name"><b>Vantage Circle</b> <span>R&amp;R system of record</span></li></ul>
+          <p class="wp-ws__qn">Reach and engagement, no rails and no owned supply.</p>
+        </div>
+        <div class="wp-ws__q wp-ws__q--us">
+          <span class="wp-ws__qk">The whitespace</span>
+          <ul class="wp-ws__names" role="list"><li class="wp-ws__name"><b>WorkPerks</b></li></ul>
+          <p class="wp-ws__qn">Infrastructure, experience and fulfilment in one layer.</p>
+        </div>
+        <div class="wp-ws__q wp-ws__q--one">
+          <span class="wp-ws__qk">Single category</span>
+          <ul class="wp-ws__names" role="list"><li class="wp-ws__name"><b>Cult.fit</b> <span>fitness · 708 centres</span></li></ul>
+          <p class="wp-ws__qn">Deep in one vertical, direct to the employee. No eligibility logic.</p>
+        </div>
+        <div class="wp-ws__q wp-ws__q--fin">
+          <span class="wp-ws__qk">Financial infrastructure</span>
+          <ul class="wp-ws__names" role="list"><li class="wp-ws__name"><b>Zaggle</b> <span>cards and spend rails</span></li><li class="wp-ws__name"><b>Pluxee</b> <span>food network and float</span></li><li class="wp-ws__name"><b>PeopleStrong</b> <span>the employee system of record</span></li></ul>
+          <p class="wp-ws__qn">Rails, records and float &mdash; no bookable experience on top.</p>
+        </div>
+      </div>
+      <p class="wp-ws__axis wp-ws__axis--x">Owns the enterprise infrastructure &rarr;</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- 08 · PRODUCT STRATEGY & DISCOVERY --------------------------------------- -->
+<!-- Slides 08 and 09, one chapter. Product Definition and Product Strategy &
+     Discovery were two chapters with one drawn diagram each; at Arushi's
+     instruction they are one chapter holding both, because the definition
+     and the ecosystem it sits in are the same argument. The section keeps
+     the `wp-strategy` id, which is the name it now carries; `wp-definition`
+     is kept on the first figure so a link written against the old chapter
+     still lands in the right place.
+     Note the vision line is the headline this page opens on, one word
+     different — that is the deck's, not a coincidence introduced here. -->
+<section class="section" id="wp-strategy" aria-labelledby="h-wp-strategy" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">03 &mdash; Product Strategy &amp; Discovery</p>
+    <h2 class="t-h2" id="h-wp-strategy">An Employee Benefits Intelligence Platform.</h2>
+    <p class="prose">WorkPerks is the intelligence and experience layer that sits between
+      everyone already in the ecosystem.</p>
+  </div>
+
+
+  <!-- The definition, as the artwork draws it: the six stage loop and the
+       five surfaces with what each one holds, in one plate. This was two
+       live markup blocks for a while — a .spec table and the .wp-how run —
+       and at Arushi's instruction it is the drawn diagram again. Light
+       artwork on a dark page, so it takes the same light plate the
+       landscape table and the ecosystem do. The markup versions' styles
+       are still in workperks.css under .wp-how, unreferenced. -->
+  <figure class="wp-def__art" id="wp-definition" data-reveal>
+    <img src="../../assets/img/workperks/exhibit/product-definition.png" alt="Two parts. Above, a six stage loop, each stage with its own icon and number on a connecting line. Stage 01, the employer funds the benefits: the budget already exists, nothing in this loop asks an employer for new spend. Stage 02, WorkPerks activates them: configuration, eligibility and onboarding, where the HR portal and the employee onboarding spine meet. Stage 03, the employee discovers and uses them: discovery, location, search and the assistant, where a funded benefit becomes a felt one. Stage 04, supply fulfils them: catalogue, storefront, booking and redemption, including the path a supplier API takes when it cannot answer. Stage 05, utilisation becomes measurable: event tracking and employer reporting, marked Concept. Stage 06, the employer sees the value: the conversation the next year&rsquo;s subscription turns on, and the reason HR analytics is a product decision rather than a reporting afterthought. Below, a table of surface against what it holds. Employee app: benefits, flexi, wallet, rewards, recognition, vouchers, search and the assistant. HR portal: organisation setup, eligibility, configuration and reporting. Supplier portal: onboarding, catalogue, commercial terms and fulfilment. Admin and operations: CRM, finance, support, roles and permissions. Marketing website: the employer facing proposition." width="1754" height="897" loading="lazy">
+  </figure>
+
+  <!-- The second diagram's lead-in sits with the diagram rather than up in
+       the chapter head, because it describes this artwork and not the one
+       above it. It was the former chapter 05's standfirst, unchanged. -->
+  <p class="prose" data-reveal>WorkPerks brings employees, employers, suppliers and internal
+    operations teams into one connected benefits platform. Each group has a different role, but
+    they work around the same benefits ecosystem.</p>
+
+  <!-- The ecosystem, as the artwork draws it. This was live markup for a
+       while; at Arushi's instruction it is the drawn diagram again. Light
+       artwork on a dark page, so it takes the same light plate the
+       landscape table and the journey flows do. The markup version's
+       styles are still in workperks.css under .wp-ecos, unreferenced. -->
+  <figure class="wp-ecos__art" data-reveal>
+    <img src="../../assets/img/workperks/exhibit/ecosystem-map.png" alt="The WorkPerks ecosystem. Three cards across the top name the groups and what each does: Employees, discover and use benefits; Employers / HR, fund and manage benefits; Suppliers, offer and fulfil services. A chevron points down from them into one panel headed WorkPerks, shared benefits platform, holding eight surfaces, each with its own icon: Employee app and website, HR portal, Supplier portal, Marketplace CMS, Admin console, Operations and finance, Support portal, and Analytics dashboard." width="1757" height="895" loading="lazy">
+  </figure>
+
+  <!-- The architecture part that stood here, Four experiences., came off
+       on 4 Nov 2026 at Arushi's instruction: the heading, its standfirst,
+       the three resolutions and the four block product structure, end to
+       end. It held no images of its own — the structure was live markup,
+       rebuilt out of its PNG on 3 Nov — so nothing was unreferenced by
+       removing it. The chapter's own two diagrams above are untouched.
+       The cut markup is in the session scratchpad; .wp-res and .wp-struct
+       in workperks.css are now unreferenced, as .wp-how and .wp-ecos
+       already were. -->
+</section>
+
+
+<!-- 11 · KEY DECISIONS ----------------------------------------------------- -->
+<!-- The six decisions, as drawn. The authored ownership table and the
+     leadership account that stood here were replaced at Arushi's
+     instruction; the original is kept in the case-study source. -->
+<!-- Key Decisions and Workflows are one chapter at Arushi's instruction, and
+     it carries the Key Decisions name: the decisions are what the flows were
+     drawn against, so they open the chapter and the flows follow as what
+     they resolved to. Both are .wp-part, the shape every folded part on this
+     page uses. The section keeps the `wp-workflows` id it was built with and
+     `wp-role` stays on the decisions part, so a link written against either
+     former chapter still lands here. -->
+<section class="section" id="wp-workflows" aria-labelledby="h-wp-workflows" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow" id="h-wp-workflows">04 &mdash; Key Decisions</p>
+  </div>
+
+  <!-- part 1 · the six decisions, as drawn -->
+  <div class="wp-part" id="wp-role">
+    <h3 class="t-h3 wp-part__h" id="h-wp-role" data-reveal>Decisions that shaped the product.</h3>
+    <p class="prose" data-reveal>WorkPerks brings together multiple benefit categories,
+      stakeholders and experiences. These six decisions guided how the platform was structured, how
+      employees access benefits and how organisations manage them.</p>
+
+  <figure class="wp-dec6" data-reveal>
+    <img src="../../assets/img/workperks/exhibit/key-decisions-1.png" alt="Decisions 01 to 03. 01, experience: one destination for employee benefits. The challenge, benefits were spread across different platforms and providers. The decision, create one Employee App with a central Benefits Hub. The outcome, one place to explore and access benefits. 02, money and benefits: connect flexi benefits with the wallet. The challenge, employees need visibility into allocations, balances and usage. The decision, connect flexi allocations, wallet balances and transactions. The outcome, a consolidated view of benefit value and usage. 03, engagement: bring rewards and recognition together. The challenge, benefits and employee recognition can exist as separate experiences. The decision, bring recognition, coins and reward redemption into the platform. The outcome, a connected benefits and recognition experience." width="1620" height="818" loading="lazy">
+  </figure>
+
+  <figure class="wp-dec6 wp-dec6--next" data-reveal>
+    <img src="../../assets/img/workperks/exhibit/key-decisions-2.png" alt="Decisions 04 to 06. 04, discovery: make benefits easier to discover. The challenge, employees need to find relevant services across categories and suppliers. The decision, organise discovery through categories, search, suppliers and locations. The outcome, a clearer path from discovery to booking or redemption. 05, implementation: design for different employer setups. The challenge, organisations have different HRMS, payroll and onboarding requirements. The decision, support HRMS, payroll, wallet-only and manual onboarding paths. The outcome, flexible implementation across employer setups. 06, assistance: introduce AI assistance. The challenge, employees may need help finding benefits and understanding their options. The decision, introduce a conversational assistant for benefit-related information. The outcome, a conversational way to find information and get help." width="1598" height="838" loading="lazy">
+  </figure>
+  </div>
+
+  <!-- part 2 · the eight exported IA flows, grouped by the surface they
+       belong to. They sit after the decisions because they are what the
+       decisions resolved to, and before Experience Design because they are
+       what the screens were drawn against: the flow decides what states
+       exist, and the chapter that follows shows what those states were made
+       to look like.
+
+       The employee app also has a single master diagram covering all three
+       of its flows at once. It is not published here — at 4306 by 6174 it is
+       unreadable at any width this column can give it, and the three flows
+       below carry the same content legibly. It stays in Ref./IAs. -->
+  <div class="wp-part" id="wp-flows">
+    <h3 class="t-h3 wp-part__h" data-reveal>Information Architecture</h3>
+
+  <div class="wp-ia-group" data-reveal>
+    <h3 class="t-h3 wp-ia-group__h">1 &middot; Employee App</h3>
+    <p class="prose wp-ia-group__note">Three flows. Getting in and getting set up, then the two things an employee comes back for.</p>
+
+    <div class="wp-ia__head">
+      <h4 class="t-h4 wp-ia__h">App entry and onboarding</h4>
+    </div>
+    <!-- The first of the three flows rebuilt out of their exports. At
+         7502 by 672 the PNG
+         was a 7500px sideways scroll for a reader who could never see the
+         shape of the thing at all.
+
+         Rebuilt to the same content — 20 nodes, 7 edge labels, both return
+         paths — as three phase columns that fit a screen. The content is
+         the export's, re-laid out; nothing is added to it.
+
+         Home came off on 4 Nov 2026 at Arushi's instruction, here and in
+         the two flows below it: the terminal under the columns said that
+         Continue without Flexi and Save Flexi plan both end at the same
+         screen, and she does not want the node or its sentence. The three
+         paths still read; what is gone is the bar that named where they
+         met. Phase 02's written handoff went the same day, replaced by the
+         line that now leaves its rail and lands on the Flexi Pay diamond
+         beside it. Static, like chapters 04, 06 and 07:
+         no hover lighting, no sibling dimming. The PNG stays in
+         assets/img/workperks/ia/ and is simply no longer referenced.
+
+         One correction carried in: the export's alt text said the Flexi Pay
+         No branch went straight to Home. It does not — it joins Continue
+         without Flexi, which is what the drawing shows. -->
+    <figure class="wp-flow" data-reveal>
+      <div class="wp-flow__panel">
+        <ol class="wp-flow__phases" role="list">
+
+          <li class="wp-flow__phase wp-flow__phase--a" data-reveal data-reveal-delay="0">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-idcard"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 01</span>
+                <h5 class="wp-flow__ph">Entry and identity</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Play Store / App entry</li>
+              <li class="wp-flow__step">Open WorkPerks</li>
+              <li class="wp-flow__step">Sign in</li>
+              <li class="wp-flow__step">Enter work email / employee ID</li>
+              <li class="wp-flow__step">Find organisation</li>
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Organisation found?</p>
+                <ul class="wp-flow__brs" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">No</span>
+                    <span class="wp-flow__to">Company not found
+                      <span class="wp-flow__back">returns to enter work email / employee ID</span></span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Yes</span>
+                    <span class="wp-flow__to">Verify employee / continue</span>
+                  </li>
+                </ul>
+              </li>
+              <!-- The Yes branch, joined to the node it names rather than
+                   only naming it: the same drawn handoff phase 02 uses. -->
+              <li class="wp-flow__hop"><span class="sr-only">Continues to verify employee / continue</span></li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--b" data-reveal data-reveal-delay="80">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-sliders"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 02</span>
+                <h5 class="wp-flow__ph">Setup</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Verify employee / continue</li>
+              <li class="wp-flow__step">Discover available benefits</li>
+              <li class="wp-flow__step">Understand WorkPerks</li>
+              <li class="wp-flow__step">Set preferences</li>
+              <li class="wp-flow__step">Add location</li>
+              <li class="wp-flow__hop"><span class="sr-only">Continues to the Flexi Pay check</span></li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--c" data-reveal data-reveal-delay="160">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-coins"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 03</span>
+                <h5 class="wp-flow__ph">Flexi allocation</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Flexi Pay enabled?</p>
+                <ul class="wp-flow__brs" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">No</span>
+                    <span class="wp-flow__to">Continue without Flexi</span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Yes</span>
+                    <span class="wp-flow__to">View Flexi allowance</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="wp-flow__step">View Flexi allowance</li>
+              <li class="wp-flow__step">Choose eligible benefit heads</li>
+              <li class="wp-flow__step">Allocate allowance</li>
+              <li class="wp-flow__step">Review plan</li>
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Confirm selection?</p>
+                <ul class="wp-flow__brs" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">Edit</span>
+                    <span class="wp-flow__to"><span class="wp-flow__back">returns to choose eligible benefit heads</span></span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">Skip</span>
+                    <span class="wp-flow__to">Continue without Flexi</span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Confirm</span>
+                    <span class="wp-flow__to">Save Flexi plan</span>
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+
+        </ol>
+      </div>
+    </figure>
+
+    <div class="wp-ia__head">
+      <h4 class="t-h4 wp-ia__h">Benefits discovery and fulfilment</h4>
+    </div>
+    <!-- Rebuilt out of its export, for the reason the app-entry flow was:
+         at 5510 by
+         752 the PNG is a sideways scroll, and the one thing worth seeing —
+         a single discovery spine that forks into four ways of acting on a
+         benefit — is the thing the scroll hides.
+
+         Same content, re-laid out: the five spine nodes, the Choose action
+         decision, its four edge labels and the four runs under them. The
+         spine is cut at its own seam, discovery then evaluation, so the
+         columns match the flow above. Nothing added, nothing dropped. The
+         PNG stays in assets/img/workperks/ia/ and is simply no longer
+         referenced.
+
+         Home came off with the other two on 4 Nov 2026, and the two
+         written handoffs became drawn ones at the same time: evaluation
+         runs a line into the Choose action? diamond, and the decision fans
+         out onto the four runs under it rather than saying that it does.
+         The edge labels inside the fork are unchanged. -->
+    <figure class="wp-flow" data-reveal>
+      <div class="wp-flow__panel">
+
+        <ol class="wp-flow__phases" role="list">
+
+          <li class="wp-flow__phase wp-flow__phase--a" data-reveal data-reveal-delay="0">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-discover"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 01</span>
+                <h5 class="wp-flow__ph">Discovery</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Explore benefits</li>
+              <li class="wp-flow__step">Browse categories / collections</li>
+              <li class="wp-flow__step">Search and filter</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--b" data-reveal data-reveal-delay="80">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 02</span>
+                <h5 class="wp-flow__ph">Evaluation</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">View benefit details</li>
+              <li class="wp-flow__step">Check eligibility and funding</li>
+              <li class="wp-flow__hop"><span class="sr-only">Continues to the action decision</span></li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--c" data-reveal data-reveal-delay="160">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-sliders"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 03</span>
+                <h5 class="wp-flow__ph">The action decision</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Choose action?</p>
+                <ul class="wp-flow__brs" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Book</span>
+                    <span class="wp-flow__to">Select location</span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Subscribe / enrol</span>
+                    <span class="wp-flow__to">Choose plan</span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Purchase</span>
+                    <span class="wp-flow__to">Choose item</span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Request</span>
+                    <span class="wp-flow__to">Enter request details</span>
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+
+        </ol>
+
+        <!-- The decision's own fan, drawn rather than written: a stem down
+             from the Choose action? diamond, a bus across the four runs it
+             opens, and a drop onto each one. It is the export's own shape.
+             Below 64rem the tier is no longer four columns and the fan comes
+             off; the branch rows inside the fork still name all four. -->
+        <div class="wp-flow__fan" aria-hidden="true">
+          <span class="wp-flow__stem"></span>
+          <span class="wp-flow__bus"></span>
+          <span class="wp-flow__drop"></span>
+          <span class="wp-flow__drop"></span>
+          <span class="wp-flow__drop"></span>
+          <span class="wp-flow__drop"></span>
+        </div>
+
+        <!-- The four runs the decision opens. They are the export's four
+             branches at full length; none of them rejoins the others, which
+             is why there is no terminal under this one. -->
+        <ol class="wp-flow__phases wp-flow__phases--four" role="list">
+
+          <li class="wp-flow__phase wp-flow__phase--a" data-reveal data-reveal-delay="0">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-calendar"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Action 01</span>
+                <h5 class="wp-flow__ph">Book</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Select location</li>
+              <li class="wp-flow__step">Choose date and time</li>
+              <li class="wp-flow__step">Review booking</li>
+              <li class="wp-flow__step">Confirm booking</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--b" data-reveal data-reveal-delay="80">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-checkcircle"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Action 02</span>
+                <h5 class="wp-flow__ph">Subscribe / enrol</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Choose plan</li>
+              <li class="wp-flow__step">Submit enrolment</li>
+              <li class="wp-flow__step">Review and confirm</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--c" data-reveal data-reveal-delay="160">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-store"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Action 03</span>
+                <h5 class="wp-flow__ph">Purchase</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Choose item</li>
+              <li class="wp-flow__step">Add address</li>
+              <li class="wp-flow__step">Review order</li>
+              <li class="wp-flow__step">Place order</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--d" data-reveal data-reveal-delay="240">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-file"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Action 04</span>
+                <h5 class="wp-flow__ph">Request</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Enter request details</li>
+              <li class="wp-flow__step">Review request</li>
+              <li class="wp-flow__step">Submit request</li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+    </figure>
+
+    <div class="wp-ia__head">
+      <h4 class="t-h4 wp-ia__h">Rewards, reimbursements and everyday tools</h4>
+    </div>
+    <!-- The export's own structure, in the page's own marks. This one is
+         not re-laid out the way the two above it are, at Arushi's
+         instruction: the drawing is five flows leaving Home in parallel,
+         and they stay five flows in parallel and in their original order.
+         Home itself came off on 4 Nov 2026, with the other two.
+         What changes is the UI — the boxes and connector lines become the
+         rails, dots and caps the rest of the chapter uses.
+
+         Each lane's name is the export's own first node after Home, so it
+         is the cap rather than a step; every node after it is a step. All
+         five lanes, all nineteen nodes, same order. The PNG stays in
+         assets/img/workperks/ia/ and is simply no longer referenced. -->
+    <figure class="wp-flow" data-reveal>
+      <div class="wp-flow__panel">
+
+        <ol class="wp-flow__phases wp-flow__phases--five" role="list">
+
+          <li class="wp-flow__phase wp-flow__phase--a" data-reveal data-reveal-delay="0">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-gift"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Flow 01</span>
+                <h5 class="wp-flow__ph">Rewards and recognition</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">View recognition and rewards</li>
+              <li class="wp-flow__step">Browse rewards</li>
+              <li class="wp-flow__step">Choose voucher / denomination</li>
+              <li class="wp-flow__step">Review redemption</li>
+              <li class="wp-flow__step">Redeem reward</li>
+              <li class="wp-flow__step">View voucher / code</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--b" data-reveal data-reveal-delay="60">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-receipt"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Flow 02</span>
+                <h5 class="wp-flow__ph">Reimbursements</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">View eligible claim heads</li>
+              <li class="wp-flow__step">Select claim type</li>
+              <li class="wp-flow__step">Enter claim details</li>
+              <li class="wp-flow__step">Upload bill</li>
+              <li class="wp-flow__step">Review and submit</li>
+              <li class="wp-flow__step">Track claim status</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--c" data-reveal data-reveal-delay="120">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-sliders"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Flow 03</span>
+                <h5 class="wp-flow__ph">Manage Flexi</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">View allowance and allocations</li>
+              <li class="wp-flow__step">Edit benefit selections</li>
+              <li class="wp-flow__step">Review and save</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--d" data-reveal data-reveal-delay="180">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-sparkle"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Flow 04</span>
+                <h5 class="wp-flow__ph">Ask AI</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Ask benefit-related question</li>
+              <li class="wp-flow__step">View AI response</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--e" data-reveal data-reveal-delay="240">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-bell"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Flow 05</span>
+                <h5 class="wp-flow__ph">Notifications</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">View notifications</li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+    </figure>
+  </div>
+
+  <!-- 2 · HR Portal. The two recognition exports are one flow here, at
+       Arushi's instruction: one task flow per surface. ia-04 (4206x466) is
+       the setup run, cut at its own seams into three phase columns; ia-05
+       (2958x1570) is the operations fan, whose own first node becomes the
+       bar between the two tiers and whose three branches become the three
+       lanes under it. Same marks as the employee flows above, same
+       content as the drawings, and the content was read off the PNGs
+       rather than off their alt text — which is how one error came out:
+       ia-05's Reject and Approve do not return to the decision, they end.
+       Nothing else was added or dropped; the type is a size down from the
+       flows above because two tiers is more words than one.
+
+       The PNGs stay in assets/img/workperks/ia/ and are simply no longer
+       referenced, the same way flows 01 to 03 left theirs behind. -->
+  <div class="wp-ia-group" data-reveal>
+    <h3 class="t-h3 wp-ia-group__h">2 &middot; HR Portal</h3>
+    <p class="prose wp-ia-group__note">One flow, both halves of recognition: standing a programme up, then running it once nominations start arriving.</p>
+
+    <div class="wp-ia__head">
+      <h4 class="t-h4 wp-ia__h">Recognition, setup through to operations</h4>
+    </div>
+    <figure class="wp-flow wp-flow--dense" data-reveal>
+      <div class="wp-flow__panel">
+        <ol class="wp-flow__phases" role="list">
+
+          <li class="wp-flow__phase wp-flow__phase--a" data-reveal data-reveal-delay="0">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-idcard"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 01</span>
+                <h5 class="wp-flow__ph">Entry</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Open HR portal</li>
+              <li class="wp-flow__step">Sign in</li>
+              <li class="wp-flow__step">Recognition workspace</li>
+              <li class="wp-flow__step">Programme management</li>
+              <li class="wp-flow__next">Continues to create programme</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--b" data-reveal data-reveal-delay="80">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-sliders"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 02</span>
+                <h5 class="wp-flow__ph">Programme setup</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Create programme</li>
+              <li class="wp-flow__step">Enter programme details</li>
+              <li class="wp-flow__step">Configure award categories</li>
+              <li class="wp-flow__step">Set eligibility and nomination rules</li>
+              <li class="wp-flow__step">Set budget / award value</li>
+              <li class="wp-flow__step">Review programme</li>
+              <li class="wp-flow__next">Continues to the publish check</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--c" data-reveal data-reveal-delay="160">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-checkcircle"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 03</span>
+                <h5 class="wp-flow__ph">Publish</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Ready to publish?</p>
+                <ul class="wp-flow__brs" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">No</span>
+                    <span class="wp-flow__to"><span class="wp-flow__back">returns to create programme</span></span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Yes</span>
+                    <span class="wp-flow__to">Publish programme</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="wp-flow__step">Publish programme</li>
+              <li class="wp-flow__step">Programme available</li>
+            </ol>
+          </li>
+
+        </ol>
+
+        <!-- ia-05's own first node, used the way the rewards flow uses
+             Home: a bar the lanes under it leave from. The programme has
+             to be live before any of the three is reachable, which is why
+             it sits between the tiers rather than above the whole thing. -->
+        <p class="wp-flow__end wp-flow__end--start wp-flow__end--mid" data-reveal>
+          <span class="wp-flow__disc wp-flow__disc--end" aria-hidden="true">
+            <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-building"/></svg>
+          </span>
+          <span class="wp-flow__endt">
+            <strong class="wp-flow__endh">HR recognition workspace</strong>
+            <span class="wp-flow__ends">Once a programme is live, the workspace is where it is run. Choose activity opens three ways in, and none of them passes through another.</span>
+          </span>
+        </p>
+
+        <ol class="wp-flow__phases" role="list">
+
+          <li class="wp-flow__phase wp-flow__phase--a" data-reveal data-reveal-delay="0">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-gift"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Activity 01</span>
+                <h5 class="wp-flow__ph">Manage awards</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Open award management</li>
+              <li class="wp-flow__step">Review award entries</li>
+              <li class="wp-flow__step">Select recipients</li>
+              <li class="wp-flow__step">Confirm recipients</li>
+              <li class="wp-flow__step">Publish results</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--b" data-reveal data-reveal-delay="80">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-chart"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Activity 02</span>
+                <h5 class="wp-flow__ph">Review activity</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Programme overview</li>
+              <li class="wp-flow__step">View participation and status</li>
+              <li class="wp-flow__step">Review recognition activity</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--c" data-reveal data-reveal-delay="160">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-users"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Activity 03</span>
+                <h5 class="wp-flow__ph">Review nominations</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Open nominations</li>
+              <li class="wp-flow__step">View submissions</li>
+              <li class="wp-flow__step">Review nominee and submission</li>
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Nomination decision?</p>
+                <ul class="wp-flow__brs wp-flow__brs--stack" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">Request changes</span>
+                    <span class="wp-flow__to">Send back for revision
+                      <span class="wp-flow__back">returns to view submissions</span></span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">Reject</span>
+                    <span class="wp-flow__to">Reject nomination</span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Approve</span>
+                    <span class="wp-flow__to">Approve nomination</span>
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+
+        </ol>
+      </div>
+    </figure>
+  </div>
+
+  <!-- 3 · Supplier Portal. Three exports, one flow, for the same reason:
+       ia-06 (6000x286) is one straight run, ia-07 (3552x594) picks it up
+       at the supplier workspace and ia-08 (3630x890) picks that up at
+       application submitted, so the three are one path a supplier walks
+       once. Drawn as the onboarding run over the review that follows it.
+       Every node, every edge label and all four return paths are the
+       drawings'; read off the PNGs, which stay in assets/img/workperks/ia/
+       and are no longer referenced. -->
+  <div class="wp-ia-group" data-reveal>
+    <h3 class="t-h3 wp-ia-group__h">3 &middot; Supplier Portal</h3>
+    <p class="prose wp-ia-group__note">One flow, in the order a supplier meets it: get an account, list what you sell, get approved.</p>
+
+    <div class="wp-ia__head">
+      <h4 class="t-h4 wp-ia__h">Supplier onboarding through to published offerings</h4>
+    </div>
+    <figure class="wp-flow wp-flow--dense" data-reveal>
+      <div class="wp-flow__panel">
+        <ol class="wp-flow__phases" role="list">
+
+          <li class="wp-flow__phase wp-flow__phase--a" data-reveal data-reveal-delay="0">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-idcard"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 01</span>
+                <h5 class="wp-flow__ph">Account</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Open supplier portal</li>
+              <li class="wp-flow__step">Start onboarding</li>
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Existing account?</p>
+                <ul class="wp-flow__brs" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">No</span>
+                    <span class="wp-flow__to">Create supplier account</span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Yes</span>
+                    <span class="wp-flow__to">Sign in</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="wp-flow__step">Create supplier account</li>
+              <li class="wp-flow__step">Verify account</li>
+              <li class="wp-flow__step">Sign in</li>
+              <li class="wp-flow__next">Continues to the business profile</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--b" data-reveal data-reveal-delay="80">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-building"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 02</span>
+                <h5 class="wp-flow__ph">Business profile</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Open supplier workspace</li>
+              <li class="wp-flow__step">Enter business information</li>
+              <li class="wp-flow__step">Add primary contact</li>
+              <li class="wp-flow__step">Select business category</li>
+              <li class="wp-flow__step">Add business credentials</li>
+              <li class="wp-flow__step">Upload required documents</li>
+              <li class="wp-flow__next">Continues to the offerings</li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--c" data-reveal data-reveal-delay="160">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-store"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Phase 03</span>
+                <h5 class="wp-flow__ph">Offerings and submission</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Add products / services</li>
+              <li class="wp-flow__step">Enter offering details</li>
+              <li class="wp-flow__step">Set pricing</li>
+              <li class="wp-flow__step">Add service locations</li>
+              <li class="wp-flow__step">Review supplier profile</li>
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Information complete?</p>
+                <ul class="wp-flow__brs" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">No</span>
+                    <span class="wp-flow__to">Edit missing information
+                      <span class="wp-flow__back">returns to add products / services</span></span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Yes</span>
+                    <span class="wp-flow__to">Submit application</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="wp-flow__step">Submit application</li>
+              <li class="wp-flow__step">Application submitted</li>
+              <li class="wp-flow__next">Goes to WorkPerks review</li>
+            </ol>
+          </li>
+
+        </ol>
+
+        <!-- What WorkPerks does with the application, and the two ways out
+             of it. The three lanes are ia-08's three review outcomes. -->
+        <ol class="wp-flow__phases" role="list">
+
+          <li class="wp-flow__phase wp-flow__phase--a" data-reveal data-reveal-delay="0">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-shield"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Review 01</span>
+                <h5 class="wp-flow__ph">WorkPerks review</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">WorkPerks review</li>
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Review outcome?</p>
+                <ul class="wp-flow__brs wp-flow__brs--stack" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">Not approved</span>
+                    <span class="wp-flow__to">Application not approved</span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">More information needed</span>
+                    <span class="wp-flow__to">Receive supplier query</span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Approved</span>
+                    <span class="wp-flow__to">Review submitted offerings</span>
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--b" data-reveal data-reveal-delay="80">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-file"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Review 02</span>
+                <h5 class="wp-flow__ph">More information needed</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Receive supplier query</li>
+              <li class="wp-flow__step">Update details / documents</li>
+              <li class="wp-flow__step">Resubmit application
+                <span class="wp-flow__back">returns to WorkPerks review</span></li>
+            </ol>
+          </li>
+
+          <li class="wp-flow__phase wp-flow__phase--c" data-reveal data-reveal-delay="160">
+            <div class="wp-flow__cap">
+              <span class="wp-flow__disc" aria-hidden="true">
+                <svg class="wp-flow__ico" viewBox="0 0 24 24"><use href="#i-grid"/></svg>
+              </span>
+              <span class="wp-flow__capt">
+                <span class="t-label wp-flow__k">Review 03</span>
+                <h5 class="wp-flow__ph">Approved, and listed</h5>
+              </span>
+            </div>
+            <ol class="wp-flow__run" role="list">
+              <li class="wp-flow__step">Review submitted offerings</li>
+              <li class="wp-flow__fork">
+                <p class="wp-flow__q">Offerings ready?</p>
+                <ul class="wp-flow__brs" role="list">
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab">No</span>
+                    <span class="wp-flow__to">Update offering details
+                      <span class="wp-flow__back">returns to review submitted offerings</span></span>
+                  </li>
+                  <li class="wp-flow__br">
+                    <span class="wp-flow__lab wp-flow__lab--go">Yes</span>
+                    <span class="wp-flow__to">Prepare marketplace listing</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="wp-flow__step">Prepare marketplace listing</li>
+              <li class="wp-flow__step">Manage published offerings</li>
+            </ol>
+          </li>
+
+        </ol>
+      </div>
+    </figure>
+  </div>
+</div>
+</section>
+
+<!-- 13 · DESIGN PRINCIPLES --------------------------------------------------
+     Five cards in the site's own card language. The five illustrations were
+     supplied as finished artwork drawn on one deep indigo ground, recoloured
+     to green at Arushi's instruction by hue mapping the files themselves, so
+     the ground is part of every PNG. Each one therefore stands on a plate at
+     its own ground colour inside a card that is the site's, which is the
+     same arrangement chapters 05, 08 and 14 use for light artwork. Nothing
+     about the drawings changed but their hue.
+
+     Three cards, then two centred under them. The second row is centred by
+     column placement rather than by a second grid, so the gutters stay on
+     the same rhythm as the row above.
+-->
+<section class="section" id="wp-principles" aria-labelledby="h-wp-principles" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">05 &mdash; Design Principles</p>
+    <h2 class="t-h2" id="h-wp-principles">Five principles the product answers to.</h2>
+    <p class="prose">The chapters before this one are a run of decisions. These are the five
+      principles those decisions answer to: what the product connects, what it makes visible, what
+      it makes clear, what it makes trustworthy, and who it is built for.</p>
+    <p class="prose">Each one is written as an instruction rather than as a value, so it can settle
+      a question about a real screen.</p>
+  </div>
+
+  <ol class="wp-pr" data-reveal>
+    <li class="wp-pr__card" data-reveal>
+      <div class="wp-pr__art">
+        <img src="../../assets/img/workperks/principles/pr-01-layers.png" alt="Three rounded panels stacked in perspective, lit mint through leaf green, reading as one object made of separate layers." width="217" height="244" loading="lazy">
+      </div>
+      <p class="wp-pr__n">01</p>
+      <h3 class="t-h4 wp-pr__h">One ecosystem</h3>
+      <p class="wp-pr__p">Bring benefits, rewards, claims and services together in one connected
+        experience. Employees should not have to navigate multiple platforms to understand and use
+        what their organisation offers.</p>
+    </li>
+
+    <li class="wp-pr__card" data-reveal data-reveal-delay="60">
+      <div class="wp-pr__art">
+        <img src="../../assets/img/workperks/principles/pr-02-gauge.png" alt="A mint to green progress ring around a three bar chart, the bars rising left to right." width="210" height="230" loading="lazy">
+      </div>
+      <p class="wp-pr__n">02</p>
+      <h3 class="t-h4 wp-pr__h">Make value visible</h3>
+      <p class="wp-pr__p">Help employees understand their entitlements, available balances and the
+        value they get from their benefits. Make financial and benefit information easy to discover
+        and understand.</p>
+    </li>
+
+    <li class="wp-pr__card" data-reveal data-reveal-delay="120">
+      <div class="wp-pr__art">
+        <img src="../../assets/img/workperks/principles/pr-03-path.png" alt="A dashed path curving from a mint start point up to a green flag, with a waypoint marked part way along." width="209" height="248" loading="lazy">
+      </div>
+      <p class="wp-pr__n">03</p>
+      <h3 class="t-h4 wp-pr__h">Clarity before complexity</h3>
+      <p class="wp-pr__p">Make eligibility, funding rules and next steps easy to understand before
+        employees take action. Reduce ambiguity across benefit discovery, booking and
+        redemption.</p>
+    </li>
+
+    <li class="wp-pr__card" data-reveal data-reveal-delay="180">
+      <div class="wp-pr__art">
+        <img src="../../assets/img/workperks/principles/pr-04-sliders.png" alt="Three horizontal sliders stacked, each with a glowing handle resting at a different position along its track." width="224" height="264" loading="lazy">
+      </div>
+      <p class="wp-pr__n">04</p>
+      <h3 class="t-h4 wp-pr__h">Build trust into every interaction</h3>
+      <p class="wp-pr__p">Make balances, transactions, claims and outcomes transparent and
+        predictable. Every interaction should communicate progress and provide confidence in what
+        happens next.</p>
+    </li>
+
+    <li class="wp-pr__card" data-reveal data-reveal-delay="240">
+      <div class="wp-pr__art">
+        <img src="../../assets/img/workperks/principles/pr-05-shield.png" alt="A shield outlined in mint and green with a gradient heart at its centre." width="209" height="284" loading="lazy">
+      </div>
+      <p class="wp-pr__n">05</p>
+      <h3 class="t-h4 wp-pr__h">Design for everyone in the ecosystem</h3>
+      <p class="wp-pr__p">Create connected experiences for employees, HR teams and suppliers. A
+        seamless employee experience depends on the workflows and interactions across the entire
+        ecosystem.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- 14 · THE DESIGN SYSTEM --------------------------------------------------
+     A curated chapter, not a second documentation site. Every specimen below
+     is the real component running the real CSS: assets/css/wpds.css is lifted
+     out of the system's own documentation file by _extract_wpds.py and scoped
+     under .wpds, and the type is the system's own Anton and Figtree, pulled
+     out of the same file as webfonts. Nothing here is a redraw.
+
+     The system is light and this page is near-black, so each specimen takes a
+     light plate — the same call chapters 05 and 08 make for light artwork.
+-->
+<section class="section" id="wp-system" aria-labelledby="h-wp-system" tabindex="-1">
+  <!-- The system's own icon sprite, 38 of its 77 symbols: the ones the
+       specimens below reference. Lifted from the documentation file, not
+       redrawn. Ids stay i-* as the components expect. -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-checkcircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16 10"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-chevdown" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-chevright" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></symbol><symbol id="i-alertc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5h.01"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 10h18M8 2v4M16 2v4"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 1 0-12 0c0 5-2 6-2 6h16s-2-1-2-6"/><path d="M10.5 20a2 2 0 0 0 3 0"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 3.2-4.2 3 3L18.5 7"/></symbol><symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2Z"/><path d="M9 8h6M9 12h6"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h8M16 18h4"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="14" cy="18" r="2"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 6.6a5 5 0 0 0-7.1 0L12 8.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 22l8.8-8.3a5 5 0 0 0 0-7.1Z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12h3"/></symbol><symbol id="i-wifi" viewBox="0 0 24 24"><path d="M4.5 12.2a10.5 10.5 0 0 1 15 0"/><path d="M8 15.6a5.8 5.8 0 0 1 8 0"/><path d="M12 19h.01"/></symbol><symbol id="i-utensils" viewBox="0 0 24 24"><path d="M5 3v6a2 2 0 1 0 4 0V3"/><path d="M7 11v10"/><path d="M17.5 3c1.4 2 2 3.6 2 5.6s-.8 3.4-2 3.4-2-1.4-2-3.4S16.1 5 17.5 3Z"/><path d="M17.5 12v9"/></symbol><symbol id="i-car" viewBox="0 0 24 24"><path d="m5.2 12.5 1.4-4.2A2 2 0 0 1 8.5 7h7a2 2 0 0 1 1.9 1.3l1.4 4.2"/><path d="M3.5 12.5h17V17h-17z"/><circle cx="7.5" cy="19" r="1.6"/><circle cx="16.5" cy="19" r="1.6"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6"/><path d="m6 7 1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"/><path d="M9 7V4h6v3"/></symbol><symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/><path d="M19 17v4M17 19h4"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4a2 2 0 0 1 2-2h13v18H6a2 2 0 0 0-2 2Z"/><path d="M8 7h7"/></symbol><symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.2 2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 9.7l6.1-.9L12 3.2Z"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol><symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><path d="M3.5 20.5h17"/><path d="M5.5 20.5V5.2a1 1 0 0 1 .7-.95l6-1.8a1 1 0 0 1 1.3.95V20.5"/><path d="M13.5 9.5h4.3a1 1 0 0 1 1 1v10"/><path d="M8.4 8h2.2M8.4 11.6h2.2M8.4 15.2h2.2M15.7 13h1.1M15.7 16.4h1.1"/></symbol><symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6.5" rx="7" ry="3"/><path d="M5 6.5v5c0 1.66 3.13 3 7 3s7-1.34 7-3v-5"/><path d="M5 11.5v5c0 1.66 3.13 3 7 3s7-1.34 7-3v-5"/></symbol><symbol id="i-idcard" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><circle cx="8.5" cy="10.5" r="2.2"/><path d="M5 16.4c.63-1.44 2-2.4 3.5-2.4s2.87.96 3.5 2.4"/><path d="M15 9.5h4M15 13h4"/></symbol><symbol id="i-discover" viewBox="0 0 24 24"><circle cx="9.5" cy="7.5" r="3.2"/><path d="M3.8 20v-1.1a5.7 5.7 0 0 1 11.4 0V20"/><path d="m18.6 3.4.95 2.65 2.65.95-2.65.95-.95 2.65-.95-2.65L15 7l2.65-.95z"/></symbol><symbol id="i-store" viewBox="0 0 24 24"><path d="M3.4 9.4 5 3.8h14l1.6 5.6"/><path d="M3.4 9.4a2.55 2.55 0 0 0 5.1 0 2.55 2.55 0 0 0 5.1 0 2.55 2.55 0 0 0 5.1 0"/><path d="M5 11.7V20.2h14V11.7"/><path d="M9.6 20.2v-4.9h4.8v4.9"/></symbol><symbol id="i-bars" viewBox="0 0 24 24"><path d="M3.4 20.4h17.2"/><path d="M6.8 20.4v-5.6M12 20.4V7.8M17.2 20.4v-8.8"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 8.9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1 1 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol></svg>
+
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">06 &mdash; The Design System</p>
+    <h2 class="t-h2" id="h-wp-system">One system, two very different products.</h2>
+    <p class="prose">The employee app and the HR portal look like one product because they read the
+      same tokens and the same components. Version 1.0 was documented in September 2026 as
+      foundations, components, patterns and a token layer that ships as four files.</p>
+    <p class="prose">Every value starts from the WorkPerks marketing site, then is tightened for
+      product use: a 4px grid, contrast that passes, a real error colour, and the states a
+      marketing site never needs.</p>
+  </div>
+
+  <!-- 1 · the two surfaces, built from the system itself -->
+  <figure class="wp-ds wpds" data-reveal>
+    <div class="wp-ds__stage wp-ds__stage--two">
+
+      <div class="wp-ds__phone">
+        <div class="wp-topbar"><span class="wp-logo" style="font-size:18px"><span class="wp-logo__g"></span></span><div class="wp-topbar__t"><b>Hi Arushi</b><span>Northline Finance, Band C</span></div><button class="wp-iconbtn" aria-label="Notifications"><svg class="wp-ico" aria-hidden="true"><use href="#i-bell"/></svg><span class="wp-count">2</span></button></div>
+        <div class="wp-ds__phonebody">
+          <div class="wp-card wp-card--brand wp-card--lg">
+            <div class="wp-card__head">
+              <div><p style="font:var(--wp-body-sm);opacity:.75">Still to split</p><div class="wp-stat__v wp-num" style="font:var(--wp-display-md);text-transform:uppercase;margin-top:6px">&#8377;18,240</div></div>
+              <span class="wp-disc wp-disc--tile"><svg class="wp-ico" aria-hidden="true"><use href="#i-wallet"/></svg></span>
+            </div>
+            <p style="margin:10px 0 0"><span class="wp-status wp-status--warning">Closes 31 March</span></p>
+          </div>
+          <div class="wp-list">
+            <span class="wp-row"><span class="wp-disc wp-disc--sm" style="--c:var(--wp-cat-health)"><svg class="wp-ico" aria-hidden="true"><use href="#i-heart"/></svg></span><div class="wp-row__t"><b>Health &amp; Wellness</b><span>14 benefits</span></div><svg class="wp-ico" aria-hidden="true" style="color:var(--wp-neutral-400)"><use href="#i-chevright"/></svg></span>
+            <span class="wp-row"><span class="wp-disc wp-disc--sm" style="--c:var(--wp-cat-lifestyle);--f:var(--wp-neutral-900)"><svg class="wp-ico" aria-hidden="true"><use href="#i-utensils"/></svg></span><div class="wp-row__t"><b>Lifestyle</b><span>9 benefits</span></div><svg class="wp-ico" aria-hidden="true" style="color:var(--wp-neutral-400)"><use href="#i-chevright"/></svg></span>
+          </div>
+        </div>
+        <nav class="wp-bottomnav" aria-label="Employee app">
+          <a href="#wp-system" aria-current="page"><svg class="wp-ico" aria-hidden="true"><use href="#i-home"/></svg><span>Home</span></a>
+          <a href="#wp-system"><svg class="wp-ico" aria-hidden="true"><use href="#i-grid"/></svg><span>Explore</span></a>
+          <a href="#wp-system"><svg class="wp-ico" aria-hidden="true"><use href="#i-sparkle"/></svg><span>Ask AI</span></a>
+          <a href="#wp-system"><svg class="wp-ico" aria-hidden="true"><use href="#i-gift"/></svg><span>Rewards</span></a>
+          <a href="#wp-system"><svg class="wp-ico" aria-hidden="true"><use href="#i-user"/></svg><span>Profile</span></a>
+        </nav>
+      </div>
+
+      <div class="wp-ds__portal">
+        <nav class="wp-side" aria-label="HR portal">
+          <span class="wp-logo" style="font-size:20px;padding:0 6px"><span class="wp-logo__g"></span>WorkPerks</span>
+          <button class="wp-entity"><span class="wp-av wp-av--sm" style="--c:var(--wp-blue-600)">NF</span><span><b>Northline</b><span>1 of 4</span></span><svg class="wp-ico" aria-hidden="true"><use href="#i-chevdown"/></svg></button>
+          <div class="wp-side__grp">
+            <a href="#wp-system" aria-current="page"><svg class="wp-ico" aria-hidden="true"><use href="#i-chart"/></svg> Overview</a>
+            <a href="#wp-system"><svg class="wp-ico" aria-hidden="true"><use href="#i-sliders"/></svg> Eligibility</a>
+            <a href="#wp-system"><svg class="wp-ico" aria-hidden="true"><use href="#i-grid"/></svg> Modules</a>
+            <a href="#wp-system"><svg class="wp-ico" aria-hidden="true"><use href="#i-receipt"/></svg> Approvals <span class="wp-count">12</span></a>
+            <a href="#wp-system"><svg class="wp-ico" aria-hidden="true"><use href="#i-file"/></svg> Reports</a>
+          </div>
+        </nav>
+        <div class="wp-ds__portalmain">
+          <ol class="wp-crumbs"><li><a href="#wp-system">Northline Group</a></li><li aria-current="page">Approvals</li></ol>
+          <div class="wp-tabs" role="tablist"><button role="tab" aria-selected="true">Pending <span class="wp-count wp-count--dark">12</span></button><button role="tab" aria-selected="false">Approved</button><button role="tab" aria-selected="false">Sent back</button></div>
+          <div class="wp-list">
+            <span class="wp-row"><span class="wp-av wp-av--sm" style="--c:var(--wp-blue-600)">PN</span><div class="wp-row__t"><b>Priya Nair</b><span>Broadband, February</span></div><span class="wp-status wp-status--info">Submitted</span><div class="wp-row__v wp-num">&#8377;1,299</div></span>
+            <span class="wp-row"><span class="wp-av wp-av--sm" style="--c:var(--wp-green-600)">AS</span><div class="wp-row__t"><b>Arun Shetty</b><span>Meals, February</span></div><span class="wp-status wp-status--success">Approved</span><div class="wp-row__v wp-num">&#8377;2,400</div></span>
+            <span class="wp-row"><span class="wp-av wp-av--sm" style="--c:var(--wp-orange-500)">DR</span><div class="wp-row__t"><b>Divya Rao</b><span>Fuel, January</span></div><span class="wp-status wp-status--warning">Sent back</span><div class="wp-row__v wp-num">&#8377;3,150</div></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <figcaption class="wp-ds__cap"><b>Employee app and HR portal.</b> Both are assembled only from
+      components in the system. The app is mobile first at 360 to 430px with a top bar and a
+      five tab bottom nav; the portal is desktop first at 1280 with a 264px pinned sidebar.</figcaption>
+  </figure>
+
+  <!-- 2 · foundations, as one board -->
+  <h3 class="t-h3 wp-ds__h" data-reveal>Foundations</h3>
+  <p class="prose" data-reveal>Six colour families, two typefaces, a 4px grid, and one radius and
+    elevation scale. Primitives are raw values; screens never touch them.</p>
+
+  <div class="wp-ds wpds" data-reveal>
+    <div class="wp-ds__board">
+
+      <div class="wp-ds__cell">
+        <p class="wp-ds__k">Colour</p>
+        <div class="wp-ds__swatches">
+          <span class="wp-ds__sw" style="--sw:#1E4A96"><i></i><b>WorkPerks Blue</b><code>blue-600 · #1E4A96</code><span>Brand, links, travel</span></span>
+          <span class="wp-ds__sw" style="--sw:#F26A1B"><i></i><b>Orange</b><code>orange-500 · #F26A1B</code><span>Energy and lifestyle</span></span>
+          <span class="wp-ds__sw" style="--sw:#2F8F6E"><i></i><b>Green</b><code>green-600 · #2F8F6E</code><span>Health and success</span></span>
+          <span class="wp-ds__sw" style="--sw:#F7B141"><i></i><b>Amber</b><code>amber-400 · #F7B141</code><span>Rewards and accents</span></span>
+          <span class="wp-ds__sw" style="--sw:#C9293E"><i></i><b>Red</b><code>red-600 · #C9293E</code><span>Errors, added for the app</span></span>
+        </div>
+        <p class="wp-ds__sub">Neutral ramp, 15 steps</p>
+        <div class="wp-ds__ramp">
+          <i style="background:#FFFFFF"></i><i style="background:#F8F8F8"></i><i style="background:#F3F3F3"></i><i style="background:#EBEBEB"></i><i style="background:#E4E4E4"></i><i style="background:#D6D6D6"></i><i style="background:#B4B4B4"></i><i style="background:#8E8E8E"></i><i style="background:#6E6E6E"></i><i style="background:#5B5B5B"></i><i style="background:#3D3D3D"></i><i style="background:#292929"></i><i style="background:#212121"></i><i style="background:#1B1B1B"></i><i style="background:#151515"></i>
+        </div>
+        <p class="wp-ds__sub">Semantic status</p>
+        <div class="wp-ds__inline">
+          <span class="wp-status wp-status--info">Information</span>
+          <span class="wp-status wp-status--success">Success</span>
+          <span class="wp-status wp-status--warning">Warning</span>
+          <span class="wp-status wp-status--danger">Error</span>
+        </div>
+      </div>
+
+      <div class="wp-ds__cell">
+        <p class="wp-ds__k">Typography</p>
+        <div class="wp-ds__type">
+          <div class="wp-ds__tyrow"><span class="wp-t-display-lg">Split your allowance</span><code>display-lg · Anton 400 40/0.96 · +0.006em · uppercase</code></div>
+          <div class="wp-ds__tyrow"><span class="wp-t-heading-xl">Approvals</span><code>heading-xl · Figtree 800 32/1.1 · &#8722;0.035em</code></div>
+          <div class="wp-ds__tyrow"><span class="wp-t-body-md">Default body text. Fifteen pixels, 1.55 line height, set in Figtree.</span><code>body-md · Figtree 400 15/1.55</code></div>
+          <div class="wp-ds__tyrow"><span class="wp-t-numeric-lg wp-num">&#8377;1,20,000</span><code>numeric-lg · Figtree 800 24/1.1 · tabular</code></div>
+          <div class="wp-ds__tyrow"><span class="wp-t-label-sm" style="text-transform:uppercase">Cap reached</span><code>label-sm · Figtree 700 11/1.2</code></div>
+        </div>
+        <p class="wp-ds__note">Anton is display only and never below 24px. Figtree ships as one
+          variable file, 300 to 900. Figtree has no rupee glyph, so &#8377; falls back to the system font.</p>
+      </div>
+
+      <div class="wp-ds__cell">
+        <p class="wp-ds__k">Spacing and layout</p>
+        <div class="wp-ds__space">
+          <span><i style="--w:4px"></i><code>1 · 4px</code></span>
+          <span><i style="--w:8px"></i><code>2 · 8px</code></span>
+          <span><i style="--w:12px"></i><code>3 · 12px</code></span>
+          <span><i style="--w:16px"></i><code>4 · 16px</code></span>
+          <span><i style="--w:24px"></i><code>6 · 24px</code></span>
+          <span><i style="--w:32px"></i><code>8 · 32px</code></span>
+          <span><i style="--w:48px"></i><code>12 · 48px</code></span>
+          <span><i style="--w:96px"></i><code>24 · 96px</code></span>
+        </div>
+        <p class="wp-ds__note">Everything lands on a 4px base grid. The marketing site was built at
+          92%, so every size was an unclean number; the app system rounds them onto the grid and
+          stays within a pixel of what the site renders.</p>
+      </div>
+
+      <div class="wp-ds__cell">
+        <p class="wp-ds__k">Shape and elevation</p>
+        <div class="wp-ds__radii">
+          <span><i style="border-radius:6px"></i><code>xs 6</code></span>
+          <span><i style="border-radius:12px"></i><code>sm 12</code></span>
+          <span><i style="border-radius:16px"></i><code>md 16</code></span>
+          <span><i style="border-radius:24px"></i><code>lg 24</code></span>
+          <span><i style="border-radius:32px"></i><code>xl 32</code></span>
+          <span><i style="border-radius:999px"></i><code>pill</code></span>
+        </div>
+        <div class="wp-ds__elev">
+          <span><i style="box-shadow:0 1px 2px rgba(21,21,21,.04), 0 2px 6px rgba(21,21,21,.03)"></i><code>xs</code></span>
+          <span><i style="box-shadow:0 4px 14px rgba(21,21,21,.07)"></i><code>sm</code></span>
+          <span><i style="box-shadow:0 20px 44px -26px rgba(21,21,21,.22)"></i><code>md</code></span>
+          <span><i style="box-shadow:0 24px 56px -20px rgba(21,21,21,.28)"></i><code>lg</code></span>
+        </div>
+        <p class="wp-ds__note">Cards sit on surface white with a hairline. Elevation is reserved for
+          things that float: sheets, menus, toasts and the one call to action per screen.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3 · the component library, curated -->
+  <h3 class="t-h3 wp-ds__h" data-reveal>Component library</h3>
+  <p class="prose" data-reveal>A selection, not the whole set. Variants are shown only where the
+    variant is the decision.</p>
+
+  <div class="wp-ds wpds" data-reveal>
+    <div class="wp-ds__shelf">
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage">
+          <button class="wp-btn wp-btn--primary wp-btn--lg wp-btn--disc" type="button"><span class="wp-btn__disc"><svg class="wp-ico" aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="wp-btn__label">Split allowance</span></button>
+          <button class="wp-btn wp-btn--brand" type="button">Approve</button>
+          <button class="wp-btn wp-btn--accent" type="button">Send thanks</button>
+          <button class="wp-btn wp-btn--secondary" type="button">Cancel</button>
+          <button class="wp-btn wp-btn--outline" type="button">Export report</button>
+          <button class="wp-btn wp-btn--ghost" type="button"><svg class="wp-ico" aria-hidden="true" style="--s:18px"><use href="#i-plus"/></svg> Add band</button>
+          <button class="wp-btn wp-btn--danger" type="button"><svg class="wp-ico" aria-hidden="true" style="--s:18px"><use href="#i-trash"/></svg> Remove entity</button>
+        </div>
+        <p class="wp-ds__bar"><b>Buttons and actions</b> Seven variants at three heights, 36, 44 and 52. The disc marks the one forward action on a screen.</p>
+      </div>
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage wp-ds__stage--form">
+          <div class="wp-field"><label class="wp-label" for="ds-f1">Work email</label><input class="wp-input" id="ds-f1" type="email" value="priya@northline.co.in" readonly><span class="wp-help">Your company domain decides where you land.</span></div>
+          <div class="wp-field is-error"><label class="wp-label" for="ds-f2">Employee ID</label><input class="wp-input" id="ds-f2" value="BF-00" aria-invalid="true" aria-describedby="ds-f2e" readonly><span class="wp-help" id="ds-f2e"><svg class="wp-ico" aria-hidden="true"><use href="#i-alert"/></svg> Employee IDs have 6 digits after BF-. Check your payslip.</span></div>
+          <div class="wp-field"><label class="wp-label" for="ds-f3">Claim amount <em>Limit &#8377;1,500</em></label><div class="wp-inputgroup wp-inputgroup--amount"><span class="wp-affix">&#8377;</span><input class="wp-input" id="ds-f3" value="1,299" readonly></div></div>
+          <div class="wp-field"><label class="wp-label" for="ds-f4">Band</label><input class="wp-input" id="ds-f4" value="Band C" disabled><span class="wp-help">Set by your HR team</span></div>
+        </div>
+        <p class="wp-ds__bar"><b>Form fields</b> Labels above, help text below, error state carries an icon and a fix. Disabled says who owns the value.</p>
+      </div>
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage wp-ds__stage--col">
+          <div class="wp-seg" role="tablist"><button role="tab" type="button" aria-selected="true">For employees</button><button role="tab" type="button" aria-selected="false">For HR and people teams</button></div>
+          <div class="wp-tabs" role="tablist"><button role="tab" type="button" aria-selected="true">Overview</button><button role="tab" type="button" aria-selected="false">Eligibility</button><button role="tab" type="button" aria-selected="false">Bands and caps</button><button role="tab" type="button" aria-selected="false">Approvals <span class="wp-count wp-count--dark">12</span></button></div>
+          <div class="wp-ds__inline" data-chips>
+            <button class="wp-chip" type="button" aria-pressed="true">All <span class="wp-chip__n">42</span></button>
+            <button class="wp-chip" type="button" aria-pressed="false"><svg class="wp-ico" aria-hidden="true"><use href="#i-heart"/></svg> Health</button>
+            <button class="wp-chip" type="button" aria-pressed="false"><svg class="wp-ico" aria-hidden="true"><use href="#i-utensils"/></svg> Lifestyle</button>
+            <button class="wp-chip" type="button" aria-pressed="false"><svg class="wp-ico" aria-hidden="true"><use href="#i-car"/></svg> Travel</button>
+          </div>
+        </div>
+        <p class="wp-ds__bar"><b>Segments, tabs and chips</b> Segment switches audience, tabs switch section, chips filter a list. One job each.</p>
+      </div>
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage">
+          <span class="wp-status wp-status--success">Approved</span>
+          <span class="wp-status wp-status--info">Submitted</span>
+          <span class="wp-status wp-status--warning">Cap reached</span>
+          <span class="wp-status wp-status--danger">Not approved</span>
+          <span class="wp-cat" style="--c:var(--wp-cat-health);--t:var(--wp-cat-health-tint)"><i><svg class="wp-ico" aria-hidden="true"><use href="#i-heart"/></svg></i>Health &amp; Wellness</span>
+          <span class="wp-cat" style="--c:var(--wp-cat-lifestyle);--t:var(--wp-cat-lifestyle-tint);--o:var(--wp-neutral-900)"><i><svg class="wp-ico" aria-hidden="true"><use href="#i-utensils"/></svg></i>Lifestyle</span>
+          <span class="wp-cat" style="--c:var(--wp-cat-travel);--t:var(--wp-cat-travel-tint)"><i><svg class="wp-ico" aria-hidden="true"><use href="#i-car"/></svg></i>Travel</span>
+        </div>
+        <p class="wp-ds__bar"><b>Badges and status</b> Every status pill carries words, so colour is never the only signal. One fixed colour per benefit category.</p>
+      </div>
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage wp-ds__stage--col">
+          <div class="wp-list">
+            <span class="wp-row"><span class="wp-disc wp-disc--sm" style="--c:var(--wp-cat-lifestyle);--f:var(--wp-neutral-900)"><svg class="wp-ico" aria-hidden="true"><use href="#i-wifi"/></svg></span><div class="wp-row__t"><b>Broadband, February</b><span>Submitted 2 Mar</span></div><span class="wp-status wp-status--info">Submitted</span><div class="wp-row__v wp-num">&#8377;1,299</div></span>
+            <span class="wp-row"><span class="wp-disc wp-disc--sm" style="--c:var(--wp-cat-health)"><svg class="wp-ico" aria-hidden="true"><use href="#i-pulse"/></svg></span><div class="wp-row__t"><b>Annual health check</b><span>Covered in full</span></div><span class="wp-status wp-status--success">Approved</span><div class="wp-row__v wp-num">&#8377;0</div></span>
+          </div>
+        </div>
+        <p class="wp-ds__bar"><b>Cards and list rows</b> Amounts are tabular and right aligned, so a column of money can be read down.</p>
+      </div>
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage wp-ds__stage--col">
+          <div class="wp-table-wrap">
+            <table class="wp-table">
+              <thead><tr><th>Employee</th><th>Claim</th><th>Submitted</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><b>Priya Nair</b></td><td>Broadband, February</td><td>2 Mar</td><td class="wp-num">&#8377;1,299</td><td><span class="wp-status wp-status--info">Submitted</span></td></tr>
+                <tr><td><b>Arun Shetty</b></td><td>Meals, February</td><td>2 Mar</td><td class="wp-num">&#8377;2,400</td><td><span class="wp-status wp-status--success">Approved</span></td></tr>
+                <tr><td><b>Divya Rao</b></td><td>Fuel, January</td><td>28 Feb</td><td class="wp-num">&#8377;3,150</td><td><span class="wp-status wp-status--warning">Sent back</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="wp-ds__bar"><b>Data tables</b> The HR side of the system. Amounts are tabular, status carries words, and the table holds a 640px floor and scrolls inside its own wrapper rather than crushing a column away.</p>
+      </div>
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage wp-ds__stage--col">
+          <div class="wp-banner wp-banner--success"><svg class="wp-ico" aria-hidden="true"><use href="#i-checkcircle"/></svg><div class="wp-banner__t"><b>Band C caps updated</b><p>Everyone in Band C sees the new limits from today. Nobody needs to re-upload anything.</p></div></div>
+          <div class="wp-banner wp-banner--warning"><svg class="wp-ico" aria-hidden="true"><use href="#i-alert"/></svg><div class="wp-banner__t"><b>Window closes in 6 days</b><p>Anything left unallocated on 31 March is paid as salary and taxed.</p></div></div>
+          <div class="wp-toast"><span class="wp-disc" style="--c:var(--wp-success-solid)"><svg class="wp-ico" aria-hidden="true"><use href="#i-check"/></svg></span><div class="wp-toast__t">Claim submitted<span>Rahul approves next</span></div></div>
+        </div>
+        <p class="wp-ds__bar"><b>Feedback</b> A banner stays with the thing it is about. A toast confirms something that already happened and names who is next.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4 · states and the product patterns -->
+  <h3 class="t-h3 wp-ds__h" data-reveal>States and patterns</h3>
+  <p class="prose" data-reveal>The marketing site needed hover and focus. A product needs the rest of
+    them, and it needs rules for the four situations that decide whether WorkPerks is trusted.</p>
+
+  <div class="wp-ds wpds" data-reveal>
+    <div class="wp-ds__shelf">
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage">
+          <button class="wp-btn" type="button">Default</button>
+          <button class="wp-btn" type="button" data-state="hover">Hover</button>
+          <button class="wp-btn" type="button" data-state="pressed">Pressed</button>
+          <button class="wp-btn" type="button" data-state="focus">Focus</button>
+          <button class="wp-btn" type="button" aria-busy="true"><span class="wp-btn__label">Submitting</span></button>
+          <button class="wp-btn" type="button" aria-disabled="true" disabled>Disabled</button>
+        </div>
+        <p class="wp-ds__bar"><b>Default, hover, pressed, focus, loading, disabled</b> Focus is a 3px blue outline at 3px offset and is never removed. Disabled is for a value someone else owns, never for a module they do not have.</p>
+      </div>
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage wp-ds__stage--col">
+          <div class="wp-ds__skel"><div class="wp-skel" style="height:14px;width:60%"></div><div class="wp-skel" style="height:14px;width:85%"></div><div class="wp-skel" style="height:14px;width:40%"></div></div>
+          <div class="wp-banner wp-banner--danger"><svg class="wp-ico" aria-hidden="true"><use href="#i-alertc"/></svg><div class="wp-banner__t"><b>Couldn&rsquo;t upload the bill</b><p>The file is over 10MB. Try a photo instead of a scan.</p></div></div>
+        </div>
+        <p class="wp-ds__bar"><b>Loading, success and error</b> Skeletons hold the shape the content will take. An error names the failure and the fix, in that order, and never apologises.</p>
+      </div>
+
+      <div class="wp-ds__item wp-ds__item--wide">
+        <div class="wp-ds__stage wp-ds__stage--pair">
+          <div class="wp-ds__do">
+            <p class="wp-ds__dok" data-k="Do">Leave out what does not apply</p>
+            <div class="wp-list">
+              <span class="wp-row"><span class="wp-disc wp-disc--sm" style="--c:var(--wp-cat-health)"><svg class="wp-ico" aria-hidden="true"><use href="#i-heart"/></svg></span><div class="wp-row__t"><b>Health &amp; Wellness</b><span>14 benefits</span></div></span>
+              <span class="wp-row"><span class="wp-disc wp-disc--sm" style="--c:var(--wp-cat-learning);--f:var(--wp-neutral-900)"><svg class="wp-ico" aria-hidden="true"><use href="#i-book"/></svg></span><div class="wp-row__t"><b>Learning</b><span>6 benefits</span></div></span>
+            </div>
+          </div>
+          <div class="wp-ds__do wp-ds__do--dont">
+            <p class="wp-ds__dok" data-k="Don&rsquo;t">Grey out modules they cannot use</p>
+            <div class="wp-list">
+              <span class="wp-row"><span class="wp-disc wp-disc--sm" style="--c:var(--wp-cat-health)"><svg class="wp-ico" aria-hidden="true"><use href="#i-heart"/></svg></span><div class="wp-row__t"><b>Health &amp; Wellness</b><span>14 benefits</span></div></span>
+              <span class="wp-row" style="opacity:.45"><span class="wp-disc wp-disc--sm" style="--c:var(--wp-neutral-400)"><svg class="wp-ico" aria-hidden="true"><use href="#i-car"/></svg></span><div class="wp-row__t"><b>Travel &amp; Mobility</b><span>Not available</span></div></span>
+            </div>
+          </div>
+        </div>
+        <p class="wp-ds__bar"><b>Eligibility</b> Band, grade, location and entity are applied before the screen renders, so the list is already right. A greyed tile is a dead end and a support ticket waiting to happen. When it is temporary rather than permanent, the system says so instead: <span class="wp-status wp-status--warning">Cap reached, resets 1 April</span></p>
+      </div>
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage wp-ds__stage--col">
+          <div class="wp-card wp-card--lg" style="background:var(--wp-bg-surface)">
+            <div class="wp-card__head"><div><p style="font:var(--wp-body-sm);color:var(--wp-text-tertiary)">Still to split</p><div class="wp-num" style="font:var(--wp-display-md);text-transform:uppercase;margin-top:4px">&#8377;18,240</div></div><span class="wp-status wp-status--warning">Closes 31 March</span></div>
+            <div class="wp-track wp-track--lg wp-track--split" style="margin-top:12px"><i style="--w:38%;--c:var(--wp-viz-1)"></i><i style="--w:24%;--c:var(--wp-viz-3)"></i></div>
+            <p style="font:var(--wp-body-sm);color:var(--wp-text-tertiary);margin-top:8px">&#8377;29,760 of &#8377;48,000 split</p>
+          </div>
+        </div>
+        <p class="wp-ds__bar"><b>Allowance window</b> Money left over at the deadline is paid as salary and taxed, so while the window is open the unallocated amount is the loudest number on the screen.</p>
+      </div>
+
+      <div class="wp-ds__item">
+        <div class="wp-ds__stage wp-ds__stage--col">
+          <div class="wp-banner wp-banner--inverse"><svg class="wp-ico" aria-hidden="true"><use href="#i-lock"/></svg><div class="wp-banner__t"><b>Your employer won&rsquo;t see this booking</b><p>They see that one more person used a consultation this month.</p></div></div>
+          <div class="wp-kv"><div><span>Your employer sees</span><b>Eligibility, counts by team, total spend</b></div><div><span>Stays with you</span><b>Which clinic, what you booked, your results</b></div></div>
+        </div>
+        <p class="wp-ds__bar"><b>Privacy disclosure</b> The split is fixed, and the app states it in the app rather than in a policy. Shown on first sign in, before any health booking, and from the profile.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 7 · the close. The chapter stops and leaves one way out.
+
+       It was a bordered, accent-washed panel carrying a pill badge, a
+       version chip and a pill button, with the whole block as one link —
+       which also meant a screen reader read the date, the title and the lede
+       as one link name. Stripped at Arushi's instruction: plain text on the
+       page's own ground, and the link is just the link, so it is the only
+       thing here asking to be looked at.
+
+       The artwork version is still at assets/img/workperks/ds/doc-card.jpg
+       and .wp-doc--art still styles it. ----------------------------------- -->
+  <div class="wp-doc" data-reveal>
+    <p class="t-label wp-doc__meta">Complete documentation &middot; September 2026</p>
+    <p class="t-h3 wp-doc__t">WorkPerks Design System 1.0</p>
+    <p class="wp-doc__lede">Explore foundations, components, patterns, accessibility guidelines
+      and design tokens.</p>
+    <a class="wp-doc__cta" href="design-system/" target="_blank" rel="noopener">Explore full
+      documentation<svg class="ico wp-doc__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+<!-- 15 · PRODUCT EXPERIENCE ------------------------------------------------ -->
+<!-- Experience Design & Iteration and The Employee Experience are one chapter
+     at Arushi's instruction: the journeys and the running app they produced
+     are the same argument, so the film closes the chapter that designed it.
+     The rail's two HR Portal and Supplier Portal placeholders came off with
+     them — they were contents entries with no sections behind them, and the
+     chapter they were waiting under no longer exists under that name.
+     #wp-employee travels with the film. -->
+<section class="section" id="wp-experience" aria-labelledby="h-wp-experience" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">07 &mdash; Product Experience</p>
+    <h2 class="t-h2" id="h-wp-experience">Designing and refining the journeys that make WorkPerks useful.</h2>
+  </div>
+
+  <h3 class="t-h3" data-reveal>A. The Employee Experience</h3>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-8)">The onboarding spine</h3>
+
+  <!-- The spine as a drawn flow rather than seven text columns: a box per
+       stage, a line from each box to the next, and the turn from 04 to 05
+       drawn under the first row so the second row still reads left to
+       right. The empty list item is that turn — it carries the three line
+       segments and nothing else, so it is hidden from assistive tech and
+       the run is seven items long there. .wp-spine in workperks.css. -->
+  <ol class="wp-spine" data-reveal>
+    <li class="wp-spine__step"><p class="wp-spine__n">01</p><h4 class="wp-spine__t">Work email</h4><p class="wp-spine__d">No password. The domain is the credential.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">02</p><h4 class="wp-spine__t">Find organisation</h4><p class="wp-spine__d">A visible lookup rather than a spinner.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">03</p><h4 class="wp-spine__t">Confirm</h4><p class="wp-spine__d">What is set up for you, itemised, with a way out if it is wrong.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">04</p><h4 class="wp-spine__t">What you get</h4><p class="wp-spine__d">The shape of the product, before any ask.</p></li>
+    <li class="wp-spine__turn" aria-hidden="true"></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">05</p><h4 class="wp-spine__t">Flexi</h4><p class="wp-spine__d">A financial decision put to someone who did not open the app to make one.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">06</p><h4 class="wp-spine__t">Allocate, or defer</h4><p class="wp-spine__d">Later is a first class option.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">07</p><h4 class="wp-spine__t">Home</h4><p class="wp-spine__d">Configured, and already showing what is unallocated.</p></li>
+  </ol>
+
+  <ul class="wp-shots" role="list" data-reveal>
+    <li><figure class="wp-shot">
+      <img src="../../assets/img/workperks/app/auth.png" alt="The WorkPerks sign in screen: a work email and phone toggle, a continue button, and a line about how the data is stored." width="409" height="876" loading="lazy">
+      <figcaption><span class="wp-shot__k">01 · Sign in</span>Work email is the default, and the reassurance line sits under the button rather than in a modal.</figcaption>
+    </figure></li>
+    <li><figure class="wp-shot">
+      <img src="../../assets/img/workperks/app/orgid.png" alt="The find your company screen, with a field for a work email or employee ID." width="409" height="876" loading="lazy">
+      <figcaption><span class="wp-shot__k">02 · Find your company</span>The lookup says what it reads and what it does not: the domain, and nothing else.</figcaption>
+    </figure></li>
+    <li><figure class="wp-shot">
+      <img src="../../assets/img/workperks/app/orgfound.png" alt="The company found screen, listing what has been configured for this employee." width="409" height="876" loading="lazy">
+      <figcaption><span class="wp-shot__k">03 · Company found</span>What has been configured for you, itemised, with a route out if the match is wrong.</figcaption>
+    </figure></li>
+    <li><figure class="wp-shot">
+      <img src="../../assets/img/workperks/app/intro.png" alt="A what you get introduction screen explaining the three kinds of value in the product." width="409" height="876" loading="lazy">
+      <figcaption><span class="wp-shot__k">04 · What you get</span>Three kinds of value, explained before anything is asked of the employee.</figcaption>
+    </figure></li>
+    <li><figure class="wp-shot">
+      <img src="../../assets/img/workperks/app/intro3.png" alt="A how it works explainer screen setting out the mechanic in three steps." width="409" height="876" loading="lazy">
+      <figcaption><span class="wp-shot__k">05 · How it works</span>The whole mechanic in three steps, because the first question is always what the catch is.</figcaption>
+    </figure></li>
+  </ul>
+
+  <!-- Flexi: the argument on the left, the two screens on the right. The
+       paragraphs are pointers rather than prose so the column can be made
+       to stand the same height as the screens beside it — five of them,
+       cut at the sentence breaks the paragraphs already had, so every word
+       here is the word that was in the prose. The list spreads itself to
+       the height of the pair; see .wp-pts in workperks.css. -->
+  <div class="wp-flexi-box" style="margin-top:var(--step-12)">
+  <div class="split wp-flexi" data-reveal>
+    <div class="wp-flexi__text">
+      <h3 class="t-h3">Flexi, the hard middle</h3>
+      <p class="wp-flexi__lede">The step where onboarding stops explaining and starts asking. Two
+        screens carry it &mdash; the one that puts the decision, and the one that takes the answer
+        &mdash; and both were drawn to be refused as easily as accepted.</p>
+      <ul class="wp-pts" role="list">
+        <li>An employee has an annual allowance, a declaration window, a set of eligible heads and
+          a consequence if they skip it.</li>
+        <li>They did not open a benefits app to do tax planning.</li>
+        <li>So the product explains the shape of the decision rather than the tax: the amount, the
+          mechanic, and what happens if you do nothing.</li>
+        <li>Then it stops, because it is not qualified to give tax advice.</li>
+        <li>This was the most argued over surface in the product, and it is the one I would defend
+          first.</li>
+      </ul>
+    </div>
+
+    <ul class="wp-shots wp-shots--pair" role="list">
+      <li><figure class="wp-shot">
+        <img src="../../assets/img/workperks/app/flexi-sheet.png" alt="The flexi decision sheet: the amount first, then the mechanic, then a block stating what happens if the employee does nothing." width="409" height="876" loading="lazy">
+        <figcaption><span class="wp-shot__k">Choose Flexi benefits</span></figcaption>
+      </figure></li>
+      <li><figure class="wp-shot">
+        <img src="../../assets/img/workperks/app/flexi-pick.png" alt="The flexi allocation screen: a persistent header carrying the running total, and a row per benefit head showing its cap, allocation and estimated tax benefit." width="409" height="876" loading="lazy">
+        <figcaption><span class="wp-shot__k">Allocation</span></figcaption>
+      </figure></li>
+    </ul>
+  </div>
+  </div>
+
+  <!-- The flexi benchmark, placed under the Flexi part and above the
+       employee app film at Arushi's instruction. A spreadsheet-dense
+       table on light paper, so it takes the same treatment the
+       competitive landscape does in chapter 02: a light plate, and the
+       real width held behind a sideways scroll rather than squeezed into
+       the reading column, where eight columns of rupee figures would be
+       four pixels tall. The floor renders it at the same fraction of
+       natural size the landscape table is rendered at, so a cell reads
+       the same on both. -->
+  <figure class="wp-flexmkt" data-reveal>
+    <div class="wp-flexmkt__scroll" tabindex="0" role="region" aria-label="Flexi benefits benchmark table, scrolls sideways">
+      <img src="../../assets/img/workperks/exhibit/flexi-market-research.png" alt="A benchmark of what other employers offer, as a spreadsheet. Eleven companies down the left — Bajaj, Groww, Swiggy, Lenskart, Physics Wallah, Citi, DBS India, Schneider Electric India, Meesho, Urban Company and Kaleidofin — against seven columns: Flexi Pay, Health, Wellness, Learning, AI and Productivity, Family, and Relocation. The Flexi Pay column is a yes or no, and only four of the eleven are a yes: Bajaj, Groww, Swiggy and Schneider Electric India. The remaining columns hold the wallet or cap for each head where one exists, in rupees, and an em dash where the company offers nothing under that head. The spread runs from single wellness wallets of around twelve thousand rupees to relocation support of up to two lakh." width="2856" height="908" loading="lazy">
+    </div>
+  </figure>
+
+  <!-- part · the running app. It opens with the screen recording of the
+       employee app, moved here from the About chapter, where it sat beside
+       the terminal shot and was doing the same job twice. The written
+       chapter is still to come. -->
+  <div class="wp-part" id="wp-employee">
+  <figure class="plate wp-film" data-reveal>
+    <video class="wp-film__v" controls muted playsinline preload="metadata"
+           poster="../../assets/video/workperks/employee-app-poster.jpg"
+           width="960" height="568">
+      <source src="../../assets/video/workperks/employee-app.mp4" type="video/mp4">
+      <p class="wp-film__fallback">Your browser cannot play this video.
+        <a href="../../assets/video/workperks/employee-app.mp4">Download the screen recording</a>.</p>
+    </video>
+    <figcaption class="wp-exh__cap">Employee app</figcaption>
+  </figure>
+  </div>
+
+  <!-- part B. The heading is in place; the film under it is not. The link
+       Arushi gave for it, deploy-liard-gamma.vercel.app, is the Recognition
+       HR portal itself — a live prototype, 569KB of HTML and eight scripts,
+       with no video, image or iframe anywhere in it. What it does carry is
+       its own guided run, "An HR week", fourteen screens end to end. Either
+       that gets recorded the way the employee app film was, or this part
+       links the prototype instead of playing a film. Her call; asked. -->
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">B. HR Portal</h3>
+
+  <!-- Both prototypes are live builds rather than pictures, so the link is
+       the artefact and the screen is only the door to it. Each capture is
+       the sign in the prototype opens on, with the demo scaffolding taken
+       out of the frame: the HR portal prints three demo sign ins under its
+       card and a data-source panel in the corner, and the supplier build
+       carries a Dev Demo Panel with a jump-to-screen grid. Neither belongs
+       on a portfolio page; both are still there in the running build. -->
+  <figure class="wp-proto" data-reveal>
+    <img src="../../assets/img/workperks/proto/hr-portal.png" alt="The Recognition HR portal sign in: a card headed Recognition, a Sign in heading, the line Use the email your company gave you, a work email field, a Continue button and a Trouble signing in link." width="932" height="822" loading="lazy">
+    <figcaption><a class="wp-proto__cta" href="https://deploy-liard-gamma.vercel.app" target="_blank" rel="noopener">deploy-liard-gamma.vercel.app<svg class="ico wp-proto__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></figcaption>
+  </figure>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">C. Supplier Portal</h3>
+
+  <figure class="wp-proto" data-reveal>
+    <img src="../../assets/img/workperks/proto/supplier-portal.png" alt="The WorkPerks supplier onboarding sign in: the WorkPerks mark above a card headed Partner with WorkPerks, the line Reach thousands of corporate employees in your city, a mobile number field with an India country code, a Send verification code button, and an I already have an account link." width="1008" height="1048" loading="lazy">
+    <figcaption><a class="wp-proto__cta" href="https://workperks-supplier-onboarding-v1.ai.studio" target="_blank" rel="noopener">workperks-supplier-onboarding-v1.ai.studio<svg class="ico wp-proto__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></figcaption>
+  </figure>
+</section>
+
+
+<!-- 17 · FROM DESIGN TO A WORKING APP --------------------------------------- -->
+<section class="section" id="wp-app" aria-labelledby="h-wp-app" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">08 &mdash; The Build and Implementation</p>
+    <h2 class="t-h2" id="h-wp-app">Extending my design practice into hands on product development.</h2>
+    <p class="prose">I expanded my technical capability on this project, developing JavaScript,
+      React Native and TypeScript skills and applying them to a working application. I implemented
+      the employee app screen by screen against the design source, with Claude Code in the terminal
+      and a review step on every screen.</p>
+  </div>
+
+  <!-- The counted figures open the chapter now rather than closing it: they
+       are what the chain produced, and the chain reads better once you know
+       the size of the thing it ends in. One card rather than four columns
+       loose on the page, which is the treatment every other block in this
+       case study gets. Screen modules and UI primitives came out at
+       Arushi's instruction, so the remaining four sit on one line. -->
+  <div class="wp-count wp-count--box" data-reveal>
+    <div class="wp-count__i"><p class="wp-count__n">167</p><p class="wp-count__l">TypeScript files</p></div>
+    <div class="wp-count__i"><p class="wp-count__n">35,718</p><p class="wp-count__l">Lines of TypeScript</p></div>
+    <div class="wp-count__i"><p class="wp-count__n">67</p><p class="wp-count__l">Addressable routes, under three tabs</p></div>
+    <div class="wp-count__i"><p class="wp-count__n">77</p><p class="wp-count__l">Generated SVG assets</p></div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">The chain</h3>
+
+  <!-- The four stages as connected boxes, on the same component the
+       onboarding spine uses. Four in a row, so there is no turn to draw.
+       The Screens stage came out at Arushi's instruction; Device was 05 and
+       is 04 now, because a run numbered 01, 02, 03, 05 reads as a mistake
+       rather than as a cut. -->
+  <ol class="wp-spine" data-reveal>
+    <li class="wp-spine__step"><p class="wp-spine__n">01</p><h4 class="wp-spine__t">Hi fi build</h4><p class="wp-spine__d">A single running HTML build: 17 flows, 175 screens and states, three company configurations, searchable.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">02</p><h4 class="wp-spine__t">Token transcription</h4><p class="wp-spine__d">Ramps, semantic roles and component values lifted across by hand, with the source lines named in a comment.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">03</p><h4 class="wp-spine__t">Theme module</h4><p class="wp-spine__d">One <code>src/theme.ts</code> that every screen imports. No screen holds a colour of its own.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">04</p><h4 class="wp-spine__t">Device</h4><p class="wp-spine__d">Expo, running on a physical iPhone, in the same week the screen was drawn.</p></li>
+  </ol>
+
+  <!-- part · the skills folder. Sits between the chain and what shipped at
+       Arushi's instruction: the chain is the sequence, this is what made the
+       sequence repeatable, and the stack table is the result of both. The
+       screenshot is the artefact itself, a capture of the Skills folder in
+       the project, so it is shown rather than redrawn and nothing is cropped
+       out of the file list. The capabilities named in the copy are the
+       skill files visible in the shot and nothing beyond them: screen
+       authoring, liquid glass, device build, in app chat, build sequence
+       and gotchas. Em dashes in the supplied copy were set as commas, which
+       is the page's rule; the sense is unchanged. -->
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">Turning HTML into Native iOS
+    Experiences</h3>
+
+  <figure class="wp-skills" data-reveal>
+    <p class="prose wp-skills__lede">I built a custom library of Claude Code skills that turns
+      HTML based designs into functional React Native iOS applications. By breaking the process into
+      reusable, structured workflows, covering screen authoring, design systems, device builds,
+      interactions and implementation, I created a repeatable approach that enables anyone to take
+      an HTML prototype and build a native iOS app.</p>
+
+    <div class="wp-skills__shot">
+      <img src="../../assets/img/workperks/exhibit/skills-folder.png" alt="A Finder listing of the project's Skills folder, expanded. It holds _preview-rewards.html and a folder named html to app build, which contains build-sequence 1.md, device-build 1.md, DS_Store, gotchas 1.md, in-app-chat 1.md, liquid-glass 1.md, screen-authoring 1.md and SKILL 3.md." width="1070" height="448" loading="lazy">
+    </div>
+
+    <figcaption class="wp-skills__cap"><span class="wp-skills__src">Skills folder</span>A custom
+      library of reusable Claude Code skills, each designed for a specific part of the app building
+      process. Together, they turn HTML designs into React Native iOS experiences through a
+      consistent, repeatable workflow, ensuring every screen follows the same design and
+      implementation standards.</figcaption>
+  </figure>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">What shipped</h3>
+
+  <!-- The stack table and the device shot share a row: the table is the
+       written answer to what shipped and the shot is the same answer in
+       one picture, so they are read together rather than stacked. The
+       table copy is held to the facts and nothing more, because the left
+       column is now the narrower of the two. The shot is the supplied
+       reference image, rotated 180 degrees so the phone stands upright;
+       it is already portrait, so nothing is cropped. Below 64rem the two
+       columns become one. -->
+  <div class="wp-shipped" data-reveal>
+    <div class="spec">
+      <table class="spec__table">
+        <caption class="sr-only">What shipped, by area, across the employee app, the HR portal and the supplier portal</caption>
+        <thead><tr><th scope="col">Area</th><th scope="col">What exists</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Area">Product surfaces</td><td data-l="What exists">Employee app, HR portal, supplier portal</td></tr>
+          <tr><td data-l="Area">App architecture</td><td data-l="What exists">React Native, Expo, TypeScript</td></tr>
+          <tr><td data-l="Area">Backend</td><td data-l="What exists">Supabase / PostgreSQL</td></tr>
+          <tr><td data-l="Area">Design system</td><td data-l="What exists">Reusable tokens and UI primitives</td></tr>
+          <tr><td data-l="Area">Development</td><td data-l="What exists">Claude Code workflows and custom skills</td></tr>
+          <tr><td data-l="Area">Application scale</td><td data-l="What exists">Routes, components, screens and codebase</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="wp-shipped__shot">
+      <img src="../../assets/img/workperks/exhibit/app-on-device.jpg" alt="A phone lying on blue fabric with a hand reaching in from the right, a finger about to tap. The screen shows a home screen of app icons with the WorkPerks icon among them." width="1086" height="1448" loading="lazy">
+    </div>
+  </div>
+
+</section>
+
+
+<!-- 18 · AI-ASSISTED PRODUCT DEVELOPMENT ------------------------------------ -->
+<section class="section" id="wp-aibuild" aria-labelledby="h-wp-aibuild" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">09 &mdash; AI-Assisted Product Development</p>
+    <h2 class="t-h2" id="h-wp-aibuild">Bringing product thinking, design, implementation and testing into one working loop.</h2>
+    <p class="prose">I paired product judgement with AI assisted implementation to move from
+      decisions to working software. The design gets run, found wanting and fixed in the same week
+      it is drawn, rather than handed over and returned altered.</p>
+  </div>
+
+  <!-- The split that stood here, What I direct, and what the tooling
+       accelerates, with the Two different things, kept apart panel beside
+       it, came off on 4 Nov 2026 at Arushi's instruction. The supplied
+       workflow diagram takes its place. Light artwork with its own ground
+       baked into the file, so it takes a hairline and a radius rather than
+       a plate, the same call the six decisions get in chapter 05. -->
+  <figure class="wp-aiflow" data-reveal>
+    <img src="../../assets/img/workperks/exhibit/ai-dev-workflow.png" alt="AI-Assisted Development Workflow: a structured, multi-agent approach using Claude Code to turn product designs into a working application. Four numbered cards run left to right with arrows between them. 01, Run Workflows: execute structured workflows in Claude Code to plan, build and implement features consistently; under it a terminal running /workflows build-app with planning and generating artefacts done, running agents in progress and building the app still to come. 02, Create Artefacts: generate implementation artefacts like build plans, screen specs and checklists to guide development; under it an artefacts folder holding build-sequence.md, device-build.md, screen-authoring.md, in-app-chat.md and gotchas.md. 03, Run Multiple Agents: delegate work across specialised agents to implement, integrate and test different parts of the product in parallel; under it a list of agents, ui-agent building screens, integration-agent wiring APIs and qa-agent running checks. 04, Build and Validate: bring the outputs together, review, test and iterate to ship a working React Native iOS application; under it a phone showing the WorkPerks home screen headed Your benefits, in one place. A bar across the foot reads: Outcome, a working React Native iOS app built through a repeatable, AI-assisted development process." width="1672" height="941" loading="lazy">
+  </figure>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">The workflow, and the rules around it</h3>
+
+  <!-- The same component the chain and the onboarding spine use, so the
+       three sequences in this case study are drawn one way. Three across
+       and three across, rather than the spine's default four: these notes
+       are longer sentences than the chain's, and six columns of them is a
+       column of one word per line. The turn from 03 to 04 is drawn for
+       the same reason it is in chapter 07, so the second row reads left
+       to right instead of doubling back. No arrowheads; the numbers say
+       which way it runs. .wp-spine--3up in workperks.css. -->
+  <ol class="wp-spine wp-spine--3up" data-reveal>
+    <li class="wp-spine__step"><p class="wp-spine__n">01</p><h4 class="wp-spine__t">Decide</h4><p class="wp-spine__d">The product decision and the screen, settled in the hi fi build first.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">02</p><h4 class="wp-spine__t">Direct</h4><p class="wp-spine__d">A prompt that names the source file, the values to transcribe rather than reinterpret, and what has to be true before the result is accepted.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">03</p><h4 class="wp-spine__t">Generate</h4><p class="wp-spine__d">The implementation, against the conventions the skills encode.</p></li>
+    <li class="wp-spine__turn" aria-hidden="true"></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">04</p><h4 class="wp-spine__t">Run</h4><p class="wp-spine__d">On the device, at the route, in the same session.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">05</p><h4 class="wp-spine__t">Review</h4><p class="wp-spine__d">Against the design source. This is the step that carries the judgement, and the one that gets written down.</p></li>
+    <li class="wp-spine__step"><p class="wp-spine__n">06</p><h4 class="wp-spine__t">Correct</h4><p class="wp-spine__d">Fix, or reject and re-direct. A documented gap analysis rather than a conversation.</p></li>
+  </ol>
+
+  <figure class="plate" data-reveal style="margin-top:var(--step-10)">
+    <img src="../../assets/img/workperks/exhibit/claude-code-session.png" alt="Claude Code running in an editor against the WorkPerks repository. The file tree shows the project folders and the mobile app; the terminal pane shows the agent's summary of the eight product surfaces followed by a caveat section stating that only one backend is live and read only, that there is no write path anywhere, that nobody is signed in, and that balances and other values run on local design data tagged with a visible sample marker." width="2410" height="1608" loading="lazy">
+  </figure>
+
+  <!-- The caption under the terminal shot, and everything that followed
+       it to the end of the chapter — the written-rule paragraph, the
+       artefacts table and its authorship note, the motion-rulebook
+       paragraph, the two evidence slots and the no-claims note — came
+       off on 4 Nov 2026 at Arushi's instruction. The chapter ends on
+       the session shot now. -->
+</section>
+
+
+<!-- 19 · OUTCOMES & CURRENT STATE ------------------------------------------- -->
+<section class="section" id="wp-outcomes" aria-labelledby="h-wp-outcomes" tabindex="-1">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">10 &mdash; Outcomes &amp; Current State</p>
+    <h2 class="t-h2" id="h-wp-outcomes">A tangible product foundation with clear evidence of what exists today.</h2>
+    <p class="prose">The product is pre-launch, so this section reports build evidence counted from
+      the repositories and says so. There is no adoption, revenue, retention or pilot figure anywhere
+      on this page, because none is supported yet. Stated as build evidence, what exists is
+      substantial.</p>
+  </div>
+
+  <!-- On 4 Nov 2026, at Arushi's instruction: the catalogue figure leads
+       the block, the assistant tools figure came out, the source line
+       under the grid came off, and the block took the --box treatment
+       so a figure reads the same here as in chapters 02 and 08. Seven
+       figures rather than four, so the last row is a short one. -->
+  <div class="wp-count wp-count--box" data-reveal>
+    <div class="wp-count__i"><p class="wp-count__n">158</p><p class="wp-count__l">Catalogue services live, across 347 centres</p></div>
+    <div class="wp-count__i"><p class="wp-count__n">175</p><p class="wp-count__l">Screens and states, across 17 flows and 3 company configurations</p></div>
+    <div class="wp-count__i"><p class="wp-count__n">67</p><p class="wp-count__l">Addressable routes in the running app</p></div>
+    <div class="wp-count__i"><p class="wp-count__n">35,718</p><p class="wp-count__l">Lines of TypeScript across 167 files</p></div>
+    <div class="wp-count__i"><p class="wp-count__n">644</p><p class="wp-count__l">Token call sites a full visual redesign moved at once</p></div>
+    <div class="wp-count__i"><p class="wp-count__n">14</p><p class="wp-count__l">Database migrations, 10 with a paired verification script</p></div>
+    <div class="wp-count__i"><p class="wp-count__n">540</p><p class="wp-count__l">Backend test cases across 14 suites</p></div>
+  </div>
+
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">Roadmap execution &amp; current state</h3>
+
+  <!-- The roadmap sheet, added under the figures on 4 Nov 2026 at Arushi's
+       instruction. Same treatment as the flexi benchmark in chapter 07:
+       light paper, a plate, and the real width held behind a sideways
+       scroll. This one is narrower than that table and clears the reading
+       column on a desktop, so the floor only does work on small screens.
+       The supplied file is cropped at the right edge; the column beyond
+       Workstream is cut to slivers in the source, not by this markup. -->
+  <figure class="wp-roadmap" data-reveal>
+    <div class="wp-roadmap__scroll" tabindex="0" role="region" aria-label="Roadmap workstreams table, scrolls sideways">
+      <img src="../../assets/img/workperks/exhibit/roadmap.png" alt="The roadmap as a worksheet. Thirteen numbered workstreams down the left, each with its sub-streams and a note on scope. 1, Product: product strategy, covering vision and positioning, users, proposition and scope; and product construct, the overall product architecture and the HR and supplier experience. 2, Catalogue and Marketplace: catalogue architecture, covering categories, product taxonomy and attributes; catalogue creation, covering product onboarding, metadata, pricing, availability and eligibility; ONDC; supplier catalogue, covering onboarding, catalogue upload and approval, and pricing; and catalogue operations, covering moderation, product lifecycle, out-of-stock handling and expiry. 3, Integrations: HRMS and employee data; payment integration, covering gateway, employer payments, refunds and reconciliation; supplier integration, covering supplier, catalogue, inventory and order APIs, fulfilment status and settlement; chat integration; wallet integration, covering provider integration, creation, balance, funding and transactions; flexi and rewards integration, covering fulfilment, gift card, voucher and redemption; and analytics integration, covering product analytics, event tracking, employer reporting and business dashboards. 4, App: employee app frontend, employee app backend, and app built. 5, HR: the HR and admin portal. 6, Supplier: the supplier portal. 7, Marketing Website: front end, and hosting. Then six workstreams with no sub-rows: 8, API strategy; 9, data model and architecture; 10, security and compliance; 11, legal gates; 12, HR deck and employer sales; and 13, future roadmap. A status column to the right of Workstream is cropped out of the supplied file." width="1594" height="958" loading="lazy">
+    </div>
+  </figure>
+
+  <!-- ── what's working today ──────────────────────────────────────────
+       Added 4 Nov 2026. Evidence-led, so every shot here is a real capture
+       already in the repository and no screen is drawn for the page. The
+       brief asked for a white presentation ground; Arushi chose the page's
+       own dark ground with the light plates the landscape table, the flexi
+       sheet and the roadmap already use, so the two parts read as the same
+       story rather than as a deck dropped into it.
+
+       Three labels are in play — working prototype, functional build and
+       production release. Nothing here carries the third: the product is
+       pre-launch, one backend is live and read only, there is no write
+       path and nobody is signed in. That is stated rather than skipped. -->
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">What&rsquo;s working today</h3>
+  <p class="prose" data-reveal>Three surfaces exist and run. The employee application builds and
+    installs on a physical iPhone and browses a real catalogue; the HR and supplier portals are live
+    prototypes at their own URLs. Every capture below is of the running thing, and each item carries
+    the state it is actually in.</p>
+
+  <!-- The three journey runs that stood here — onboarding, the flexi
+       decision and the benefits hub — came off on 4 Nov 2026 at
+       Arushi's instruction. The part opens on the three surfaces now. -->
+
+  <!-- The three surfaces, each with the state it is in and, where there is
+       one, the URL it runs at. The two portal captures are the same ones
+       chapter 07 shows; they are the only captures of those surfaces that
+       exist, and this is the block that states what they are. -->
+  <h4 class="wp-sub" data-reveal>The three surfaces</h4>
+
+  <div class="wp-surf" data-reveal>
+    <article class="wp-surf__i">
+      <div class="wp-surf__shot">
+        <img src="../../assets/img/workperks/exhibit/app-on-device.jpg" alt="A phone lying on blue fabric with a hand reaching in from the right, a finger about to tap. The screen shows a home screen of app icons with the WorkPerks icon among them." width="1086" height="1448" loading="lazy">
+      </div>
+      <div class="wp-surf__meta">
+        <h5 class="wp-surf__t">Employee app</h5>
+        <span class="wp-status wp-status--fbuild">Functional build</span>
+        <p class="wp-surf__d">React Native on Expo, installed and running on a physical iPhone. 67
+          addressable routes under three tabs, browsing the live catalogue over a read only path.</p>
+      </div>
+    </article>
+
+    <article class="wp-surf__i">
+      <div class="wp-surf__shot wp-surf__shot--light">
+        <img src="../../assets/img/workperks/proto/hr-portal.png" alt="The Recognition HR portal sign in: a card headed Recognition, a Sign in heading, the line Use the email your company gave you, a work email field, a Continue button and a Trouble signing in link." width="932" height="822" loading="lazy">
+      </div>
+      <div class="wp-surf__meta">
+        <h5 class="wp-surf__t">HR portal</h5>
+        <span class="wp-status wp-status--proto">Working prototype</span>
+        <p class="wp-surf__d">A live prototype carrying its own guided run, An HR week, fourteen
+          screens end to end.</p>
+        <a class="wp-proto__cta" href="https://deploy-liard-gamma.vercel.app" target="_blank" rel="noopener">deploy-liard-gamma.vercel.app<svg class="ico wp-proto__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+      </div>
+    </article>
+
+    <article class="wp-surf__i">
+      <div class="wp-surf__shot wp-surf__shot--light">
+        <img src="../../assets/img/workperks/proto/supplier-portal.png" alt="The WorkPerks supplier onboarding sign in: the WorkPerks mark above a card headed Partner with WorkPerks, the line Reach thousands of corporate employees in your city, a mobile number field with an India country code, a Send verification code button, and an I already have an account link." width="1008" height="1048" loading="lazy">
+      </div>
+      <div class="wp-surf__meta">
+        <h5 class="wp-surf__t">Supplier portal</h5>
+        <span class="wp-status wp-status--proto">Working prototype</span>
+        <p class="wp-surf__d">The supplier onboarding entry, as a running prototype at its own
+          URL.</p>
+        <a class="wp-proto__cta" href="https://workperks-supplier-onboarding-v1.ai.studio" target="_blank" rel="noopener">workperks-supplier-onboarding-v1.ai.studio<svg class="ico wp-proto__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+      </div>
+    </article>
+  </div>
+
+  <!-- The technical strip. Three rows, each one a claim this page can
+       already support from the repository counts above, and the
+       integrations row says plainly that none is live rather than
+       leaving the absence to be inferred. -->
+  <dl class="wp-tech" data-reveal>
+    <div class="wp-tech__i">
+      <dt class="wp-tech__k">Backend</dt>
+      <dd class="wp-tech__v">Supabase on Postgres. 14 versioned migrations, 10 with a paired
+        verification script, row level security scoped on employee and employer together. The live
+        path is read only; there is no write path.
+        <span class="wp-status wp-status--fbuild">Functional build</span></dd>
+    </div>
+    <div class="wp-tech__i">
+      <dt class="wp-tech__k">Integrations</dt>
+      <dd class="wp-tech__v">No integration is live in the running application. HRMS and employee
+        data, payments, supplier, wallet, chat, flexi and rewards and analytics are all named
+        workstreams on the roadmap above.
+        <span class="wp-status wp-status--planned">Planned</span></dd>
+    </div>
+    <div class="wp-tech__i">
+      <dt class="wp-tech__k">App implementation</dt>
+      <dd class="wp-tech__v">167 TypeScript files and 35,718 lines, 67 addressable routes, 77
+        generated SVG assets, with a full motion layer confirmed on the device.
+        <span class="wp-status wp-status--fbuild">Functional build</span></dd>
+    </div>
+  </dl>
+
+
+
+  <!-- ── what's next ───────────────────────────────────────────────────
+       The six workstreams as Arushi gave them, on the same spine the
+       chain and the AI workflow use, so the three sequences on this page
+       are drawn one way. The descriptions are held to what the roadmap
+       sheet directly above already names, so nothing here invents a
+       delivery commitment. Only 04 is in progress; Arushi confirmed the
+       other five are planned, and no date is claimed for any of them. -->
+  <h3 class="t-h3" data-reveal style="margin-top:var(--step-12)">What&rsquo;s next</h3>
+  <p class="prose" data-reveal>Six workstreams stand between what runs today and a pilot
+    organisation. They are listed in the order the roadmap sets them out, with the one already
+    underway marked as such. No dates are claimed.</p>
+
+  <ol class="wp-spine wp-spine--3up wp-spine--road" data-reveal>
+    <li class="wp-spine__step">
+      <p class="wp-spine__n">01</p>
+      <h4 class="wp-spine__t">Outstanding integrations</h4>
+      <p class="wp-spine__d">HRMS and employee data, payments, supplier, wallet, chat, flexi and
+        rewards. Each is a named workstream with no live connection yet.</p>
+      <span class="wp-status wp-status--planned">Planned</span>
+    </li>
+    <li class="wp-spine__step">
+      <p class="wp-spine__n">02</p>
+      <h4 class="wp-spine__t">Backend and API coverage</h4>
+      <p class="wp-spine__d">The write path end to end, the API strategy and the data model and
+        architecture. The schema accepts writes; the application does not make them.</p>
+      <span class="wp-status wp-status--planned">Planned</span>
+    </li>
+    <li class="wp-spine__step">
+      <p class="wp-spine__n">03</p>
+      <h4 class="wp-spine__t">HR and Supplier workflows</h4>
+      <p class="wp-spine__d">Both portals exist as prototypes at their own URLs. The workflows
+        behind them — configuration, eligibility, catalogue and fulfilment — are the work.</p>
+      <span class="wp-status wp-status--planned">Planned</span>
+    </li>
+    <li class="wp-spine__turn" aria-hidden="true"></li>
+    <li class="wp-spine__step">
+      <p class="wp-spine__n">04</p>
+      <h4 class="wp-spine__t">Security, Compliance and Legal</h4>
+      <p class="wp-spine__d">Row level security is scoped on employee and employer together, and
+        five security scripts run today. Compliance and the legal gates carry on from there.</p>
+      <span class="wp-status wp-status--progress">In progress</span>
+    </li>
+    <li class="wp-spine__step">
+      <p class="wp-spine__n">05</p>
+      <h4 class="wp-spine__t">Employer onboarding and Sales enablement</h4>
+      <p class="wp-spine__d">The employer facing proposition: the marketing website, the HR deck and
+        the path from a conversation to a configured organisation.</p>
+      <span class="wp-status wp-status--planned">Planned</span>
+    </li>
+    <li class="wp-spine__step">
+      <p class="wp-spine__n">06</p>
+      <h4 class="wp-spine__t">Analytics and Reporting</h4>
+      <p class="wp-spine__d">Product analytics, event tracking, employer reporting and business
+        dashboards. The measure a renewal conversation turns on, and the one nothing can report
+        until a pilot is live.</p>
+      <span class="wp-status wp-status--planned">Planned</span>
+    </li>
+  </ol>
+
+
+  <!-- Everything that stood between the counted figures and the onward
+       nav came off on 4 Nov 2026 at Arushi's instruction: the six
+       numbered rows, the Where the product is heading with its
+       standfirst and the six-row what-remains table, the measurement
+       plan heading with its standfirst and seven-row table, and the
+       closing note under them. The chapter is the figures now. -->
+
+  <nav class="onward" aria-label="Related pages" data-reveal>
+    <a class="btn btn--ghost" href="../">All selected work</a>
+    <a class="btn btn--ghost" href="../vytals/">Vytals</a>
+    <a class="btn btn--ghost" href="../../systems/">Design systems</a>
+  </nav>
+</section>
+
+<!-- CLOSING · NOT A NUMBERED CHAPTER ---------------------------------------
+     Added 4 Nov 2026. This sits after chapter 10 and is deliberately outside
+     the case study's own structure: it carries no eyebrow, no number and no
+     entry in `case_sections`, so the rail stays at ten and the reading
+     progress still lands on 1 at the end of Outcomes. It is the page's last
+     word rather than its eleventh argument.
+
+     The mark is the WorkPerks logo from the asset package, inlined and set
+     to currentColor rather than the file's hard #FFFFFF, so it answers to
+     the page's ink instead of punching a white hole in it. The file itself
+     is 8.4KB of embedded C2PA metadata around 689 bytes of drawing; only
+     the drawing is carried here. -->
+<section class="section wp-end" aria-labelledby="h-wp-end">
+  <div class="wp-end__in">
+    <svg class="wp-end__mark" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="The WorkPerks mark" data-reveal>
+      <g fill="currentColor" stroke="none">
+        <circle cx="20" cy="16" r="2.4"/><circle cx="44" cy="14" r="2"/><circle cx="32" cy="8" r="1.8"/>
+      </g>
+      <path d="M32 12 l3.6 7.3 8.1 1.2 -5.9 5.7 1.4 8 -7.2-3.8 -7.2 3.8 1.4-8 -5.9-5.7 8.1-1.2z" fill="currentColor" stroke="none"/>
+      <path d="M15 34 v16 a4 4 0 0 0 4 4 h26 a4 4 0 0 0 4-4 V34"/>
+      <path d="M32 38 v16"/>
+      <rect x="11" y="23" width="42" height="11" rx="4"/>
+      <path d="M32 23 v11"/>
+    </svg>
+
+    <h2 class="wp-end__h" id="h-wp-end" data-reveal>Making benefits work harder.</h2>
+
+    <p class="wp-end__lede" data-reveal>WorkPerks was an opportunity to rethink how workplace
+      benefits are experienced, managed and delivered. I brought product strategy, design and
+      AI-assisted development together to shape a connected ecosystem &mdash; making the experience
+      simpler for employees and more manageable for employers.</p>
+
+    <figure class="wp-end__q" data-reveal>
+      <blockquote><p>Benefits should be easy to access, understand and use.</p></blockquote>
+    </figure>
+
+    <div class="wp-end__foot" data-reveal>
+      <p class="wp-end__stamp">WorkPerks &middot; 2026</p>
+      <a class="link-out" href="../">Back to selected work<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+

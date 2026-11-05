@@ -1,0 +1,330 @@
+/* ===========================================================================
+   LAB — experiments, snippets, and the two small personal pieces.
+   Everything here is self-contained and works with a pointer, a finger or a
+   keyboard. Nothing animates forever.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   DEMO FRAME — one shape for every experiment and snippet.
+   ------------------------------------------------------------------------ */
+.demo{
+  display:flex; flex-direction:column;
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-lg);
+  background:var(--surface-raised);
+  overflow:hidden;
+  transition:border-radius var(--duration-slow) var(--ease-smooth),
+             border-color var(--duration-base) var(--ease-smooth);
+}
+.demo:hover{ border-color:var(--border-strong); }
+.demo__head{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:var(--step-4);
+  padding:var(--step-4) var(--step-5);
+  border-bottom:var(--hair) solid var(--border-default);
+}
+.demo__name{
+  font-family:var(--font-display); font-size:var(--text-h4);
+  font-weight:var(--weight-emphasis); letter-spacing:var(--track-heading);
+}
+.demo__stage{
+  display:grid; place-items:center;
+  padding:var(--step-6) var(--step-5);
+  min-height:11rem;
+  background:
+    linear-gradient(color-mix(in srgb, var(--border-default) 80%, transparent) var(--hair), transparent var(--hair)),
+    linear-gradient(90deg, color-mix(in srgb, var(--border-default) 80%, transparent) var(--hair), transparent var(--hair));
+  background-size:22px 22px;
+  background-color:var(--ink-5);
+}
+.demo__stage > *{ width:100%; }
+.demo__note{
+  padding:var(--step-4) var(--step-5);
+  border-top:var(--hair) solid var(--border-default);
+  color:var(--text-secondary); font-size:var(--text-sm);
+}
+.demo__controls{
+  display:flex; flex-wrap:wrap; gap:var(--step-2);
+  padding:var(--step-4) var(--step-5);
+  border-top:var(--hair) solid var(--border-default);
+  align-items:center;
+}
+.demo__value{
+  font-family:var(--font-mono); font-size:var(--text-mono);
+  color:var(--accent-light); margin-left:auto;
+}
+
+/* ---------------------------------------------------------------------------
+   SWATCH GRID — the accent switcher
+   ------------------------------------------------------------------------ */
+.swatches{ display:flex; flex-wrap:wrap; gap:var(--step-3); justify-content:center; }
+.swatch{
+  display:flex; flex-direction:column; align-items:center; gap:var(--step-2);
+  padding:var(--step-3);
+  border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-md);
+  transition:border-color var(--duration-base) var(--ease-smooth),
+             background-color var(--duration-base) var(--ease-smooth),
+             border-radius var(--duration-slow) var(--ease-smooth);
+}
+.swatch:hover{ border-color:var(--border-strong); background:var(--surface-overlay); }
+.swatch[aria-checked="true"]{ border-color:var(--accent); background:color-mix(in srgb,var(--accent) 14%,transparent); }
+.swatch__chips{ display:flex; gap:3px; }
+.swatch__chips i{ width:1.25rem; height:1.25rem; border-radius:var(--radius-sm); display:block; }
+.swatch__name{
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+  color:var(--text-secondary);
+}
+
+/* ---------------------------------------------------------------------------
+   SPECIMEN — the typography preview
+   ------------------------------------------------------------------------ */
+.specimen{ display:flex; flex-direction:column; gap:var(--step-2); text-align:left; }
+.specimen__big{
+  font-family:var(--font-display); font-weight:var(--weight-display);
+  letter-spacing:var(--track-display); line-height:1;
+  font-size:clamp(2rem,1rem + 4.5vw,3.5rem);
+}
+.specimen__body{ color:var(--text-secondary); font-size:var(--text-sm); max-width:34ch; }
+.specimen__meta{ color:var(--text-tertiary); }
+
+/* ---------------------------------------------------------------------------
+   RADIUS PREVIEW
+   ------------------------------------------------------------------------ */
+.radius-demo{ display:flex; gap:var(--step-3); justify-content:center; align-items:flex-end; }
+.radius-demo i{
+  display:block; width:4rem; height:4rem;
+  background:color-mix(in srgb,var(--accent) 24%,var(--surface-overlay));
+  border:var(--hair) solid var(--accent);
+  transition:border-radius var(--duration-slow) var(--ease-out);
+}
+.radius-demo i:nth-child(1){ border-radius:var(--radius-sm); }
+.radius-demo i:nth-child(2){ border-radius:var(--radius-md); }
+.radius-demo i:nth-child(3){ border-radius:var(--radius-lg); }
+.radius-demo i:nth-child(4){ border-radius:var(--radius-full); }
+
+/* ---------------------------------------------------------------------------
+   TOKEN EXPLORER — a live readout of computed values
+   ------------------------------------------------------------------------ */
+.tokens{ width:100%; border-collapse:collapse; font-family:var(--font-mono); font-size:var(--text-mono); }
+.tokens caption{ text-align:left; padding-bottom:var(--step-3); color:var(--text-tertiary); font-family:var(--font-label); letter-spacing:var(--track-label); text-transform:uppercase; font-size:var(--text-label); }
+.tokens th,.tokens td{ text-align:left; padding:var(--step-2) var(--step-3); border-bottom:var(--hair) solid var(--border-default); }
+.tokens th{ color:var(--text-tertiary); font-weight:400; }
+.tokens td:last-child{ color:var(--accent-light); text-align:right; white-space:nowrap; }
+.tokens__chip{
+  display:inline-block; width:0.75rem; height:0.75rem; border-radius:3px;
+  vertical-align:-2px; margin-right:0.5em; border:var(--hair) solid var(--border-strong);
+}
+.tokens-scroll{ width:100%; overflow-x:auto; }
+
+/* ---------------------------------------------------------------------------
+   BEFORE / AFTER — a draggable split comparison
+   ------------------------------------------------------------------------ */
+.ba{
+  position:relative; width:100%;
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  background:var(--ink-5);
+  touch-action:pan-y;
+  transition:border-radius var(--duration-slow) var(--ease-smooth);
+}
+.ba__pane{ padding:var(--step-5); }
+.ba__pane--after{
+  position:absolute; inset:0;
+  /* The split. Written by lab.js; also settable from the keyboard. */
+  clip-path:inset(0 0 0 var(--split,50%));
+  background:var(--ink-5);
+}
+.ba__tag{
+  position:absolute; top:var(--step-3);
+  padding:2px var(--step-3);
+  border-radius:var(--radius-full);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+}
+.ba__tag--before{ left:var(--step-3); background:var(--surface-overlay); color:var(--text-secondary); }
+.ba__tag--after{ right:var(--step-3); background:var(--accent); color:var(--text-on-accent); }
+.ba__handle{
+  position:absolute; top:0; bottom:0;
+  left:var(--split,50%);
+  width:2px; background:var(--accent);
+  transform:translateX(-1px);
+  cursor:ew-resize;
+  touch-action:none;
+  padding:0;
+}
+.ba__handle::after{
+  content:""; position:absolute; top:50%; left:50%;
+  width:2rem; height:2rem; transform:translate(-50%,-50%);
+  border:2px solid var(--accent); border-radius:var(--radius-full);
+  background:var(--surface-page);
+}
+.ba__handle:focus-visible{ outline:none; }
+.ba__handle:focus-visible::after{ outline:2px solid var(--accent-light); outline-offset:3px; }
+
+/* The two sample interfaces being compared. */
+.sample{ display:flex; flex-direction:column; gap:8px; }
+.sample__row{ display:flex; align-items:center; gap:8px; }
+.sample h4{ margin:0; font-size:1rem; }
+.sample p{ margin:0; font-size:0.8125rem; }
+.sample--before{
+  font-family:var(--font-sans); color:#c9c4ba;
+}
+.sample--before .sample__box{ background:#262420; border:1px solid #3a3630; border-radius:0; padding:12px; }
+.sample--before .sample__pill{ background:#3a3630; color:#c9c4ba; border-radius:0; padding:3px 9px; font-size:11px; }
+.sample--after{ color:var(--text-primary); }
+.sample--after .sample__box{
+  background:var(--surface-raised); border:var(--hair) solid var(--border-default);
+  border-radius:var(--radius-md); padding:var(--step-4);
+}
+.sample--after .sample__pill{
+  background:color-mix(in srgb,var(--accent) 18%,transparent);
+  color:var(--accent-light); border:var(--hair) solid color-mix(in srgb,var(--accent) 50%,transparent);
+  border-radius:var(--radius-full); padding:var(--step-1) var(--step-3);
+  font-family:var(--font-label); font-size:var(--text-label); letter-spacing:var(--track-label); text-transform:uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+   SNIPPET 01 — hover-responsive typography
+   ------------------------------------------------------------------------ */
+.hover-type{
+  display:flex; flex-wrap:wrap; justify-content:center;
+  font-family:var(--font-display);
+  font-size:clamp(1.75rem,1rem + 3.5vw,3rem);
+  font-weight:var(--weight-body);
+  letter-spacing:var(--track-display);
+  line-height:1.1;
+}
+.hover-type span{
+  display:inline-block;
+  color:var(--text-secondary);
+  transition:font-weight var(--duration-base) var(--ease-smooth),
+             color var(--duration-base) var(--ease-smooth),
+             transform var(--duration-base) var(--ease-out);
+}
+.hover-type span.is-near{ color:var(--accent-light); font-weight:700; transform:translateY(-3px); }
+.hover-type span.is-close{ color:var(--text-primary); font-weight:500; transform:translateY(-1px); }
+@media (prefers-reduced-motion:reduce){ .hover-type span{ transform:none !important; } }
+
+/* ---------------------------------------------------------------------------
+   SNIPPET 02 — text reveal
+   ------------------------------------------------------------------------ */
+.reveal-lines{ display:flex; flex-direction:column; gap:var(--step-2); width:100%; }
+.reveal-line{ overflow:hidden; }
+.reveal-line span{
+  display:block;
+  font-family:var(--font-display); font-size:var(--text-h3);
+  font-weight:var(--weight-heading); letter-spacing:var(--track-heading);
+  transform:translateY(110%);
+}
+.reveal-lines.is-on .reveal-line span{
+  animation:reveal-up .62s var(--ease-out) forwards;
+}
+.reveal-lines.is-on .reveal-line:nth-child(2) span{ animation-delay:.08s; }
+.reveal-lines.is-on .reveal-line:nth-child(3) span{ animation-delay:.16s; }
+@keyframes reveal-up{ to{ transform:translateY(0); } }
+@media (prefers-reduced-motion:reduce){
+  .reveal-line span{ transform:none; }
+  .reveal-lines.is-on .reveal-line span{ animation:none; }
+}
+
+/* ---------------------------------------------------------------------------
+   SNIPPET 03 — colour transition
+   ------------------------------------------------------------------------ */
+.hue-strip{ display:flex; gap:var(--step-2); width:100%; }
+.hue-strip i{
+  flex:1; height:4.5rem; display:block;
+  border-radius:var(--radius-md);
+  background:var(--c,var(--surface-overlay));
+  transition:background-color 600ms var(--ease-smooth), border-radius var(--duration-slow) var(--ease-smooth);
+}
+
+/* ---------------------------------------------------------------------------
+   SNIPPET 05 — stepper
+   ------------------------------------------------------------------------ */
+.stepper{ display:flex; flex-direction:column; gap:var(--step-4); width:100%; }
+.stepper__track{
+  position:relative; height:2px; background:var(--border-default);
+  border-radius:var(--radius-full);
+}
+.stepper__fill{
+  position:absolute; inset:0 auto 0 0;
+  width:var(--p,0%); background:var(--accent);
+  border-radius:var(--radius-full);
+  transition:width 420ms var(--ease-out);
+}
+.stepper__dots{ display:flex; justify-content:space-between; }
+.stepper__dot{
+  width:0.9rem; height:0.9rem; border-radius:var(--radius-full);
+  border:2px solid var(--border-strong); background:var(--surface-page);
+  transition:background-color 300ms var(--ease-smooth), border-color 300ms var(--ease-smooth), transform 300ms var(--ease-out);
+}
+.stepper__dot[data-on="true"]{ background:var(--accent); border-color:var(--accent); }
+.stepper__dot[data-current="true"]{ transform:scale(1.35); }
+.stepper__label{ text-align:center; color:var(--text-secondary); }
+@media (prefers-reduced-motion:reduce){ .stepper__dot{ transform:none !important; } }
+
+/* ---------------------------------------------------------------------------
+   GAUGE — the altitude bar on Fun stuff
+   ------------------------------------------------------------------------ */
+.gauge{ display:flex; flex-direction:column; gap:var(--step-2); }
+.gauge__fill{
+  display:block; height:4px; border-radius:var(--radius-full);
+  background:linear-gradient(90deg, var(--hue-slate) 0%, var(--hue-teal) 55%, var(--accent) 100%);
+  opacity:var(--deco);
+  transition:opacity var(--duration-slow) var(--ease-smooth);
+}
+.gauge__marks{ display:flex; justify-content:space-between; }
+.gauge__marks i{
+  font-family:var(--font-mono); font-size:0.6875rem; font-style:normal;
+  color:var(--text-tertiary);
+}
+
+/* ---------------------------------------------------------------------------
+   PLANT — the small personal interaction on Fun stuff
+   ------------------------------------------------------------------------ */
+.plant{ display:flex; align-items:center; gap:var(--step-5); flex-wrap:wrap; }
+.plant__svg{ width:8rem; height:auto; flex:none; }
+.plant__pot{ fill:color-mix(in srgb, var(--hue-copper) 55%, var(--ink-10)); }
+.plant__rim{ fill:color-mix(in srgb, var(--hue-copper) 70%, var(--ink-10)); }
+.plant__stem{ stroke:var(--hue-sage); stroke-width:3; stroke-linecap:round; fill:none; }
+.plant__leaf{
+  fill:var(--hue-sage);
+  transform-box:fill-box; transform-origin:0% 100%;
+  transform:scale(0); opacity:0;
+  transition:transform 520ms var(--ease-out), opacity 300ms var(--ease-smooth);
+}
+.plant__leaf[data-grown="true"]{ transform:scale(1); opacity:1; }
+.plant__leaf[data-leaf="2"],.plant__leaf[data-leaf="4"]{ transform-origin:100% 100%; }
+.plant__leaf[data-leaf="3"]{ fill:color-mix(in srgb,var(--hue-sage) 80%, var(--hue-teal)); }
+.plant__leaf[data-leaf="5"]{ fill:var(--hue-sage-light); transform-origin:50% 100%; }
+.plant__side{ display:flex; flex-direction:column; gap:var(--step-3); align-items:flex-start; }
+@media (prefers-reduced-motion:reduce){
+  .plant__leaf{ transition:none; }
+}
+
+/* ---------------------------------------------------------------------------
+   WRITING — the honest empty state
+   ------------------------------------------------------------------------ */
+.draft{
+  display:flex; flex-direction:column; gap:var(--step-3);
+  padding:var(--step-5);
+  border:var(--hair) dashed var(--border-strong);
+  border-radius:var(--radius-lg);
+  transition:border-radius var(--duration-slow) var(--ease-smooth);
+}
+.draft__flag{
+  display:inline-flex; align-items:center; gap:0.45em;
+  width:fit-content;
+  padding:var(--step-1) var(--step-3);
+  border-radius:var(--radius-full);
+  background:color-mix(in srgb,var(--hue-ochre) 20%,transparent);
+  color:var(--hue-ochre-light);
+  border:var(--hair) solid color-mix(in srgb,var(--hue-ochre) 45%,transparent);
+  font-family:var(--font-label); font-size:var(--text-label);
+  letter-spacing:var(--track-label); text-transform:uppercase;
+}
+
+/* Trim an image's top edge where a source photo carries an overlay badge. */
+.shot--trim img{ object-fit:cover; aspect-ratio:4/3; object-position:center 42%; }
