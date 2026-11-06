@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" role="presentation">
+  <!-- Clarity over complexity. Three tangled lines going in, one coming out.
+       The first drawing of this was a knot, which at 57px on the page read
+       as a small circle. Three waves read as three waves at any size. -->
+  <g stroke-width="2.1" stroke-linecap="round">
+    <path d="M6 18c4-3.4 7.4 3.4 11.4 0s7 4 11 7.4" stroke="#B55C3C"/>
+    <path d="M6 33c4 3.4 7.4-3.4 11.4 0s7.4-2 11 0" stroke="#6E5F93"/>
+    <path d="M6 48c4 3.4 7.4-3.4 11.4 0s7-4 11-7.4" stroke="#5E9A93"/>
+  </g>
+  <path d="M30 33h19" stroke="#E8D49A" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="m44 27.6 5.4 5.4-5.4 5.4" stroke="#E8D49A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

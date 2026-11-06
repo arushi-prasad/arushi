@@ -1,0 +1,99 @@
+/* ============================================================================
+   EVAL — Design Evaluation Metrics
+
+   Sibling of okr.css: the same plain, document-first treatment, with one
+   difference. The OKR sheets are portrait and narrow, so they are capped and
+   centred. These are wide spreadsheet captures — 1440 to 2470px of small
+   type — so they take the full reading measure and the page gives them all
+   the width it has.
+
+   No cards. Each stage is an image, a line of text under it, and a hairline
+   before the next one. The evidence is the spreadsheet, not the frame.
+   ========================================================================= */
+
+.ev { display: grid; }
+
+.ev__i {
+  display: grid;
+  gap: var(--step-4);
+  padding-block: var(--step-12);
+  border-block-start: 1px solid var(--border-subtle);
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.ev__i:first-child { border-block-start: 0; padding-block-start: var(--step-6); }
+.ev__i:last-child  { padding-block-end: 0; }
+
+/* The stage label. Small, uppercase, numbered — it names which part of the
+   evaluation the sheet below belongs to and nothing more. */
+.ev__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .7em;
+}
+
+.ev__k b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+.ev__i img {
+  inline-size: 100%;
+  block-size: auto;
+  display: block;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.ev__cap {
+  margin: 0;
+  max-inline-size: var(--prose-max, 38rem);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+/* The transcribed scores. The numbers live inside a bitmap in image 05, so
+   they are repeated here as text — not as a new finding, but so they can be
+   read by a screen reader, searched, and selected. Values are copied from
+   the sheet and nothing is recalculated. */
+.ev__scores {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--step-3) var(--step-6);
+  padding-block-start: var(--step-2);
+}
+
+.ev__score {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--step-3);
+  padding-block-end: var(--step-2);
+  border-block-end: 1px solid var(--border-subtle);
+  font-size: var(--text-sm);
+}
+
+.ev__score dt { color: var(--text-secondary); }
+.ev__score dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: var(--weight-emphasis); }
+.ev__score--total dt, .ev__score--total dd { color: var(--text-primary); }
+
+/* Below 52rem a 2470px sheet scaled into a phone column is a grey texture
+   rather than a document. Each figure becomes its own horizontal scroller
+   and the image holds a legible minimum — the same bargain the wide tables
+   on the case studies already strike. The page never scrolls sideways. */
+@media (max-width: 52rem) {
+  .ev__i { display: block; }
+  .ev__k { margin-block-end: var(--step-4); }
+  .ev__scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .ev__scroll img { min-inline-size: 42rem; }
+  .ev__cap { margin-block-start: var(--step-4); }
+  .ev__scores { margin-block-start: var(--step-5); }
+  .ev__i { padding-block: var(--step-10); }
+}

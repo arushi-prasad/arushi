@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Health Claim Management System — one claim, two interfaces, and the gap between them — Arushi Prasad</title>
+  <title>Health Claim Management System: one claim, two interfaces, and the gap between them · Arushi Prasad</title>
   <meta name="description" content="A health insurance claim passes from the member filing it to the adjuster deciding it, through two interfaces that share no view of the same claim. An analysis of the live member portal, and a redesigned four stage claim workflow for the side where the decision is made.">
   <meta name="color-scheme" content="dark">
   <link rel="preload" href="../../../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../../assets/css/tokens.css?v=f874ed78">
   <link rel="stylesheet" href="../../../assets/css/base.css?v=c3f7efb8">
-  <link rel="stylesheet" href="../../../assets/css/components.css?v=be3cf32e">
+  <link rel="stylesheet" href="../../../assets/css/components.css?v=294b607f">
   <link rel="stylesheet" href="../../../assets/css/vidal.css?v=fb73d36c">
   <link rel="stylesheet" href="../../../assets/css/case.css?v=703795f5">
   <!-- Loaded before paint so a saved token preference is applied to <html>
        without a flash of the defaults. -->
-  <script src="../../../assets/js/tokens.js?v=a7c3e9c1"></script>
+  <script src="../../../assets/js/tokens.js?v=8a014e81"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -32,6 +32,7 @@
 <symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
 <symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
 <symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-phone" viewBox="0 0 16 16"><path d="M5.6 2.8 3.2 3.6c-.7.3-1 1-.9 1.7.5 2.6 1.8 5 3.7 6.9s4.3 3.2 6.9 3.7h.1c.6 0 1.2-.4 1.4-1l.8-2.4-3-1.6-1.4 1.7a11 11 0 0 1-4.1-4.1l1.7-1.4z"/></symbol>
 <symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
 <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
 <symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
@@ -47,6 +48,46 @@
 <symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
 <symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
 <symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<!-- What I use. One mark per item in the About page's stack list, drawn on
+     the same 16-unit grid and at the same stroke weight as everything above,
+     so they sit inside a line of text rather than on top of it. The
+     brand-named ones are simplified evocations, not trademark reproductions;
+     the ones that name a practice rather than a tool (Design Systems, UX
+     Research, Prototyping...) get a glyph for the thing itself. -->
+<!-- Outside the brief. One mark per thing named in the Fun Stuff line,
+     drawn on the same 16-unit grid and weight as every other icon here so
+     they sit inside a sentence rather than on top of it. -->
+<symbol id="f-badminton" viewBox="0 0 16 16"><ellipse cx="6.5" cy="6.5" rx="3.6" ry="4.4" transform="rotate(-40 6.5 6.5)"/><path d="m9.3 9.5 3.9 4.3"/><path d="M4.3 4.9 9 9.1M4.9 8.5 8.5 4.4"/></symbol>
+<symbol id="f-strength" viewBox="0 0 16 16"><path d="M2.2 6.4v3.2M4.3 4.7v6.6M11.7 4.7v6.6M13.8 6.4v3.2"/><path d="M4.3 8h7.4"/></symbol>
+<symbol id="f-cycling" viewBox="0 0 16 16"><circle cx="4.1" cy="11" r="2.7"/><circle cx="11.9" cy="11" r="2.7"/><path d="m4.1 11 2.9-5.1h3.2l1.7 5.1"/><path d="M6.9 5.9h2.7"/></symbol>
+<symbol id="f-trek" viewBox="0 0 16 16"><rect x="4.1" y="6" width="7.8" height="7.8" rx="2.1"/><path d="M6 6V4.7a2 2 0 0 1 4 0V6"/><path d="M6.4 9.6h3.2"/></symbol>
+<symbol id="f-coffee" viewBox="0 0 16 16"><path d="M3.2 5.6h8.2v4.1a3.4 3.4 0 0 1-3.4 3.4H6.6a3.4 3.4 0 0 1-3.4-3.4Z"/><path d="M11.4 6.6h1a1.9 1.9 0 0 1 0 3.8h-1"/><path d="M2.4 14.6h10"/><path d="M6 2.2v1.6M8.6 2.2v1.6"/></symbol>
+<symbol id="f-plant" viewBox="0 0 16 16"><path d="M4.4 9.4h7.2l-.8 4.4H5.2Z"/><path d="M8 9.4V5.4"/><path d="M8 6.8C8 4.5 6.4 2.6 4.3 2.6c0 2.3 1.6 4.2 3.7 4.2Z"/><path d="M8 7.6c0-2 1.6-3.7 3.5-3.7 0 2-1.6 3.7-3.5 3.7Z"/></symbol>
+<symbol id="f-bowl" viewBox="0 0 16 16"><path d="M2.6 7.8h10.8a5.4 5.4 0 0 1-10.8 0Z"/><path d="M1.5 7.8h13"/><circle cx="6" cy="5.3" r="1.1"/><circle cx="9.7" cy="4.7" r="1.1"/></symbol>
+<symbol id="f-people" viewBox="0 0 16 16"><circle cx="6" cy="5.5" r="2.4"/><path d="M2.3 13.2c0-2 1.7-3.7 3.7-3.7s3.7 1.7 3.7 3.7"/><circle cx="11.7" cy="6.4" r="1.8"/><path d="M10.2 9.8c1.9.1 3.5 1.6 3.5 3.4"/></symbol>
+<symbol id="f-music" viewBox="0 0 16 16"><path d="M6.2 12.3V3.8l7-1.4v8.5"/><circle cx="4.3" cy="12.3" r="1.9"/><circle cx="11.3" cy="10.9" r="1.9"/></symbol>
+<symbol id="f-mountain" viewBox="0 0 16 16"><path d="M1.6 12.9 6.4 4.2l4.2 7.6"/><path d="M8.2 12.9 11.4 7l3 5.9z"/><path d="M1.4 12.9h13.2"/></symbol>
+<symbol id="t-figjam" viewBox="0 0 16 16"><rect x="2.2" y="2.6" width="11.6" height="10.8" rx="1.8"/><path d="M4.7 10c1-1.7 2.1-1.7 3.1 0s2.1 1.7 3.1 0"/><circle cx="5.6" cy="5.9" r="1.1"/></symbol>
+<symbol id="t-framer" viewBox="0 0 16 16"><path d="M12.2 2.4H3.8l4.2 4.1h4.2z"/><path d="M3.8 6.5h8.4L8 10.6H3.8z"/><path d="M8 10.6v3.3l-4.2-3.3z"/></symbol>
+<symbol id="t-mobbin" viewBox="0 0 16 16"><rect x="2.2" y="3.3" width="5" height="9.4" rx="1.3"/><rect x="8.8" y="3.3" width="5" height="9.4" rx="1.3"/><path d="M4.7 5.5h.01M11.3 5.5h.01"/></symbol>
+<symbol id="t-gemini" viewBox="0 0 16 16"><path d="M8 2.1c.5 3.2 2.6 5.3 5.8 5.8-3.2.5-5.3 2.6-5.8 5.8-.5-3.2-2.6-5.3-5.8-5.8C5.4 7.4 7.5 5.3 8 2.1Z"/></symbol>
+<symbol id="t-copilot" viewBox="0 0 16 16"><path d="M2.9 8.5c0-2.7 2.3-4.8 5.1-4.8s5.1 2.1 5.1 4.8v1.3c0 1.9-2.3 3.3-5.1 3.3s-5.1-1.4-5.1-3.3Z"/><path d="M6 8.7h.01M10 8.7h.01"/><path d="M8 3.7V2.1"/></symbol>
+<symbol id="t-antigravity" viewBox="0 0 16 16"><path d="M8 11.9V2.6"/><path d="m5.2 5.4 2.8-2.8 2.8 2.8"/><path d="M3.2 14.1h9.6" stroke-dasharray="1.5 2.1"/></symbol>
+<symbol id="t-html" viewBox="0 0 16 16"><path d="m5.3 5.1-3 2.9 3 2.9M10.7 5.1l3 2.9-3 2.9"/><path d="m9.3 3.5-2.6 9"/></symbol>
+<symbol id="t-js" viewBox="0 0 16 16"><rect x="2.2" y="2.2" width="11.6" height="11.6" rx="2.1"/><path d="M7 6.3v4c0 .9-.6 1.4-1.4 1.4-.6 0-1.1-.3-1.4-.8"/><path d="M11.8 6.9c-1.4-.8-2.6-.2-2.6.8 0 1.5 2.6 1 2.6 2.4 0 .9-1.1 1.5-2.6.7"/></symbol>
+<symbol id="t-next" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M5.9 10.9V5.3l4.7 6"/><path d="M10.3 5.3v3.1"/></symbol>
+<symbol id="t-tailwind" viewBox="0 0 16 16"><path d="M2.6 6.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/><path d="M2.6 11.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/></symbol>
+<symbol id="t-node" viewBox="0 0 16 16"><path d="M8 1.9 13.5 5v6L8 14.1 2.5 11V5Z"/><path d="M6.3 10.4V6.6l3.4 3.8V6.6"/></symbol>
+<symbol id="t-postgres" viewBox="0 0 16 16"><ellipse cx="8" cy="4" rx="5.2" ry="2.2"/><path d="M2.8 4v8c0 1.2 2.3 2.2 5.2 2.2s5.2-1 5.2-2.2V4"/><path d="M2.8 8c0 1.2 2.3 2.2 5.2 2.2s5.2-1 5.2-2.2"/></symbol>
+<symbol id="t-figma" viewBox="0 0 16 16"><rect x="5.4" y="2.3" width="5.3" height="3.5" rx="1.75"/><rect x="5.4" y="6.3" width="5.3" height="3.5" rx="1.75"/><circle cx="8.05" cy="12" r="1.9"/></symbol>
+<symbol id="t-native" viewBox="0 0 16 16"><rect x="3.9" y="1.7" width="8.2" height="12.6" rx="1.9"/><circle cx="8" cy="8" r="1.1"/><ellipse cx="8" cy="8" rx="3.3" ry="1.4"/><ellipse cx="8" cy="8" rx="3.3" ry="1.4" transform="rotate(62 8 8)"/></symbol>
+<symbol id="t-ts" viewBox="0 0 16 16"><rect x="2.2" y="2.2" width="11.6" height="11.6" rx="2.1"/><path d="M4.5 6.6h3.7M6.35 6.6v4.8"/><path d="M11.7 6.9c-1.6-.8-2.7-.1-2.7.8 0 1.6 2.7 1 2.7 2.5 0 .9-1.1 1.6-2.7.8"/></symbol>
+<symbol id="t-expo" viewBox="0 0 16 16"><path d="M2.2 12.6 7.2 4a.95.95 0 0 1 1.6 0l5 8.6"/><path d="M6 12.6 8 9.2l2 3.4"/></symbol>
+<symbol id="t-supabase" viewBox="0 0 16 16"><path d="M8.9 1.7 3.5 8.7h4.2l-.5 5.6 5.3-7H8.4Z"/></symbol>
+<symbol id="t-claude" viewBox="0 0 16 16"><rect x="1.7" y="2.9" width="12.6" height="10.2" rx="1.7"/><path d="m4.4 6.7 1.8 1.8-1.8 1.8"/><path d="M8.4 10.3h3.2"/></symbol>
+<symbol id="t-playwright" viewBox="0 0 16 16"><path d="M2.9 3.5h10.2v4.9c0 2.8-2.3 5.1-5.1 5.1S2.9 11.2 2.9 8.4Z"/><path d="M5.8 7.1h.01M10.2 7.1h.01"/><path d="M6.2 10.3c1.1.9 2.5.9 3.6 0"/></symbol>
+<symbol id="t-cucumber" viewBox="0 0 16 16"><path d="M12.5 3.5c1.6 1.6.6 5.3-2.3 8.2s-6.6 3.9-8.2 2.3-.6-5.3 2.3-8.2 6.6-3.9 8.2-2.3Z"/><path d="m6.4 6.5 1.6 1.6M8.7 5.1l1.6 1.6M4.9 8.9l1.6 1.6"/></symbol>
+<symbol id="t-storybook" viewBox="0 0 16 16"><path d="M8 4.3C6.6 2.9 4.8 2.5 2.6 2.7v9c2.2-.2 4 .2 5.4 1.6 1.4-1.4 3.2-1.8 5.4-1.6v-9c-2.2-.2-4 .2-5.4 1.6Z"/><path d="M8 4.3v9"/></symbol>
 <symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
 </defs>
 </svg>
@@ -57,7 +98,7 @@
     </a>
     <div class="nav__right">
       <ul class="nav__links" role="list">
-        <li><a class="nav__link" href="../../../work/" aria-current="page" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../../designops/" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../../leadership/" aria-label="Leadership">leadership</a></li>
+        <li><a class="nav__link" href="../../../work/" aria-current="page" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../../designops/" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">5</sup></a></li><li><a class="nav__link" href="../../../leadership/" aria-label="Leadership">leadership<sup class="nav__count" aria-hidden="true">11</sup></a></li>
       </ul>
 
       <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
@@ -66,7 +107,7 @@
 </header>
 <div class="nav-sheet" id="nav-sheet" data-open="false">
   <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
-  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../../../work/" aria-current="page">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../../../designops/">Strategy<span>8</span></a></li><li><a class="nav-sheet__link" href="../../../leadership/">Leadership<span>—</span></a></li><li><a class="nav-sheet__link" href="../../../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../../../about/">About<span>—</span></a></li><li><a class="nav-sheet__link" href="../../../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../../../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../../../snippets/">Snippets<span>5</span></a></li></ul>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../../../work/" aria-current="page">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../../../designops/">Strategy<span>5</span></a></li><li><a class="nav-sheet__link" href="../../../leadership/">Leadership<span>11</span></a></li><li><a class="nav-sheet__link" href="../../../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../../../about/">About<span>·</span></a></li><li><a class="nav-sheet__link" href="../../../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../../../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../../../snippets/">Snippets<span>5</span></a></li></ul>
   <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
 </div>
 <main id="main" tabindex="-1">
@@ -145,7 +186,7 @@
 <!-- 01 · PROJECT OVERVIEW --------------------------------------------------- -->
 <section class="section" id="vd-overview" aria-labelledby="h-vd-overview" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">01 &mdash; Project Overview</p>
+    <p class="t-label section__eyebrow">01 · Project Overview</p>
     <h2 class="t-h2" id="h-vd-overview">A claim is one object, and nobody involved can see all of it.</h2>
     <p class="prose">A health claim management system is the machinery between a hospital bill and a
       bank transfer. A member raises a claim, names an ailment, attaches documents and waits. An
@@ -239,7 +280,7 @@
 <!-- 02 · THE EXISTING EXPERIENCE -------------------------------------------- -->
 <section class="section" id="vd-existing" aria-labelledby="h-vd-existing" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">02 &mdash; The Existing Experience</p>
+    <p class="t-label section__eyebrow">02 · The Existing Experience</p>
     <h2 class="t-h2" id="h-vd-existing">What the member portal does today, screen by screen.</h2>
     <p class="prose">Eight captures of the live Vidal Health member portal, taken on 29 October 2026
       from my own account. This is a production product I did not design, and it does a great deal
@@ -327,8 +368,8 @@
 
   <div class="split" data-reveal style="margin-top:var(--step-6)">
     <div class="split__text">
-      <p class="prose">Eight fields in a four by two grid, seven of them required — Alternate Mobile
-        Number is the only optional one. Ailment is free text. Estimated Amount is asked for in rupees
+      <p class="prose">Eight fields in a four by two grid, seven of them required. Alternate Mobile Number
+        is the only optional one. Ailment is free text. Estimated Amount is asked for in rupees
         with no basis offered and no indication of what it affects. Likely Date of Admission and
         Expected Discharge Date carry no stated relationship to each other.</p>
       <p class="prose">Below it, Hospital Details reduces to a single action. The hint under it reads
@@ -340,7 +381,7 @@
     </div>
     <figure class="plate">
       <img src="../../../assets/img/vidal/portal-intimate-empty.png" width="2940" height="1519" loading="lazy"
-           alt="The empty Intimate Your Claim form: a Claim Details panel with eight fields in a four by two grid — Select Name slash Relationship, Ailment, Mobile Number, Alternate Mobile Number, Likely Date of Admission, Expected Discharge Date, Estimated Amount and Email ID — and a Hospital Details panel below it with a single Search slash Add Hospital action.">
+           alt="The empty Intimate Your Claim form: a Claim Details panel with eight fields in a four by two grid (Select Name slash Relationship, Ailment, Mobile Number, Alternate Mobile Number, Likely Date of Admission, Expected Discharge Date, Estimated Amount and Email ID), and a Hospital Details panel below it with a single Search slash Add Hospital action.">
       <figcaption class="plate__cap"><span class="plate__src">Captured</span>
         Intimate Your Claim, empty. Two panels, eight fields, one search.</figcaption>
     </figure>
@@ -362,7 +403,7 @@
       the twenty-four hour hospitalisation condition in most policies, which is a decidable fact at
       the point of entry.</p></div>
     <div class="vd-note"><span class="vd-note__n">3</span><p><b>Estimated Amount, unanchored.</b>
-      Two hundred thousand rupees &mdash; exactly half the sum insured shown on the dashboard, though
+      Two hundred thousand rupees, exactly half the sum insured shown on the dashboard, though
       nothing on this screen says so. It is entered with no reference to the balance, the room rent
       eligibility or the co-payment, and it will not resemble the settlement.</p></div>
   </div>
@@ -384,8 +425,8 @@
     <div class="vd-note"><span class="vd-note__n">1</span><p><b>State and city are required.
       Hospital name is not.</b> The asterisks are on the two administrative fields. A member who
       knows the hospital but not the state it files under cannot run the search, and the four ways
-      of finding a hospital promised on the previous screen &mdash; name, phone, address, pincode
-      &mdash; reduce here to name plus two dropdowns.</p></div>
+      of finding a hospital promised on the previous screen (name, phone, address, pincode) reduce
+      here to name plus two dropdowns.</p></div>
     <div class="vd-note"><span class="vd-note__n">2</span><p><b>Three hospitals found.</b> One
       hospital name, one city, three entries, plus an <em>Add New Hospital</em> action if none of
       them is right.</p></div>
@@ -432,7 +473,7 @@
 <!-- 03 · THE PROBLEM -------------------------------------------------------- -->
 <section class="section" id="vd-problem" aria-labelledby="h-vd-problem" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">03 &mdash; The Problem</p>
+    <p class="t-label section__eyebrow">03 · The Problem</p>
     <h2 class="t-h2" id="h-vd-problem">Seven problems, one failure.</h2>
     <p class="prose">It would be easy to list what is hard about filing a health claim and call that
       a problem statement. It would also be wrong, because these are not seven independent usability
@@ -444,7 +485,7 @@
 
   <div class="vd-chain" data-reveal>
     <div class="vd-chain__link">
-      <p class="vd-chain__k">Link 01 &mdash; before the form</p>
+      <p class="vd-chain__k">Link 01 · before the form</p>
       <h3 class="vd-chain__t">Everything a member must already know before a claim form can help them.</h3>
       <div class="vd-chain__set">
         <div class="vd-chain__cell"><b>Which route applies</b><span>Cashless, reimbursement or hospital search sit side by side as equals. The right one depends on facts answered elsewhere.</span></div>
@@ -456,7 +497,7 @@
     </div>
 
     <div class="vd-chain__link">
-      <p class="vd-chain__k">Link 02 &mdash; in the form</p>
+      <p class="vd-chain__k">Link 02 · in the form</p>
       <h3 class="vd-chain__t">A form that collects exactly what the process needs, and gives nothing back.</h3>
       <div class="vd-chain__set">
         <div class="vd-chain__cell"><b>Eight fields, seven required</b><span>Including a mobile number and an email the account already holds, and an alternate mobile number that is the one optional field.</span></div>
@@ -469,7 +510,7 @@
     </div>
 
     <div class="vd-chain__link">
-      <p class="vd-chain__k">Link 03 &mdash; after the handoff</p>
+      <p class="vd-chain__k">Link 03 · after the handoff</p>
       <h3 class="vd-chain__t">The window where a claim is most decidable is the window where it is least visible.</h3>
       <div class="vd-chain__set">
         <div class="vd-chain__cell"><b>Status without state</b><span>Claim History is a separate destination from the screens the claim was filed on, and it reports a stage rather than what that stage is waiting for.</span></div>
@@ -519,7 +560,7 @@
 <!-- 04 · RESEARCH & DISCOVERY ----------------------------------------------- -->
 <section class="section" id="vd-research" aria-labelledby="h-vd-research" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">04 &mdash; Research &amp; Discovery</p>
+    <p class="t-label section__eyebrow">04 · Research &amp; Discovery</p>
     <h2 class="t-h2" id="h-vd-research">What was actually done, and what was not.</h2>
     <p class="prose">This section exists to make the evidence base checkable. Five activities were
       carried out. Four of the activities a case study like this usually claims were not, and they
@@ -706,7 +747,7 @@
 <!-- 05 · KEY FINDINGS ------------------------------------------------------- -->
 <section class="section" id="vd-findings" aria-labelledby="h-vd-findings" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">05 &mdash; Key Findings &amp; Opportunities</p>
+    <p class="t-label section__eyebrow">05 · Key Findings &amp; Opportunities</p>
     <h2 class="t-h2" id="h-vd-findings">Six themes, three of which decide the rest.</h2>
     <p class="prose">Each theme is read the same way: what was difficult, why that mattered, and
       where the opening is. Three are marked primary, because a findings section in which everything
@@ -764,8 +805,8 @@
         </div>
         <div class="vd-find__f vd-find__f--open">
           <p class="vd-find__k">The opportunity</p>
-          <p class="vd-find__v">Ask the two questions that determine the route &mdash; where, and
-            when &mdash; and let the system name the route, rather than presenting the routes and
+          <p class="vd-find__v">Ask the two questions that determine the route, where and when,
+            and let the system name the route, rather than presenting the routes and
             asking the member to self-select.</p>
         </div>
       </div>
@@ -807,8 +848,8 @@
         <div class="vd-find__f">
           <p class="vd-find__k">What was difficult</p>
           <p class="vd-find__v">State and city are required; the hospital name is not. One name in
-            one city returns three entries, separated by a Rohini number and an empanelment number
-            &mdash; one of which, in a Pune search, is coded for Mumbai.</p>
+            one city returns three entries, separated by a Rohini number and an empanelment number,
+            one of which, in a Pune search, is coded for Mumbai.</p>
         </div>
         <div class="vd-find__f">
           <p class="vd-find__k">Why it mattered</p>
@@ -835,8 +876,8 @@
           <p class="vd-find__k">What was difficult</p>
           <p class="vd-find__v">The policy is summarised as <em>Hospitalisation Only</em> with a
             balance of &#8377;4,00,000. Room rent eligibility, co-payment, sub-limits and the
-            non-payable list &mdash; the four things that produce almost every deduction &mdash; are
-            not on the screen where a claim is filed.</p>
+            non-payable list, the four things that produce almost every deduction, are not on
+            the screen where a claim is filed.</p>
         </div>
         <div class="vd-find__f">
           <p class="vd-find__k">Why it mattered</p>
@@ -861,9 +902,8 @@
       <div class="vd-find__grid">
         <div class="vd-find__f">
           <p class="vd-find__k">What was difficult</p>
-          <p class="vd-find__v">After submission there are four consecutive stages &mdash; document
-            review, policy mapping, coverage decision, settlement &mdash; in which the member sees
-            nothing. Claim History reports that a claim is in progress. It does not report what the
+          <p class="vd-find__v">After submission there are four consecutive stages (document review,
+            policy mapping, coverage decision, settlement) in which the member sees nothing. Claim History reports that a claim is in progress. It does not report what the
             claim is waiting for.</p>
         </div>
         <div class="vd-find__f">
@@ -892,7 +932,7 @@
 <!-- 06 · DESIGN STRATEGY ---------------------------------------------------- -->
 <section class="section" id="vd-strategy" aria-labelledby="h-vd-strategy" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">06 &mdash; Defining the Design Strategy</p>
+    <p class="t-label section__eyebrow">06 · Defining the Design Strategy</p>
     <h2 class="t-h2" id="h-vd-strategy">One commitment, and the seven principles it produces.</h2>
     <p class="prose">The commitment: <strong>a claim should carry its own reasoning</strong>. Every
       figure the system produces should arrive with the rule that produced it, at the moment it
@@ -929,7 +969,7 @@
       <p class="vd-prin__v"><b>Answers</b> Seven required fields on an authenticated screen,
         including a mobile number and an email the account already holds.</p>
       <p class="vd-prin__v"><b>In the design</b> Nothing is collected that the record can supply.
-        Progressive disclosure is not used to make a long form look short &mdash; the stage rail shows
+        Progressive disclosure is not used to make a long form look short. The stage rail shows
         the whole shape of the work at all times.</p>
     </article>
 
@@ -949,8 +989,8 @@
       <p class="vd-prin__v"><b>Answers</b> A two-word cover description standing in for room
         eligibility, co-payment and sub-limits.</p>
       <p class="vd-prin__v"><b>In the design</b> Each coverage line and each settlement deduction
-        names its clause, on the same row, in sentence form. Not a reason code, not a link to a PDF
-        &mdash; a reason that survives being read out loud months later.</p>
+        names its clause, on the same row, in sentence form. Not a reason code, not a link to a PDF,
+        but a reason that survives being read out loud months later.</p>
     </article>
 
     <article class="vd-prin__i">
@@ -986,7 +1026,7 @@
 <!-- 07 · ARCHITECTURE & WORKFLOW -------------------------------------------- -->
 <section class="section" id="vd-structure" aria-labelledby="h-vd-structure" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">07 &mdash; Information Architecture &amp; Workflow</p>
+    <p class="t-label section__eyebrow">07 · Information Architecture &amp; Workflow</p>
     <h2 class="t-h2" id="h-vd-structure">The claim stops being a destination and becomes the root.</h2>
     <p class="prose">The existing portal is organised by subject: policy here, claims there,
       hospitals somewhere else. That is a reasonable way to structure a product and a poor way to
@@ -996,9 +1036,9 @@
 
   <div class="vd-ia" data-reveal>
     <div class="vd-ia__col">
-      <p class="vd-ia__k"><b>Today</b> member portal &mdash; organised by subject <span class="vd-ev vd-ev--seen">Captured</span></p>
+      <p class="vd-ia__k"><b>Today</b> member portal · organised by subject <span class="vd-ev vd-ev--seen">Captured</span></p>
       <ul class="vd-tree">
-        <li><b>Home</b> <span>&mdash; policy snapshot, health card, coverage &amp; benefits</span></li>
+        <li><b>Home</b> <span>·  policy snapshot, health card, coverage &amp; benefits</span></li>
         <li><b>My Policy</b></li>
         <li><b>Claims</b>
           <ul>
@@ -1008,27 +1048,27 @@
                   <ul>
                     <li>Intimation</li>
                     <li>Claim Submission</li>
-                    <li>Claim History <span>&mdash; four levels from Home</span></li>
+                    <li>Claim History <span>·  four levels from Home</span></li>
                   </ul>
                 </li>
                 <li><b>Cashless services</b></li>
-                <li><b>Network Hospitals</b> <span>&mdash; the answer the two routes above depend on</span></li>
+                <li><b>Network Hospitals</b> <span>·  the answer the two routes above depend on</span></li>
               </ul>
             </li>
           </ul>
         </li>
         <li><b>E-Cards</b></li>
-        <li><b>Network Hospitals</b> <span>&mdash; again, at top level</span></li>
+        <li><b>Network Hospitals</b> <span>·  again, at top level</span></li>
         <li><b>Wellness</b></li>
-        <li><b>Member details</b> <span>&mdash; health card, demographics, escalation matrix</span></li>
+        <li><b>Member details</b> <span>·  health card, demographics, escalation matrix</span></li>
       </ul>
     </div>
     <div class="vd-ia__col">
-      <p class="vd-ia__k"><b>Designed</b> claim workflow &mdash; organised by the claim <span class="vd-ev vd-ev--proposed">Designed</span></p>
+      <p class="vd-ia__k"><b>Designed</b> claim workflow · organised by the claim <span class="vd-ev vd-ev--proposed">Designed</span></p>
       <ul class="vd-tree">
-        <li data-state="new"><b>The claim</b> <span>&mdash; number, member, hospital and network status, in the header throughout</span>
+        <li data-state="new"><b>The claim</b> <span>·  number, member, hospital and network status, in the header throughout</span>
           <ul>
-            <li data-state="new"><b>Where am I</b> <span>&mdash; the stage rail</span>
+            <li data-state="new"><b>Where am I</b> <span>·  the stage rail</span>
               <ul>
                 <li>1 &middot; Add Documents</li>
                 <li>2 &middot; Policy Mapping</li>
@@ -1036,7 +1076,7 @@
                 <li>4 &middot; Estimated Settlement</li>
               </ul>
             </li>
-            <li data-state="new"><b>What does this stage need</b> <span>&mdash; one stage of work at a time</span>
+            <li data-state="new"><b>What does this stage need</b> <span>·  one stage of work at a time</span>
               <ul>
                 <li>Documents, each with a state and a reason</li>
                 <li>Clauses, each paired with its evidence</li>
@@ -1044,7 +1084,7 @@
                 <li>The arithmetic, deduction by deduction</li>
               </ul>
             </li>
-            <li data-state="new"><b>Who can I ask</b> <span>&mdash; the Claim Companion</span>
+            <li data-state="new"><b>Who can I ask</b> <span>·  the Claim Companion</span>
               <ul>
                 <li>Answers derived from this claim, each citing its source</li>
                 <li>Escalation, when no lookup fits</li>
@@ -1063,7 +1103,7 @@
         today takes four levels from Home, and in the redesign the claim is the top level.
         <strong>The duplicate resolved:</strong> Network Hospitals appears twice in the existing tree,
         once as a global destination and once as a route card, and in neither place is it part of the
-        claim &mdash; so the redesign makes network status an attribute of the claim's hospital
+        claim, so the redesign makes network status an attribute of the claim's hospital
         instead of a place to visit.</p>
       <p class="prose"><strong>Stages stopped being destinations:</strong> Intimation, Claim
         Submission and Claim History are three screens describing one claim at three points in its
@@ -1100,12 +1140,12 @@
       <div class="vd-flow__n vd-flow__n--dark"><b>Wait</b><span>Status, but not a blocker.</span></div>
     </div>
     <figcaption class="vd-dia__cap">Six steps, and the two facts that determine whether the first one
-      was correct &mdash; network status and admission timing &mdash; are discovered at step three or
+      was correct, network status and admission timing, are discovered at step three or
       not at all.</figcaption>
   </figure>
 
   <figure class="vd-dia" data-reveal>
-    <p class="vd-dia__k">Proposed <span class="vd-ev vd-ev--proposed">Designed</span> &mdash; member side, not built</p>
+    <p class="vd-dia__k">Proposed <span class="vd-ev vd-ev--proposed">Designed</span> · member side, not built</p>
     <div class="vd-flow">
       <div class="vd-flow__n vd-flow__n--new"><b>Where, and when</b><span>The hospital, and whether admission has happened.</span></div>
       <span class="vd-flow__a" aria-hidden="true">&rarr;</span>
@@ -1237,12 +1277,12 @@
 <!-- 08 · KEY DESIGN DECISIONS ----------------------------------------------- -->
 <section class="section" id="vd-decisions" aria-labelledby="h-vd-decisions" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">08 &mdash; Key Design Decisions</p>
+    <p class="t-label section__eyebrow">08 · Key Design Decisions</p>
     <h2 class="t-h2" id="h-vd-decisions">Six decisions, what each one gave up, and which two were not built.</h2>
     <p class="prose">Each decision is set out the same way: the challenge in the existing experience,
       what was decided and why, where the new experience can be seen, and what the change enables.
       The fourth of those is the one most case studies overclaim, so nothing in this section is
-      stated as a measured improvement &mdash; none of it has been measured.</p>
+      stated as a measured improvement. None of it has been measured.</p>
     <p class="prose">Two of the six are decisions I took and did not build. They say so in the place
       the redesigned screen would have gone, rather than being quietly left out.</p>
   </div>
@@ -1250,7 +1290,7 @@
   <article class="vd-story" data-reveal>
     <header class="vd-story__h">
       <p class="vd-story__n">Decision 01 <span class="vd-ev vd-ev--proposed">Designed</span> <span class="vd-ev vd-ev--none">Not built</span></p>
-      <h3 class="t-h3">Simplifying the member dashboard &mdash; and deciding not to do it yet</h3>
+      <h3 class="t-h3">Simplifying the member dashboard, and deciding not to do it yet</h3>
     </header>
     <div class="vd-story__body">
       <div class="vd-story__fields">
@@ -1264,8 +1304,8 @@
           <p class="vd-story__k">The design decision</p>
           <p class="vd-story__v">Not to. Adding clause text to the member dashboard would show a
             member four more terms they cannot act on, at a moment when no claim exists for them to
-            apply to. The terms only become meaningful attached to a figure they changed &mdash; and
-            that figure is produced on the adjuster side, which currently discards the reasoning that
+            apply to. The terms only become meaningful attached to a figure they changed, and that
+            figure is produced on the adjuster side, which currently discards the reasoning that
             produced it.</p>
           <p class="vd-story__v">So the sequencing decision was: fix the side that generates the
             reasons first, then carry them back. Redesigning the dashboard before those reasons exist
@@ -1296,8 +1336,8 @@
     <div class="vd-story__impact">
       <p class="vd-story__k">The impact</p>
       <p class="vd-story__v">What this enables is a correct order of work rather than an outcome.
-        The member-side improvement this project is aiming at &mdash; a settlement that arrives with
-        its reasons &mdash; is only possible once those reasons are captured somewhere, which is what
+        The member-side improvement this project is aiming at, a settlement that arrives with its
+        reasons, is only possible once those reasons are captured somewhere, which is what
         decisions 02 to 06 build.</p>
     </div>
   </article>
@@ -1323,7 +1363,7 @@
             rejected, because a reason that requires a second lookup will not survive either the audit
             conversation or the member conversation.</p>
           <p class="vd-story__v"><b>The trade-off:</b> denser rows, and a dependency on clause text
-            being written in language a person can read &mdash; which is a content problem this design
+            being written in language a person can read, which is a content problem this design
             creates and does not solve.</p>
         </div>
         <div class="vd-story__f">
@@ -1364,9 +1404,8 @@
         <div class="vd-story__f">
           <p class="vd-story__k">The challenge</p>
           <p class="vd-story__v">A claim carries documents, clauses, line items and arithmetic. Shown
-            together they are unreadable; shown as separate destinations &mdash; which is what the
-            member portal does with Intimation, Submission and History &mdash; they lose their
-            connection to each other.</p>
+            together they are unreadable; shown as separate destinations, the way the member portal
+            splits Intimation, Submission and History, they lose their connection to each other.</p>
         </div>
         <div class="vd-story__f">
           <p class="vd-story__k">The design decision</p>
@@ -1414,8 +1453,8 @@
       <div class="vd-story__fields">
         <div class="vd-story__f">
           <p class="vd-story__k">The challenge</p>
-          <p class="vd-story__v">The search returns registry identity &mdash; a Rohini number and an
-            empanelment number &mdash; and withholds the relationship to the member's cover. Three
+          <p class="vd-story__v">The search returns registry identity, a Rohini number and an empanelment
+            number, and withholds the relationship to the member's cover. Three
             results for one hospital name in one city, and no way to tell which one is in network, or
             whether any of them is.</p>
         </div>
@@ -1471,8 +1510,8 @@
       <div class="vd-story__fields">
         <div class="vd-story__f">
           <p class="vd-story__k">The challenge</p>
-          <p class="vd-story__v">Document requirements depend on the treatment &mdash; an implant
-            needs a sticker and an invoice, a day procedure needs neither &mdash; and nothing surfaces
+          <p class="vd-story__v">Document requirements depend on the treatment (an implant needs
+            a sticker and an invoice, a day procedure needs neither) and nothing surfaces
             that dependency at the point the claim is opened. Everything absent looks equally absent,
             which is the same failure as everything being equally required on the intimation
             form.</p>
@@ -1563,7 +1602,7 @@
       <p class="vd-story__k">The impact</p>
       <p class="vd-story__v">A hold becomes an action someone can take rather than a deduction
         someone has to explain afterwards. It also means the adjuster and any later reviewer can see
-        what is at stake in the hold &mdash; the amount is still on the screen. No claim has been
+        what is at stake in the hold. The amount is still on the screen. No claim has been
         processed through this, so nothing is claimed about accuracy or dispute rates.</p>
     </div>
   </article>
@@ -1573,13 +1612,13 @@
 <!-- 09 · THE REDESIGNED EXPERIENCE ------------------------------------------ -->
 <section class="section" id="vd-solution" aria-labelledby="h-vd-solution" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">09 &mdash; The Redesigned Experience</p>
+    <p class="t-label section__eyebrow">09 · The Redesigned Experience</p>
     <h2 class="t-h2" id="h-vd-solution">Four stages, working, with a sample claim running through them.</h2>
     <p class="prose">The redesigned experience in this project is the adjuster's. It is below, built
       and interactive rather than shown as a picture: move through the stages from the rail or the
       continue action, select any document to see what it contributes, and ask the companion a
-      question. The sample claim is deliberately imperfect &mdash; one receipt does not reconcile and
-      one document is missing &mdash; because a claim that goes through cleanly demonstrates
+      question. The sample claim is deliberately imperfect, with one receipt that does not reconcile
+      and one document missing, because a claim that goes through cleanly demonstrates
       nothing.</p>
     <p class="prose">What this section does not contain is a redesigned member journey. There is no
       new member dashboard, policy detail screen, intimation form, hospital search or claim history,
@@ -1786,7 +1825,7 @@
 <!-- 10 · EDGE CASES & SYSTEM STATES ----------------------------------------- -->
 <section class="section" id="vd-states" aria-labelledby="h-vd-states" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">10 &mdash; Edge Cases &amp; System States</p>
+    <p class="t-label section__eyebrow">10 · Edge Cases &amp; System States</p>
     <h2 class="t-h2" id="h-vd-states">The states a claim actually spends its time in.</h2>
     <p class="prose">The source mockup has one state: everything verified. Real claims spend most of
       their life in the other ones, so the demo was built around a claim that is stuck. The last
@@ -1828,7 +1867,7 @@
 <!-- 11 · OUTCOMES & CURRENT STATE ------------------------------------------- -->
 <section class="section" id="vd-outcomes" aria-labelledby="h-vd-outcomes" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">11 &mdash; Outcomes &amp; Current State</p>
+    <p class="t-label section__eyebrow">11 · Outcomes &amp; Current State</p>
     <h2 class="t-h2" id="h-vd-outcomes">What changed, what exists, and what has not been measured.</h2>
     <p class="prose">This project produced design artefacts and a working demo. It has not been
       implemented, piloted or measured, so there are no results to report and none are claimed. What
@@ -2047,8 +2086,8 @@
       <p class="row__num">01</p>
       <h3 class="row__title">The member side, carrying the reasons back</h3>
       <div class="row__body"><p>The largest remaining piece, and the point of the whole argument.
-        Stages two and three now produce exactly what the member is missing &mdash; the clause behind
-        every deduction &mdash; and nothing yet carries it across the handoff.</p></div>
+        Stages two and three now produce exactly what the member is missing, the clause behind every
+        deduction, and nothing yet carries it across the handoff.</p></div>
     </div>
     <div class="row">
       <p class="row__num">02</p>
@@ -2076,7 +2115,7 @@
 <!-- 12 · LEARNINGS & REFLECTION --------------------------------------------- -->
 <section class="section" id="vd-learnings" aria-labelledby="h-vd-learnings" tabindex="-1">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">12 &mdash; Learnings &amp; Reflection</p>
+    <p class="t-label section__eyebrow">12 · Learnings &amp; Reflection</p>
     <h2 class="t-h2" id="h-vd-learnings">What this project taught me about designing around a decision.</h2>
   </div>
 
@@ -2095,8 +2134,8 @@
       <div class="row__body"><p>I expected to be trading one against the other: give the member more
         explanation, cost the adjuster more time. It did not turn out that way. The clause on the row
         is what lets the adjuster defend the decision in an audit <em>and</em> what the member needs
-        to understand their settlement. The place they genuinely conflict is speed &mdash; four stages
-        is slower than one worksheet for a simple claim &mdash; and that is a real cost I have not
+        to understand their settlement. The place they genuinely conflict is speed: four stages is
+        slower than one worksheet for a simple claim, and that is a real cost I have not
         measured.</p></div>
     </div>
     <div class="row">
@@ -2133,7 +2172,7 @@
         three into a single annotated worksheet rather than defend the model.</p>
       <p class="prose">Second, whether the caveat on the settlement screen actually works. It is
         currently a paragraph, and paragraphs lose to large numbers. If participants read the estimate
-        as an approval, the fix is structural &mdash; the figure itself has to be rendered differently
+        as an approval, the fix is structural. The figure itself has to be rendered differently
         from a confirmed one, not merely footnoted.</p>
       <p class="prose">Third, the thing I would do differently from the start: design the member
         side and the adjuster side in the same pass. I split them for good reasons, and the split
@@ -2163,13 +2202,13 @@
 <footer class="foot">
   <div class="shell">
     <div class="foot__base">
-      <p class="t-label">Arushi Prasad — Design leader</p>
+      <p class="t-label">Arushi Prasad · Design leader</p>
       <p class="t-label t-dim">Pune, India</p>
     </div>
   </div>
 </footer>
-<script src="../../../assets/js/site.js?v=8b13f207" defer></script>
+<script src="../../../assets/js/site.js?v=d22fe337" defer></script>
 <script src="../../../assets/js/case.js?v=fd4fa5e0" defer></script>
-<script src="../../../assets/js/vidal.js?v=145dfc29" defer></script>
+<script src="../../../assets/js/vidal.js?v=3e779852" defer></script>
 </body>
 </html>

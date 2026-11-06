@@ -1,0 +1,219 @@
+/* ============================================================================
+   DQ — Design Quality Framework
+
+   Three movements: the standard (six checklist cards), the handoff (a
+   horizontal flow), and the practice it became (four capabilities). The
+   cards are the dense part of the page, so everything around them is set
+   quieter than it would be on its own.
+
+   No filled cards with accent stripes anywhere: the house lesson from the
+   OKR page is that a drawn box reads as considered and a filled one reads
+   as generated.
+   ========================================================================= */
+
+
+/* ── 1 · the six checklist cards ─────────────────────────────────────────
+   Three across, two rows. The number and the quoted line are the card's
+   identity; the checklist underneath is the working part, set small.      */
+
+.dq-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--step-6);
+  margin-top: var(--step-10);
+}
+
+@media (min-width: 46rem) { .dq-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 68rem) { .dq-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.dq-card {
+  display: grid;
+  gap: var(--step-4);
+  align-content: start;
+  padding: var(--step-6);
+  border: 1px solid var(--border-default);
+  min-inline-size: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dq-card { transition: border-color var(--duration-quick, .18s) var(--ease-out, ease); }
+}
+
+.dq-card:hover { border-color: var(--border-strong); }
+
+.dq-card__n {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  color: var(--text-tertiary);
+}
+
+.dq-card__t {
+  margin: 0;
+  font-size: var(--text-h4);
+  font-weight: var(--weight-emphasis);
+  line-height: var(--leading-heading);
+}
+
+/* The line lifted from the deck. Set as a quote because it is one, and
+   because it is the voice the team actually used. */
+.dq-card__q {
+  margin: 0;
+  padding-left: var(--step-4);
+  border-left: 2px solid var(--border-default);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+.dq-card__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--step-3); }
+
+.dq-card__list li {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  gap: var(--step-2);
+  font-size: var(--text-sm);
+  color: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+/* A drawn checkbox, not a tick: the point is that these are asked, not
+   already answered. */
+.dq-card__list li::before {
+  content: "";
+  inline-size: .7rem; block-size: .7rem;
+  margin-block-start: .4em;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+}
+
+
+/* ── 2 · developer handoff ───────────────────────────────────────────────
+   The one horizontal composition on the page, so it reads as a different
+   kind of statement from the grids above and below it.                    */
+
+.dq-hand {
+  margin-top: var(--step-8);
+  padding: var(--step-10) var(--step-8);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-raised);
+  display: grid;
+  gap: var(--step-10);
+  /* The flow turns horizontal on THIS box's width, not the viewport's. */
+  container-type: inline-size;
+}
+
+.dq-flow { display: flex; flex-direction: column; align-items: stretch; gap: 0; min-inline-size: 0; }
+
+@container (min-width: 44rem) { .dq-flow { flex-direction: row; align-items: center; } }
+
+@supports not (container-type: inline-size) {
+  @media (min-width: 60rem) { .dq-flow { flex-direction: row; align-items: center; } }
+}
+
+.dq-flow__n {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  padding: var(--step-5) var(--step-4);
+  border: 1px solid var(--border-default);
+  background: var(--surface-page);
+  text-align: center;
+  display: grid;
+  gap: var(--step-2);
+}
+
+.dq-flow__n b { font-size: var(--text-body); font-weight: var(--weight-emphasis); }
+.dq-flow__n span { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+.dq-flow__a {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  color: var(--text-tertiary);
+  block-size: var(--step-6);
+  transform: rotate(90deg);
+}
+
+@container (min-width: 44rem) {
+  .dq-flow__a { block-size: auto; inline-size: var(--step-8); transform: none; }
+}
+
+@supports not (container-type: inline-size) {
+  @media (min-width: 60rem) { .dq-flow__a { block-size: auto; inline-size: var(--step-8); transform: none; } }
+}
+
+/* Two columns, never three: auto-fit found room for three at 1024 and left
+   the fourth practice stranded on its own row. */
+.dq-practices {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--step-5) var(--step-8);
+}
+
+@media (min-width: 46rem) { .dq-practices { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.dq-practices li {
+  padding-top: var(--step-4);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+
+/* ── 3 · from standards to practice ──────────────────────────────────────
+   Two by two, drawn boxes, a larger index than the checklist cards use so
+   the page lands on a bigger beat than it opened on.                      */
+
+.dq-caps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  margin-top: var(--step-10);
+}
+
+@media (min-width: 52rem) { .dq-caps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.dq-cap {
+  display: grid;
+  gap: var(--step-3);
+  align-content: start;
+  padding: var(--step-8);
+  border-block-start: 1px solid var(--border-subtle);
+  min-inline-size: 0;
+}
+
+@media (min-width: 52rem) {
+  .dq-cap:nth-child(odd)  { padding-inline-start: 0; }
+  .dq-cap:nth-child(even) { border-inline-start: 1px solid var(--border-subtle); }
+}
+
+.dq-cap__n {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.dq-cap__t { margin: 0; font-size: var(--text-h4); font-weight: var(--weight-emphasis); line-height: var(--leading-heading); }
+.dq-cap__v { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); max-inline-size: 30rem; }
+
+/* The closing line. One sentence, set large, with air around it. */
+.dq-close {
+  margin-top: var(--step-16);
+  padding-top: var(--step-10);
+  border-top: 1px solid var(--border-default);
+}
+
+.dq-close p {
+  margin: 0;
+  max-inline-size: 44rem;
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  line-height: 1.4;
+}

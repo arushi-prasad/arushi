@@ -1,0 +1,77 @@
+/* ============================================================================
+   DECK — slide-deck pages (Share & Critique, Design Principles)
+
+   A deck page. The slides are 16:9, so the job is to present them legibly,
+   say where they came from, and get out of the way. Two across on a desktop, one on a phone, each with a line saying what
+   it is for. The lightbox is the shared .lb component in components.css.
+   ========================================================================= */
+
+/* The credit block. It sits above the slides rather than under them, because
+   an attribution a reader meets after looking at ten slides has arrived too
+   late to have done its job. */
+.deck-credit {
+  margin-top: var(--step-8);
+  padding: var(--step-6);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--step-3);
+  max-inline-size: var(--prose-max, 38rem);
+}
+
+.deck-credit__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.deck-credit p { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+.deck-credit b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+.deck-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--step-10) var(--step-6);
+  margin-top: var(--step-10);
+}
+
+@media (min-width: 56rem) { .deck-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.deck-i { margin: 0; display: grid; gap: var(--step-4); align-content: start; min-inline-size: 0; }
+
+/* The slide itself. A link, so the deck is readable at full size and the
+   page still works with JavaScript off. */
+.deck-i__shot {
+  display: block;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #fff;
+  position: relative;
+}
+
+.deck-i__shot img { inline-size: 100%; block-size: auto; display: block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .deck-i__shot { transition: border-color var(--duration-quick, .18s) var(--ease-out, ease); }
+}
+
+.deck-i__shot:hover, .deck-i__shot:focus-visible { border-color: var(--border-strong); }
+.deck-i__shot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.deck-i__cap { display: grid; gap: var(--step-2); }
+
+.deck-i__n {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.deck-i__t { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+.deck-i__t b { color: var(--text-primary); font-weight: var(--weight-emphasis); }

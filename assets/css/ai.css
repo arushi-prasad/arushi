@@ -155,7 +155,7 @@
 .lay__col--gap .lay__ch{ color:var(--a-gap); }
 .lay__list{ list-style:none; margin:0; padding:0; display:grid; gap:var(--step-2); }
 .lay__list li{ font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-body); }
-.lay__list li::before{ content:"— "; color:var(--text-tertiary); }
+.lay__list li::before{ content:"· "; color:var(--text-tertiary); }
 .lay__arrow{
   display:flex; flex-wrap:wrap; align-items:center; gap:var(--step-2);
   margin:var(--step-8) 0 0; font-family:var(--font-mono); font-size:var(--text-mono);
@@ -261,7 +261,7 @@
 .rit__note{ margin:0 0 var(--step-3); font-size:var(--text-sm); color:var(--text-tertiary); line-height:var(--leading-body); }
 .rit__items{ list-style:none; margin:0; padding:0; display:grid; gap:var(--step-1); }
 .rit__items li{ font-size:var(--text-sm); color:var(--text-secondary); }
-.rit__items li::before{ content:"— "; color:var(--text-tertiary); }
+.rit__items li::before{ content:"· "; color:var(--text-tertiary); }
 
 /* --- 11 governance ------------------------------------------------------------------ */
 .govs{ display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:var(--step-6); list-style:none; margin:0; padding:0; }

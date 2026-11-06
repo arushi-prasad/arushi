@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Capsule — the design system — Arushi Prasad</title>
-  <meta name="description" content="Capsule, the organisation's first design system — principles, tokens, 25 components and four platforms, shown at their documented values.">
+  <title>Capsule, the design system · Arushi Prasad</title>
+  <meta name="description" content="Capsule, the organisation's first design system: principles, tokens, 25 components and four platforms, shown at their documented values.">
   <meta name="color-scheme" content="dark">
   <link rel="preload" href="../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/tokens.css?v=f874ed78">
   <link rel="stylesheet" href="../assets/css/base.css?v=c3f7efb8">
-  <link rel="stylesheet" href="../assets/css/components.css?v=be3cf32e">
+  <link rel="stylesheet" href="../assets/css/components.css?v=294b607f">
   <link rel="stylesheet" href="../assets/css/capsule.css?v=54c86a23">
   <!-- Loaded before paint so a saved token preference is applied to <html>
        without a flash of the defaults. -->
-  <script src="../assets/js/tokens.js?v=a7c3e9c1"></script>
+  <script src="../assets/js/tokens.js?v=8a014e81"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -31,6 +31,7 @@
 <symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
 <symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
 <symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-phone" viewBox="0 0 16 16"><path d="M5.6 2.8 3.2 3.6c-.7.3-1 1-.9 1.7.5 2.6 1.8 5 3.7 6.9s4.3 3.2 6.9 3.7h.1c.6 0 1.2-.4 1.4-1l.8-2.4-3-1.6-1.4 1.7a11 11 0 0 1-4.1-4.1l1.7-1.4z"/></symbol>
 <symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
 <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
 <symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
@@ -46,6 +47,46 @@
 <symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
 <symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
 <symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<!-- What I use. One mark per item in the About page's stack list, drawn on
+     the same 16-unit grid and at the same stroke weight as everything above,
+     so they sit inside a line of text rather than on top of it. The
+     brand-named ones are simplified evocations, not trademark reproductions;
+     the ones that name a practice rather than a tool (Design Systems, UX
+     Research, Prototyping...) get a glyph for the thing itself. -->
+<!-- Outside the brief. One mark per thing named in the Fun Stuff line,
+     drawn on the same 16-unit grid and weight as every other icon here so
+     they sit inside a sentence rather than on top of it. -->
+<symbol id="f-badminton" viewBox="0 0 16 16"><ellipse cx="6.5" cy="6.5" rx="3.6" ry="4.4" transform="rotate(-40 6.5 6.5)"/><path d="m9.3 9.5 3.9 4.3"/><path d="M4.3 4.9 9 9.1M4.9 8.5 8.5 4.4"/></symbol>
+<symbol id="f-strength" viewBox="0 0 16 16"><path d="M2.2 6.4v3.2M4.3 4.7v6.6M11.7 4.7v6.6M13.8 6.4v3.2"/><path d="M4.3 8h7.4"/></symbol>
+<symbol id="f-cycling" viewBox="0 0 16 16"><circle cx="4.1" cy="11" r="2.7"/><circle cx="11.9" cy="11" r="2.7"/><path d="m4.1 11 2.9-5.1h3.2l1.7 5.1"/><path d="M6.9 5.9h2.7"/></symbol>
+<symbol id="f-trek" viewBox="0 0 16 16"><rect x="4.1" y="6" width="7.8" height="7.8" rx="2.1"/><path d="M6 6V4.7a2 2 0 0 1 4 0V6"/><path d="M6.4 9.6h3.2"/></symbol>
+<symbol id="f-coffee" viewBox="0 0 16 16"><path d="M3.2 5.6h8.2v4.1a3.4 3.4 0 0 1-3.4 3.4H6.6a3.4 3.4 0 0 1-3.4-3.4Z"/><path d="M11.4 6.6h1a1.9 1.9 0 0 1 0 3.8h-1"/><path d="M2.4 14.6h10"/><path d="M6 2.2v1.6M8.6 2.2v1.6"/></symbol>
+<symbol id="f-plant" viewBox="0 0 16 16"><path d="M4.4 9.4h7.2l-.8 4.4H5.2Z"/><path d="M8 9.4V5.4"/><path d="M8 6.8C8 4.5 6.4 2.6 4.3 2.6c0 2.3 1.6 4.2 3.7 4.2Z"/><path d="M8 7.6c0-2 1.6-3.7 3.5-3.7 0 2-1.6 3.7-3.5 3.7Z"/></symbol>
+<symbol id="f-bowl" viewBox="0 0 16 16"><path d="M2.6 7.8h10.8a5.4 5.4 0 0 1-10.8 0Z"/><path d="M1.5 7.8h13"/><circle cx="6" cy="5.3" r="1.1"/><circle cx="9.7" cy="4.7" r="1.1"/></symbol>
+<symbol id="f-people" viewBox="0 0 16 16"><circle cx="6" cy="5.5" r="2.4"/><path d="M2.3 13.2c0-2 1.7-3.7 3.7-3.7s3.7 1.7 3.7 3.7"/><circle cx="11.7" cy="6.4" r="1.8"/><path d="M10.2 9.8c1.9.1 3.5 1.6 3.5 3.4"/></symbol>
+<symbol id="f-music" viewBox="0 0 16 16"><path d="M6.2 12.3V3.8l7-1.4v8.5"/><circle cx="4.3" cy="12.3" r="1.9"/><circle cx="11.3" cy="10.9" r="1.9"/></symbol>
+<symbol id="f-mountain" viewBox="0 0 16 16"><path d="M1.6 12.9 6.4 4.2l4.2 7.6"/><path d="M8.2 12.9 11.4 7l3 5.9z"/><path d="M1.4 12.9h13.2"/></symbol>
+<symbol id="t-figjam" viewBox="0 0 16 16"><rect x="2.2" y="2.6" width="11.6" height="10.8" rx="1.8"/><path d="M4.7 10c1-1.7 2.1-1.7 3.1 0s2.1 1.7 3.1 0"/><circle cx="5.6" cy="5.9" r="1.1"/></symbol>
+<symbol id="t-framer" viewBox="0 0 16 16"><path d="M12.2 2.4H3.8l4.2 4.1h4.2z"/><path d="M3.8 6.5h8.4L8 10.6H3.8z"/><path d="M8 10.6v3.3l-4.2-3.3z"/></symbol>
+<symbol id="t-mobbin" viewBox="0 0 16 16"><rect x="2.2" y="3.3" width="5" height="9.4" rx="1.3"/><rect x="8.8" y="3.3" width="5" height="9.4" rx="1.3"/><path d="M4.7 5.5h.01M11.3 5.5h.01"/></symbol>
+<symbol id="t-gemini" viewBox="0 0 16 16"><path d="M8 2.1c.5 3.2 2.6 5.3 5.8 5.8-3.2.5-5.3 2.6-5.8 5.8-.5-3.2-2.6-5.3-5.8-5.8C5.4 7.4 7.5 5.3 8 2.1Z"/></symbol>
+<symbol id="t-copilot" viewBox="0 0 16 16"><path d="M2.9 8.5c0-2.7 2.3-4.8 5.1-4.8s5.1 2.1 5.1 4.8v1.3c0 1.9-2.3 3.3-5.1 3.3s-5.1-1.4-5.1-3.3Z"/><path d="M6 8.7h.01M10 8.7h.01"/><path d="M8 3.7V2.1"/></symbol>
+<symbol id="t-antigravity" viewBox="0 0 16 16"><path d="M8 11.9V2.6"/><path d="m5.2 5.4 2.8-2.8 2.8 2.8"/><path d="M3.2 14.1h9.6" stroke-dasharray="1.5 2.1"/></symbol>
+<symbol id="t-html" viewBox="0 0 16 16"><path d="m5.3 5.1-3 2.9 3 2.9M10.7 5.1l3 2.9-3 2.9"/><path d="m9.3 3.5-2.6 9"/></symbol>
+<symbol id="t-js" viewBox="0 0 16 16"><rect x="2.2" y="2.2" width="11.6" height="11.6" rx="2.1"/><path d="M7 6.3v4c0 .9-.6 1.4-1.4 1.4-.6 0-1.1-.3-1.4-.8"/><path d="M11.8 6.9c-1.4-.8-2.6-.2-2.6.8 0 1.5 2.6 1 2.6 2.4 0 .9-1.1 1.5-2.6.7"/></symbol>
+<symbol id="t-next" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M5.9 10.9V5.3l4.7 6"/><path d="M10.3 5.3v3.1"/></symbol>
+<symbol id="t-tailwind" viewBox="0 0 16 16"><path d="M2.6 6.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/><path d="M2.6 11.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/></symbol>
+<symbol id="t-node" viewBox="0 0 16 16"><path d="M8 1.9 13.5 5v6L8 14.1 2.5 11V5Z"/><path d="M6.3 10.4V6.6l3.4 3.8V6.6"/></symbol>
+<symbol id="t-postgres" viewBox="0 0 16 16"><ellipse cx="8" cy="4" rx="5.2" ry="2.2"/><path d="M2.8 4v8c0 1.2 2.3 2.2 5.2 2.2s5.2-1 5.2-2.2V4"/><path d="M2.8 8c0 1.2 2.3 2.2 5.2 2.2s5.2-1 5.2-2.2"/></symbol>
+<symbol id="t-figma" viewBox="0 0 16 16"><rect x="5.4" y="2.3" width="5.3" height="3.5" rx="1.75"/><rect x="5.4" y="6.3" width="5.3" height="3.5" rx="1.75"/><circle cx="8.05" cy="12" r="1.9"/></symbol>
+<symbol id="t-native" viewBox="0 0 16 16"><rect x="3.9" y="1.7" width="8.2" height="12.6" rx="1.9"/><circle cx="8" cy="8" r="1.1"/><ellipse cx="8" cy="8" rx="3.3" ry="1.4"/><ellipse cx="8" cy="8" rx="3.3" ry="1.4" transform="rotate(62 8 8)"/></symbol>
+<symbol id="t-ts" viewBox="0 0 16 16"><rect x="2.2" y="2.2" width="11.6" height="11.6" rx="2.1"/><path d="M4.5 6.6h3.7M6.35 6.6v4.8"/><path d="M11.7 6.9c-1.6-.8-2.7-.1-2.7.8 0 1.6 2.7 1 2.7 2.5 0 .9-1.1 1.6-2.7.8"/></symbol>
+<symbol id="t-expo" viewBox="0 0 16 16"><path d="M2.2 12.6 7.2 4a.95.95 0 0 1 1.6 0l5 8.6"/><path d="M6 12.6 8 9.2l2 3.4"/></symbol>
+<symbol id="t-supabase" viewBox="0 0 16 16"><path d="M8.9 1.7 3.5 8.7h4.2l-.5 5.6 5.3-7H8.4Z"/></symbol>
+<symbol id="t-claude" viewBox="0 0 16 16"><rect x="1.7" y="2.9" width="12.6" height="10.2" rx="1.7"/><path d="m4.4 6.7 1.8 1.8-1.8 1.8"/><path d="M8.4 10.3h3.2"/></symbol>
+<symbol id="t-playwright" viewBox="0 0 16 16"><path d="M2.9 3.5h10.2v4.9c0 2.8-2.3 5.1-5.1 5.1S2.9 11.2 2.9 8.4Z"/><path d="M5.8 7.1h.01M10.2 7.1h.01"/><path d="M6.2 10.3c1.1.9 2.5.9 3.6 0"/></symbol>
+<symbol id="t-cucumber" viewBox="0 0 16 16"><path d="M12.5 3.5c1.6 1.6.6 5.3-2.3 8.2s-6.6 3.9-8.2 2.3-.6-5.3 2.3-8.2 6.6-3.9 8.2-2.3Z"/><path d="m6.4 6.5 1.6 1.6M8.7 5.1l1.6 1.6M4.9 8.9l1.6 1.6"/></symbol>
+<symbol id="t-storybook" viewBox="0 0 16 16"><path d="M8 4.3C6.6 2.9 4.8 2.5 2.6 2.7v9c2.2-.2 4 .2 5.4 1.6 1.4-1.4 3.2-1.8 5.4-1.6v-9c-2.2-.2-4 .2-5.4 1.6Z"/><path d="M8 4.3v9"/></symbol>
 <symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
 </defs>
 </svg>
@@ -56,7 +97,7 @@
     </a>
     <div class="nav__right">
       <ul class="nav__links" role="list">
-        <li><a class="nav__link" href="../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../designops/" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../leadership/" aria-label="Leadership">leadership</a></li>
+        <li><a class="nav__link" href="../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../designops/" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">5</sup></a></li><li><a class="nav__link" href="../leadership/" aria-label="Leadership">leadership<sup class="nav__count" aria-hidden="true">11</sup></a></li>
       </ul>
 
       <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
@@ -65,7 +106,7 @@
 </header>
 <div class="nav-sheet" id="nav-sheet" data-open="false">
   <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
-  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../designops/">Strategy<span>8</span></a></li><li><a class="nav-sheet__link" href="../leadership/">Leadership<span>—</span></a></li><li><a class="nav-sheet__link" href="../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../about/">About<span>—</span></a></li><li><a class="nav-sheet__link" href="../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../snippets/">Snippets<span>5</span></a></li></ul>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../designops/">Strategy<span>5</span></a></li><li><a class="nav-sheet__link" href="../leadership/">Leadership<span>11</span></a></li><li><a class="nav-sheet__link" href="../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../about/">About<span>·</span></a></li><li><a class="nav-sheet__link" href="../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../snippets/">Snippets<span>5</span></a></li></ul>
   <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
 </div>
 <main id="main" tabindex="-1">
@@ -75,16 +116,16 @@
     <span class="page-hero__word page-hero__word-a">capsule</span>
     <span class="page-hero__word page-hero__word-b">design system</span>
   </h1>
-  <p class="page-hero__tagline" data-reveal>Three products, one language. Every value on this page is the documented one — transcribed from the blueprint and checked against the Figma file it came from.</p>
+  <p class="page-hero__tagline" data-reveal>Three products, one language. Every value on this page is the documented one, transcribed from the blueprint and checked against the Figma file it came from.</p>
   
 </header>
 <section class="section shell cap-chapter" id="c-what">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 01 &mdash; What it is</p>
+    <p class="t-label section__eyebrow">Chapter 01 · What it is</p>
     <h2 class="t-h2">A system is only infrastructure once other people can build on it without asking you first.</h2>
     <p class="prose">Capsule is the organisation&rsquo;s first design system: five written principles, six
     foundation areas, a token layer, twenty-five specified components and four platforms. It is
-    documented twice over &mdash; as a Figma file engineers read, and as a written construction
+    documented twice over: as a Figma file engineers read, and as a written construction
     blueprint that states every value as a number.</p>
   </div>
 
@@ -101,7 +142,7 @@
 </li><li class="cap-count" data-reveal style="--i:2">
   <p class="cap-count__v" data-count-text="5">5</p>
   <p class="cap-count__l">atoms</p>
-  <p class="cap-count__q">Dividers, avatar, badge, star rating, status dot — the pieces that cannot be broken down further.</p>
+  <p class="cap-count__q">Dividers, avatar, badge, star rating, status dot: the pieces that cannot be broken down further.</p>
   <p class="cap-count__s"><span class="cap-tag cap-tag--verified">verified</span><span>Bajaj-Design-System-Blueprint 2 1.md</span></p>
 </li><li class="cap-count" data-reveal style="--i:3">
   <p class="cap-count__v" data-count-text="4">4</p>
@@ -124,7 +165,7 @@
 
 <section class="section shell cap-chapter" id="c-challenge">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 02 &mdash; The challenge</p>
+    <p class="t-label section__eyebrow">Chapter 02 · The challenge</p>
     <h2 class="t-h2">One product ecosystem. No shared language.</h2>
   </div>
 
@@ -137,7 +178,7 @@
   <div><h4>Design and engineering guessed at each other</h4><p>Without named values, a handoff was a screenshot and a conversation. The same component got rebuilt per platform.</p></div>
 </li><li class="cap-before" data-reveal style="--i:2">
   <span class="cap-before__n">03</span>
-  <div><h4>Four platforms, four answers</h4><p>App, MWeb, DWeb and PWA each needed their own sizing — but nothing recorded what was deliberately different and what had simply drifted.</p></div>
+  <div><h4>Four platforms, four answers</h4><p>App, MWeb, DWeb and PWA each needed their own sizing, but nothing recorded what was deliberately different and what had simply drifted.</p></div>
 </li><li class="cap-before" data-reveal style="--i:3">
   <span class="cap-before__n">04</span>
   <div><h4>Nothing could be changed centrally</h4><p>A brand decision meant finding every instance by hand.</p></div>
@@ -148,11 +189,10 @@
 
 <section class="section shell cap-chapter" id="c-decision">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 03 &mdash; The decision</p>
+    <p class="t-label section__eyebrow">Chapter 03 · The decision</p>
     <h2 class="t-h2">Not another UI kit. A foundation for how we build.</h2>
     <p class="prose">A kit is a folder of components someone has to remember to open. A system is a
-    chain of decisions where each layer only depends on the one above it &mdash; so a change enters
-    once and arrives everywhere.</p>
+    chain of decisions where each layer only depends on the one above it, so a change enters once and arrives everywhere.</p>
   </div>
 
   <h3 class="cap-sub" data-reveal>Five principles, written down</h3>
@@ -178,7 +218,7 @@
 </li><li class="cap-principle" data-reveal style="--i:4;--pc:#575756">
   <span class="cap-principle__swatch" aria-hidden="true"></span>
   <h4 class="cap-principle__name">Light-first</h4>
-  <p class="cap-principle__body">Design primarily for light mode — white surfaces, subtle grey borders, minimal shadows.</p>
+  <p class="cap-principle__body">Design primarily for light mode: white surfaces, subtle grey borders, minimal shadows.</p>
 </li></ul>
 
   <h3 class="cap-sub" data-reveal>The chain</h3>
@@ -226,11 +266,11 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
 <section class="section shell cap-chapter" id="c-foundations">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 04 &mdash; Foundations</p>
+    <p class="t-label section__eyebrow">Chapter 04 · Foundations</p>
     <h2 class="t-h2">Consistency starts with the smallest decisions.</h2>
     <p class="prose">Everything below is the real system at its real values, rendered live rather
     than screenshotted. Capsule is light-first, so each exhibit is a light stage inside this dark
-    page &mdash; the page frames the system, it doesn&rsquo;t recolour it.</p>
+    page. The page frames the system, it doesn&rsquo;t recolour it.</p>
   </div>
 
   <h3 class="cap-sub" data-reveal>Colour</h3>
@@ -274,11 +314,11 @@ reason a brand decision can be made once: it enters at the token layer and arriv
   <code class="cap-swatch__hex">#9AC2E4</code>
   <span class="cap-swatch__use">Secondary blue icon colour</span>
 </button><button class="cap-swatch" type="button" style="--c:#005DAC"
-     data-copy="#005DAC" aria-label="Blue-400, #005DAC. Primary brand — buttons, links, active states">
+     data-copy="#005DAC" aria-label="Blue-400, #005DAC. Primary brand: buttons, links, active states">
   <span class="cap-swatch__chip"></span>
   <span class="cap-swatch__name">Blue-400</span>
   <code class="cap-swatch__hex">#005DAC</code>
-  <span class="cap-swatch__use">Primary brand — buttons, links, active states</span>
+  <span class="cap-swatch__use">Primary brand: buttons, links, active states</span>
 </button><button class="cap-swatch" type="button" style="--c:#00437A"
      data-copy="#00437A" aria-label="Blue-500, #00437A. Hover state for primary buttons, dark blue text">
   <span class="cap-swatch__chip"></span>
@@ -313,11 +353,11 @@ reason a brand decision can be made once: it enters at the token layer and arriv
   <code class="cap-swatch__hex">#FF7733</code>
   <span class="cap-swatch__use">Medium orange accent</span>
 </button><button class="cap-swatch" type="button" style="--c:#FF5500"
-     data-copy="#FF5500" aria-label="Orange-400, #FF5500. Secondary brand — secondary CTAs, highlights">
+     data-copy="#FF5500" aria-label="Orange-400, #FF5500. Secondary brand: secondary CTAs, highlights">
   <span class="cap-swatch__chip"></span>
   <span class="cap-swatch__name">Orange-400</span>
   <code class="cap-swatch__hex">#FF5500</code>
-  <span class="cap-swatch__use">Secondary brand — secondary CTAs, highlights</span>
+  <span class="cap-swatch__use">Secondary brand: secondary CTAs, highlights</span>
 </button><button class="cap-swatch" type="button" style="--c:#CC4400"
      data-copy="#CC4400" aria-label="Orange-500, #CC4400. Dark orange for hover/pressed">
   <span class="cap-swatch__chip"></span>
@@ -352,11 +392,11 @@ reason a brand decision can be made once: it enters at the token layer and arriv
   <code class="cap-swatch__hex">#FDB848</code>
   <span class="cap-swatch__use">Medium warm accent</span>
 </button><button class="cap-swatch" type="button" style="--c:#FDA416"
-     data-copy="#FDA416" aria-label="YellowOrange-400, #FDA416. Tertiary — star ratings, warning icons">
+     data-copy="#FDA416" aria-label="YellowOrange-400, #FDA416. Tertiary: star ratings, warning icons">
   <span class="cap-swatch__chip"></span>
   <span class="cap-swatch__name">YellowOrange-400</span>
   <code class="cap-swatch__hex">#FDA416</code>
-  <span class="cap-swatch__use">Tertiary — star ratings, warning icons</span>
+  <span class="cap-swatch__use">Tertiary: star ratings, warning icons</span>
 </button><button class="cap-swatch" type="button" style="--c:#CF8612"
      data-copy="#CF8612" aria-label="YellowOrange-500, #CF8612. ExtraDark yellowish text">
   <span class="cap-swatch__chip"></span>
@@ -524,7 +564,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
   <h3 class="cap-sub" data-reveal>Typography</h3>
 
-  <div class="cap-stage " data-reveal><p class="cap-stage__label">Type scale — 17 tokens</p><div class="cap-face">
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Type scale · 17 tokens</p><div class="cap-face">
   <p class="cap-face__name">Rubik</p>
   <p class="cap-face__rule">Rubik is the only permitted typeface. Never substitute with Inter, Manrope, a system font or any other family.</p>
 </div>
@@ -691,7 +731,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
   <span class="cap-space__bar" style="--w:100.0%"><i></i></span>
   <b class="cap-space__v">64px</b>
   <span class="cap-space__use">Maximum whitespace blocks</span>
-</li></ul></div><p class="cap-stage__note">Drawn to scale — the bar is the actual value. 44px is the floor for anything a finger has to hit.</p>
+</li></ul></div><p class="cap-stage__note">Drawn to scale: the bar is the actual value. 44px is the floor for anything a finger has to hit.</p>
 
   <h3 class="cap-sub" data-reveal>Radius</h3>
 
@@ -720,7 +760,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
   <code>radius-full</code>
   <b>50%</b>
   <span class="cap-rad__use">Circular avatars, dot badges, FABs</span>
-</li></ul></div><p class="cap-stage__note">Buttons are never pill-shaped — 4px at small, 8px at medium and large. The rule is in the blueprint, not a matter of taste.</p>
+</li></ul></div><p class="cap-stage__note">Buttons are never pill-shaped: 4px at small, 8px at medium and large. The rule is in the blueprint, not a matter of taste.</p>
 
   <h3 class="cap-sub" data-reveal>Elevation</h3>
 
@@ -753,7 +793,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
   <h3 class="cap-sub" data-reveal>Iconography</h3>
 
-  <div class="cap-stage " data-reveal><p class="cap-stage__label">Iconography</p><ul class="cap-ico"><li><span class="cap-ico__k">Style</span><span class="cap-ico__v">Outlined — not filled, not two-tone</span></li><li><span class="cap-ico__k">Default size</span><span class="cap-ico__v">24px</span></li><li><span class="cap-ico__k">Small / large</span><span class="cap-ico__v">20px / 32px</span></li><li><span class="cap-ico__k">Stroke width</span><span class="cap-ico__v">1.5px</span></li><li><span class="cap-ico__k">Default colour</span><span class="cap-ico__v">#575756 (Gray-400)</span></li><li><span class="cap-ico__k">Active colour</span><span class="cap-ico__v">#005DAC (Blue-400)</span></li><li><span class="cap-ico__k">Touch target</span><span class="cap-ico__v">Centred in a 44px area</span></li></ul></div><p class="cap-stage__note">The icon rules are specified but the icon set itself is not in my files — no icons are reproduced here rather than substituting a different library.</p>
+  <div class="cap-stage " data-reveal><p class="cap-stage__label">Iconography</p><ul class="cap-ico"><li><span class="cap-ico__k">Style</span><span class="cap-ico__v">Outlined, not filled, not two-tone</span></li><li><span class="cap-ico__k">Default size</span><span class="cap-ico__v">24px</span></li><li><span class="cap-ico__k">Small / large</span><span class="cap-ico__v">20px / 32px</span></li><li><span class="cap-ico__k">Stroke width</span><span class="cap-ico__v">1.5px</span></li><li><span class="cap-ico__k">Default colour</span><span class="cap-ico__v">#575756 (Gray-400)</span></li><li><span class="cap-ico__k">Active colour</span><span class="cap-ico__v">#005DAC (Blue-400)</span></li><li><span class="cap-ico__k">Touch target</span><span class="cap-ico__v">Centred in a 44px area</span></li></ul></div><p class="cap-stage__note">The icon rules are specified but the icon set itself is not in my files, no icons are reproduced here rather than substituting a different library.</p>
 
   <h3 class="cap-sub" data-reveal>Accessibility</h3>
   <p class="prose" data-reveal>The blueprint makes one numeric accessibility claim. I checked it,
@@ -849,10 +889,10 @@ reason a brand decision can be made once: it enters at the token layer and arriv
   <td class="cap-ct__u">Tag text on its own tint</td>
 </tr></tbody>
   </table>
-</div></div><p class="cap-stage__note">Computed with the WCAG 2.1 relative-luminance formula against the documented token pairs — not judged by eye. Normal body text needs 4.5:1; large text and UI boundaries need 3:1.</p><div class="cap-finding" data-reveal>
+</div></div><p class="cap-stage__note">Computed with the WCAG 2.1 relative-luminance formula against the documented token pairs, not judged by eye. Normal body text needs 4.5:1; large text and UI boundaries need 3:1.</p><div class="cap-finding" data-reveal>
   <p class="cap-finding__k">What the measurement found</p>
-  <p class="cap-finding__body">The blueprint states that primary blue on white is 4.65:1. Measured, it is 6.64:1 — the system is more accessible than its own documentation claims.</p>
-  <p class="cap-finding__body">But <b>4 of the 14 pairs fall below 4.5:1</b> —
+  <p class="cap-finding__body">The blueprint states that primary blue on white is 4.65:1. Measured, it is 6.64:1, so the system is more accessible than its own documentation claims.</p>
+  <p class="cap-finding__body">But <b>4 of the 14 pairs fall below 4.5:1</b>:
   muted text, warning text, the disabled button label and the caution tag. Placeholder and disabled
   text are partly exempt under WCAG; warning copy and the caution tag are not. This is worth a look
   before the next version of the system.</p>
@@ -863,7 +903,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
 <section class="section shell cap-chapter" id="c-architecture">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 05 &mdash; Architecture</p>
+    <p class="t-label section__eyebrow">Chapter 05 · Architecture</p>
     <h2 class="t-h2">From individual values to a system of decisions.</h2>
     <p class="prose">The difference between a palette and a token layer is one word: <em>job</em>.
     A primitive says what a colour is. A semantic says what it is for.</p>
@@ -967,10 +1007,10 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
 <section class="section shell cap-chapter" id="c-components">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 06 &mdash; Components</p>
+    <p class="t-label section__eyebrow">Chapter 06 · Components</p>
     <h2 class="t-h2">The building blocks of better experiences.</h2>
     <p class="prose">Built here from the written construction spec, at the documented heights,
-    radii and state colours &mdash; and checked against the Figma frames they were specified in.
+    radii and state colours, and checked against the Figma frames they were specified in.
     They are live elements, not pictures of elements.</p>
   </div>
 
@@ -979,16 +1019,16 @@ reason a brand decision can be made once: it enters at the token layer and arriv
     <thead><tr><th scope="col"><span class="sr-only">Type</span></th><th scope='col'>Default</th><th scope='col'>Focus</th><th scope='col'>Hover</th><th scope='col'>Press</th><th scope='col'>Disabled</th></tr></thead>
     <tbody><tr><th scope="row">Filled</th><td><span class="cap-btn cap-btn--filled is-default">Next</span></td><td><span class="cap-btn cap-btn--filled is-focus">Next</span></td><td><span class="cap-btn cap-btn--filled is-hover">Next</span></td><td><span class="cap-btn cap-btn--filled is-press">Next</span></td><td><span class="cap-btn cap-btn--filled is-disabled">Next</span></td></tr><tr><th scope="row">Outline</th><td><span class="cap-btn cap-btn--outline is-default">Next</span></td><td><span class="cap-btn cap-btn--outline is-focus">Next</span></td><td><span class="cap-btn cap-btn--outline is-hover">Next</span></td><td><span class="cap-btn cap-btn--outline is-press">Next</span></td><td><span class="cap-btn cap-btn--outline is-disabled">Next</span></td></tr><tr><th scope="row">Ghost</th><td><span class="cap-btn cap-btn--ghost is-default">Next</span></td><td><span class="cap-btn cap-btn--ghost is-focus">Next</span></td><td><span class="cap-btn cap-btn--ghost is-hover">Next</span></td><td><span class="cap-btn cap-btn--ghost is-press">Next</span></td><td><span class="cap-btn cap-btn--ghost is-disabled">Next</span></td></tr><tr><th scope="row">Text</th><td><span class="cap-btn cap-btn--text is-default">Next</span></td><td><span class="cap-btn cap-btn--text is-focus">Next</span></td><td><span class="cap-btn cap-btn--text is-hover">Next</span></td><td><span class="cap-btn cap-btn--text is-press">Next</span></td><td><span class="cap-btn cap-btn--text is-disabled">Next</span></td></tr><tr><th scope="row">Text link</th><td><span class="cap-btn cap-btn--link is-default">Next</span></td><td><span class="cap-btn cap-btn--link is-focus">Next</span></td><td><span class="cap-btn cap-btn--link is-hover">Next</span></td><td><span class="cap-btn cap-btn--link is-press">Next</span></td><td><span class="cap-btn cap-btn--link is-disabled">Next</span></td></tr><tr><th scope="row">Destructive</th><td><span class="cap-btn cap-btn--destructive is-default">Next</span></td><td><span class="cap-btn cap-btn--destructive is-focus">Next</span></td><td><span class="cap-btn cap-btn--destructive is-hover">Next</span></td><td><span class="cap-btn cap-btn--destructive is-press">Next</span></td><td><span class="cap-btn cap-btn--destructive is-disabled">Next</span></td></tr></tbody>
   </table>
-</div></div><p class="cap-stage__note">Five states per type, read off the Figma Behaviour frame. The blueprint's variant table lists only hover, pressed and disabled — Figma is the more complete source here.</p><div class="cap-stage " data-reveal><p class="cap-stage__label">Sizes</p><ul class="cap-sizes"><li><span class="cap-btn cap-btn--filled" style="--h:24px;--r:4px;--fs:12px">Button</span>
+</div></div><p class="cap-stage__note">Five states per type, read off the Figma Behaviour frame. The blueprint's variant table lists only hover, pressed and disabled. Figma is the more complete source here.</p><div class="cap-stage " data-reveal><p class="cap-stage__label">Sizes</p><ul class="cap-sizes"><li><span class="cap-btn cap-btn--filled" style="--h:24px;--r:4px;--fs:12px">Button</span>
 <code>S</code><span>24px · radius 4px</span></li><li><span class="cap-btn cap-btn--filled" style="--h:40px;--r:8px;--fs:18px">Button</span>
 <code>M</code><span>40px · radius 8px</span></li><li><span class="cap-btn cap-btn--filled" style="--h:48px;--r:8px;--fs:18px">Button</span>
 <code>L</code><span>48px · radius 8px</span></li></ul></div><div class="cap-stage " data-reveal><p class="cap-stage__label">Platform defaults</p><div class="cap-tbl__wrap">
   <table class="cap-spec">
     <thead><tr><th scope="col">Platform</th><th scope="col">Height</th><th scope="col">Icon</th>
     <th scope="col">Padding</th><th scope="col">Width</th></tr></thead>
-    <tbody><tr><th scope='row'>Banners</th><td>24px</td><td>no icon</td><td>8px / 4px</td><td>—</td></tr><tr><th scope='row'>App / MWeb</th><td>40px</td><td>16px</td><td>12px</td><td>84–320px</td></tr><tr><th scope='row'>DWeb</th><td>48px</td><td>24px</td><td>12px</td><td>84–320px</td></tr></tbody>
+    <tbody><tr><th scope='row'>Banners</th><td>24px</td><td>no icon</td><td>8px / 4px</td><td>·</td></tr><tr><th scope='row'>App / MWeb</th><td>40px</td><td>16px</td><td>12px</td><td>84–320px</td></tr><tr><th scope='row'>DWeb</th><td>48px</td><td>24px</td><td>12px</td><td>84–320px</td></tr></tbody>
   </table>
-</div></div><p class="cap-stage__note">Four platforms, three button heights. The differences are recorded on purpose — that is what stops them being rediscovered every quarter.</p>
+</div></div><p class="cap-stage__note">Four platforms, three button heights. The differences are recorded on purpose, that is what stops them being rediscovered every quarter.</p>
 
   <h3 class="cap-sub" data-reveal>Text input</h3>
 
@@ -1109,7 +1149,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
 <section class="section shell cap-chapter" id="c-product">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 07 &mdash; In product</p>
+    <p class="t-label section__eyebrow">Chapter 07 · In product</p>
     <h2 class="t-h2">A system earns its place in the products it supports.</h2>
   </div>
 
@@ -1119,8 +1159,9 @@ reason a brand decision can be made once: it enters at the token layer and arriv
   <p class="cap-gap__body">A component existing in Figma is not evidence that a product adopted it,
   and I do not have screenshots of Capsule components in a shipped Bajaj interface. Rather than
   present a mock-up as a product screen, this chapter is deliberately short.</p>
-  <p class="cap-gap__body">What <em>is</em> evidenced: the system documents four platforms — App,
-  MWeb, DWeb and PWA — each with its own header frame and its own sizing defaults. A system built for
+  <p class="cap-gap__body">What <em>is</em> evidenced: the system documents four platforms (App,
+ 
+  MWeb, DWeb and PWA), each with its own header frame and its own sizing defaults. A system built for
   one surface does not grow four sets of platform rules.</p>
   <p class="cap-gap__ask">To finish this chapter I need two or three real product screens exported.</p>
 </div>
@@ -1129,10 +1170,10 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
 <section class="section shell cap-chapter" id="c-handoff">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 08 &mdash; Design to development</p>
+    <p class="t-label section__eyebrow">Chapter 08 · Design to development</p>
     <h2 class="t-h2">The handoff is part of the system.</h2>
     <p class="prose">A handoff fails when the engineer has to infer a value. Capsule&rsquo;s answer is
-    that nothing is left to inference &mdash; sizes, padding, radii and state colours are written as
+    that nothing is left to inference: sizes, padding, radii and state colours are written as
     numbers before anyone opens a ticket.</p>
   </div>
 
@@ -1147,7 +1188,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
   <div><h4>Written construction spec</h4><p>The blueprint states sizes, padding, radius and state colours as numbers, not pictures.</p><span class="cap-tag cap-tag--verified">verified</span></div>
 </li><li class="cap-step" data-reveal style="--i:3">
   <span class="cap-step__n">4</span>
-  <div><h4>Platform defaults</h4><p>App/MWeb 40px, DWeb 48px, banners 24px — the differences are recorded rather than discovered.</p><span class="cap-tag cap-tag--verified">verified</span></div>
+  <div><h4>Platform defaults</h4><p>App/MWeb 40px, DWeb 48px, banners 24px, and the differences are recorded rather than discovered.</p><span class="cap-tag cap-tag--verified">verified</span></div>
 </li><li class="cap-step" data-reveal style="--i:4">
   <span class="cap-step__n">5</span>
   <div><h4>Automated token pipeline</h4><p>No evidence in my sources that tokens are published to code automatically. This is the obvious next step, not something I am claiming exists.</p><span class="cap-tag cap-tag--future">future direction</span></div>
@@ -1157,10 +1198,10 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
 <section class="section shell cap-chapter" id="c-governance">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 09 &mdash; Governance</p>
+    <p class="t-label section__eyebrow">Chapter 09 · Governance</p>
     <h2 class="t-h2">A living system needs a way to grow.</h2>
     <p class="prose">This is the half that decides whether a system is still true a year after
-    launch &mdash; and the half where my evidence runs out. What is documented is marked as such;
+    launch, and the half where my evidence runs out. What is documented is marked as such;
     what isn&rsquo;t, isn&rsquo;t claimed.</p>
   </div>
 
@@ -1169,7 +1210,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 </li><li class="cap-gov cap-gov--verified" data-reveal style="--i:1">
   <h4>Documented do's and don'ts</h4><p>The blueprint closes with an explicit cheat sheet of rules.</p><span class="cap-tag cap-tag--verified">verified</span>
 </li><li class="cap-gov cap-gov--verified" data-reveal style="--i:2">
-  <h4>Per-component usage rules</h4><p>Each component section states what is and is not permitted — buttons are never pill-shaped, shadows are never coloured.</p><span class="cap-tag cap-tag--verified">verified</span>
+  <h4>Per-component usage rules</h4><p>Each component section states what is and is not permitted: buttons are never pill-shaped, shadows are never coloured.</p><span class="cap-tag cap-tag--verified">verified</span>
 </li><li class="cap-gov cap-gov--confirm" data-reveal style="--i:3">
   <h4>Contribution and review process</h4><p>Not documented in the sources I have. Needs confirmation before any claim is published.</p><span class="cap-tag cap-tag--confirm">needs your confirmation</span>
 </li><li class="cap-gov cap-gov--confirm" data-reveal style="--i:4">
@@ -1179,7 +1220,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 </li></ul>
 
 <div class="cap-stage " data-reveal><p class="cap-stage__label">The cheat sheet, verbatim</p><div class="cap-rules">
-  <div class="cap-rules__col cap-rules__col--do"><p>Do</p><ul><li>Use Rubik for every piece of text.</li><li>Use the documented radius scale — 4px for small controls, 8px for medium and large.</li><li>Keep interactive targets at 44px minimum.</li><li>Use semantic tokens rather than raw hex values.</li><li>Keep shadows subtle and uncoloured.</li></ul></div>
+  <div class="cap-rules__col cap-rules__col--do"><p>Do</p><ul><li>Use Rubik for every piece of text.</li><li>Use the documented radius scale: 4px for small controls, 8px for medium and large.</li><li>Keep interactive targets at 44px minimum.</li><li>Use semantic tokens rather than raw hex values.</li><li>Keep shadows subtle and uncoloured.</li></ul></div>
   <div class="cap-rules__col cap-rules__col--dont"><p>Don’t</p><ul><li>Never substitute the typeface.</li><li>Never make buttons pill-shaped.</li><li>Never use coloured or hard drop shadows.</li><li>Never invent a colour outside the documented scales.</li><li>Never go below the 44px touch target.</li></ul></div>
 </div></div><p class="cap-stage__note">The blueprint closes with these. A rule a designer can quote is worth more than a review meeting that reaches the same conclusion privately.</p>
 </section>
@@ -1187,10 +1228,10 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
 <section class="section shell cap-chapter" id="c-impact">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 10 &mdash; Impact</p>
+    <p class="t-label section__eyebrow">Chapter 10 · Impact</p>
     <h2 class="t-h2">What changes when the system starts working?</h2>
-    <p class="prose">The honest answer is that I can show you what the system <em>is</em> &mdash;
-    countable, checkable, in two files &mdash; more rigorously than I can currently show you what it
+    <p class="prose">The honest answer is that I can show you what the system <em>is</em>, countable
+    and checkable in two files, more rigorously than I can currently show you what it
     changed. So that is what the numbers at the top of this page are, and this is everything I left
     off.</p>
   </div>
@@ -1232,7 +1273,7 @@ reason a brand decision can be made once: it enters at the token layer and arriv
 
 <section class="section shell cap-chapter" id="c-learned">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">Chapter 11 &mdash; What I learned</p>
+    <p class="t-label section__eyebrow">Chapter 11 · What I learned</p>
     <h2 class="t-h2">The system is the product behind the products.</h2>
   </div>
 
@@ -1250,21 +1291,21 @@ reason a brand decision can be made once: it enters at the token layer and arriv
   <div><h4>Governance is the hard half</h4><p>Launching a library is a project. Keeping one true is an operating commitment, and it is the part I would resource differently next time.</p></div>
 </li><li class="cap-learn" data-reveal style="--i:4">
   <span class="cap-learn__n">05</span>
-  <div><h4>Consistency against product need</h4><p>Four platforms needed four button heights. The system's job was to record which differences were deliberate — not to pretend there were none.</p></div>
+  <div><h4>Consistency against product need</h4><p>Four platforms needed four button heights. The system's job was to record which differences were deliberate, not to pretend there were none.</p></div>
 </li></ol>
-<blockquote class="cap-close" data-reveal>A design system is the product behind the products. When it works, nobody mentions it — they just ship faster and argue less, and the things they ship look like they came from the same company.</blockquote>
+<blockquote class="cap-close" data-reveal>A design system is the product behind the products. When it works, nobody mentions it. They just ship faster and argue less, and the things they ship look like they came from the same company.</blockquote>
 </section>
 </div>
 </main>
 <footer class="foot">
   <div class="shell">
     <div class="foot__base">
-      <p class="t-label">Arushi Prasad — Design leader</p>
+      <p class="t-label">Arushi Prasad · Design leader</p>
       <p class="t-label t-dim">Pune, India</p>
     </div>
   </div>
 </footer>
-<script src="../assets/js/site.js?v=8b13f207" defer></script>
+<script src="../assets/js/site.js?v=d22fe337" defer></script>
 <script src="../assets/js/capsule.js?v=48c12538" defer></script>
 </body>
 </html>

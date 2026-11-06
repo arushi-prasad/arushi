@@ -132,6 +132,53 @@
   transition:transform 200ms var(--ease-out);
 }
 
+/* The status marker on the five projects that do not have a write-up yet.
+
+   It was an inline superscript hung off the end of the label, which put it
+   on the label's baseline and left it floating mid-sentence at a different
+   optical height on every row length. It is a block now: its own line under
+   the title, right-aligned, so five rows of different title lengths all
+   park the marker in the same column.
+
+   It right-aligns inside the card's own content box, which every row shares
+   — the five keep the same 2.2em right padding as the three above them, so
+   the marker's right edge lands on the column those three already respect
+   rather than hanging past it.
+
+   Earlier versions nudged it outward with a negative margin to meet the
+   arrow. Do not: em resolves against this element's own 0.46em font size,
+   not the card's, so the correction is a magic number that has to be
+   re-derived whenever the marker's size changes. Two attempts landed 8px
+   short and then 5px over before the offset came out entirely.
+
+   Set in em, not rem: the card's type scales with the row, and a marker
+   fixed in rem would grow out of proportion to the thing it qualifies. */
+.wk-row__wip{
+  position:relative; z-index:1;
+  display:block;
+  text-align:right;
+  margin-top:0.1em;
+  margin-right:0;
+  font-family:var(--font-label);
+  font-size:0.46em;
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+  font-weight:var(--weight-emphasis);
+  color:currentColor;
+  opacity:0.7;
+  white-space:nowrap;
+}
+
+/* The five sit back from the three that are finished, and stay there.
+
+   They had a hover treatment: the row came up to full opacity and the card
+   took its colour wipe. It was wrong. Nothing on these rows is clickable,
+   and a row that lights up under the pointer promises a destination it does
+   not have — the response reads as a link right up until the click does
+   nothing. The three that ARE links keep the whole treatment; these five
+   get none of it. */
+.wk-row:has(.wk-row__wip) .wk-row__in{ opacity:0.5; }
+
 /* The accents. One per project, fixed, so a project is always the same
    colour. The values are the tile palette in tokens.css — the same grounds
    and inks the Strategy cards are built from, contrast already solved. */
@@ -174,12 +221,14 @@
 }
 .wk-row__in--link:focus-visible{ outline-offset:-4px; }
 
+/* :not(:has(.wk-row__wip)) on every one of these, so the hover treatment
+   belongs to the three rows that lead somewhere and to no others. */
 @media (hover:hover) and (pointer:fine){
-  .wk-row:hover .wk-row__card::before{ transform:scaleX(1); }
-  .wk-row:hover .wk-row__card{ color:var(--wk-ink); transition-delay:70ms; }
-  .wk-row:hover .wk-row__label{ transform:translateX(3px); }
-  .wk-row:hover .wk-row__in--link .wk-row__arrow{ opacity:1; transform:translateX(0); }
-  .wk-row:hover{
+  .wk-row:not(:has(.wk-row__wip)):hover .wk-row__card::before{ transform:scaleX(1); }
+  .wk-row:not(:has(.wk-row__wip)):hover .wk-row__card{ color:var(--wk-ink); transition-delay:70ms; }
+  .wk-row:not(:has(.wk-row__wip)):hover .wk-row__label{ transform:translateX(3px); }
+  .wk-row:not(:has(.wk-row__wip)):hover .wk-row__in--link .wk-row__arrow{ opacity:1; transform:translateX(0); }
+  .wk-row:not(:has(.wk-row__wip)):hover{
     border-bottom-color:color-mix(in srgb, var(--wk-bg) 40%, var(--border-default));
   }
 }

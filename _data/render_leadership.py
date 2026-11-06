@@ -38,7 +38,7 @@ def kind_tag(kind, text=""):
     words = {
         "recorded": "recorded",
         "snapshot": "snapshot",
-        "target": "target — not a result",
+        "target": "target, not a result",
         "proposal": "proposed",
         "voice": "from my notes",
     }
@@ -81,7 +81,7 @@ def growth():
 </li>""")
     return f"""<div class="lead-growth">
   <ol class="lead-years">{"".join(rows)}</ol>
-  <p class="lead-caption">Each dot is one designer in the count for that year — a quantity, not a person.
+  <p class="lead-caption">Each dot is one designer in the count for that year, a quantity, not a person.
   Figures for 2019, 2022, 2023 and 2025 are recorded; 2020 and 2021 are read off the words
   “doubled” and the rituals year, and are shaped, not counted.</p>
 </div>"""
@@ -143,7 +143,7 @@ def model():
     <h3 class="lead-model__title">{esc(obj["label"])}</h3>
     {kind_tag(obj["status"], obj["status_label"])}
   </div>
-  <p class="lead-model__intro">What the reshape was actually for — six objectives, written down
+  <p class="lead-model__intro">What the reshape was actually for: six objectives, written down
   before anyone moved desk.</p>
   <ul class="lead-objs">{cards}</ul>
   <div class="lead-mech">
@@ -252,7 +252,7 @@ def award():
     <p class="lead-award__event t-label">{esc(a["event"])}</p>
     <p class="lead-award__name">{esc(a["name"])}</p>
     <p class="lead-award__line">{esc(a["line"])}</p>
-    <p class="lead-award__second">Alongside it that year — {esc(a["second"])}.</p>
+    <p class="lead-award__second">Alongside it that year, {esc(a["second"])}.</p>
   </div>
   <figure class="lead-award__shot">
     <img src="../../assets/img/leadership/aop-night.jpg"

@@ -1,0 +1,866 @@
+/* ============================================================================
+   ABOUT — the personal page.
+
+   Editorial and asymmetric rather than a résumé. Seven movements: who, what,
+   the journey, the beliefs, the life outside it, what's next, and how to get
+   in touch. Nothing here is a card grid; the structure comes from type size,
+   hairlines and where things sit on the measure.
+
+   Everything is built from the site's own tokens. The one liberty this page
+   takes is section 05, which runs a degree warmer than the rest of the site
+   because it is the only part that is not about work.
+   ========================================================================= */
+
+
+/* ── 01 · the opening ────────────────────────────────────────────────────
+   Portrait and words side by side, portrait second in the source so a
+   screen reader and a phone both meet the sentence first.                 */
+
+.ab-hero { padding-block: var(--step-16) var(--step-12); }
+
+.ab-hero__grid { display: grid; gap: var(--step-10); align-items: end; }
+
+@media (min-width: 58rem) {
+  /* 1.15/0.85, not 1.25/0.75. The gap that looked odd was mostly not the
+     gap: the copy is capped at a readable measure, so a column much wider
+     than that measure leaves dead space on the copy's right that reads as
+     part of the gap. Narrowing the copy's column and widening the measure
+     closes most of it; --step-6 closes the rest. */
+  .ab-hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--step-6); }
+}
+
+/* --step-3 between the heading block and the copy, not --step-5. With the
+   sentence now set in body type the old gap read as a hole. The paragraphs
+   keep their own spacing through the + rule below, raised to compensate, so
+   only the distance under the heading actually changed. */
+.ab-hero__words {
+  display: grid;
+  gap: var(--step-3);
+  align-content: end;
+  min-inline-size: 0;
+  /* Set on the column, not on each paragraph: the tagline moved out of the
+     h1 and would otherwise inherit the page's 16px while the copy beside it
+     ran at 17.3px. The pills set their own smaller size and are unaffected. */
+  font-size: calc(var(--text-body) * 1.082);
+}
+
+.ab-hero__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--track-display);
+  line-height: 1.02;
+  /* Sized so the second sentence sets in two lines, not three. It is 50
+     characters against the old 34, so the ceiling came down from 4.6rem. */
+  font-size: clamp(1.7rem, 0.8rem + 3.3vw, 3.3rem);
+}
+
+/* The name, set the way the homepage sets it: a small mono greeting over the
+   name written out in a script face, both in --accent.
+
+   The homepage lays the cursive word over six hidden capitals, because there
+   the mark is centred and the capitals hold the box the portal elbows and the
+   Type tool's handles are measured against. Nothing here measures against it,
+   so the script is simply set as text in the flow. The face stack and the
+   weight are copied exactly, including why 600: Snell Roundhand resolves that
+   to its Bold, where 500 would fall back to the Regular and change nothing. */
+/* One declaration of the script stack for the two places that use it: the
+   name in the hero and the journey heading. Copied from .wm on the homepage,
+   including why weight 600 — Snell Roundhand resolves that to its Bold, where
+   500 would fall back to the Regular and change nothing. */
+.ab-hero, .ab-jr {
+  --font-script: "Snell Roundhand", "Apple Chancery", "Segoe Script",
+                 "Lucida Handwriting", "Brush Script MT", cursive;
+}
+
+.ab-hero__greet {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: var(--weight-body);
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--text-tertiary);
+  margin-bottom: 0.08em;
+}
+.ab-hero__me {
+  display: block;
+  font-family: var(--font-script);
+  /* Script faces carry a small x-height for their em, so the name is set up
+     against the sentence under it rather than matched to it numerically. */
+  font-size: 1.18em;
+  font-weight: 600;
+  font-style: italic;
+  text-transform: lowercase;
+  letter-spacing: 0;
+  /* The face overshoots its box top and bottom; this keeps the line it sits
+     on the same height as a roman one would be, so the two-line sentence
+     below is not pushed down by the ascenders. */
+  line-height: 1;
+  padding-block: 0.08em 0.12em;
+  color: var(--accent);
+}
+
+/* The tagline. It used to live inside the h1 as an <em>; it now sits under
+   the contact pills, so it is a paragraph and inherits the hero's body type
+   without having to hand back the h1's display properties one by one. The
+   h1 is the name alone, which is what a screen reader should be given. */
+.ab-hero__tag {
+  margin: var(--step-4) 0 0;
+  color: var(--text-primary);
+  line-height: var(--leading-body);
+  max-inline-size: 42rem;
+}
+
+/* White, and 3% up on the body token. The 3% is on the hero only — this is
+   the one place on the site where running text has a photograph beside it to
+   hold its own against. */
+.ab-hero__body {
+  margin: 0;
+  color: var(--text-primary);
+  line-height: var(--leading-body);
+  max-inline-size: 42rem;
+}
+.ab-hero__body + .ab-hero__body { margin-top: var(--step-6); }
+.ab-hero__body b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+/* Stacked, the portrait would take the full column — 707px of it at 768,
+   which is most of a screen height for one photograph. Capped until the
+   two-column hero kicks in, where the column itself does the limiting. */
+.ab-hero__shot { margin: 0; min-inline-size: 0; max-inline-size: 26rem; }
+
+/* The frame, not the image, carries the rounding and the hairline, so that
+   when the photograph is cropped the crop is clipped to the same corners.
+   The source is a warm interior; the hairline keeps it from bleeding into the
+   page at its lighter edges without framing it like an exhibit. */
+.ab-hero__frame {
+  display: block;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.ab-hero__shot img { inline-size: 100%; block-size: auto; display: block; }
+
+/* UNUSED since 6 Nov 2026 — the photo credit was removed from the markup.
+   Kept so restoring it is a markup change, not a rebuild. */
+.ab-hero__cap {
+  margin-top: var(--step-3);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+/* The ways to reach her, under the hero copy. These were a section of their
+   own at the foot of the page until 6 Nov 2026.
+
+   Pills, and real links: the first two carry mailto: and tel:, so they open
+   a client rather than just reading as text. A <ul>, because it is a list of
+   three equivalent things and a screen reader should be told how many.
+
+   The grey is the same --text-tertiary the arrows and the cursive headings
+   use; the hover is the only place on this page that moves. */
+.ab-ways {
+  list-style: none;
+  margin: var(--step-5) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--step-3);
+}
+
+.ab-way {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 0.95em;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  line-height: 1;
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--duration-base) var(--ease-smooth),
+              border-color var(--duration-base) var(--ease-smooth),
+              background-color var(--duration-base) var(--ease-smooth);
+}
+
+.ab-way .ico {
+  inline-size: 1em;
+  block-size: 1em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.75;
+}
+
+.ab-way:hover,
+.ab-way:focus-visible {
+  color: var(--text-primary);
+  border-color: color-mix(in srgb, var(--text-primary) 38%, transparent);
+  background: color-mix(in srgb, var(--text-primary) 7%, transparent);
+}
+
+/* Two columns: the photograph keeps its own height and the two blocks line
+   up along the BOTTOM, which is what align-items:end on the grid already
+   does once the figure stops stretching to the row.
+
+   It no longer matches the copy's height. Doing that meant cropping whatever
+   the column width demanded — 29.8% off the bottom at 1440 — and she asked
+   for less. A fixed ratio can be used now precisely because the height is no
+   longer chasing the copy: 0.95 against a 0.75 source takes 21% off the
+   bottom at every width, and object-position 50% 0 pins the top edge so all
+   of it comes off the bottom. */
+@media (min-width: 58rem) {
+  .ab-hero__shot { max-inline-size: none; }
+  .ab-hero__frame {
+    position: relative;
+    aspect-ratio: 0.95;
+  }
+  .ab-hero__frame img {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: 50% 0;
+  }
+}
+
+
+
+/* ── 02 · capabilities ───────────────────────────────────────────────────
+   A list, not a grid of cards: index, term, description, hairline. The term
+   column is fixed so six different term lengths still line their
+   descriptions up.                                                        */
+
+.ab-caps { margin-top: var(--step-10); border-top: 1px solid var(--border-default); }
+
+.ab-cap {
+  display: grid;
+  gap: var(--step-2);
+  padding-block: var(--step-6);
+  border-bottom: 1px solid var(--border-subtle);
+  align-items: baseline;
+}
+
+@media (min-width: 52rem) {
+  .ab-cap { grid-template-columns: 3rem minmax(0, 15rem) minmax(0, 1fr); gap: var(--step-6); }
+}
+
+.ab-cap__n { margin: 0; font-family: var(--font-mono); font-size: var(--text-label); color: var(--text-tertiary); }
+.ab-cap__t { margin: 0; font-size: var(--text-h4); font-weight: var(--weight-emphasis); line-height: var(--leading-heading); }
+.ab-cap__v { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ab-cap__t { transition: transform 200ms var(--ease-out); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ab-cap:hover .ab-cap__t { transform: translateX(3px); }
+}
+
+
+/* ── 03 · the journey ────────────────────────────────────────────────────
+   Prose, deliberately not a timeline. The three places are a quiet strip
+   underneath so the facts survive without becoming a CV.                  */
+
+.ab-journey { display: grid; gap: var(--step-8); }
+
+@media (min-width: 58rem) {
+  .ab-journey { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--step-16); }
+}
+
+.ab-journey p { margin: 0; color: var(--text-secondary); line-height: var(--leading-body); }
+.ab-journey p + p { margin-top: var(--step-5); }
+.ab-journey b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+/* The last paragraph is the point of the section, so it is set as one. */
+.ab-journey__turn {
+  padding-left: var(--step-5);
+  border-left: 2px solid var(--border-strong);
+  font-size: var(--text-lg);
+  color: var(--text-primary) !important;
+}
+
+.ab-where {
+  margin-top: var(--step-12);
+  padding-top: var(--step-6);
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  /* Explicit, not auto-fit: auto-fit found room for three at 768 and left
+     the fourth place stranded on its own row. Four, two or one, never three. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--step-6) var(--step-8);
+}
+
+@media (min-width: 38rem) { .ab-where { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 64rem) { .ab-where { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.ab-where__i { display: grid; gap: var(--step-2); align-content: start; }
+.ab-where__k { margin: 0; font-family: var(--font-mono); font-size: var(--text-label); color: var(--text-tertiary); }
+.ab-where__t { margin: 0; font-size: var(--text-sm); font-weight: var(--weight-emphasis); }
+.ab-where__v { margin: 0; font-size: var(--text-sm); color: var(--text-tertiary); line-height: var(--leading-body); }
+
+
+/* ── 04 · beliefs ────────────────────────────────────────────────────────
+   Five statements at display size. The lead-in carries the weight and the
+   sentence after it is set small, so each one reads as a headline with a
+   footnote rather than as a bullet.                                       */
+
+.ab-beliefs { margin-top: var(--step-10); }
+
+.ab-belief {
+  padding-block: var(--step-8);
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  gap: var(--step-3);
+}
+
+@media (min-width: 58rem) {
+  .ab-belief { grid-template-columns: 3rem minmax(0, 1fr); column-gap: var(--step-8); }
+  .ab-belief__n { grid-row: 1 / span 2; }
+}
+
+.ab-belief__n { margin: 0; font-family: var(--font-mono); font-size: var(--text-label); color: var(--text-tertiary); }
+
+.ab-belief__t {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--track-display);
+  line-height: 1.05;
+  font-size: clamp(1.5rem, 1rem + 2.1vw, 2.5rem);
+}
+
+.ab-belief__v { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); max-inline-size: 34rem; }
+
+
+/* ── 05 · beyond design ──────────────────────────────────────────────────
+   The warm one. A hairline-framed band in a copper key, a list of five, and
+   a collage that mixes the one real photograph with labelled slots for the
+   pictures that do not exist yet.                                         */
+
+.ab-life {
+  margin-top: var(--step-10);
+  padding: var(--step-12) var(--step-8);
+  border: 1px solid color-mix(in oklab, var(--hue-copper) 30%, var(--border-default));
+  border-radius: var(--radius-lg);
+  background: color-mix(in oklab, var(--hue-copper-deep) 8%, var(--surface-page));
+  display: grid;
+  gap: var(--step-10);
+}
+
+@media (min-width: 62rem) {
+  .ab-life { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: var(--step-16); align-items: start; }
+}
+
+.ab-life__words { display: grid; gap: var(--step-5); align-content: start; min-inline-size: 0; }
+.ab-life__words p { margin: 0; color: var(--text-secondary); line-height: var(--leading-body); }
+
+/* The inline pills.
+
+   display:inline, not inline-block, so a pill is part of the sentence: it
+   wraps mid-phrase across a line break like any other run of words, and
+   box-decoration-break:clone gives the fragment on each line its own rounded
+   ends and padding instead of leaving one raw edge.
+
+   Muted, not bright: each hue is the palette's own *-light token mixed back
+   toward the site's warm ivory, so they read as highlighter over a journal
+   rather than as tags. The ink is the page colour, which is near-black, so
+   contrast on every one of them is high. */
+.ab-pill {
+  display: inline;
+  padding: .16em .55em;
+  border-radius: var(--radius-full, 99px);
+  background: color-mix(in oklab, var(--pill, var(--ink-80)) 52%, var(--ink-80));
+  color: var(--ink-0);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  /* The descenders of the sentence still have to clear the pill above. */
+  line-height: inherit;
+}
+
+.ab-life__words p { line-height: 2.05; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ab-pill { transition: background 200ms var(--ease-out); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ab-pill:hover { background: color-mix(in oklab, var(--pill, var(--ink-80)) 78%, var(--ink-80)); }
+}
+
+.ab-life__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+
+/* Type only. There are sticker illustrations in the repo for the gym, the
+   plants and the bowls, but none for reading — three marks and one gap
+   reads as an oversight rather than as restraint, so none are used. */
+.ab-life__i {
+  display: block;
+  padding-block: var(--step-4);
+  border-top: 1px solid color-mix(in oklab, var(--hue-copper) 22%, transparent);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+.ab-life__i b { color: var(--text-primary); font-weight: var(--weight-emphasis); }
+
+/* The collage. One real photograph and four slots, laid out so the real one
+   carries the composition and the empty ones sit quietly under it. */
+.ab-collage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--step-4); min-inline-size: 0; align-items: start; }
+
+@media (min-width: 42rem) { .ab-collage { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.ab-collage figure { margin: 0; min-inline-size: 0; }
+
+/* The one photograph that earns a bigger box. */
+.ab-collage__wide { grid-column: span 2; }
+
+.ab-collage img {
+  inline-size: 100%;
+  block-size: auto;
+  display: block;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.ab-collage figcaption {
+  margin-top: var(--step-2);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* A slot, not a placeholder graphic: a dashed frame carrying the name of
+   the picture that belongs in it. Replaceable by dropping a file in and
+   swapping the <div> for an <img>. */
+.ab-slot {
+  display: grid;
+  place-content: center;
+  gap: var(--step-2);
+  text-align: center;
+  aspect-ratio: 1 / 1;
+  padding: var(--step-4);
+  border: 1px dashed color-mix(in oklab, var(--hue-copper) 40%, var(--border-default));
+  border-radius: var(--radius-md);
+  color: var(--text-tertiary);
+}
+
+.ab-slot b {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  font-weight: var(--weight-emphasis);
+  color: var(--text-secondary);
+}
+
+.ab-slot span { font-size: var(--text-label); line-height: var(--leading-body); }
+
+
+/* The section stacks when it carries the globe: words, then the sphere
+   beneath them at the full measure. */
+.ab-life--stack { grid-template-columns: minmax(0, 1fr) !important; }
+
+
+/* ── the photo globe ─────────────────────────────────────────────────────
+   Photographs placed on an invisible sphere, turning slowly. CSS does the
+   3D — each tile is rotated into position and pushed out by the radius, so
+   perspective foreshortening and the curve around the edges are the
+   browser's job, not arithmetic in a loop.
+
+   globe.js owns two things only: the spin angle, and a per-tile depth value
+   used to fade the far side. Both are written as custom properties, so no
+   layout is touched on any frame.                                        */
+
+.ab-globe {
+  position: relative;
+  inline-size: 100%;
+  /* Square-ish, and capped so it never eats a whole screen on a laptop. */
+  block-size: clamp(23rem, 60vw, 36rem);
+  margin-top: var(--step-10);
+  perspective: 1100px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  /* Dark and minimal behind the photographs, as asked. */
+  background: radial-gradient(ellipse at 50% 45%,
+              color-mix(in oklab, var(--ink-10) 85%, transparent) 0%,
+              var(--ink-0) 72%);
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ab-globe[data-dragging="yes"] { cursor: grabbing; }
+
+.ab-globe__stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  /* --spin and --tilt are written by the script. */
+  transform: translateZ(-2rem) rotateX(var(--tilt, -8deg)) rotateY(var(--spin, 0deg));
+}
+
+.ab-globe__i {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: var(--w, 7rem);
+  /* lon / lat / radius put it on the sphere; the local +Z of the element
+     points outward, so it faces away from the centre without extra work.
+
+     translate(-50%,-50%) is LAST in the list and therefore applied FIRST,
+     in the tile's own plane, which centres it on its sphere point whatever
+     its height is. A negative margin cannot do this: these photographs are a
+     mix of portrait and landscape, so half the height is not a number the
+     stylesheet knows, and guessing it hung the whole sphere low enough to be
+     clipped by the bottom of the frame. */
+  transform:
+    rotateY(var(--lon)) rotateX(var(--lat)) translateZ(var(--r))
+    rotateZ(var(--tiltz, 0deg)) translate(-50%, -50%);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--ink-5);
+  /* The far side is dimmed rather than hidden, so the sphere reads as solid
+     without the back photographs competing with the front ones. */
+  opacity: var(--vis, 1);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--ink-100) 6%, transparent);
+}
+
+.ab-globe__i img {
+  inline-size: 100%;
+  block-size: auto;
+  display: block;
+  /* Original proportions kept — no crop. */
+}
+
+/* No motion at all under the reduced-motion preference: the sphere is
+   simply there, still, and can still be dragged. */
+@media (prefers-reduced-motion: reduce) {
+  .ab-globe { cursor: default; }
+}
+
+@media (max-width: 40rem) {
+  .ab-globe { block-size: clamp(18rem, 86vw, 26rem); perspective: 760px; }
+}
+
+
+/* ── 06 · what's next ────────────────────────────────────────────────────  */
+
+.ab-next { display: grid; gap: var(--step-6); max-inline-size: 42rem; }
+.ab-next p { margin: 0; color: var(--text-secondary); line-height: var(--leading-body); font-size: var(--text-lg); }
+.ab-next p:first-child { color: var(--text-primary); }
+
+
+/* ── 07 · contact ────────────────────────────────────────────────────────  */
+
+.ab-contact {
+  margin-top: var(--step-10);
+  padding-top: var(--step-10);
+  border-top: 1px solid var(--border-default);
+  display: grid;
+  gap: var(--step-8);
+}
+
+@media (min-width: 58rem) {
+  .ab-contact { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--step-16); }
+}
+
+.ab-contact__words { display: grid; gap: var(--step-4); min-inline-size: 0; }
+.ab-contact__words p { margin: 0; color: var(--text-secondary); line-height: var(--leading-body); max-inline-size: 34rem; }
+.ab-contact__links { display: flex; flex-wrap: wrap; gap: var(--step-3); align-items: center; }
+
+
+/* ===========================================================================
+   02 · MY JOURNEY
+   ========================================================================= */
+
+/* One column until there is room for two. 0.8fr / 2fr rather than halves:
+   the left side holds two short things and the right holds the account, so
+   an even split would leave the left mostly empty and crowd the measure. */
+.ab-jr { display: grid; gap: var(--step-8); align-items: start; }
+
+@media (min-width: 58rem) {
+  .ab-jr {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+    gap: var(--step-12);
+  }
+  /* The heading holds its line while the account scrolls past it. */
+  .ab-jr__side { position: sticky; top: calc(var(--nav-bar) + var(--step-8)); }
+}
+
+.ab-jr__side { display: grid; justify-items: start; gap: var(--step-3); }
+/* Set in the same hand as the name in the hero. Script faces run small for
+   their em, so it is sized up against the h2 scale rather than left on it,
+   and the overshoot above and below the box is taken by the padding so the
+   arrow above keeps the gap it was given. */
+.ab-jr__h {
+  margin: 0;
+  font-family: var(--font-script);
+  /* calc against the h2 token, not 1.3em. An em here resolves against the
+     PARENT, which is the 16px column, not against .t-h2's own size — that
+     set the heading at 20.8px.
+     0.598 is the 1.22 it was drawn at, less 30% and then 30% again. */
+  font-size: calc(var(--text-h2) * 0.598);
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0;
+  line-height: 1;
+  padding-block: 0.1em 0.16em;
+  /* Lowercased the way the homepage lowercases the name, in CSS rather than
+     in the markup, so the heading a screen reader is given stays "My
+     journey" with its capital. */
+  text-transform: lowercase;
+  color: var(--text-tertiary);
+}
+
+/* The arrow, drawn inline the way the homepage draws its own: a shaft and a
+   two-stroke open head, turned to sweep down into the heading where the
+   homepage's version sweeps up into an icon.
+
+   Carried as a MASK rather than a background image, which is the whole
+   reason it can be grey: the stroke colour inside a data URI is a literal
+   and cannot read a token, so the shape is used for its alpha only and the
+   colour comes from background. That puts it on exactly the same
+   --text-tertiary as the heading under it, in every palette, from one place.
+
+   It no longer uses the homepage's gold. That gold sits deliberately outside
+   the palette system because the control it belongs to never takes the
+   visitor's palette; this arrow is page content and has no such reason.
+
+   Thin and long: stroke 1.3 at a 48-wide viewBox rendered 64 across is about
+   1.7 device pixels, and the shaft carries two reversals before the head so
+   it reads as written rather than drawn. The barbs stay a little unequal,
+   which is the whole of the hand in it. */
+.ab-jr__arrow {
+  display: block;
+  /* Scaled with the headings. At 4rem x 5rem the arrow stood three times the
+     height of a 26px heading and read as the subject of the column rather
+     than a mark against it. */
+  inline-size: 2.3rem;
+  block-size: 2.9rem;
+  margin-inline-start: 0.15rem;
+  background: var(--text-tertiary);
+  --arrow: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" fill="none" stroke="%23000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M38 4C40.5 14.5 32 19.5 22.5 22 13 24.5 7.5 29.5 11 36 13.5 40.5 18 43.5 19 49.5"/><path d="M19 49.5 22.8 40.3"/><path d="M19 49.5 13.2 43"/></svg>');
+  -webkit-mask: var(--arrow) left top/contain no-repeat;
+          mask: var(--arrow) left top/contain no-repeat;
+  opacity: 0.85;
+}
+
+
+/* On this site answers the journey's arrow rather than repeating it: the
+   same hand and the same grey, but leaning the other way — out of the left,
+   arriving on a rising diagonal from the lower left instead of falling to
+   it. Same three strokes, same unequal barbs. */
+.ab-jr__arrow--site {
+  --arrow: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" fill="none" stroke="%23000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5C9 19 7 28 16 36 22.5 41.5 28 44 33 47.5"/><path d="M33 47.5 29.1 38.3"/><path d="M33 47.5 24.3 47"/></svg>');
+}
+
+/* And a third hand for Currently exploring: neither of the other two's
+   falling diagonals, but a long arc that leaves to the left, carries over
+   the top and comes down the right to arrive back inward. Same three
+   strokes, same stroke weight, same unequal barbs. */
+.ab-jr__arrow--explore {
+  --arrow: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" fill="none" stroke="%23000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12C16 6 30 8 36 18 41 26.5 38 36 31 43 27 46 24.5 47.5 22 48.5"/><path d="M22 48.5 31.8 50.3"/><path d="M22 48.5 27.1 41.5"/></svg>');
+}
+
+/* And a fourth for How I think: the line crosses itself twice on the way
+   down, so it reads as a loop rather than a sweep. Same three strokes. */
+.ab-jr__arrow--think {
+  --arrow: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" fill="none" stroke="%23000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M30 6C18 10 12 20 18 26 24 32 32 26 28 19 24 12 12 16 12 26 12 36 20 42 24 48"/><path d="M24 48 23.7 38"/><path d="M24 48 16.1 44.4"/></svg>');
+}
+
+/* The fifth: a coil. Three loops winding down the column, like a spring
+   seen side on.
+
+   Fourth attempt, and the arithmetic is the point. The box renders at 37px
+   wide from a 48-unit viewBox, so a unit is 0.77px and the 1.3 stroke lands
+   just over one. A zigzag was too edgy beside four written lines. A wide
+   serpentine read as a thin wiggle. A tight three-turn coil was worse: its
+   strands sat 4 units apart, which is 3px, and they merged into one grey
+   smudge. These two loops are deliberately huge — 32 units across, strands
+   ~14 units apart, about 11px of clear air — because at this size the only
+   thing that survives is a big gesture. */
+.ab-jr__arrow--use {
+  /* Mirrored rather than redrawn: the loop and the head keep their exact
+     geometry, the whole gesture just reads right-to-left. */
+  transform: scaleX(-1);
+  --arrow: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 60" fill="none" stroke="%23000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M29 4C27 14 23 20 18 26 13 33 24 41 31 35 38 29 29 22 20 29 11 36 15 46 24 49"/><path d="M24 49 17.9 41.1"/><path d="M24 49 15.5 50.7"/></svg>');
+}
+
+/* Set on the column, not on each thing in it: the paragraphs, the pointers
+   and the stack list all inherit the one value, so they cannot drift apart. */
+.ab-jr__body {
+  display: grid;
+  gap: var(--step-5);
+  min-inline-size: 0;
+  font-size: calc(var(--text-body) * 1.12);
+}
+.ab-jr__body p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+/* The marks.
+   These are the work index's row-hover pairs, not a new palette: hovering a
+   project there fills the card with --t-*-bg and turns its type to
+   --t-*-ink, and each mark below is one of those pairs used the same way
+   round. Contrast is already solved in tokens.css, which is why the ink is
+   taken from the token rather than set to a flat dark.
+
+   A fill rather than the intro's tinted wash, because that is what the Work
+   rows do. box-decoration-break keeps the fill and its corners whole when a
+   mark wraps, which the long one in the third paragraph does. */
+.ab-mark {
+  background: var(--m-bg);
+  color: var(--m-ink);
+  font-weight: var(--weight-emphasis);
+  /* A small POSITIVE margin, which is the opposite of what a faint tinted
+     wash wants. On a wash, padding that shoves the next character away just
+     reads as a gap in the sentence. This is a solid colour field, and a
+     field butted straight against the words either side of it looks like a
+     mistake. (The intro carried such a wash until 6 Nov 2026, when the
+     highlights there were removed.) */
+  padding: .12em .38em;
+  margin-inline: .04em;
+  border-radius: var(--radius-sm);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.ab-mark--lime     { --m-bg: var(--t-lime-bg);     --m-ink: var(--t-lime-ink); }
+.ab-mark--orange   { --m-bg: var(--t-orange-bg);   --m-ink: var(--t-orange-ink); }
+.ab-mark--pink     { --m-bg: var(--t-pink-bg);     --m-ink: var(--t-pink-ink); }
+.ab-mark--lavender { --m-bg: var(--t-lavender-bg); --m-ink: var(--t-lavender-ink); }
+.ab-mark--cobalt   { --m-bg: var(--t-cobalt-bg);   --m-ink: var(--t-cobalt-ink); }
+
+
+/* The five pointers. .ab-points rides on .ab-jr__body, which already gives
+   the column, the gap and the min-inline-size; this only adds what a list
+   needs and the row it puts each drawing on. */
+/* They run ON as a line, not down as a list: drawing, phrase, drawing,
+   phrase, as many as the measure takes, and the rest wrap to the next line.
+   So .ab-points overrides .ab-jr__body's grid with a wrapping flex row.
+   The column gap is the wider of the two, because the space between one
+   pointer and the next has to beat the space inside a pointer or the five
+   read as ten things. */
+.ab-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--step-8);
+  row-gap: var(--step-5);
+}
+
+.ab-point {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--step-3);
+  min-inline-size: 0;
+}
+
+/* Lean, alternating. The homepage's stickers land at an angle because they
+   were thrown; these are sitting on a page, so the lean is a degree or two
+   rather than a flourish, and no two in a row tilt the same way. */
+/* Sized against the line they sit in now rather than against a row of their
+   own: a 57px drawing beside 16px type reads as a drawing with a caption. */
+.ab-point__i {
+  inline-size: clamp(1.75rem, 3vw, 2.15rem);
+  block-size: auto;
+  flex: none;
+  /* The same contact shadow and soft drop the stickers and the peek images
+     carry: these are objects lying on the page, not glowing on top of it. */
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .5))
+          drop-shadow(0 8px 16px rgba(0, 0, 0, .45));
+  transform: rotate(-3deg);
+}
+.ab-point:nth-child(even) .ab-point__i { transform: rotate(3.5deg); }
+.ab-point:nth-child(3n)   .ab-point__i { transform: rotate(-1.5deg); }
+
+/* No font-size here at all, so it takes whatever .ab-jr__body is set to and
+   stays level with the running copy in the sections above. */
+.ab-point__t {
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+  white-space: nowrap;
+  min-inline-size: 0;
+}
+
+/* A thrown sticker is motion; a tilted one is not. Nothing here animates,
+   and the lean goes flat for anyone who has asked for less of it. */
+@media (prefers-reduced-motion: reduce) {
+  .ab-point__i,
+  .ab-point:nth-child(even) .ab-point__i,
+  .ab-point:nth-child(3n) .ab-point__i { transform: none; }
+}
+
+
+/* ===========================================================================
+   WHAT I USE
+   ========================================================================= */
+
+.ab-use { gap: var(--step-8); }
+
+/* --g is the group's colour, set once per group in the markup from the work
+   index's row palette. The label and the group's marks both read it; the
+   item text does not, so a group reads as one quiet list with a coloured
+   heading rather than as a block of colour. */
+.ab-use__g { display: grid; gap: var(--step-4); min-inline-size: 0; }
+
+/* UNUSED since 6 Nov 2026 — the group headings were removed from the markup.
+   Kept because restoring them should be a markup change, not a rebuild.
+
+   Selector doubled on purpose. The label is a <p> inside .ab-jr__body, and
+   `.ab-jr__body p` already sets a colour at 0-1-1; a bare `.ab-use__k` is
+   0-1-0 and silently loses, which is how the group colours reached the marks
+   but not the labels. */
+.ab-use .ab-use__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--g, var(--text-tertiary));
+}
+
+/* The items run on and wrap, the way the pointers above them do. */
+.ab-use__l {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--step-6);
+  row-gap: var(--step-3);
+}
+
+.ab-use__i {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* The mark takes the group's colour and sits a shade back from the word, so
+   a row of eight reads as eight words with marks rather than eight badges. */
+.ab-use__i .ico {
+  font-size: 1.05em;
+  color: var(--g, var(--text-secondary));
+  opacity: 0.9;
+}

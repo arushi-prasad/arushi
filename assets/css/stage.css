@@ -387,6 +387,12 @@
    the border is half a hairline, and the box is tight around both — four
    small objects hanging off the name rather than four buttons parked over
    it. The fill, the word roll and the hues are untouched. */
+/* Writing and Experiments are not links yet. They keep the whole treatment —
+   the fill, the word roll, the hue, the peek group and the note — because
+   they are still destinations, just not finished ones. What they lose is the
+   pointer and the navigation. */
+.portal--soon{ cursor:default; }
+
 .portal{
   position:relative;
   display:grid; place-items:center;

@@ -11,8 +11,19 @@
    from; this file only arranges them in three columns.
    ========================================================================= */
 
+/* The gap between the hero and the list. The shared rule stack put 128px
+   there — the hero's 48px bottom padding, the section's 64px top padding and
+   this component's own 16px — which read as a dropped connection rather than
+   a pause. Pulled to 72px.
+
+   Both rules are safe to write unscoped HERE because initiatives.css is
+   loaded by the Strategy page and nothing else. Putting them in
+   components.css would also move Work, Leadership and the two Strategy
+   evidence pages, which were not asked for. */
+.lede-hero + .section{ padding-block-start:var(--step-6); }
+
 .ini{
-  margin-top:var(--step-4);
+  margin-top:0;
   --ini-cols:minmax(0,1.15fr) minmax(0,0.8fr) minmax(0,1.15fr) 1.5rem;
 }
 

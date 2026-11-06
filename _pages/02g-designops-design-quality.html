@@ -1,0 +1,193 @@
+<!--meta
+route: designops/design-quality
+title: Design Quality Framework
+desc: A shared definition of design quality: six checks a designer runs before handing work on, what engineering needs to build it right, and the practices that came out of it.
+nav: designops
+sheets: dq
+-->
+<!-- Design Quality Framework.
+
+     Built from UX Checklist.pptx (8 slides), which is Arushi's own deck —
+     unlike the Share & Critique material, there is no third-party
+     attribution owed here. The six cards are the deck's six question
+     slides; the quoted line on each card is the deck's own supporting
+     sentence, transcribed rather than invented. Slide 8 becomes the
+     developer handoff section.
+
+     The reference captures supplied alongside the deck are full desktop
+     screenshots and carry unrelated private content. They were reference
+     for building this page and must never be published. The deck is the
+     source, and no image from either appears here.
+
+     NO METRICS ON THIS PAGE, by instruction. Attrition, tenure, OKR
+     figures and DesignOps pillar counts live on the Team OKRs page and the
+     homepage; repeating them here would be the same evidence twice. The
+     third section is capabilities, not numbers. -->
+
+<header class="lede-hero shell">
+  <div data-reveal>
+    <p class="t-label lede-hero__eyebrow">Design leadership / Strategy</p>
+    <h1 class="lede-hero__title">Building a culture of design excellence</h1>
+    <p class="lede-hero__lede">Establishing shared quality standards, strengthening collaboration between design and engineering, and making great design a repeatable team practice.</p>
+  </div>
+</header>
+
+
+<!-- 1 · THE FRAMEWORK -------------------------------------------------------- -->
+<section class="section shell" id="dq-framework" aria-labelledby="h-dq-framework">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">01 · The standard</p>
+    <h2 class="t-h2" id="h-dq-framework">The Design Quality Framework</h2>
+    <p class="prose">Six checks a designer runs on their own work before anyone else sees it. They
+      are written as questions rather than rules, because the point is to make a designer argue with
+      their own screen, not to pass an inspection. The quoted line on each card is the one the
+      original deck leads with.</p>
+  </div>
+
+  <div class="dq-grid" data-reveal>
+
+    <article class="dq-card">
+      <p class="dq-card__n">01</p>
+      <h3 class="dq-card__t">Design intent</h3>
+      <p class="dq-card__q">&ldquo;I love my design, but only when&hellip;&rdquo;</p>
+      <ul class="dq-card__list" role="list">
+        <li>Does every element on the screen deliver value?</li>
+        <li>Will the user achieve their goal?</li>
+        <li>Is it persona-checked?</li>
+        <li>What could make the design fail?</li>
+        <li>Does it meet UX metrics, if any?</li>
+      </ul>
+    </article>
+
+    <article class="dq-card">
+      <p class="dq-card__n">02</p>
+      <h3 class="dq-card__t">Error resilience</h3>
+      <p class="dq-card__q">&ldquo;Bad error handling paired with useless error messages will make your visitors leave.&rdquo;</p>
+      <ul class="dq-card__list" role="list">
+        <li>Are all forms and input fields error-handled?</li>
+        <li>What does the error page look like?</li>
+        <li>Can users recover from the error?</li>
+      </ul>
+    </article>
+
+    <article class="dq-card">
+      <p class="dq-card__n">03</p>
+      <h3 class="dq-card__t">Design system integrity</h3>
+      <p class="dq-card__q">&ldquo;Consistency is key, and the design system is the single source of truth.&rdquo;</p>
+      <ul class="dq-card__list" role="list">
+        <li>Did you reinvent elements that already exist in the design system?</li>
+        <li>Have you picked the right components for the use case?</li>
+        <li>Did you introduce new fonts, icons, colours or shades unnecessarily?</li>
+      </ul>
+    </article>
+
+    <article class="dq-card">
+      <p class="dq-card__n">04</p>
+      <h3 class="dq-card__t">Interaction feedback</h3>
+      <p class="dq-card__q">&ldquo;When users click and nothing happens, they look for an exit or click again.&rdquo;</p>
+      <ul class="dq-card__list" role="list">
+        <li>Have you considered micro-interactions?</li>
+        <li>Did you use animation while content is loading?</li>
+        <li>Does every meaningful user action provide feedback?</li>
+      </ul>
+    </article>
+
+    <article class="dq-card">
+      <p class="dq-card__n">05</p>
+      <h3 class="dq-card__t">Content quality</h3>
+      <p class="dq-card__q">&ldquo;Writing copy needs experience too.&rdquo;</p>
+      <ul class="dq-card__list" role="list">
+        <li>Do you speak the same language as your audience?</li>
+        <li>What does the user need to know on this screen?</li>
+        <li>Avoid jargon. Keep content short and easy to understand.</li>
+      </ul>
+    </article>
+
+    <article class="dq-card">
+      <p class="dq-card__n">06</p>
+      <h3 class="dq-card__t">Delivery readiness</h3>
+      <p class="dq-card__q">&ldquo;A prototype that gives a real experience.&rdquo;</p>
+      <ul class="dq-card__list" role="list">
+        <li>Did you cover all scenarios to test the journeys?</li>
+        <li>Did you replace dummy data with real data?</li>
+        <li>Did you remove unnecessary duplication?</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+
+<!-- 2 · DEVELOPER HANDOFF ---------------------------------------------------- -->
+<section class="section shell" id="dq-handoff" aria-labelledby="h-dq-handoff">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">02 · The handoff</p>
+    <h2 class="t-h2" id="h-dq-handoff">Designed to be built right</h2>
+    <p class="prose">Make sure your developers have an effortless experience. A design is not
+      finished when it looks right; it is finished when someone else can build it without having to
+      guess what you meant.</p>
+  </div>
+
+  <div class="dq-hand" data-reveal>
+    <div class="dq-flow">
+      <div class="dq-flow__n"><b>Design</b><span>The screen, and every state it can reach.</span></div>
+      <span class="dq-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="dq-flow__n"><b>Specification</b><span>States, interactions and behaviour, written down.</span></div>
+      <span class="dq-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="dq-flow__n"><b>Engineering</b><span>Built against the spec, not against a screenshot.</span></div>
+      <span class="dq-flow__a" aria-hidden="true">&rarr;</span>
+      <div class="dq-flow__n"><b>QA</b><span>Checked against the same document both sides read.</span></div>
+    </div>
+
+    <ul class="dq-practices" role="list">
+      <li>Document every error state, empty state and loading state.</li>
+      <li>Specify interactions and animation behaviour.</li>
+      <li>Keep designs aligned with the design system.</li>
+      <li>Make developer handoff clear and actionable.</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- 3 · FROM STANDARDS TO PRACTICE ------------------------------------------- -->
+<section class="section shell" id="dq-practice" aria-labelledby="h-dq-practice">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">03 · The practice</p>
+    <h2 class="t-h2" id="h-dq-practice">From standards to everyday practice</h2>
+    <p class="prose">A checklist that stays a document changes nothing. What follows is how the
+      framework showed up in the way the team worked, described as capabilities rather than as
+      results: these are changes in practice, and none of them is a measured outcome.</p>
+  </div>
+
+  <div class="dq-caps" data-reveal>
+    <article class="dq-cap">
+      <p class="dq-cap__n">01</p>
+      <h3 class="dq-cap__t">Quality ownership</h3>
+      <p class="dq-cap__v">Designers take responsibility for the complete experience, beyond
+        individual screens.</p>
+    </article>
+    <article class="dq-cap">
+      <p class="dq-cap__n">02</p>
+      <h3 class="dq-cap__t">Consistent execution</h3>
+      <p class="dq-cap__v">Shared design system patterns and review standards create consistency
+        across products.</p>
+    </article>
+    <article class="dq-cap">
+      <p class="dq-cap__n">03</p>
+      <h3 class="dq-cap__t">Stronger design and engineering partnership</h3>
+      <p class="dq-cap__v">Clear specifications and documented states reduce ambiguity during
+        development.</p>
+    </article>
+    <article class="dq-cap">
+      <p class="dq-cap__n">04</p>
+      <h3 class="dq-cap__t">Continuous improvement</h3>
+      <p class="dq-cap__v">Reviews become a way to identify gaps, challenge assumptions and improve
+        the quality of delivery.</p>
+    </article>
+  </div>
+
+  <div class="dq-close" data-reveal>
+    <p>Design quality isn't a final checkpoint. It's a shared responsibility built into every stage
+      of the process.</p>
+  </div>
+</section>

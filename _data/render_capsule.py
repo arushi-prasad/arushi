@@ -52,7 +52,7 @@ def counts():
   <p class="cap-count__v" data-count-text="{esc(c["v"])}">{esc(c["v"])}</p>
   <p class="cap-count__l">{esc(c["l"])}</p>
   <p class="cap-count__q">{esc(c["q"])}</p>
-  <p class="cap-count__s">{tag(c["k"])}<span>{esc(D["_about"]["sources"][c["s"]].split(" — ")[0])}</span></p>
+  <p class="cap-count__s">{tag(c["k"])}<span>{esc(D["_about"]["sources"][c["s"]].split("; ")[0])}</span></p>
 </li>"""
         for i, c in enumerate(D["counts"])
     )
@@ -162,7 +162,7 @@ def typography():
   <p class="cap-face__rule">{esc(t["rule"])}</p>
 </div>
 <ul class="cap-types">{rows}</ul>""",
-        label="Type scale — 17 tokens",
+        label="Type scale · 17 tokens",
         note="Rubik is self-hosted here at the weights the scale uses, so every line is the real "
              "typeface at its real size, not a visual approximation.",
     )
@@ -180,7 +180,7 @@ def spacing():
         for tok, v, use in D["spacing"]
     )
     return stage(f'<ul class="cap-spaces">{rows}</ul>', label="Spacing scale",
-                 note="Drawn to scale — the bar is the actual value. 44px is the floor for "
+                 note="Drawn to scale: the bar is the actual value. 44px is the floor for "
                       "anything a finger has to hit.")
 
 
@@ -195,7 +195,7 @@ def radius():
         for tok, val, px, use in D["radius"]
     )
     return stage(f'<ul class="cap-rads">{rows}</ul>', label="Radius scale",
-                 note="Buttons are never pill-shaped — 4px at small, 8px at medium and large. "
+                 note="Buttons are never pill-shaped: 4px at small, 8px at medium and large. "
                       "The rule is in the blueprint, not a matter of taste.")
 
 
@@ -219,7 +219,7 @@ def icons():
         for k, v in D["icons"]
     )
     return stage(f'<ul class="cap-ico">{rows}</ul>', label="Iconography",
-                 note="The icon rules are specified but the icon set itself is not in my files — "
+                 note="The icon rules are specified but the icon set itself is not in my files, "
                       "no icons are reproduced here rather than substituting a different library.")
 
 
@@ -258,7 +258,7 @@ def contrast():
         + f"""<div class="cap-finding" data-reveal>
   <p class="cap-finding__k">What the measurement found</p>
   <p class="cap-finding__body">{esc(c["claim"])}</p>
-  <p class="cap-finding__body">But <b>{len(fails)} of the {len(c["rows"])} pairs fall below 4.5:1</b> —
+  <p class="cap-finding__body">But <b>{len(fails)} of the {len(c["rows"])} pairs fall below 4.5:1</b>:
   muted text, warning text, the disabled button label and the caution tag. Placeholder and disabled
   text are partly exempt under WCAG; warning copy and the caution tag are not. This is worth a look
   before the next version of the system.</p>
@@ -350,7 +350,7 @@ def buttons():
     <tbody>{plat}</tbody>
   </table>
 </div>""", label="Platform defaults",
-                note="Four platforms, three button heights. The differences are recorded on purpose — "
+                note="Four platforms, three button heights. The differences are recorded on purpose, "
                      "that is what stops them being rediscovered every quarter.")
     )
 
@@ -425,8 +425,9 @@ def product():
   <p class="cap-gap__body">A component existing in Figma is not evidence that a product adopted it,
   and I do not have screenshots of Capsule components in a shipped Bajaj interface. Rather than
   present a mock-up as a product screen, this chapter is deliberately short.</p>
-  <p class="cap-gap__body">What <em>is</em> evidenced: the system documents four platforms — App,
-  MWeb, DWeb and PWA — each with its own header frame and its own sizing defaults. A system built for
+  <p class="cap-gap__body">What <em>is</em> evidenced: the system documents four platforms (App,
+ 
+  MWeb, DWeb and PWA), each with its own header frame and its own sizing defaults. A system built for
   one surface does not grow four sets of platform rules.</p>
   <p class="cap-gap__ask">To finish this chapter I need two or three real product screens exported.</p>
 </div>"""

@@ -20,7 +20,7 @@ def e(s):
 def num(v, dp=2):
     """2.1666666 -> 2.17, 3.5 -> 3.5, 5.0 -> 5."""
     if v is None:
-        return "&mdash;"
+        return "·"
     s = ("%." + str(dp) + "f") % float(v)
     return s.rstrip("0").rstrip(".") if "." in s else s
 
@@ -56,7 +56,7 @@ def scorecard(d):
     t = c["total"]
     return """<div class="score">
   <div class="score__head">
-    <h3 class="score__title">UX evaluation &mdash; recorded scores</h3>
+    <h3 class="score__title">UX evaluation: recorded scores</h3>
     <p class="score__sub">One completed review. Each dimension is the mean of its own
     question ratings on a 1&ndash;5 scale, where 1 is &ldquo;Not at all&rdquo; and 5 is
     &ldquo;Completely&rdquo;.</p>
@@ -137,7 +137,7 @@ def model(d):
 def versions(d):
     sets = [
         ("Definitions", d["definitions"], "What each parameter means. No questions, no scores."),
-        ("Question set", d["blank_questions"], "The same model turned into reviewer questions. Blank &mdash; never filled in."),
+        ("Question set", d["blank_questions"], "The same model turned into reviewer questions. Blank, never filled in."),
         ("Revised question set", d["revised_questions"], "A later revision. The fifth factor is renamed and regrouped."),
         ("Completed review", None, "The one version with ratings in it."),
     ]
@@ -173,7 +173,7 @@ def versions(d):
 <p class="note">The first four factors are stable across all four. The fifth is not: it is
 <span class="tag">Error Prevention and Handling</span> in the definitions,
 <span class="tag">Error Handling &amp; Guidance</span> in the question set and the completed
-review, and <span class="tag">Guidance &amp; Handholding</span> in the revision &mdash; which
+review, and <span class="tag">Guidance &amp; Handholding</span> in the revision, which
 also grows from five questions to six. These are not presented as one framework, because
 the files do not show them as one.</p>""" % "\n".join(rows)
 
@@ -186,13 +186,13 @@ def scale(d):
     for L in s["levels"]:
         cells = "".join(
             '<td data-label="%s">%s</td>' % (e(x), e(L["by_dimension"].get(x, "")) or
-                                             '<span class="vr__blank">&mdash;</span>')
+                                             '<span class="vr__blank">·</span>')
             for x in dims)
         rows.append('<tr><th scope="row"><span class="sc__n">%d</span>%s</th>%s</tr>'
                     % (L["level"], e(L["label"]), cells))
     return """<div class="sc__wrap">
 <table class="sc">
-  <caption class="srcnote">What each point on the scale means, per dimension &mdash;
+  <caption class="srcnote">What each point on the scale means, per dimension:
   %s</caption>
   <thead><tr><th scope="col">Level</th>%s</tr></thead>
   <tbody>%s</tbody>
@@ -225,7 +225,7 @@ def snapshot(d):
 workbook, score a fifth factor the completed review does not have
 (<span class="tag">Guidance &amp; Handholding</span>), and have no question-level rows
 behind them anywhere in the file. Nothing in the sources establishes what was reviewed,
-when, or by whom &mdash; so this is shown as a separate snapshot and never as a
+when, or by whom, so this is shown as a separate snapshot and never as a
 before-and-after. The two sets are not combined or averaged.</p>""" % (
         bars(s["by_factor"], "By factor"), bars(s["by_parameter"], "By parameter"),
         srcnote("Source: %s. The only sheet that scores the same review two ways." % s["source"]))

@@ -1157,7 +1157,13 @@
     var armed = null;        // the section a first tap has opened, if any
     var warmed = false;
 
-    function sectionOf(a) { return SECTION[a.getAttribute('href')] || ''; }
+    /* data-section first, href second. Writing and Experiments are not links
+       any more — their pages are still being written — but they still have to
+       light their peek group and their note on hover, and an element with no
+       href cannot be identified by one. */
+    function sectionOf(a) {
+      return a.getAttribute('data-section') || SECTION[a.getAttribute('href')] || '';
+    }
 
     function warm() {
       if (warmed) return;

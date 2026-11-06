@@ -1,0 +1,248 @@
+/* ============================================================================
+   OKR — Team OKRs, Design Impact & Outcomes
+
+   Three movements, in order: what the team was working towards (the original
+   sheets), what changed while that work ran (the metrics), and what it left
+   behind (the outcomes). The sheets are the evidence, so they come first and
+   they are never redrawn; the metrics are the expressive moment; the outcomes
+   are quiet type.
+   ========================================================================= */
+
+
+/* ── 1 · the OKR gallery ─────────────────────────────────────────────────
+   Intro on the left, sheets on the right, 3 over 2. The sources are portrait
+   (546–596 × ~1000), so at gallery size the type inside them is shape rather
+   than text — which is why every tile is a link to the full-resolution file.
+   The lightbox is an enhancement on top of that link, not a replacement. */
+
+.okr-split { display: grid; gap: var(--step-10); align-items: start; }
+
+@media (min-width: 60rem) {
+  .okr-split { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: var(--step-16); }
+  /* The intro is set against the top of the first row of tiles, not floated
+     down the middle of a tall gallery. */
+  .okr-split__intro { position: sticky; top: calc(var(--nav-height, 4rem) + var(--step-8)); }
+}
+
+.okr-split__intro { display: grid; gap: var(--step-4); align-content: start; min-inline-size: 0; }
+.okr-split__intro h2 { margin: 0; }
+.okr-split__intro p  { margin: 0; }
+
+/* Two across, so the five fall 2 / 2 / 1 and the last sheet sits on its own
+   row. Two columns also buys each tile ~350px at 1440 instead of 226, which
+   is the difference between a thumbnail you can orient yourself in and one
+   you cannot. */
+.okr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--step-4);
+  min-inline-size: 0;
+}
+
+.okr-tile {
+  margin: 0;
+  display: block;
+  min-inline-size: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--ink-100);
+  position: relative;
+  /* The sheets are portrait and all within 5% of each other, so one ratio
+     holds them in a tidy grid without cropping anything: object-fit is
+     deliberately NOT used — the whole document stays visible. */
+}
+
+.okr-tile img { inline-size: 100%; block-size: auto; display: block; }
+
+.okr-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* The affordance. A hairline lift and a corner marker, nothing more. */
+.okr-tile::after {
+  content: "↗";
+  position: absolute;
+  inset-block-start: .4rem; inset-inline-end: .4rem;
+  inline-size: 1.4rem; block-size: 1.4rem;
+  display: grid; place-items: center;
+  border-radius: var(--radius-sm);
+  background: color-mix(in oklab, var(--ink-0) 72%, transparent);
+  color: var(--ink-100);
+  font-size: .7rem;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .okr-tile, .okr-tile::after { transition: border-color var(--duration-quick, .18s) var(--ease-out, ease), opacity var(--duration-quick, .18s) var(--ease-out, ease); }
+}
+
+.okr-tile:hover, .okr-tile:focus-visible { border-color: var(--border-strong); }
+.okr-tile:hover::after, .okr-tile:focus-visible::after { opacity: 1; }
+
+.okr-cap {
+  margin: var(--step-4) 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  line-height: var(--leading-body);
+}
+
+
+/* ── 2 · design impact & outcomes ────────────────────────────────────────
+   The expressive moment on the page. The number carries it; everything else
+   is set small and quiet so the figure has the whole stage.                */
+
+.imp { margin-top: var(--step-8); }
+
+.imp__head { display: grid; gap: var(--step-4); max-inline-size: var(--prose-max, 38rem); }
+
+.imp__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--step-6);
+  margin-top: var(--step-10);
+}
+
+@media (min-width: 52rem) { .imp__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* A drawn box: one hairline rule, no fill and no coloured bar across the
+   top. The filled-card-with-an-accent-stripe is the house style of every
+   generated dashboard on the internet, and it was reading as one. The only
+   colour left in the component is the arrow between the two figures. */
+.imp__i {
+  display: grid;
+  gap: var(--step-3);
+  align-content: start;
+  padding: var(--step-8);
+  border: 1px solid var(--border-default);
+  background: none;
+  min-inline-size: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .imp__i { transition: border-color var(--duration-quick, .18s) var(--ease-out, ease); }
+}
+
+.imp__i:hover { border-color: var(--border-strong); }
+
+.imp__k {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* The figure. Display weight, tight leading, tabular so the two transition
+   cards line their digits up with each other. */
+.imp__n {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: clamp(2.1rem, 1.1rem + 3.4vw, 3.5rem);
+  line-height: 0.95;
+  letter-spacing: var(--track-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .22em;
+}
+
+/* The "from" half of a transition is set back, so the eye lands on the
+   number the work arrived at rather than the one it started from. */
+.imp__from { color: var(--text-tertiary); font-weight: var(--weight-heading); }
+
+.imp__arrow {
+  color: var(--imp-hue, var(--accent));
+  font-weight: var(--weight-heading);
+  font-size: .62em;
+  transform: translateY(-.12em);
+}
+
+.imp__to { color: var(--text-primary); }
+.imp__unit { font-size: .4em; font-weight: var(--weight-heading); color: var(--text-secondary); letter-spacing: 0; }
+
+.imp__v { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+
+/* The qualifier that keeps a target from reading as a result. */
+.imp__note {
+  margin: 0;
+  padding-top: var(--step-3);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  line-height: var(--leading-body);
+}
+
+.imp__tag {
+  display: inline-flex; align-items: center; gap: .45em;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--hue-ochre);
+}
+
+.imp__tag::before { content: ""; inline-size: .4em; block-size: .4em; border-radius: 50%; background: currentColor; }
+
+
+/* ── 3 · beyond the numbers ──────────────────────────────────────────────
+   Type only. A hairline rule, a mono index and a line of text.            */
+
+.bey { margin-top: var(--step-16); }
+
+/* Four typographic columns divided by hairlines, not four more boxes. The
+   index is set large and light so it reads as a marker rather than a label,
+   and nothing here is a card: the section is deliberately quieter than the
+   metrics above it. */
+.bey__list {
+  list-style: none;
+  margin: var(--step-8) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.bey__i {
+  display: grid;
+  gap: var(--step-4);
+  align-content: start;
+  padding-block: var(--step-5);
+  border-block-start: 1px solid var(--border-subtle);
+}
+
+.bey__n {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.bey__t {
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: var(--leading-body);
+  max-inline-size: 22rem;
+}
+
+/* From here the divider turns vertical and the rows become one band. */
+@media (min-width: 60rem) {
+  .bey__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  .bey__i {
+    padding-block: 0;
+    padding-inline: var(--step-6);
+    border-block-start: 0;
+    border-inline-start: 1px solid var(--border-subtle);
+    gap: var(--step-5);
+  }
+
+  .bey__i:first-child { border-inline-start: 0; padding-inline-start: 0; }
+  .bey__n { font-size: 2.25rem; }
+}
+
+@media (min-width: 46rem) and (max-width: 59.99rem) {
+  .bey__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--step-10); }
+}

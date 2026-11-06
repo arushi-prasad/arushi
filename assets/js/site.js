@@ -115,8 +115,8 @@
         var text = btn.getAttribute('data-copy');
         var done = function (ok) {
           btn.classList.toggle('is-done', ok);
-          btn.setAttribute('aria-label', ok ? 'Copied' : 'Copy failed — select the address instead');
-          if (live) live.textContent = ok ? 'Address copied' : 'Copy unavailable — select the address instead';
+          btn.setAttribute('aria-label', ok ? 'Copied' : 'Copy failed, select the address instead');
+          if (live) live.textContent = ok ? 'Address copied' : 'Copy unavailable, select the address instead';
           win.setTimeout(function () {
             btn.classList.remove('is-done');
             btn.setAttribute('aria-label', original);

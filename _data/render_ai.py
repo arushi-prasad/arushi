@@ -61,7 +61,7 @@ def workflows(d):
 %s
 <p class="note">Both models are drawn from the source document. The second is an
 operating model I am arguing for, not a description of how every project I touch runs
-today &mdash; and the first is not wrong, it is what works when iteration is expensive.
+today, and the first is not wrong, it is what works when iteration is expensive.
 What changes is where the loop closes.</p>""" % (
         rail("old", "Sequential", "rail--old"),
         rail("new", "AI-native", "rail--new"),
@@ -150,7 +150,7 @@ def layers(d):
 </div>
 %s
 <p class="note">Seven layers, from the source document. The point of the stack is that
-AI touches every one of them but owns none of them &mdash; each layer names what AI can
+AI touches every one of them but owns none of them: each layer names what AI can
 contribute and what stays a human call.</p>""" % (
         stack, "\n".join(panels),
         ev("concept", "A proposed operating model, not an implemented process"))
@@ -180,7 +180,7 @@ def matrix(d):
 </figure>
 %s
 <p class="note">Read the right-hand column as the real job description. Every row on the
-left is work that still arrives needing review &mdash; a generated flow, a generated
+left is work that still arrives needing review: a generated flow, a generated
 component, a generated paragraph of documentation is a draft with a confident tone, and
 nothing more than that until someone signs it off.</p>""" % (rows, ev("concept"))
 
@@ -246,7 +246,7 @@ def scale(d):
 <p class="note"><strong>Three different units, deliberately not combined.</strong> A
 route count, a file count and a line count measure different things and none of them is
 a measure of quality, speed or business impact. They are here to show the scale of the
-surface a designer can now reach into &mdash; nothing more. I am not claiming AI wrote
+surface a designer can now reach into, nothing more. I am not claiming AI wrote
 this, that it was faster than an alternative, or that size is an achievement.</p>
 <p class="note">The portfolio previously recorded a snapshot of <span class="tag">67
 routes</span>, <span class="tag">28 UI primitives</span>, <span class="tag">163 TS
@@ -255,7 +255,7 @@ gives the figures above: the primitive count is unchanged, the other three have 
 The older numbers are left visible here rather than quietly replaced.</p>""" % (
         f"{c['loc']:,}", c["routes"], c["ui_files"], rowhtml,
         ev("verified", "Measured from the working tree on %s" % c["measured"]),
-        srcnote("%s &mdash; %s. %s" % (c["project"], c["stack"], c["method"])))
+        srcnote("%s · %s. %s" % (c["project"], c["stack"], c["method"])))
 
 
 def primitives(d):
@@ -330,7 +330,7 @@ def generations(d):
   <blockquote><p>Instead of teaching AI what the product looks like, teach AI how the product thinks.</p></blockquote>
 </figure>
 %s
-<p class="note">Generations 1 and 2 describe Capsule as it exists &mdash; tokens,
+<p class="note">Generations 1 and 2 describe Capsule as it exists: tokens,
 components, rules, governance. Generation 3 is a proposal. Capsule does not generate
 designs or validate output automatically today, and this page does not suggest it
 does.</p>""" % (cards, chips, ev("concept", "Generation 3 only"))
@@ -364,7 +364,7 @@ def rituals(d):
         for r in d["rituals"])
     return ('<ul class="rits" role="list">%s</ul>\n%s\n'
             '<p class="note">Five rituals from the source document. None of these runs '
-            'in my organisation today &mdash; they are what I would introduce, and '
+            'in my organisation today. They are what I would introduce, and '
             'saying otherwise would be the easiest lie on this page.</p>'
             % (rows, ev("concept", "Proposed rituals, not current practice")))
 

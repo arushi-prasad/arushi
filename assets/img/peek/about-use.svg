@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560" width="560" height="560" fill="none" role="presentation">
+  <!-- Nine of the marks from the About page's "What I use" list, three to
+       a row, each row a group in its own colour: design, AI, then build.
+
+       It used to be six of them scattered at angles, which read as spilt
+       rather than arranged. A toolkit is a set, so this is a set: one
+       pitch, one size, aligned. The marks are nested straight from the
+       sprite in _build.py, so the preview cannot disagree with the page.
+       Regenerate whenever that list changes. -->
+  <svg x="88" y="108" width="104" height="104" viewBox="0 0 16 16" fill="none"
+       stroke="#EDA23F" stroke-width="1.5" stroke-linecap="round"
+       stroke-linejoin="round" overflow="visible"><rect x="5.4" y="2.3" width="5.3" height="3.5" rx="1.75"/><rect x="5.4" y="6.3" width="5.3" height="3.5" rx="1.75"/><circle cx="8.05" cy="12" r="1.9"/></svg>
+  <svg x="228" y="108" width="104" height="104" viewBox="0 0 16 16" fill="none"
+       stroke="#EDA23F" stroke-width="1.5" stroke-linecap="round"
+       stroke-linejoin="round" overflow="visible"><path d="M12.2 2.4H3.8l4.2 4.1h4.2z"/><path d="M3.8 6.5h8.4L8 10.6H3.8z"/><path d="M8 10.6v3.3l-4.2-3.3z"/></svg>
+  <svg x="368" y="108" width="104" height="104" viewBox="0 0 16 16" fill="none"
+       stroke="#EDA23F" stroke-width="1.5" stroke-linecap="round"
+       stroke-linejoin="round" overflow="visible"><rect x="2.2" y="3.3" width="5" height="9.4" rx="1.3"/><rect x="8.8" y="3.3" width="5" height="9.4" rx="1.3"/><path d="M4.7 5.5h.01M11.3 5.5h.01"/></svg>
+  <svg x="88" y="228" width="104" height="104" viewBox="0 0 16 16" fill="none"
+       stroke="#C3B2EB" stroke-width="1.5" stroke-linecap="round"
+       stroke-linejoin="round" overflow="visible"><rect x="1.7" y="2.9" width="12.6" height="10.2" rx="1.7"/><path d="m4.4 6.7 1.8 1.8-1.8 1.8"/><path d="M8.4 10.3h3.2"/></svg>
+  <svg x="228" y="228" width="104" height="104" viewBox="0 0 16 16" fill="none"
+       stroke="#C3B2EB" stroke-width="1.5" stroke-linecap="round"
+       stroke-linejoin="round" overflow="visible"><path d="M8 2.1c.5 3.2 2.6 5.3 5.8 5.8-3.2.5-5.3 2.6-5.8 5.8-.5-3.2-2.6-5.3-5.8-5.8C5.4 7.4 7.5 5.3 8 2.1Z"/></svg>
+  <svg x="368" y="228" width="104" height="104" viewBox="0 0 16 16" fill="none"
+       stroke="#C3B2EB" stroke-width="1.5" stroke-linecap="round"
+       stroke-linejoin="round" overflow="visible"><path d="M2.9 8.5c0-2.7 2.3-4.8 5.1-4.8s5.1 2.1 5.1 4.8v1.3c0 1.9-2.3 3.3-5.1 3.3s-5.1-1.4-5.1-3.3Z"/><path d="M6 8.7h.01M10 8.7h.01"/><path d="M8 3.7V2.1"/></svg>
+  <svg x="88" y="348" width="104" height="104" viewBox="0 0 16 16" fill="none"
+       stroke="#7B8DF2" stroke-width="1.5" stroke-linecap="round"
+       stroke-linejoin="round" overflow="visible"><circle cx="8" cy="8" r="5.8"/><path d="M5.9 10.9V5.3l4.7 6"/><path d="M10.3 5.3v3.1"/></svg>
+  <svg x="228" y="348" width="104" height="104" viewBox="0 0 16 16" fill="none"
+       stroke="#7B8DF2" stroke-width="1.5" stroke-linecap="round"
+       stroke-linejoin="round" overflow="visible"><path d="M2.6 6.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/><path d="M2.6 11.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/></svg>
+  <svg x="368" y="348" width="104" height="104" viewBox="0 0 16 16" fill="none"
+       stroke="#C6D44F" stroke-width="1.5" stroke-linecap="round"
+       stroke-linejoin="round" overflow="visible"><path d="M8.9 1.7 3.5 8.7h4.2l-.5 5.6 5.3-7H8.4Z"/></svg>
+</svg>

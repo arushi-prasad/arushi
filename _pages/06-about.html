@@ -1,119 +1,263 @@
 <!--meta
 route: about
 title: About
-desc: Career journey, design philosophy and how to reach Arushi Prasad.
+desc: Arushi Prasad, product design leader. Eleven years across product design, design systems and DesignOps, and the person behind the work.
 nav: about
-word_a: who
-word_b: and how
-tagline: Design Manager and product design leader, 11+ years across product design, design systems and DesignOps. I work best on complex products: many moving parts, several kinds of user, and no obvious shape yet.
-hero_cards: <div class="page-hero__cards" data-reveal><div class="page-hero__card"><figure class="shot"><img src="../assets/img/profile.jpg" alt="Arushi Prasad." loading="lazy"><figcaption class="t-label">Arushi Prasad, Pune</figcaption></figure></div><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-copper)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Now</span></div><div class="card__body"><h2 class="card__name">Design Manager</h2><p class="card__premise">Bajaj Finserv Health, Pune. 2019 to present.</p></div></article></div><div class="page-hero__card"><article class="card" style="--art-hue:var(--hue-lavender)"><span class="card__art"></span><div class="card__meta"><span class="card__status">Education</span></div><div class="card__body"><h2 class="card__name">MIT Institute of Design</h2><p class="card__premise">Bachelor's degree, User Experience.</p></div></article></div></div>
+sheets: about
 -->
+<!-- About.
 
-<section class="section shell">
-  <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">01 — The spine</p>
-    <h2 class="t-h2">I build the product, the system, and the organisation</h2>
+     Five movements, from Arushi's own copy, which is the source of truth for
+     every sentence here. Do not add achievements, metrics, awards or company
+     claims that are not in it.
+
+     Sections removed on her instruction, 6 Nov 2026: What I do, Beyond
+     design (which carried the inline pills and the rotating photo globe),
+     Currently exploring (the old numbered one, superseded by the .ab-jr
+     block of the same name), and Let's connect, whose email and LinkedIn
+     moved up into the hero as .ab-ways pills alongside her phone number.
+     Their CSS is deliberately LEFT IN about.css, unused, so any of them can
+     come back without being rebuilt. globe.js is no longer loaded.
+
+     My journey, On this site and Currently exploring are one component,
+     .ab-jr, used three times. Only the arrow differs between them.
+
+     The portrait is hers. Never fill an image slot on this page with stock
+     or generated imagery. -->
+
+
+<!-- 01 · INTRODUCTION ---------------------------------------------------------
+     No eyebrow label here by instruction (6 Nov 2026): the other six sections
+     keep theirs, the opening does not need one.
+
+     All three paragraphs are .ab-hero__body, one size, and carry no
+     highlights: the coloured phrases that were here were removed 6 Nov 2026.
+     The marks in the journey section below are a different treatment with a
+     different source and are not affected. -->
+<header class="ab-hero shell">
+  <div class="ab-hero__grid">
+    <div class="ab-hero__words" data-reveal>
+      <h1 class="ab-hero__name">
+        <span class="ab-hero__greet">Hi, I&rsquo;m</span><span class="ab-hero__me">arushi</span>
+      </h1>
+
+      <!-- The contact details, which used to be their own section at the foot
+           of the page. They are real links, not decoration: the mail and tel
+           ones open a client, so they stay <a> and keep their protocols. -->
+      <ul class="ab-ways" data-reveal>
+        <li><a class="ab-way" href="mailto:arushi.ald@gmail.com">
+          <svg class="ico" aria-hidden="true"><use href="#i-mail"></use></svg>arushi.ald@gmail.com</a></li>
+        <li><a class="ab-way" href="tel:+917875058225">
+          <svg class="ico" aria-hidden="true"><use href="#i-phone"></use></svg>+91&nbsp;7875058225</a></li>
+        <li><a class="ab-way" href="https://www.linkedin.com/in/arushi-prasad-24850566" target="_blank" rel="noopener noreferrer">
+          <svg class="ico" aria-hidden="true"><use href="#i-linkedin"></use></svg>LinkedIn<span class="sr-only"> (opens in a new tab)</span></a></li>
+      </ul>
+
+      <p class="ab-hero__tag">I build products, systems and the team behind both.</p>
+
+      <p class="ab-hero__body">I work across product thinking, design, systems and technology, figuring out how things should work, how they should feel, and what it takes to bring them to life.</p>
+      <p class="ab-hero__body">Over the last 11+ years, I&rsquo;ve designed digital experiences, built design systems, grown design teams and worked on products from the ground up. These days, I&rsquo;m leading product design at Bajaj Finserv Health, working across multiple products and helping turn complex ideas into thoughtful experiences.</p>
+      <p class="ab-hero__body">I&rsquo;m particularly interested in the space where design, technology and AI come together, and in finding better ways to build things.</p>
+
+    </div>
+
+    <figure class="ab-hero__shot" data-reveal>
+      <span class="ab-hero__frame">
+        <img src="../assets/img/about/portrait.jpg" width="900" height="1200" loading="eager"
+             alt="Arushi Prasad standing on a curved stone staircase, looking up towards the camera between tall pale columns, in warm interior light.">
+      </span>
+    </figure>
   </div>
-  <div class="prose" data-reveal>
-    <p>Those three sentences are the whole argument, and they are meant in order. I build products — WorkPerks and Vytals. I build the systems that make products repeatable — Capsule, and the DesignOps operating system around it. I build the organisations that make both possible — a design function that went from two people to twenty.</p>
-    <p style="margin-top:var(--step-4)">AI is not a fourth pillar. It is what extended the first one into working software: on WorkPerks I led the product and then built the app, using AI-assisted development to carry design decisions into frontend, backend and integration work. It hasn't replaced my judgement. It has extended how far I can carry it.</p>
+</header>
+
+
+<!-- 02 · MY JOURNEY ----------------------------------------------------------
+     Two columns: the arrow and the heading stand on the left, the account
+     runs down the right. The arrow is the same three-stroke hand-drawn mark
+     the homepage hangs under "a little more ME", turned to sweep down into
+     the heading instead of up into an icon, and drawn inline for the same
+     reason it is there — nothing in the markup exists only to be decorative.
+
+     The highlights here are the work index's row palette: a project's hover
+     fills the card with --t-*-bg and turns the type to --t-*-ink, and these
+     are those exact pairs, so the colour a reader meets on Work is the colour
+     they meet again here. They are a different treatment from the intro's
+     copper wash on purpose: that one tints, this one fills. -->
+<section class="section shell" id="ab-journey" aria-labelledby="h-ab-journey">
+  <div class="ab-jr">
+    <div class="ab-jr__side" data-reveal>
+      <span class="ab-jr__arrow" aria-hidden="true"></span>
+      <h2 class="t-h2 ab-jr__h" id="h-ab-journey">My journey</h2>
+    </div>
+
+    <div class="ab-jr__body" data-reveal>
+      <p>I spent four years at Decos, a Netherlands-based technology company, where I built my foundation working on digital products and collaborating closely with technology teams.</p>
+
+      <p>For the last <span class="ab-mark ab-mark--orange">6+ years</span>, I&rsquo;ve been at Bajaj Finserv Health, where a big part of my journey has been <span class="ab-mark ab-mark--pink">building and growing the design team</span>. I&rsquo;ve had the opportunity to shape how the team works, establish design practices, introduce systems that support scale, and bring designers, product managers and engineers closer together.</p>
+
+      <p>Over time, my curiosity has moved beyond the design canvas. I&rsquo;ve developed a stronger interest in the technical side of building products: understanding frontend architecture, design-to-code workflows, component systems and how interfaces translate into working software.</p>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ON THIS SITE ---------------------------------------------------------------
+     The same block as My journey above it, down to the class names: this is
+     .ab-jr used a second time, not a copy of it, so the two stay in step.
+
+     The marks run in nav order and name what each one points at: Work,
+     Strategy, Leadership, Writing, Experiments, Fun stuff. Same work-index
+     row palette as the journey, cycled — five colours over six phrases. -->
+<section class="section shell" id="ab-site" aria-labelledby="h-ab-site">
+  <div class="ab-jr">
+    <div class="ab-jr__side" data-reveal>
+      <span class="ab-jr__arrow ab-jr__arrow--site" aria-hidden="true"></span>
+      <h2 class="t-h2 ab-jr__h" id="h-ab-site">On this site</h2>
+    </div>
+
+    <div class="ab-jr__body" data-reveal>
+      <p>On this site, you&rsquo;ll find a collection of my work, the thinking and strategy behind the products I shape, and the teams and design practices I&rsquo;ve helped build.</p>
+
+      <p>There&rsquo;s also a little <span class="ab-mark ab-mark--lavender">writing on design and technology</span>, <span class="ab-mark ab-mark--cobalt">experiments and side projects</span> born out of curiosity, and some <span class="ab-mark ab-mark--lime">fun stuff</span> from life outside work.</p>
+    </div>
   </div>
 </section>
 
-<section class="section shell">
-  <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">02 — Career journey</p>
-    <h2 class="t-h2">Eleven years, three places</h2>
-  </div>
 
-  <div class="rows" data-reveal>
-    <article class="row">
-      <p class="row__num">2019&#8201;&#8212;</p>
-      <h3 class="row__title">Bajaj Finserv Health<br><span class="t-label t-dim">Design Manager · Lead Designer · Senior UX Designer</span></h3>
-      <div class="row__body">
-        <p>Grew the design function from two to twenty, structured into pods, without diluting culture or the quality bar. Reached 100% in-house design ownership through a phased twelve-month plan. Promoted twelve designers internally on a competency framework I built. Led WorkPerks and built the app. Created Capsule. Owned design across HRX, DRX and Salesforce CRM, and established the organisation's first structured UX research programme.</p>
-      </div>
-    </article>
+<!-- HOW I THINK -----------------------------------------------------------------
+     The fourth and last use of .ab-jr, with the fourth arrow. The body is a
+     list rather than paragraphs, so .ab-points rides on .ab-jr__body for the
+     column and the gap and only adds what a list needs.
 
-    <article class="row">
-      <p class="row__num">2015&#8211;19</p>
-      <h3 class="row__title">Decos<br><span class="t-label t-dim">Senior Product Designer</span></h3>
-      <div class="row__body">
-        <p>A Netherlands-based company building software for businesses — ERP, document management and workflow automation. Owned user experience across five products, two of them taken from inception to execution: the concept, the experience and the shipped interface.</p>
-      </div>
-    </article>
+     The drawings are in the same hand as the five stickers "a little more ME"
+     throws across the homepage — 64x64, flat shapes, cream outlines, the same
+     palette, the same contact shadow — but they are NEW drawings, not those
+     five reused: those are her plants, Everest, the gym, a smoothie bowl and
+     a cursor, and a dumbbell against "ownership over output" would be a joke
+     at the sentence's expense. One drawing per idea instead.
 
-    <article class="row">
-      <p class="row__num">2014</p>
-      <h3 class="row__title">Tata Consultancy Services<br><span class="t-label t-dim">UX Design Intern</span></h3>
-      <div class="row__body">
-        <p>Worked on Darshanarthi, the TCS visitor management system, alongside senior designers on wireframes and prototypes. Ran user research and usability testing and folded the findings back into the design. It is where the practice got its methods.</p>
-      </div>
-    </article>
+     Set lowercase because that is how she wrote them. -->
+<section class="section shell" id="ab-beliefs" aria-labelledby="h-ab-beliefs">
+  <div class="ab-jr">
+    <div class="ab-jr__side" data-reveal>
+      <span class="ab-jr__arrow ab-jr__arrow--think" aria-hidden="true"></span>
+      <h2 class="t-h2 ab-jr__h" id="h-ab-beliefs">How I think</h2>
+    </div>
 
-    <article class="row">
-      <p class="row__num">2010&#8211;15</p>
-      <h3 class="row__title">MIT Institute of Design<br><span class="t-label t-dim">Bachelor's degree, User Experience</span></h3>
-      <div class="row__body"><p>Pune.</p></div>
-    </article>
-  </div>
-
-  <div class="media-grid" style="margin-top:var(--step-10)" data-reveal>
-    <figure class="shot"><img src="../assets/img/logos/bajaj-finserv-health.svg" alt="Bajaj Finserv Health" loading="lazy" style="padding:var(--step-6);background:var(--ink-5)"></figure>
-    <figure class="shot"><img src="../assets/img/logos/decos.svg" alt="Decos" loading="lazy" style="padding:var(--step-6);background:var(--ink-5)"></figure>
-    <figure class="shot"><img src="../assets/img/logos/tata-consultancy-services.svg" alt="Tata Consultancy Services" loading="lazy" style="padding:var(--step-6);background:var(--ink-5)"></figure>
+    <ul class="ab-jr__body ab-points" data-reveal>
+      <li class="ab-point"><img class="ab-point__i" src="../assets/img/stickers/clarity.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span class="ab-point__t">clarity over complexity.</span></li>
+      <li class="ab-point"><img class="ab-point__i" src="../assets/img/stickers/systems.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span class="ab-point__t">systems over silos.</span></li>
+      <li class="ab-point"><img class="ab-point__i" src="../assets/img/stickers/ownership.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span class="ab-point__t">ownership over output.</span></li>
+      <li class="ab-point"><img class="ab-point__i" src="../assets/img/stickers/progress.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span class="ab-point__t">progress over perfection.</span></li>
+      <li class="ab-point"><img class="ab-point__i" src="../assets/img/stickers/people.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><span class="ab-point__t">people before process.</span></li>
+    </ul>
   </div>
 </section>
 
-<section class="section shell">
-  <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">03 — Design philosophy</p>
-    <h2 class="t-h2">Four positions</h2>
+
+<!-- CURRENTLY EXPLORING --------------------------------------------------------
+     The third use of .ab-jr, after My journey and On this site. Same two
+     columns, same cursive grey heading, same marks; only the arrow differs,
+     so the three read as one hand writing three different notes.
+
+     This replaces the old numbered "Currently exploring" section, which said
+     the same thing in different words. Its two marks came here with their
+     sentences from the journey's last paragraph, in the colours they already
+     had, rather than being chosen fresh. -->
+<section class="section shell" id="ab-explore" aria-labelledby="h-ab-explore">
+  <div class="ab-jr">
+    <div class="ab-jr__side" data-reveal>
+      <span class="ab-jr__arrow ab-jr__arrow--explore" aria-hidden="true"></span>
+      <h2 class="t-h2 ab-jr__h" id="h-ab-explore">Currently exploring</h2>
+    </div>
+
+    <div class="ab-jr__body" data-reveal>
+      <p>I&rsquo;m particularly interested in the intersection of design, product thinking and AI.</p>
+
+      <p>I&rsquo;m exploring <span class="ab-mark ab-mark--lime">AI-assisted workflows</span> and technologies like <span class="ab-mark ab-mark--cobalt">React, React Native, Expo and Supabase</span> to move beyond static designs, build functional experiences and bring ideas to life faster.</p>
+
+      <p>I enjoy getting closer to the code, experimenting with new ways of working and making the connection between design and development more seamless.</p>
+    </div>
   </div>
-  <div class="rows" data-reveal>
-    <article class="row">
-      <p class="row__num">01</p>
-      <h3 class="row__title">Get to the real problem first</h3>
-      <p class="row__body">User-centred design is not a research phase. It is the discipline of not designing a screen until you can say what is actually wrong.</p>
-    </article>
-    <article class="row">
-      <p class="row__num">02</p>
-      <h3 class="row__title">Principles over presence</h3>
-      <p class="row__body">Decision frameworks exist so that quality does not depend on me being in the room. If it does, I have built a bottleneck rather than a practice.</p>
-    </article>
-    <article class="row">
-      <p class="row__num">03</p>
-      <h3 class="row__title">AI changes the interface, not the judgement</h3>
-      <p class="row__body">When a product can reason, what the interface owes the person using it changes. What design owes them does not.</p>
-    </article>
-    <article class="row">
-      <p class="row__num">04</p>
-      <h3 class="row__title">What I no longer do</h3>
-      <div class="row__body">
-        <ul>
-          <li>Treat Figma as the end product.</li>
-          <li>Treat handoff as the end of design.</li>
-          <li>Create knowledge that disappears after launch.</li>
+</section>
+
+
+
+
+
+<!-- WHAT I USE ------------------------------------------------------------------
+     The fifth and last .ab-jr, with the fifth arrow.
+
+     Four groups, each with its own colour taken from the work index's row
+     palette, the same five this page draws every other accent from. The
+     colour lives on one custom property per group, so a group is re-tinted
+     in one place.
+
+     The groups no longer carry a visible heading (removed 6 Nov 2026); they
+     are told apart by colour and by the space between them. The headings
+     were 01 Design & Creative Tools, 02 AI & Intelligent Workflows,
+     03 Frontend & App Development, 04 Backend, Data & Testing. No
+     screen-reader-only copy was left in their place: a sighted reader gets
+     four unlabelled coloured lists, and so should everyone else.
+
+     Every item carries a mark from the sprite in _build.py. The brand-named
+     ones are simplified evocations rather than trademark reproductions, and
+     the entries that name a practice rather than a product get a glyph for
+     the thing itself. They are stroke-drawn on the same 16-unit grid as the
+     rest of the site's icons, so they sit in the line rather than on it. -->
+<section class="section shell" id="ab-use" aria-labelledby="h-ab-use">
+  <div class="ab-jr">
+    <div class="ab-jr__side" data-reveal>
+      <span class="ab-jr__arrow ab-jr__arrow--use" aria-hidden="true"></span>
+      <h2 class="t-h2 ab-jr__h" id="h-ab-use">What I use</h2>
+    </div>
+
+    <div class="ab-jr__body ab-use" data-reveal>
+      <div class="ab-use__g" style="--g:var(--t-orange-bg)">
+        <ul class="ab-use__l">
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-figma"></use></svg>Figma</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-figjam"></use></svg>FigJam</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-framer"></use></svg>Framer</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-mobbin"></use></svg>Mobbin</li>
         </ul>
       </div>
-    </article>
+
+      <div class="ab-use__g" style="--g:var(--t-lavender-bg)">
+        <ul class="ab-use__l">
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-claude"></use></svg>Claude Code</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-gemini"></use></svg>Gemini</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-copilot"></use></svg>GitHub Copilot</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-antigravity"></use></svg>Antigravity</li>
+        </ul>
+      </div>
+
+      <div class="ab-use__g" style="--g:var(--t-cobalt-bg)">
+        <ul class="ab-use__l">
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-html"></use></svg>HTML / CSS</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-js"></use></svg>JavaScript</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-ts"></use></svg>TypeScript</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-native"></use></svg>React Native</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-next"></use></svg>Next.js</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-expo"></use></svg>Expo</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-tailwind"></use></svg>Tailwind CSS</li>
+        </ul>
+      </div>
+
+      <div class="ab-use__g" style="--g:var(--t-lime-bg)">
+        <ul class="ab-use__l">
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-supabase"></use></svg>Supabase</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-node"></use></svg>Node.js</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-postgres"></use></svg>PostgreSQL</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-playwright"></use></svg>Playwright</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-cucumber"></use></svg>Cucumber</li>
+          <li class="ab-use__i"><svg class="ico" aria-hidden="true" focusable="false"><use href="#t-storybook"></use></svg>Storybook</li>
+        </ul>
+      </div>
+    </div>
+    </div>
   </div>
 </section>
 
-<section class="section shell">
-  <div class="panel" data-reveal>
-    <p class="t-label section__eyebrow">04 — Contact</p>
-    <h2 class="t-h2" style="margin-top:var(--step-4)">Building something worth designing?</h2>
-    <p class="prose" style="margin-top:var(--step-5)">I'm most useful on complex products — the ones with a lot of moving parts, several kinds of user, and no obvious shape yet.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:var(--step-3);margin-top:var(--step-8)">
-      <a class="btn" href="mailto:arushi.ald@gmail.com">
-        <svg class="ico" aria-hidden="true"><use href="#i-mail"></use></svg>arushi.ald@gmail.com
-      </a>
-      <a class="btn btn--ghost" href="https://www.linkedin.com/in/arushi-prasad-24850566" target="_blank" rel="noopener noreferrer">
-        <svg class="ico" aria-hidden="true"><use href="#i-linkedin"></use></svg>LinkedIn
-        <span class="sr-only">(opens in a new tab)</span>
-      </a>
-    </div>
-    <p class="t-label t-dim" style="margin-top:var(--step-6)">Pune, India</p>
-  </div>
-</section>
+

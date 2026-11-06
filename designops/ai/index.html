@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Design Operating System — Arushi Prasad</title>
-  <meta name="description" content="Rethinking how design teams work when AI becomes part of the product lifecycle — a seven-layer operating model, a responsibility matrix, and a 35,718-line product I helped build.">
+  <title>AI Design Operating System · Arushi Prasad</title>
+  <meta name="description" content="Rethinking how design teams work when AI becomes part of the product lifecycle: a seven-layer operating model, a responsibility matrix, and a 35,718-line product I helped build.">
   <meta name="color-scheme" content="dark">
   <link rel="preload" href="../../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=f874ed78">
   <link rel="stylesheet" href="../../assets/css/base.css?v=c3f7efb8">
-  <link rel="stylesheet" href="../../assets/css/components.css?v=be3cf32e">
-  <link rel="stylesheet" href="../../assets/css/ai.css?v=ff740028">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=294b607f">
+  <link rel="stylesheet" href="../../assets/css/ai.css?v=1a432c6e">
   <link rel="stylesheet" href="../../assets/css/case.css?v=703795f5">
   <!-- Loaded before paint so a saved token preference is applied to <html>
        without a flash of the defaults. -->
-  <script src="../../assets/js/tokens.js?v=a7c3e9c1"></script>
+  <script src="../../assets/js/tokens.js?v=8a014e81"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -32,6 +32,7 @@
 <symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
 <symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
 <symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-phone" viewBox="0 0 16 16"><path d="M5.6 2.8 3.2 3.6c-.7.3-1 1-.9 1.7.5 2.6 1.8 5 3.7 6.9s4.3 3.2 6.9 3.7h.1c.6 0 1.2-.4 1.4-1l.8-2.4-3-1.6-1.4 1.7a11 11 0 0 1-4.1-4.1l1.7-1.4z"/></symbol>
 <symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
 <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
 <symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
@@ -47,6 +48,46 @@
 <symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
 <symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
 <symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<!-- What I use. One mark per item in the About page's stack list, drawn on
+     the same 16-unit grid and at the same stroke weight as everything above,
+     so they sit inside a line of text rather than on top of it. The
+     brand-named ones are simplified evocations, not trademark reproductions;
+     the ones that name a practice rather than a tool (Design Systems, UX
+     Research, Prototyping...) get a glyph for the thing itself. -->
+<!-- Outside the brief. One mark per thing named in the Fun Stuff line,
+     drawn on the same 16-unit grid and weight as every other icon here so
+     they sit inside a sentence rather than on top of it. -->
+<symbol id="f-badminton" viewBox="0 0 16 16"><ellipse cx="6.5" cy="6.5" rx="3.6" ry="4.4" transform="rotate(-40 6.5 6.5)"/><path d="m9.3 9.5 3.9 4.3"/><path d="M4.3 4.9 9 9.1M4.9 8.5 8.5 4.4"/></symbol>
+<symbol id="f-strength" viewBox="0 0 16 16"><path d="M2.2 6.4v3.2M4.3 4.7v6.6M11.7 4.7v6.6M13.8 6.4v3.2"/><path d="M4.3 8h7.4"/></symbol>
+<symbol id="f-cycling" viewBox="0 0 16 16"><circle cx="4.1" cy="11" r="2.7"/><circle cx="11.9" cy="11" r="2.7"/><path d="m4.1 11 2.9-5.1h3.2l1.7 5.1"/><path d="M6.9 5.9h2.7"/></symbol>
+<symbol id="f-trek" viewBox="0 0 16 16"><rect x="4.1" y="6" width="7.8" height="7.8" rx="2.1"/><path d="M6 6V4.7a2 2 0 0 1 4 0V6"/><path d="M6.4 9.6h3.2"/></symbol>
+<symbol id="f-coffee" viewBox="0 0 16 16"><path d="M3.2 5.6h8.2v4.1a3.4 3.4 0 0 1-3.4 3.4H6.6a3.4 3.4 0 0 1-3.4-3.4Z"/><path d="M11.4 6.6h1a1.9 1.9 0 0 1 0 3.8h-1"/><path d="M2.4 14.6h10"/><path d="M6 2.2v1.6M8.6 2.2v1.6"/></symbol>
+<symbol id="f-plant" viewBox="0 0 16 16"><path d="M4.4 9.4h7.2l-.8 4.4H5.2Z"/><path d="M8 9.4V5.4"/><path d="M8 6.8C8 4.5 6.4 2.6 4.3 2.6c0 2.3 1.6 4.2 3.7 4.2Z"/><path d="M8 7.6c0-2 1.6-3.7 3.5-3.7 0 2-1.6 3.7-3.5 3.7Z"/></symbol>
+<symbol id="f-bowl" viewBox="0 0 16 16"><path d="M2.6 7.8h10.8a5.4 5.4 0 0 1-10.8 0Z"/><path d="M1.5 7.8h13"/><circle cx="6" cy="5.3" r="1.1"/><circle cx="9.7" cy="4.7" r="1.1"/></symbol>
+<symbol id="f-people" viewBox="0 0 16 16"><circle cx="6" cy="5.5" r="2.4"/><path d="M2.3 13.2c0-2 1.7-3.7 3.7-3.7s3.7 1.7 3.7 3.7"/><circle cx="11.7" cy="6.4" r="1.8"/><path d="M10.2 9.8c1.9.1 3.5 1.6 3.5 3.4"/></symbol>
+<symbol id="f-music" viewBox="0 0 16 16"><path d="M6.2 12.3V3.8l7-1.4v8.5"/><circle cx="4.3" cy="12.3" r="1.9"/><circle cx="11.3" cy="10.9" r="1.9"/></symbol>
+<symbol id="f-mountain" viewBox="0 0 16 16"><path d="M1.6 12.9 6.4 4.2l4.2 7.6"/><path d="M8.2 12.9 11.4 7l3 5.9z"/><path d="M1.4 12.9h13.2"/></symbol>
+<symbol id="t-figjam" viewBox="0 0 16 16"><rect x="2.2" y="2.6" width="11.6" height="10.8" rx="1.8"/><path d="M4.7 10c1-1.7 2.1-1.7 3.1 0s2.1 1.7 3.1 0"/><circle cx="5.6" cy="5.9" r="1.1"/></symbol>
+<symbol id="t-framer" viewBox="0 0 16 16"><path d="M12.2 2.4H3.8l4.2 4.1h4.2z"/><path d="M3.8 6.5h8.4L8 10.6H3.8z"/><path d="M8 10.6v3.3l-4.2-3.3z"/></symbol>
+<symbol id="t-mobbin" viewBox="0 0 16 16"><rect x="2.2" y="3.3" width="5" height="9.4" rx="1.3"/><rect x="8.8" y="3.3" width="5" height="9.4" rx="1.3"/><path d="M4.7 5.5h.01M11.3 5.5h.01"/></symbol>
+<symbol id="t-gemini" viewBox="0 0 16 16"><path d="M8 2.1c.5 3.2 2.6 5.3 5.8 5.8-3.2.5-5.3 2.6-5.8 5.8-.5-3.2-2.6-5.3-5.8-5.8C5.4 7.4 7.5 5.3 8 2.1Z"/></symbol>
+<symbol id="t-copilot" viewBox="0 0 16 16"><path d="M2.9 8.5c0-2.7 2.3-4.8 5.1-4.8s5.1 2.1 5.1 4.8v1.3c0 1.9-2.3 3.3-5.1 3.3s-5.1-1.4-5.1-3.3Z"/><path d="M6 8.7h.01M10 8.7h.01"/><path d="M8 3.7V2.1"/></symbol>
+<symbol id="t-antigravity" viewBox="0 0 16 16"><path d="M8 11.9V2.6"/><path d="m5.2 5.4 2.8-2.8 2.8 2.8"/><path d="M3.2 14.1h9.6" stroke-dasharray="1.5 2.1"/></symbol>
+<symbol id="t-html" viewBox="0 0 16 16"><path d="m5.3 5.1-3 2.9 3 2.9M10.7 5.1l3 2.9-3 2.9"/><path d="m9.3 3.5-2.6 9"/></symbol>
+<symbol id="t-js" viewBox="0 0 16 16"><rect x="2.2" y="2.2" width="11.6" height="11.6" rx="2.1"/><path d="M7 6.3v4c0 .9-.6 1.4-1.4 1.4-.6 0-1.1-.3-1.4-.8"/><path d="M11.8 6.9c-1.4-.8-2.6-.2-2.6.8 0 1.5 2.6 1 2.6 2.4 0 .9-1.1 1.5-2.6.7"/></symbol>
+<symbol id="t-next" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M5.9 10.9V5.3l4.7 6"/><path d="M10.3 5.3v3.1"/></symbol>
+<symbol id="t-tailwind" viewBox="0 0 16 16"><path d="M2.6 6.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/><path d="M2.6 11.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/></symbol>
+<symbol id="t-node" viewBox="0 0 16 16"><path d="M8 1.9 13.5 5v6L8 14.1 2.5 11V5Z"/><path d="M6.3 10.4V6.6l3.4 3.8V6.6"/></symbol>
+<symbol id="t-postgres" viewBox="0 0 16 16"><ellipse cx="8" cy="4" rx="5.2" ry="2.2"/><path d="M2.8 4v8c0 1.2 2.3 2.2 5.2 2.2s5.2-1 5.2-2.2V4"/><path d="M2.8 8c0 1.2 2.3 2.2 5.2 2.2s5.2-1 5.2-2.2"/></symbol>
+<symbol id="t-figma" viewBox="0 0 16 16"><rect x="5.4" y="2.3" width="5.3" height="3.5" rx="1.75"/><rect x="5.4" y="6.3" width="5.3" height="3.5" rx="1.75"/><circle cx="8.05" cy="12" r="1.9"/></symbol>
+<symbol id="t-native" viewBox="0 0 16 16"><rect x="3.9" y="1.7" width="8.2" height="12.6" rx="1.9"/><circle cx="8" cy="8" r="1.1"/><ellipse cx="8" cy="8" rx="3.3" ry="1.4"/><ellipse cx="8" cy="8" rx="3.3" ry="1.4" transform="rotate(62 8 8)"/></symbol>
+<symbol id="t-ts" viewBox="0 0 16 16"><rect x="2.2" y="2.2" width="11.6" height="11.6" rx="2.1"/><path d="M4.5 6.6h3.7M6.35 6.6v4.8"/><path d="M11.7 6.9c-1.6-.8-2.7-.1-2.7.8 0 1.6 2.7 1 2.7 2.5 0 .9-1.1 1.6-2.7.8"/></symbol>
+<symbol id="t-expo" viewBox="0 0 16 16"><path d="M2.2 12.6 7.2 4a.95.95 0 0 1 1.6 0l5 8.6"/><path d="M6 12.6 8 9.2l2 3.4"/></symbol>
+<symbol id="t-supabase" viewBox="0 0 16 16"><path d="M8.9 1.7 3.5 8.7h4.2l-.5 5.6 5.3-7H8.4Z"/></symbol>
+<symbol id="t-claude" viewBox="0 0 16 16"><rect x="1.7" y="2.9" width="12.6" height="10.2" rx="1.7"/><path d="m4.4 6.7 1.8 1.8-1.8 1.8"/><path d="M8.4 10.3h3.2"/></symbol>
+<symbol id="t-playwright" viewBox="0 0 16 16"><path d="M2.9 3.5h10.2v4.9c0 2.8-2.3 5.1-5.1 5.1S2.9 11.2 2.9 8.4Z"/><path d="M5.8 7.1h.01M10.2 7.1h.01"/><path d="M6.2 10.3c1.1.9 2.5.9 3.6 0"/></symbol>
+<symbol id="t-cucumber" viewBox="0 0 16 16"><path d="M12.5 3.5c1.6 1.6.6 5.3-2.3 8.2s-6.6 3.9-8.2 2.3-.6-5.3 2.3-8.2 6.6-3.9 8.2-2.3Z"/><path d="m6.4 6.5 1.6 1.6M8.7 5.1l1.6 1.6M4.9 8.9l1.6 1.6"/></symbol>
+<symbol id="t-storybook" viewBox="0 0 16 16"><path d="M8 4.3C6.6 2.9 4.8 2.5 2.6 2.7v9c2.2-.2 4 .2 5.4 1.6 1.4-1.4 3.2-1.8 5.4-1.6v-9c-2.2-.2-4 .2-5.4 1.6Z"/><path d="M8 4.3v9"/></symbol>
 <symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
 </defs>
 </svg>
@@ -57,7 +98,7 @@
     </a>
     <div class="nav__right">
       <ul class="nav__links" role="list">
-        <li><a class="nav__link" href="../../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../designops/" aria-current="page" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../leadership/" aria-label="Leadership">leadership</a></li>
+        <li><a class="nav__link" href="../../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../designops/" aria-current="page" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">5</sup></a></li><li><a class="nav__link" href="../../leadership/" aria-label="Leadership">leadership<sup class="nav__count" aria-hidden="true">11</sup></a></li>
       </ul>
 
       <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
@@ -66,7 +107,7 @@
 </header>
 <div class="nav-sheet" id="nav-sheet" data-open="false">
   <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
-  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../../designops/" aria-current="page">Strategy<span>8</span></a></li><li><a class="nav-sheet__link" href="../../leadership/">Leadership<span>—</span></a></li><li><a class="nav-sheet__link" href="../../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../../about/">About<span>—</span></a></li><li><a class="nav-sheet__link" href="../../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../../snippets/">Snippets<span>5</span></a></li></ul>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../../designops/" aria-current="page">Strategy<span>5</span></a></li><li><a class="nav-sheet__link" href="../../leadership/">Leadership<span>11</span></a></li><li><a class="nav-sheet__link" href="../../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../../about/">About<span>·</span></a></li><li><a class="nav-sheet__link" href="../../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../../snippets/">Snippets<span>5</span></a></li></ul>
   <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
 </div>
 <main id="main" tabindex="-1">
@@ -76,7 +117,7 @@
     <span class="page-hero__word page-hero__word-a">ai design</span>
     <span class="page-hero__word page-hero__word-b">operating system</span>
   </h1>
-  <p class="page-hero__tagline" data-reveal>Rethinking how design teams work when AI becomes part of the product lifecycle. Every framework here is labelled for what it is — verified, experiment, or concept.</p>
+  <p class="page-hero__tagline" data-reveal>Rethinking how design teams work when AI becomes part of the product lifecycle. Every framework here is labelled for what it is: verified, experiment, or concept.</p>
   
 </header>
 <div class="case__prog" data-case-prog aria-hidden="true"><span class="case__prog-bar" data-case-prog-bar></span></div>
@@ -110,7 +151,7 @@
   <div class="section__head" data-reveal>
     <p class="t-label section__eyebrow">DesignOps / 03</p>
     <h2 class="t-h2" id="a-intro">AI should not simply make designers faster</h2>
-    <p class="prose">It should change how the design organisation operates. I don't see AI as another tool bolted onto an existing process &mdash; I see it as a reason to rethink how product thinking, design, engineering, knowledge, quality and delivery fit together.</p>
+    <p class="prose">It should change how the design organisation operates. I don't see AI as another tool bolted onto an existing process. I see it as a reason to rethink how product thinking, design, engineering, knowledge, quality and delivery fit together.</p>
     <p class="prose">This page is part evidence and part argument, and it keeps the two apart. Where I have built something, there is a count or a screenshot. Where I am proposing something, it says so.</p>
   </div>
 
@@ -131,7 +172,7 @@
 <!-- 02 · THE SHIFT ---------------------------------------------------------- -->
 <section class="section" aria-labelledby="a-shift">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">02 &mdash; The shift</p>
+    <p class="t-label section__eyebrow">02 · The shift</p>
     <h2 class="t-h2" id="a-shift">From artefacts to working experiences</h2>
     <p class="prose">The sequential model exists because iteration used to be expensive. When a change costs a handoff, a sprint and a QA cycle, you front-load the certainty. When it costs an afternoon, that logic stops holding.</p>
   </div>
@@ -145,14 +186,14 @@
 <p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">The AI-native model is a proposed operating approach</span></p>
 <p class="note">Both models are drawn from the source document. The second is an
 operating model I am arguing for, not a description of how every project I touch runs
-today &mdash; and the first is not wrong, it is what works when iteration is expensive.
+today, and the first is not wrong, it is what works when iteration is expensive.
 What changes is where the loop closes.</p></div>
 </section>
 
 <!-- 03 · THESIS ------------------------------------------------------------- -->
 <section class="section" aria-labelledby="a-thesis">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">03 &mdash; The thesis</p>
+    <p class="t-label section__eyebrow">03 · The thesis</p>
     <h2 class="t-h2" id="a-thesis">AI is an operating layer, not a feature</h2>
   </div>
   <div data-reveal><div class="eq">
@@ -167,7 +208,7 @@ What changes is where the loop closes.</p></div>
 <!-- 04 · THE SEVEN LAYERS --------------------------------------------------- -->
 <section class="section" aria-labelledby="a-os">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">04 &mdash; The model</p>
+    <p class="t-label section__eyebrow">04 · The model</p>
     <h2 class="t-h2" id="a-os">Seven layers</h2>
     <p class="prose">Select a layer to see what AI can contribute to it and what stays a human call.</p>
   </div>
@@ -185,14 +226,14 @@ What changes is where the loop closes.</p></div>
 </div>
 <p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">A proposed operating model, not an implemented process</span></p>
 <p class="note">Seven layers, from the source document. The point of the stack is that
-AI touches every one of them but owns none of them &mdash; each layer names what AI can
+AI touches every one of them but owns none of them: each layer names what AI can
 contribute and what stays a human call.</p></div>
 </section>
 
 <!-- 05 · RESPONSIBILITY ----------------------------------------------------- -->
 <section class="section" aria-labelledby="a-matrix">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">05 &mdash; Responsibility</p>
+    <p class="t-label section__eyebrow">05 · Responsibility</p>
     <h2 class="t-h2" id="a-matrix">Who is accountable for what</h2>
   </div>
   <div data-reveal><div class="rm__wrap">
@@ -210,7 +251,7 @@ contribute and what stays a human call.</p></div>
 </figure>
 <p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span></p>
 <p class="note">Read the right-hand column as the real job description. Every row on the
-left is work that still arrives needing review &mdash; a generated flow, a generated
+left is work that still arrives needing review: a generated flow, a generated
 component, a generated paragraph of documentation is a draft with a confident tone, and
 nothing more than that until someone signs it off.</p></div>
 </section>
@@ -218,7 +259,7 @@ nothing more than that until someone signs it off.</p></div>
 <!-- 06 · WORKPERKS ---------------------------------------------------------- -->
 <section class="section" aria-labelledby="a-wp">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">06 &mdash; In practice</p>
+    <p class="t-label section__eyebrow">06 · In practice</p>
     <h2 class="t-h2" id="a-wp">WorkPerks</h2>
     <p class="prose">A multi-surface employee benefits product. It is the reason this page is not purely a framework: I went from defining the product to working on the thing that runs, and the gap between those two used to be a handoff.</p>
   </div>
@@ -247,7 +288,7 @@ nothing more than that until someone signs it off.</p></div>
 <!-- 07 · THE BUILD LOOP ----------------------------------------------------- -->
 <section class="section section--accent" aria-labelledby="a-loop">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">07 &mdash; The build loop</p>
+    <p class="t-label section__eyebrow">07 · The build loop</p>
     <h2 class="t-h2" id="a-loop">When the designer enters the build loop</h2>
   </div>
 
@@ -262,8 +303,8 @@ nothing more than that until someone signs it off.</p></div>
          alt="An editor window showing the WorkPerks repository tree with a mobile folder, a Claude settings file open, and a terminal running Claude Code which has listed the eight product surfaces of the app."
          width="1500" height="560">
     <figcaption class="plate__cap"><span class="plate__src">Claude Code, working in the WorkPerks repository</span>
-    A real session. The terminal output is Claude Code reading the codebase back to me &mdash;
-    the eight product surfaces listed below came from this walkthrough. Cropped to remove
+    A real session. The terminal output is Claude Code reading the codebase back to me. The
+    eight product surfaces listed below came from this walkthrough. Cropped to remove
     internal backend notes.</figcaption>
   </figure>
 
@@ -276,9 +317,9 @@ nothing more than that until someone signs it off.</p></div>
 <!-- 08 · SCALE -------------------------------------------------------------- -->
 <section class="section" aria-labelledby="a-scale">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">08 &mdash; Scale</p>
+    <p class="t-label section__eyebrow">08 · Scale</p>
     <h2 class="t-h2" id="a-scale">What the working tree actually contains</h2>
-    <p class="prose">Counted from the repository rather than remembered. These numbers describe size, and size alone proves nothing about quality or speed &mdash; but it does show the surface a designer can now reach.</p>
+    <p class="prose">Counted from the repository rather than remembered. These numbers describe size, and size alone proves nothing about quality or speed, but it does show the surface a designer can now reach.</p>
   </div>
 
   <div data-reveal><ul class="stats stats--big">
@@ -288,11 +329,11 @@ nothing more than that until someone signs it off.</p></div>
 </ul>
 <ul class="sbar"><li class="sbar__row"><span class="sbar__name">Registered routes<span class="sbar__hint">screens wired to a navigator</span></span><span class="sbar__track"><i style="width:42.5%"></i></span><span class="sbar__val">71</span></li><li class="sbar__row"><span class="sbar__name">TypeScript files<span class="sbar__hint">source files, .ts and .tsx</span></span><span class="sbar__track"><i style="width:100.0%"></i></span><span class="sbar__val">167</span></li><li class="sbar__row"><span class="sbar__name">UI primitives<span class="sbar__hint">modules in src/ui</span></span><span class="sbar__track"><i style="width:16.8%"></i></span><span class="sbar__val">28</span></li></ul>
 <p class="ev ev--verified"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Verified</span><span class="ev__n">Measured from the working tree on 2026-09-24</span></p>
-<p class="srcnote">WorkPerks employee app &amp;mdash; Expo / React Native / TypeScript. Counted from the working tree, excluding node_modules, build output and native project folders. Routes are the distinct names registered on a navigator in source.</p>
+<p class="srcnote">WorkPerks employee app · Expo / React Native / TypeScript. Counted from the working tree, excluding node_modules, build output and native project folders. Routes are the distinct names registered on a navigator in source.</p>
 <p class="note"><strong>Three different units, deliberately not combined.</strong> A
 route count, a file count and a line count measure different things and none of them is
 a measure of quality, speed or business impact. They are here to show the scale of the
-surface a designer can now reach into &mdash; nothing more. I am not claiming AI wrote
+surface a designer can now reach into, nothing more. I am not claiming AI wrote
 this, that it was faster than an alternative, or that size is an achievement.</p>
 <p class="note">The portfolio previously recorded a snapshot of <span class="tag">67
 routes</span>, <span class="tag">28 UI primitives</span>, <span class="tag">163 TS
@@ -302,7 +343,7 @@ The older numbers are left visible here rather than quietly replaced.</p></div>
 
   <div class="section__head" data-reveal style="margin-top:var(--step-16)">
     <h3 class="t-h3">The component vocabulary</h3>
-    <p class="prose">Twenty-eight primitives, which is the part of the count I find most interesting &mdash; it is the only figure that has not moved since the earlier snapshot. A system stabilises while the product on top of it keeps growing.</p>
+    <p class="prose">Twenty-eight primitives, which is the part of the count I find most interesting: it is the only figure that has not moved since the earlier snapshot. A system stabilises while the product on top of it keeps growing.</p>
   </div>
   <div data-reveal><ul class="chips" role="list"><li class="chip">Accordion</li><li class="chip">Atmosphere</li><li class="chip">Avatar</li><li class="chip">Beat</li><li class="chip">Brand</li><li class="chip">CategoryTile</li><li class="chip">ChatBlocks</li><li class="chip">FlexiDonut</li><li class="chip">Header</li><li class="chip">ModePill</li><li class="chip">NightCard</li><li class="chip">Press</li><li class="chip">Rolling</li><li class="chip">Sample</li><li class="chip">Segmented</li><li class="chip">Sheet</li><li class="chip">Skeleton</li><li class="chip">SlideAction</li><li class="chip">Stagger</li><li class="chip">States</li><li class="chip">SwipeRail</li><li class="chip">TabBar</li><li class="chip">Toast</li><li class="chip">Toggle</li><li class="chip">VendorLogo</li><li class="chip">icons</li><li class="chip">motion</li><li class="chip">primitives</li></ul>
 <p class="srcnote">Every module in src/ui, listed by filename. This is the component vocabulary the app is actually built from.</p></div>
@@ -311,7 +352,7 @@ The older numbers are left visible here rather than quietly replaced.</p></div>
 <!-- 09 · CAPSULE ------------------------------------------------------------ -->
 <section class="section" aria-labelledby="a-capsule">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">09 &mdash; The system</p>
+    <p class="t-label section__eyebrow">09 · The system</p>
     <h2 class="t-h2" id="a-capsule">From design system to design intelligence</h2>
   </div>
   <div data-reveal><ol class="gens"><li class="gen"><p class="gen__n">Generation 1</p><h3 class="gen__name">UI library</h3><p class="gen__note">A collection of reusable components.</p><p class="gen__tag gen__tag--v">Verified</p></li><li class="gen"><p class="gen__n">Generation 2</p><h3 class="gen__name">Design system</h3><p class="gen__note">Components + rules + governance.</p><p class="gen__tag gen__tag--v">Verified</p></li><li class="gen gen--concept"><p class="gen__n">Generation 3</p><h3 class="gen__name">Design intelligence</h3><p class="gen__note">Components + rules + context + organisational knowledge + AI assistance + validation.</p><p class="gen__tag">Concept</p></li></ol>
@@ -323,7 +364,7 @@ The older numbers are left visible here rather than quietly replaced.</p></div>
   <blockquote><p>Instead of teaching AI what the product looks like, teach AI how the product thinks.</p></blockquote>
 </figure>
 <p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">Generation 3 only</span></p>
-<p class="note">Generations 1 and 2 describe Capsule as it exists &mdash; tokens,
+<p class="note">Generations 1 and 2 describe Capsule as it exists: tokens,
 components, rules, governance. Generation 3 is a proposal. Capsule does not generate
 designs or validate output automatically today, and this page does not suggest it
 does.</p></div>
@@ -332,7 +373,7 @@ does.</p></div>
 <!-- 10 · TEAM MODEL --------------------------------------------------------- -->
 <section class="section" aria-labelledby="a-team">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">10 &mdash; The organisation</p>
+    <p class="t-label section__eyebrow">10 · The organisation</p>
     <h2 class="t-h2" id="a-team">An AI-native team operating model</h2>
     <p class="prose">Everything above this point is one designer's workflow. This is the part that makes it an operating system rather than a personal habit.</p>
   </div>
@@ -348,13 +389,13 @@ does.</p></div>
   </div>
   <div data-reveal><ul class="rits" role="list"><li class="rit"><h3 class="rit__name">Weekly AI Design Critique</h3><p class="rit__note">Discuss: - where AI was used - what worked - where it failed - what required human judgment - reusable prompts/workflows</p><ul class="rit__items"><li>where AI was used</li><li>what worked</li><li>where it failed</li><li>what required human judgment</li><li>reusable prompts/workflows</li></ul></li><li class="rit"><h3 class="rit__name">Design + Engineering Review</h3><p class="rit__note">Review: - implementation - component behaviour - technical constraints - design-system consistency</p><ul class="rit__items"><li>implementation</li><li>component behaviour</li><li>technical constraints</li><li>design-system consistency</li></ul></li><li class="rit"><h3 class="rit__name">AI Quality Review</h3><p class="rit__note">Review: - hallucinations - incorrect assumptions - accessibility - brand drift - privacy/security considerations - output quality</p><ul class="rit__items"><li>hallucinations</li><li>incorrect assumptions</li><li>accessibility</li><li>brand drift</li><li>privacy/security considerations</li><li>output quality</li></ul></li><li class="rit"><h3 class="rit__name">Prompt / Workflow Library</h3><p class="rit__note">Store: - successful workflows - reusable instructions - design-system context - product context - failure cases</p><ul class="rit__items"><li>successful workflows</li><li>reusable instructions</li><li>design-system context</li><li>product context</li><li>failure cases</li></ul></li><li class="rit"><h3 class="rit__name">AI Pattern Review</h3><p class="rit__note">Track emerging patterns: - assistants - recommendations - conversational search - generative UI - adaptive experiences</p><ul class="rit__items"><li>assistants</li><li>recommendations</li><li>conversational search</li><li>generative UI</li><li>adaptive experiences</li></ul></li></ul>
 <p class="ev ev--concept"><span class="ev__dot" aria-hidden="true"></span><span class="ev__k">Concept</span><span class="ev__n">Proposed rituals, not current practice</span></p>
-<p class="note">Five rituals from the source document. None of these runs in my organisation today &mdash; they are what I would introduce, and saying otherwise would be the easiest lie on this page.</p></div>
+<p class="note">Five rituals from the source document. None of these runs in my organisation today. They are what I would introduce, and saying otherwise would be the easiest lie on this page.</p></div>
 </section>
 
 <!-- 11 · GOVERNANCE --------------------------------------------------------- -->
 <section class="section" aria-labelledby="a-gov">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">11 &mdash; Governance</p>
+    <p class="t-label section__eyebrow">11 · Governance</p>
     <h2 class="t-h2" id="a-gov">Seven questions before a team starts</h2>
   </div>
   <div data-reveal><ol class="govs"><li class="gov"><span class="gov__n">01</span><h3 class="gov__name">Privacy</h3><p class="gov__q">What information can be shared with AI systems?</p></li><li class="gov"><span class="gov__n">02</span><h3 class="gov__name">Security</h3><p class="gov__q">What data, credentials, repositories or customer information must never be exposed?</p></li><li class="gov"><span class="gov__n">03</span><h3 class="gov__name">Accuracy</h3><p class="gov__q">How are AI-generated outputs verified?</p></li><li class="gov"><span class="gov__n">04</span><h3 class="gov__name">Brand</h3><p class="gov__q">How do we prevent AI-generated experiences from drifting from brand principles?</p></li><li class="gov"><span class="gov__n">05</span><h3 class="gov__name">Accessibility</h3><p class="gov__q">How do we prevent AI from generating inaccessible experiences?</p></li><li class="gov"><span class="gov__n">06</span><h3 class="gov__name">Bias</h3><p class="gov__q">How do we identify problematic recommendations, language or assumptions?</p></li><li class="gov"><span class="gov__n">07</span><h3 class="gov__name">Ownership</h3><p class="gov__q">Who owns the final decision?</p></li></ol>
@@ -370,7 +411,7 @@ These are the seven things I would want answered before a team starts.</p></div>
 <!-- 12 · MEASUREMENT -------------------------------------------------------- -->
 <section class="section" aria-labelledby="a-measure">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">12 &mdash; Measurement</p>
+    <p class="t-label section__eyebrow">12 · Measurement</p>
     <h2 class="t-h2" id="a-measure">Measure what changes</h2>
     <p class="prose">An empty measurement frame, shown empty on purpose.</p>
   </div>
@@ -387,7 +428,7 @@ instrumenting.</p></div>
 <!-- 13 · BLUEPRINT ---------------------------------------------------------- -->
 <section class="section" aria-labelledby="a-bp">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">13 &mdash; The blueprint</p>
+    <p class="t-label section__eyebrow">13 · The blueprint</p>
     <h2 class="t-h2" id="a-bp">How I would start</h2>
   </div>
   <div data-reveal><ol class="bp"><li class="bp__step"><span class="bp__n">01</span><span class="bp__name">Map the existing workflow</span></li><li class="bp__step"><span class="bp__n">02</span><span class="bp__name">Identify AI opportunities</span></li><li class="bp__step"><span class="bp__n">03</span><span class="bp__name">Establish guardrails</span></li><li class="bp__step"><span class="bp__n">04</span><span class="bp__name">Build reusable context</span></li><li class="bp__step"><span class="bp__n">05</span><span class="bp__name">Connect design to build</span></li><li class="bp__step"><span class="bp__n">06</span><span class="bp__name">Create feedback loops</span></li><li class="bp__step"><span class="bp__n">07</span><span class="bp__name">Institutionalise learning</span></li></ol>
@@ -399,9 +440,9 @@ instrumenting.</p></div>
 <!-- 14 · WHAT CHANGES ------------------------------------------------------- -->
 <section class="section" aria-labelledby="a-leader">
   <div class="section__head" data-reveal>
-    <p class="t-label section__eyebrow">14 &mdash; The role</p>
+    <p class="t-label section__eyebrow">14 · The role</p>
     <h2 class="t-h2" id="a-leader">What changes for the design leader</h2>
-    <p class="prose">Nothing on the left stops mattering. Hiring, growing people, running reviews, protecting quality, managing stakeholders &mdash; none of that is displaced. The right-hand column is what gets added, and it is additive in the most literal sense: more surface, same accountability.</p>
+    <p class="prose">Nothing on the left stops mattering. Hiring, growing people, running reviews, protecting quality, managing stakeholders: none of that is displaced. The right-hand column is what gets added, and it is additive in the most literal sense: more surface, same accountability.</p>
   </div>
 
   <div class="shiftcols" data-reveal>
@@ -443,12 +484,12 @@ instrumenting.</p></div>
 <footer class="foot">
   <div class="shell">
     <div class="foot__base">
-      <p class="t-label">Arushi Prasad — Design leader</p>
+      <p class="t-label">Arushi Prasad · Design leader</p>
       <p class="t-label t-dim">Pune, India</p>
     </div>
   </div>
 </footer>
-<script src="../../assets/js/site.js?v=8b13f207" defer></script>
+<script src="../../assets/js/site.js?v=d22fe337" defer></script>
 <script src="../../assets/js/case.js?v=fd4fa5e0" defer></script>
 </body>
 </html>

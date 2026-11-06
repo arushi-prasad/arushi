@@ -1141,15 +1141,15 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
     <table class="chg">
       <thead><tr><th>Area</th><th>On the website</th><th>In the app system</th></tr></thead>
       <tbody>
-        <tr><td>Scale</td><td>Built at 92% — every size is a clean number × 0.92 (11.04px, 16.56px, 23.92px).</td><td><b>Rounded onto a 4px grid</b> (12, 16, 24). Within 1px of what the site renders, so measurements still match.</td></tr>
+        <tr><td>Scale</td><td>Built at 92%: every size is a clean number × 0.92 (11.04px, 16.56px, 23.92px).</td><td><b>Rounded onto a 4px grid</b> (12, 16, 24). Within 1px of what the site renders, so measurements still match.</td></tr>
         <tr><td>Fonts</td><td>Anton for uppercase display, Figtree for everything else.</td><td><b>Kept.</b> Anton is limited to 24px and above. Figtree ships as one variable file (300–900). Figtree has no ₹ glyph, so the rupee sign falls back to the system font.</td></tr>
-        <tr><td>Grey text</td><td><code>#8E8E8E</code> used for small meta text — 2.95:1 on the page background.</td><td><b>Tertiary text is now <code>#6E6E6E</code></b> (4.6:1). <code>#8E8E8E</code> is kept for disabled and decorative use only.</td></tr>
-        <tr><td>Green fills</td><td>White text on <code>#2F8F6E</code> — 3.98:1.</td><td><b>Text-bearing green uses green-700 <code>#27785C</code></b> (5.35:1). Brand green stays for icons and large blocks.</td></tr>
-        <tr><td>Orange fills</td><td>White text on <code>#F26A1B</code> in places — 3.06:1.</td><td><b>Always ink text on orange and amber.</b> White on orange only for 24px+ display type.</td></tr>
-        <tr><td>Error colour</td><td>None — orange did double duty.</td><td><b>New red ramp (<code>#C9293E</code>)</b>, pushed toward crimson so it never reads as the brand orange.</td></tr>
+        <tr><td>Grey text</td><td><code>#8E8E8E</code> used for small meta text, 2.95:1 on the page background.</td><td><b>Tertiary text is now <code>#6E6E6E</code></b> (4.6:1). <code>#8E8E8E</code> is kept for disabled and decorative use only.</td></tr>
+        <tr><td>Green fills</td><td>White text on <code>#2F8F6E</code>, 3.98:1.</td><td><b>Text-bearing green uses green-700 <code>#27785C</code></b> (5.35:1). Brand green stays for icons and large blocks.</td></tr>
+        <tr><td>Orange fills</td><td>White text on <code>#F26A1B</code> in places, 3.06:1.</td><td><b>Always ink text on orange and amber.</b> White on orange only for 24px+ display type.</td></tr>
+        <tr><td>Error colour</td><td>None; orange did double duty.</td><td><b>New red ramp (<code>#C9293E</code>)</b>, pushed toward crimson so it never reads as the brand orange.</td></tr>
         <tr><td>Category colours</td><td>Catalogue icons reused green twice and gave Health amber.</td><td><b>One fixed colour per category:</b> Health green, Lifestyle orange, Travel blue, Learning amber, Financial ink.</td></tr>
         <tr><td>Motion</td><td>Scroll reveals, marquees, fan-card hovers, rolling button labels everywhere.</td><td><b>Reveals and marquees stay on marketing and onboarding.</b> In the app, motion answers an action. The rolling label is kept for the one primary action per screen.</td></tr>
-        <tr><td>States</td><td>Hover and focus only.</td><td><b>Full state set</b> — pressed, disabled, loading, error, success, selected, read-only — plus a dark theme mapped from the site's own dark surfaces.</td></tr>
+        <tr><td>States</td><td>Hover and focus only.</td><td><b>Full state set</b>: pressed, disabled, loading, error, success, selected, read-only, plus a dark theme mapped from the site's own dark surfaces.</td></tr>
       </tbody>
     </table>
   </div>
@@ -1175,10 +1175,10 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
       <div style="flex:2;background:var(--wp-green-600)"></div>
       <div style="flex:1;background:var(--wp-orange-500)"></div>
     </div>
-    <p class="ds-p">Blue is the lead brand colour and the only one used for interactive emphasis (focus rings, links, the primary hover flood). Amber, green and orange appear as whole blocks — a card, a category disc, an open accordion — so they read as places, not decoration.</p>
+    <p class="ds-p">Blue is the lead brand colour and the only one used for interactive emphasis (focus rings, links, the primary hover flood). Amber, green and orange appear as whole blocks (a card, a category disc, an open accordion) so they read as places, not decoration.</p>
   </div></div>
 
-  <div class="ds-sub"><h3>Primitive ramps</h3><p>Raw values. Components never use these directly — they go through semantic tokens below. The dot marks the website's original value.</p></div>
+  <div class="ds-sub"><h3>Primitive ramps</h3><p>Raw values. Components never use these directly. They go through semantic tokens below. The dot marks the website's original value.</p></div>
   <div class="spec"><div class="spec__stage spec__stage--col" id="ramps" style="gap:0"></div></div>
 
   <div class="ds-sub"><h3>Semantic tokens</h3><p>What components actually use. Each has a light and dark value.</p></div>
@@ -1196,7 +1196,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
   <div class="ds-head">
     <span class="wp-eyebrow" style="--c:var(--wp-blue-600)"><i></i>Foundations</span>
     <h2>Typography</h2>
-    <p class="lede">Two families with clearly separate jobs. Anton is the brand voice — condensed, uppercase, big. Figtree does all the reading and all the interface, with tight negative tracking on bold weights.</p>
+    <p class="lede">Two families with clearly separate jobs. Anton is the brand voice: condensed, uppercase, big. Figtree does all the reading and all the interface, with tight negative tracking on bold weights.</p>
   </div>
   <div class="ds-grid g2">
     <div class="fam" style="background:var(--wp-neutral-900);color:#fff">
@@ -1211,7 +1211,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
       <div class="big" style="font-family:var(--wp-font-sans);font-weight:800;letter-spacing:-.05em">Aa</div>
       <b style="font:var(--wp-heading-md)">Figtree, variable 300–900</b>
       <p style="font:var(--wp-body-sm);color:var(--wp-text-secondary)">Use 400 for body, 600 for labels and buttons, 700 for headings, 800 for large headings and amounts. Tighten tracking as weight and size go up.</p>
-      <div class="glyphs" style="font-family:var(--wp-font-sans)">Aa Bb Cc Dd Ee Ff Gg 0123456789 ₹4,000 — “quotes”</div>
+      <div class="glyphs" style="font-family:var(--wp-font-sans)">Aa Bb Cc Dd Ee Ff Gg 0123456789 ₹4,000 · “quotes”</div>
     </div>
   </div>
   <div class="ds-sub"><h3>Type scale</h3><p>Each style is a single token: <code>font: var(--wp-heading-md)</code> plus its tracking token, or the <code>.wp-t-heading-md</code> utility.</p></div>
@@ -1477,7 +1477,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
   <div class="ds-grid g3" style="margin-top:14px">
     <div class="rule rule--do"><span class="rule__tag"><i><svg class="wp-ico" aria-hidden="true"><use href="#i-check"/></svg></i>Do</span><h4>Name the outcome</h4><p>"Submit claim", then a toast that says "Claim submitted". The action keeps its name through the whole flow.</p></div>
     <div class="rule rule--dont"><span class="rule__tag"><i><svg class="wp-ico" aria-hidden="true"><use href="#i-close"/></svg></i>Don't</span><h4>Stack two disc buttons</h4><p>The arrow disc means "this is the way forward". Two of them side by side cancel each other out.</p></div>
-    <div class="rule rule--dont"><span class="rule__tag"><i><svg class="wp-ico" aria-hidden="true"><use href="#i-close"/></svg></i>Don't</span><h4>Disable without a reason</h4><p>If a button can't be used, say why next to it — "Window closed on 31 March" — or remove the action.</p></div>
+    <div class="rule rule--dont"><span class="rule__tag"><i><svg class="wp-ico" aria-hidden="true"><use href="#i-close"/></svg></i>Don't</span><h4>Disable without a reason</h4><p>If a button can't be used, say why next to it ("Window closed on 31 March"), or remove the action.</p></div>
   </div>
 </section>
 
@@ -1603,9 +1603,9 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
       <tr><td><span class="wp-status wp-status--warning">Pending</span></td><td>Warning</td><td>Waiting on someone else</td><td>Claims, nominations, approvals queue</td></tr>
       <tr><td><span class="wp-status wp-status--success">Approved</span></td><td>Success</td><td>Accepted, money not moved</td><td>Claims, nominations</td></tr>
       <tr><td><span class="wp-status wp-status--solid">Paid</span></td><td>Solid ink</td><td>Finished. Nothing left to do.</td><td>Claims, reward payouts</td></tr>
-      <tr><td><span class="wp-status wp-status--danger">Rejected</span></td><td>Danger</td><td>Declined — always shown with the reason</td><td>Claims</td></tr>
+      <tr><td><span class="wp-status wp-status--danger">Rejected</span></td><td>Danger</td><td>Declined, always shown with the reason</td><td>Claims</td></tr>
       <tr><td><span class="wp-status wp-status--success wp-status--plain">Covered</span></td><td>Success, no dot</td><td>Company pays in full</td><td>Catalogue, booking</td></tr>
-      <tr><td><span class="wp-status wp-status--success">On</span> <span class="wp-status">Off</span></td><td>Success / neutral</td><td>Module state</td><td>HR portal only — employees never see "Off"</td></tr>
+      <tr><td><span class="wp-status wp-status--success">On</span> <span class="wp-status">Off</span></td><td>Success / neutral</td><td>Module state</td><td>HR portal only; employees never see "Off"</td></tr>
     </tbody></table></div>
   <div class="ds-grid g2" style="margin-top:14px">
     <div class="spec" data-flip><div class="spec__stage spec__stage--col" style="align-items:flex-start">
@@ -1661,7 +1661,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
   <div class="ds-head">
     <span class="wp-eyebrow" style="--c:var(--wp-orange-500)"><i></i>Components</span>
     <h2>Cards and rows</h2>
-    <p class="lede">White cards on the grey canvas do most of the work. Colour cards are for one thing per screen that matters most — usually money.</p>
+    <p class="lede">White cards on the grey canvas do most of the work. Colour cards are for one thing per screen that matters most, usually money.</p>
   </div>
   <div class="ds-grid g3">
     <div class="wp-card wp-card--brand wp-card--lg">
@@ -1792,7 +1792,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
   <div class="ds-head">
     <span class="wp-eyebrow" style="--c:var(--wp-orange-500)"><i></i>Components</span>
     <h2>Feedback</h2>
-    <p class="lede">Banners stay until the situation changes. Toasts confirm an action and leave. Both say what happened in the interface's voice — no apologies, no vague errors.</p>
+    <p class="lede">Banners stay until the situation changes. Toasts confirm an action and leave. Both say what happened in the interface's voice: no apologies, no vague errors.</p>
   </div>
   <div class="spec" data-flip><div class="spec__stage spec__stage--col">
     <div class="wp-banner wp-banner--inverse"><svg class="wp-ico" aria-hidden="true"><use href="#i-hourglass"/></svg><div class="wp-banner__t"><b>₹18,240 is still unallocated</b><p>The window closes on 31 March. Anything left is paid out with your salary and taxed at your slab.</p><div class="wp-banner__a"><button class="wp-btn wp-btn--accent wp-btn--sm">Split it now</button></div></div></div>
@@ -1974,7 +1974,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
       <p>A greyed tile is a dead end and a support ticket waiting to happen.</p></div>
     <div class="rule rule--do"><span class="rule__tag"><i><svg class="wp-ico" aria-hidden="true"><use href="#i-check"/></svg></i>Do</span><h4>When it's temporary, say why</h4>
       <div class="demo"><div class="wp-row"><span class="wp-disc wp-disc--sm" style="--c:var(--wp-cat-travel)"><svg class="wp-ico" aria-hidden="true"><use href="#i-car"/></svg></span><div class="wp-row__t"><b>Airport cabs</b><span>Cap reached, resets 1 April</span></div><span class="wp-status wp-status--warning">Cap reached</span></div></div>
-      <p>If they are eligible but blocked for now — a cap, a closed window — show it at full strength with the reason and the date it changes.</p></div>
+      <p>If they are eligible but blocked for now (a cap, a closed window) show it at full strength with the reason and the date it changes.</p></div>
   </div>
   <div class="spec" style="margin-top:14px"><div class="spec__stage spec__stage--col" style="gap:10px">
     <b style="font:var(--wp-heading-sm)">Decide in this order</b>
@@ -2013,7 +2013,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
       <div class="rule"><h4>Anatomy</h4><p>Deadline pill, then the unallocated figure in Anton, then a track. Below it, one slider per category with its cap, and a single save action. The helper line underneath says the choice isn't final.</p></div>
       <div class="rule"><h4>When the window is open</h4><p>An inverse banner appears on Home from 14 days before the deadline, with the exact unallocated amount and one action. Push reminders at 14, 7 and 1 day.</p></div>
       <div class="rule"><h4>When the window has shut</h4><p>Sliders become read-only rows with the final amounts. The banner changes to "Window closed on 31 March. ₹4,000 was paid out with your salary." No disabled sliders.</p></div>
-      <div class="rule"><h4>On the HR side</h4><p>Unallocated amount by team, before the window shuts — not in a report afterwards. Counts and totals only.</p></div>
+      <div class="rule"><h4>On the HR side</h4><p>Unallocated amount by team, before the window shuts, not in a report afterwards. Counts and totals only.</p></div>
       <div class="wp-banner wp-banner--inverse"><svg class="wp-ico" aria-hidden="true"><use href="#i-hourglass"/></svg><div class="wp-banner__t"><b>4 days left to split ₹18,240</b><p>Anything left on 31 March is paid with salary and taxed.</p><div class="wp-banner__a"><button class="wp-btn wp-btn--accent wp-btn--sm">Split it now</button></div></div></div>
     </div>
   </div>
@@ -2024,7 +2024,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
   <div class="ds-head">
     <span class="wp-eyebrow" style="--c:var(--wp-green-600)"><i></i>Patterns</span>
     <h2>Privacy disclosure</h2>
-    <p class="lede">The split is fixed, and the app says where it falls — in the app, not buried in a policy. Show this on first sign-in, before any health booking, and from the profile.</p>
+    <p class="lede">The split is fixed, and the app says where it falls: in the app, not buried in a policy. Show this on first sign-in, before any health booking, and from the profile.</p>
   </div>
   <div class="wp-privacy">
     <div class="wp-privacy__c"><span class="wp-disc" style="--c:var(--wp-success-solid)"><svg class="wp-ico" aria-hidden="true"><use href="#i-eye"/></svg></span><h4>What your employer sees</h4><p>Enough to run the programme</p>
@@ -2072,13 +2072,13 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
   <div class="ds-head">
     <span class="wp-eyebrow" style="--c:var(--wp-neutral-900)"><i></i>Guidance</span>
     <h2>Voice and content</h2>
-    <p class="lede">WorkPerks sounds like a clear-headed HR partner: plain, specific and calm about money. The website already writes this way — keep the app consistent with it.</p>
+    <p class="lede">WorkPerks sounds like a clear-headed HR partner: plain, specific and calm about money. The website already writes this way. Keep the app consistent with it.</p>
   </div>
   <div class="ds-grid g4">
     <div class="rule"><h4>Plain verbs</h4><p>"Split your allowance", "Attach the bill", "Switch it on". Say what happens.</p></div>
     <div class="rule"><h4>Sentence case</h4><p>Everywhere except Anton display type, which is uppercase by design.</p></div>
     <div class="rule"><h4>Specific numbers</h4><p>"₹18,240 left", "Closes 31 March". Not "some allowance left" or "closing soon".</p></div>
-    <div class="rule"><h4>British spelling</h4><p>Organisation, programme, catalogue, enrolment — matching the website.</p></div>
+    <div class="rule"><h4>British spelling</h4><p>Organisation, programme, catalogue, enrolment, matching the website.</p></div>
   </div>
   <div class="ds-sub"><h3>Word list</h3><p>Use the left column. Product words stay the same on both surfaces.</p></div>
   <div class="spec" style="overflow:auto"><table class="words">
@@ -2136,7 +2136,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
   <div class="ds-head">
     <span class="wp-eyebrow" style="--c:var(--wp-neutral-900)"><i></i>Build</span>
     <h2>In context</h2>
-    <p class="lede">Two screens assembled only from the components above — no one-off styles — to show the system holding together on both surfaces.</p>
+    <p class="lede">Two screens assembled only from the components above, with no one-off styles, to show the system holding together on both surfaces.</p>
   </div>
   <div class="stack" style="gap:24px">
     <div class="browser">
@@ -2205,7 +2205,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
     </div></div>
     <div class="stack fill" style="min-width:260px;gap:12px">
       <div class="rule"><h4>Employee home, built from</h4><p>Top bar with avatar and icon button, inverse banner for the open window, brand card with an accent disc button, category discs with plain status pills, rows with avatars and status, and the five-tab bottom nav.</p></div>
-      <div class="rule"><h4>What makes it WorkPerks</h4><p>One loud block (the allowance card), one Anton number, and everything else white on grey. The deadline is stated twice — in the banner and on the card — because unallocated money is taxed.</p></div>
+      <div class="rule"><h4>What makes it WorkPerks</h4><p>One loud block (the allowance card), one Anton number, and everything else white on grey. The deadline is stated twice, in the banner and on the card, because unallocated money is taxed.</p></div>
       <div class="rule"><h4>HR overview, built from</h4><p>Sidebar with entity switcher, breadcrumbs, heading-xl title, small segmented control, stat cards with a delta and a track, one inverse card for the number that needs action, and a table that counts rather than names.</p></div>
       <div class="rule"><h4>Absent, not greyed out</h4><p>Northline Advisory has 4 people, so its allocation shows "Fewer than 5". An entity with Travel switched off would have no Travel tab in the employee app at all.</p></div>
     </div>
@@ -2234,7 +2234,7 @@ code{font-family:var(--wp-font-mono);font-size:.86em;background:var(--wp-bg-mute
     <div class="rule"><h4><code>.wp-btn--brand</code></h4><p>Component. <b>block--modifier</b>, <b>block__element</b>. Every class is prefixed <code>wp-</code> so it never collides with app code.</p></div>
   </div>
   <div class="ds-sub"><h3>Using a component in React</h3></div>
-  <div class="code"><pre class="sm"><span class="c">// Button.tsx — thin wrapper over the CSS contract</span>
+  <div class="code"><pre class="sm"><span class="c">// Button.tsx: thin wrapper over the CSS contract</span>
 <span class="k">type</span> Variant = <span class="s">'primary'</span> | <span class="s">'brand'</span> | <span class="s">'accent'</span> | <span class="s">'secondary'</span> | <span class="s">'outline'</span> | <span class="s">'ghost'</span> | <span class="s">'danger'</span>;
 <span class="k">type</span> Props = React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt; &amp; {
   variant?: Variant; size?: <span class="s">'sm'</span> | <span class="s">'md'</span> | <span class="s">'lg'</span>; disc?: boolean; block?: boolean; loading?: boolean;

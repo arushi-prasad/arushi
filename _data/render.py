@@ -95,14 +95,14 @@ def alloc_matrix(d):
             '<td data-label="Start">%s</td>'
             '<td data-label="Target design delivery">%s</td></tr>' % (
                 e(r["squad"]), e(band), e(g),
-                e(dash(r["story_id"])) or "&mdash;",
+                e(dash(r["story_id"])) or "·",
                 e(r["story"]),
                 e(r["squad"]),
                 e(r["owner"]),
-                e(dash(r["pm"])) or "&mdash;",
-                g, e(dash(r["status"])) or "&mdash;",
-                e(dash(r["start"])) or "&mdash;",
-                e(dash(r["target"])) or "&mdash;",
+                e(dash(r["pm"])) or "·",
+                g, e(dash(r["status"])) or "·",
+                e(dash(r["start"])) or "·",
+                e(dash(r["target"])) or "·",
             ))
 
     legend = " ".join(
@@ -113,7 +113,7 @@ def alloc_matrix(d):
     return """%s
 <div class="sheet__wrap">
 <table class="sheet" data-sheet>
-  <caption class="sheet__cap">July allocation snapshot &mdash; %d work items across %d squads,
+  <caption class="sheet__cap">July allocation snapshot: %d work items across %d squads,
   one row per item, exactly as the sheet recorded them.</caption>
   <thead><tr>
     <th scope="col">Story ID</th><th scope="col">Story / requirement</th>
@@ -172,7 +172,7 @@ def alloc_schema(d):
     stages = "".join(
         '<li class="pipe__stage"><span class="pipe__n">%d</span>'
         '<span class="pipe__name">%s</span><span class="pipe__val">%s</span></li>' % (
-            i, e(s["name"]), e(dash(s["value"])) or "&mdash;")
+            i, e(s["name"]), e(dash(s["value"])) or "·")
         for i, s in enumerate(a["exemplar"]["stages"], start=1))
 
     vocab = "".join(
@@ -184,7 +184,7 @@ def alloc_schema(d):
   <div class="spec__col">
     <h3 class="spec__title">The record</h3>
     <p class="spec__sub">Every field the template asks for, with the one worked row
-    the workbook ships &mdash; the only record anywhere that fills them all.</p>
+    the workbook ships, the only record anywhere that fills them all.</p>
     <table class="spec__table">
       <caption class="sr-only">Allocation template fields, with the values from the
       workbook's one worked row</caption>
@@ -216,7 +216,7 @@ def availability(d):
             spans.append([m, 0])
             last = m
         spans[-1][1] += 1
-    head = "".join('<th scope="col" colspan="%d">%s</th>' % (n, e(m or "&mdash;"))
+    head = "".join('<th scope="col" colspan="%d">%s</th>' % (n, e(m or "·"))
                    for m, n in spans)
 
     label = {"available": "available", "leave": "leave", "partial": "part week",
@@ -230,7 +230,7 @@ def availability(d):
             '<tr%s><th scope="row" class="heat__who">%s'
             '<span class="heat__squad">%s</span></th>%s</tr>' % (
                 ' class="heat__me"' if row.get("self") else "",
-                e(row["res"]), e(dash(row["squad"])) or "&mdash;", tiles))
+                e(row["res"]), e(dash(row["squad"])) or "·", tiles))
 
     t = v["tally"]
     known = t["available"] + t["leave"] + t["partial"]
@@ -242,7 +242,7 @@ def availability(d):
 
     return """<div class="heat__wrap">
 <table class="heatmap">
-  <caption class="sheet__cap">Weekly availability tracker, %s &mdash; %d people &times; %d
+  <caption class="sheet__cap">Weekly availability tracker, %s: %d people &times; %d
   week columns. Dates are deliberately stripped: a week someone was partly away reads
   as &ldquo;part week&rdquo;, never as which days.</caption>
   <thead>
@@ -254,7 +254,7 @@ def availability(d):
 <p class="legend">%s</p>
 <p class="note">%d of the %d cells were ever filled in. That is the tracker's real
 coverage, and the reason it answered &ldquo;who is around next week&rdquo; well and
-never answered &ldquo;how loaded is this person&rdquo; at all &mdash; no sheet here
+never answered &ldquo;how loaded is this person&rdquo; at all. No sheet here
 records capacity, hours or estimates, so no utilisation figure is derivable.</p>""" % (
         e(v["span"]), len(cells), len(v["weeks"]), head, "\n".join(body), legend,
         known, known + t[""])
@@ -284,7 +284,7 @@ def squad_load(d):
         for k, n in top)
     return ('<ul class="bars">%s</ul>\n<p class="note">Work items recorded per squad in '
             'this one snapshot, counted from the %d rows. A count of open items is not a '
-            'measure of load &mdash; the sheet holds no estimates &mdash; so read this as '
+            'measure of load, since the sheet holds no estimates, so read this as '
             'spread, not as capacity. <span class="tag">DRx</span> and '
             '<span class="tag">Drx</span> are the same squad typed two ways and are '
             'counted once.</p>' % (bars, len(recs)))
@@ -411,7 +411,7 @@ def okr_cascade(d):
 
     return """<div class="cascade__wrap">
 <table class="cascade">
-  <caption class="sheet__cap">Objective cascade, in the workbook's own words &mdash;
+  <caption class="sheet__cap">Objective cascade, in the workbook's own words:
   five themes across, one row per person, names replaced by role labels.</caption>
   <thead><tr><th scope="col" class="cascade__corner">Role</th>%s</tr></thead>
   <tbody>%s</tbody>
@@ -420,7 +420,7 @@ def okr_cascade(d):
 <p class="note">%d of the %d rows in that sheet carry entries; %d were opened for a person
 and never filled. The blanks are left visible because a half-filled cascade is what the
 file actually holds. Each cell states a commitment and, after the arrow, the target the
-sheet set for it &mdash; no column anywhere records an outcome, so nothing here is a
+sheet set for it. No column anywhere records an outcome, so nothing here is a
 result.</p>""" % (head, "\n".join(body), len(filled), len(a["cascade"]), len(blank))
 
 
@@ -463,7 +463,7 @@ def okr_mine(d):
 of its targets are written with a literal question mark where the number should be, so
 every line here is a commitment made, not a result claimed. <span class="tag">Team
 Allocation Status</span> and <span class="tag">Weekly Leave Tracker</span> appear as my
-own key results under Delivery Excellence &mdash; the two artefacts above are the
+own key results under Delivery Excellence, and the two artefacts above are the
 deliverable, which is why this page is built out of them.</p>""" % (
         th_row, tr_row, "\n".join(body))
 

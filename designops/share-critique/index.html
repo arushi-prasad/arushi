@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="mono" data-type="editorial" data-density="comfortable" data-radius="subtle" data-dense="yes">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Share & Critique · Arushi Prasad</title>
+  <meta name="description" content="The structured critique method the design team ran, shown as slides from the source deck. The method is by Shalini Raghunathan of 3 Big Things; it is credited, not claimed.">
+  <meta name="color-scheme" content="dark">
+  <link rel="preload" href="../../assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=f874ed78">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=c3f7efb8">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=294b607f">
+  <link rel="stylesheet" href="../../assets/css/deck.css?v=9712e13e">
+  <!-- Loaded before paint so a saved token preference is applied to <html>
+       without a flash of the defaults. -->
+  <script src="../../assets/js/tokens.js?v=8a014e81"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+<defs>
+<symbol id="i-colour" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M8 2.2a5.8 5.8 0 0 1 0 11.6z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-type" viewBox="0 0 16 16"><path d="M3.2 13.6 8 2.6l4.8 11"/><path d="M5.3 9.4h5.4"/></symbol>
+<symbol id="i-spacing" viewBox="0 0 16 16"><path d="M2.2 3.6v8.8M13.8 3.6v8.8"/><path d="M5 8h6"/><path d="m6.6 6.4-1.7 1.6 1.7 1.6M9.4 6.4 11.1 8 9.4 9.6"/></symbol>
+<symbol id="i-radius" viewBox="0 0 16 16"><path d="M2.4 13.6V7.2a4.8 4.8 0 0 1 4.8-4.8h6.4"/><path d="M2.4 2.4h.01M13.6 13.6h.01"/></symbol>
+<symbol id="i-opacity" viewBox="0 0 16 16"><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2a4.6 4.6 0 1 1-9.2 0C3.4 6.8 8 2.2 8 2.2Z"/><path d="M8 2.2c0 0 4.6 4.6 4.6 7.2A4.6 4.6 0 0 1 8 14z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-grid" viewBox="0 0 16 16"><rect x="2.4" y="2.4" width="11.2" height="11.2" rx="1.4"/><path d="M6.13 2.4v11.2M9.87 2.4v11.2M2.4 6.13h11.2M2.4 9.87h11.2"/></symbol>
+  <symbol id="i-surprise" viewBox="0 0 16 16"><path d="M7.1 2.6 8.35 6.05 11.8 7.3 8.35 8.55 7.1 12 5.85 8.55 2.4 7.3 5.85 6.05Z"/><path d="M12.3 10.1v2.9M10.85 11.55h2.9"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 16 16"><path d="M13.4 8a5.4 5.4 0 1 1-1.8-4"/><path d="M13.6 2.6v3.6H10"/></symbol>
+<symbol id="i-bars" viewBox="0 0 16 16"><path d="M2.4 4.6h11.2M2.4 8h11.2M2.4 11.4h11.2"/></symbol>
+<symbol id="i-close" viewBox="0 0 16 16"><path d="m4.2 4.2 7.6 7.6M11.8 4.2l-7.6 7.6"/></symbol>
+<symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.6" y="5.6" width="8" height="8" rx="1.6"/><path d="M10.4 3.4H4.2a1.6 1.6 0 0 0-1.6 1.6v6.2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 16 16"><rect x="2" y="3.4" width="12" height="9.2" rx="1.6"/><path d="m2.8 4.6 5.2 3.9 5.2-3.9"/></symbol>
+<symbol id="i-phone" viewBox="0 0 16 16"><path d="M5.6 2.8 3.2 3.6c-.7.3-1 1-.9 1.7.5 2.6 1.8 5 3.7 6.9s4.3 3.2 6.9 3.7h.1c.6 0 1.2-.4 1.4-1l.8-2.4-3-1.6-1.4 1.7a11 11 0 0 1-4.1-4.1l1.7-1.4z"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2.2"/><path d="M5.1 6.9v4.3M5.1 4.7v.01M7.9 11.2V6.9M7.9 8.6c0-1 .6-1.7 1.5-1.7s1.6.7 1.6 1.7v2.6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.8 11.2 11.2 4.8"/><path d="M6.2 4.8h5v5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4.4 6.4 3.6 3.6 3.6-3.6"/></symbol>
+<symbol id="i-tick" viewBox="0 0 16 16"><path d="m3.4 8.4 3 3 6.2-7"/></symbol>
+<!-- Recognition. Stroke-drawn on the same 16-unit grid and at the same
+     weight as the rest, so they sit in a line of text without shouting. -->
+<symbol id="i-trophy" viewBox="0 0 16 16"><path d="M4.9 2.7h6.2v3.5a3.1 3.1 0 0 1-6.2 0Z"/><path d="M4.9 3.7H3.3v.9a2 2 0 0 0 1.6 1.9M11.1 3.7h1.6v.9a2 2 0 0 1-1.6 1.9"/><path d="M8 9.3v2.1"/><path d="M6.5 11.4h3v1.9h-3Z"/></symbol>
+<symbol id="i-star" viewBox="0 0 16 16"><path d="m8 2.5 1.7 3.45 3.8.55-2.75 2.68.65 3.79L8 11.18l-3.4 1.79.65-3.79L2.5 6.5l3.8-.55Z"/></symbol>
+<symbol id="i-medal" viewBox="0 0 16 16"><circle cx="8" cy="10.1" r="3.5"/><path d="M6.1 7.1 4.3 2.6M9.9 7.1l1.8-4.5"/></symbol>
+<!-- Document types. A page outline each, told apart by what is on it: ruled
+     cells for a workbook, a folded corner for a PDF, one wide band for a
+     deck. Same 16-unit grid and weight as everything else. -->
+<symbol id="i-sheet" viewBox="0 0 16 16"><rect x="2.8" y="2.2" width="10.4" height="11.6" rx="1.4"/><path d="M2.8 6.1h10.4M2.8 9.9h10.4M7.1 6.1v7.7"/></symbol>
+<symbol id="i-pdf" viewBox="0 0 16 16"><path d="M3.4 2.2h5.4l3.8 3.8v7.8H3.4Z"/><path d="M8.8 2.2v3.8h3.8"/><path d="M5.9 9.2h2.6M5.9 11.4h4.2"/></symbol>
+<symbol id="i-deck" viewBox="0 0 16 16"><rect x="2.4" y="3" width="11.2" height="7.6" rx="1.3"/><path d="M8 10.6v2.4M6 13.4h4"/></symbol>
+<!-- What I use. One mark per item in the About page's stack list, drawn on
+     the same 16-unit grid and at the same stroke weight as everything above,
+     so they sit inside a line of text rather than on top of it. The
+     brand-named ones are simplified evocations, not trademark reproductions;
+     the ones that name a practice rather than a tool (Design Systems, UX
+     Research, Prototyping...) get a glyph for the thing itself. -->
+<!-- Outside the brief. One mark per thing named in the Fun Stuff line,
+     drawn on the same 16-unit grid and weight as every other icon here so
+     they sit inside a sentence rather than on top of it. -->
+<symbol id="f-badminton" viewBox="0 0 16 16"><ellipse cx="6.5" cy="6.5" rx="3.6" ry="4.4" transform="rotate(-40 6.5 6.5)"/><path d="m9.3 9.5 3.9 4.3"/><path d="M4.3 4.9 9 9.1M4.9 8.5 8.5 4.4"/></symbol>
+<symbol id="f-strength" viewBox="0 0 16 16"><path d="M2.2 6.4v3.2M4.3 4.7v6.6M11.7 4.7v6.6M13.8 6.4v3.2"/><path d="M4.3 8h7.4"/></symbol>
+<symbol id="f-cycling" viewBox="0 0 16 16"><circle cx="4.1" cy="11" r="2.7"/><circle cx="11.9" cy="11" r="2.7"/><path d="m4.1 11 2.9-5.1h3.2l1.7 5.1"/><path d="M6.9 5.9h2.7"/></symbol>
+<symbol id="f-trek" viewBox="0 0 16 16"><rect x="4.1" y="6" width="7.8" height="7.8" rx="2.1"/><path d="M6 6V4.7a2 2 0 0 1 4 0V6"/><path d="M6.4 9.6h3.2"/></symbol>
+<symbol id="f-coffee" viewBox="0 0 16 16"><path d="M3.2 5.6h8.2v4.1a3.4 3.4 0 0 1-3.4 3.4H6.6a3.4 3.4 0 0 1-3.4-3.4Z"/><path d="M11.4 6.6h1a1.9 1.9 0 0 1 0 3.8h-1"/><path d="M2.4 14.6h10"/><path d="M6 2.2v1.6M8.6 2.2v1.6"/></symbol>
+<symbol id="f-plant" viewBox="0 0 16 16"><path d="M4.4 9.4h7.2l-.8 4.4H5.2Z"/><path d="M8 9.4V5.4"/><path d="M8 6.8C8 4.5 6.4 2.6 4.3 2.6c0 2.3 1.6 4.2 3.7 4.2Z"/><path d="M8 7.6c0-2 1.6-3.7 3.5-3.7 0 2-1.6 3.7-3.5 3.7Z"/></symbol>
+<symbol id="f-bowl" viewBox="0 0 16 16"><path d="M2.6 7.8h10.8a5.4 5.4 0 0 1-10.8 0Z"/><path d="M1.5 7.8h13"/><circle cx="6" cy="5.3" r="1.1"/><circle cx="9.7" cy="4.7" r="1.1"/></symbol>
+<symbol id="f-people" viewBox="0 0 16 16"><circle cx="6" cy="5.5" r="2.4"/><path d="M2.3 13.2c0-2 1.7-3.7 3.7-3.7s3.7 1.7 3.7 3.7"/><circle cx="11.7" cy="6.4" r="1.8"/><path d="M10.2 9.8c1.9.1 3.5 1.6 3.5 3.4"/></symbol>
+<symbol id="f-music" viewBox="0 0 16 16"><path d="M6.2 12.3V3.8l7-1.4v8.5"/><circle cx="4.3" cy="12.3" r="1.9"/><circle cx="11.3" cy="10.9" r="1.9"/></symbol>
+<symbol id="f-mountain" viewBox="0 0 16 16"><path d="M1.6 12.9 6.4 4.2l4.2 7.6"/><path d="M8.2 12.9 11.4 7l3 5.9z"/><path d="M1.4 12.9h13.2"/></symbol>
+<symbol id="t-figjam" viewBox="0 0 16 16"><rect x="2.2" y="2.6" width="11.6" height="10.8" rx="1.8"/><path d="M4.7 10c1-1.7 2.1-1.7 3.1 0s2.1 1.7 3.1 0"/><circle cx="5.6" cy="5.9" r="1.1"/></symbol>
+<symbol id="t-framer" viewBox="0 0 16 16"><path d="M12.2 2.4H3.8l4.2 4.1h4.2z"/><path d="M3.8 6.5h8.4L8 10.6H3.8z"/><path d="M8 10.6v3.3l-4.2-3.3z"/></symbol>
+<symbol id="t-mobbin" viewBox="0 0 16 16"><rect x="2.2" y="3.3" width="5" height="9.4" rx="1.3"/><rect x="8.8" y="3.3" width="5" height="9.4" rx="1.3"/><path d="M4.7 5.5h.01M11.3 5.5h.01"/></symbol>
+<symbol id="t-gemini" viewBox="0 0 16 16"><path d="M8 2.1c.5 3.2 2.6 5.3 5.8 5.8-3.2.5-5.3 2.6-5.8 5.8-.5-3.2-2.6-5.3-5.8-5.8C5.4 7.4 7.5 5.3 8 2.1Z"/></symbol>
+<symbol id="t-copilot" viewBox="0 0 16 16"><path d="M2.9 8.5c0-2.7 2.3-4.8 5.1-4.8s5.1 2.1 5.1 4.8v1.3c0 1.9-2.3 3.3-5.1 3.3s-5.1-1.4-5.1-3.3Z"/><path d="M6 8.7h.01M10 8.7h.01"/><path d="M8 3.7V2.1"/></symbol>
+<symbol id="t-antigravity" viewBox="0 0 16 16"><path d="M8 11.9V2.6"/><path d="m5.2 5.4 2.8-2.8 2.8 2.8"/><path d="M3.2 14.1h9.6" stroke-dasharray="1.5 2.1"/></symbol>
+<symbol id="t-html" viewBox="0 0 16 16"><path d="m5.3 5.1-3 2.9 3 2.9M10.7 5.1l3 2.9-3 2.9"/><path d="m9.3 3.5-2.6 9"/></symbol>
+<symbol id="t-js" viewBox="0 0 16 16"><rect x="2.2" y="2.2" width="11.6" height="11.6" rx="2.1"/><path d="M7 6.3v4c0 .9-.6 1.4-1.4 1.4-.6 0-1.1-.3-1.4-.8"/><path d="M11.8 6.9c-1.4-.8-2.6-.2-2.6.8 0 1.5 2.6 1 2.6 2.4 0 .9-1.1 1.5-2.6.7"/></symbol>
+<symbol id="t-next" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.8"/><path d="M5.9 10.9V5.3l4.7 6"/><path d="M10.3 5.3v3.1"/></symbol>
+<symbol id="t-tailwind" viewBox="0 0 16 16"><path d="M2.6 6.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/><path d="M2.6 11.6c.7-1.9 2-2.8 3.7-2.8 2.6 0 3.1 1.9 4.4 2.3.9.2 1.7-.1 2.4-1"/></symbol>
+<symbol id="t-node" viewBox="0 0 16 16"><path d="M8 1.9 13.5 5v6L8 14.1 2.5 11V5Z"/><path d="M6.3 10.4V6.6l3.4 3.8V6.6"/></symbol>
+<symbol id="t-postgres" viewBox="0 0 16 16"><ellipse cx="8" cy="4" rx="5.2" ry="2.2"/><path d="M2.8 4v8c0 1.2 2.3 2.2 5.2 2.2s5.2-1 5.2-2.2V4"/><path d="M2.8 8c0 1.2 2.3 2.2 5.2 2.2s5.2-1 5.2-2.2"/></symbol>
+<symbol id="t-figma" viewBox="0 0 16 16"><rect x="5.4" y="2.3" width="5.3" height="3.5" rx="1.75"/><rect x="5.4" y="6.3" width="5.3" height="3.5" rx="1.75"/><circle cx="8.05" cy="12" r="1.9"/></symbol>
+<symbol id="t-native" viewBox="0 0 16 16"><rect x="3.9" y="1.7" width="8.2" height="12.6" rx="1.9"/><circle cx="8" cy="8" r="1.1"/><ellipse cx="8" cy="8" rx="3.3" ry="1.4"/><ellipse cx="8" cy="8" rx="3.3" ry="1.4" transform="rotate(62 8 8)"/></symbol>
+<symbol id="t-ts" viewBox="0 0 16 16"><rect x="2.2" y="2.2" width="11.6" height="11.6" rx="2.1"/><path d="M4.5 6.6h3.7M6.35 6.6v4.8"/><path d="M11.7 6.9c-1.6-.8-2.7-.1-2.7.8 0 1.6 2.7 1 2.7 2.5 0 .9-1.1 1.6-2.7.8"/></symbol>
+<symbol id="t-expo" viewBox="0 0 16 16"><path d="M2.2 12.6 7.2 4a.95.95 0 0 1 1.6 0l5 8.6"/><path d="M6 12.6 8 9.2l2 3.4"/></symbol>
+<symbol id="t-supabase" viewBox="0 0 16 16"><path d="M8.9 1.7 3.5 8.7h4.2l-.5 5.6 5.3-7H8.4Z"/></symbol>
+<symbol id="t-claude" viewBox="0 0 16 16"><rect x="1.7" y="2.9" width="12.6" height="10.2" rx="1.7"/><path d="m4.4 6.7 1.8 1.8-1.8 1.8"/><path d="M8.4 10.3h3.2"/></symbol>
+<symbol id="t-playwright" viewBox="0 0 16 16"><path d="M2.9 3.5h10.2v4.9c0 2.8-2.3 5.1-5.1 5.1S2.9 11.2 2.9 8.4Z"/><path d="M5.8 7.1h.01M10.2 7.1h.01"/><path d="M6.2 10.3c1.1.9 2.5.9 3.6 0"/></symbol>
+<symbol id="t-cucumber" viewBox="0 0 16 16"><path d="M12.5 3.5c1.6 1.6.6 5.3-2.3 8.2s-6.6 3.9-8.2 2.3-.6-5.3 2.3-8.2 6.6-3.9 8.2-2.3Z"/><path d="m6.4 6.5 1.6 1.6M8.7 5.1l1.6 1.6M4.9 8.9l1.6 1.6"/></symbol>
+<symbol id="t-storybook" viewBox="0 0 16 16"><path d="M8 4.3C6.6 2.9 4.8 2.5 2.6 2.7v9c2.2-.2 4 .2 5.4 1.6 1.4-1.4 3.2-1.8 5.4-1.6v-9c-2.2-.2-4 .2-5.4 1.6Z"/><path d="M8 4.3v9"/></symbol>
+<symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2.1 3.4 4v4.2c0 2.8 1.9 4.7 4.6 5.7 2.7-1 4.6-2.9 4.6-5.7V4Z"/><path d="m6.1 7.9 1.5 1.5 2.5-3"/></symbol>
+</defs>
+</svg>
+<header class="nav-wrap">
+  <nav class="nav shell" aria-label="Primary">
+    <a class="nav__logo" href="../../" aria-label="Arushi Prasad, home">
+      <img class="nav__avatar" src="../../assets/img/avatar.png" alt="" width="58" height="58" decoding="async">
+    </a>
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a class="nav__link" href="../../work/" aria-label="Work">work<sup class="nav__count" aria-hidden="true">8</sup></a></li><li><a class="nav__link" href="../../designops/" aria-current="page" aria-label="Strategy">strategy<sup class="nav__count" aria-hidden="true">5</sup></a></li><li><a class="nav__link" href="../../leadership/" aria-label="Leadership">leadership<sup class="nav__count" aria-hidden="true">11</sup></a></li>
+      </ul>
+
+      <button class="nav__burger" type="button" data-nav-open aria-label="Open navigation" aria-expanded="false" aria-controls="nav-sheet"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-bars"></use></svg></button>
+    </div>
+  </nav>
+</header>
+<div class="nav-sheet" id="nav-sheet" data-open="false">
+  <button class="nav-sheet__close" type="button" data-nav-close aria-label="Close navigation"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg></button>
+  <ul class="nav-sheet__list" role="list"><li><a class="nav-sheet__link" href="../../work/">Work<span>8</span></a></li><li><a class="nav-sheet__link" href="../../designops/" aria-current="page">Strategy<span>5</span></a></li><li><a class="nav-sheet__link" href="../../leadership/">Leadership<span>11</span></a></li><li><a class="nav-sheet__link" href="../../fun/">Fun stuff<span>4</span></a></li><li><a class="nav-sheet__link" href="../../about/">About<span>·</span></a></li><li><a class="nav-sheet__link" href="../../experiments/">Experiments<span>5</span></a></li><li><a class="nav-sheet__link" href="../../writing/">Writing<span>1</span></a></li><li><a class="nav-sheet__link" href="../../snippets/">Snippets<span>5</span></a></li></ul>
+  <p class="t-sm t-dim">Design leader building products, systems and teams.</p>
+</div>
+<main id="main" tabindex="-1">
+<div class="page ">
+
+<!-- Share & Critique for Collaboration.
+
+     THIS DECK IS NOT ARUSHI'S WORK. It is by Shalini Raghunathan,
+     Co-Founder of 3 Big Things, dated 8 February 2025, and every slide
+     carries the 3 Big Things mark in its own artwork. The page credits her
+     above the slides, not beneath them, and the hero says so in the first
+     sentence. Do not reword that into anything that reads as authorship.
+     The site already credits her on the quality page and in the essay.
+
+     Ten of the twenty-three slides are published: the ones that carry the
+     method itself (setup, what and when, the three mindsets, the roles
+     model). The section dividers and the repeated role markers are left
+     out, and the remainder is the author's to publish, not this site's.
+
+     Slides are rendered from the source PDF at 2x (1440x810) and are
+     unaltered. Each is a real link to its own file, so the page works with
+     JavaScript off; lightbox.js upgrades that to a <dialog>. -->
+
+<header class="lede-hero shell">
+  <div data-reveal>
+    <p class="t-label lede-hero__eyebrow">Design leadership / Strategy</p>
+    <h1 class="lede-hero__title">Share &amp; Critique</h1>
+    <p class="lede-hero__lede">A structured way to put work in front of the team before it is finished: a timed choreography, three named roles, and a shared idea of what useful feedback sounds like. We adopted it to stop critique depending on who happened to be in the room.</p>
+  </div>
+</header>
+
+<section class="section shell" id="sc-method" aria-labelledby="h-sc-method">
+  <div class="section__head" data-reveal>
+    <p class="t-label section__eyebrow">The method</p>
+    <h2 class="t-h2" id="h-sc-method">Feedback as a practice, not a personality</h2>
+    <p class="prose">A design review tends to become the most senior person's opinion, delivered
+      slowly. This method fixes that structurally rather than by asking people to be nicer: the
+      collaborators write in silence first, everybody reads before anyone speaks, and the session
+      ends with the creator writing down action items. The roles rotate, so nobody is permanently
+      the one who judges.</p>
+  </div>
+
+  <div class="deck-credit" data-reveal>
+    <p class="deck-credit__k">Credit</p>
+    <p>This method and the deck below are the work of <b>Shalini Raghunathan, Co-Founder of
+      3 Big Things</b>, presented 8 February 2025. It is not my framework. I adopted it, ran it with
+      the design team, and it became one of the four quality practices on the
+      <a class="link-out" href="../quality/#q-critique">design quality page</a>.</p>
+    <p>Ten of the deck's twenty-three slides are shown here, as the source material behind the
+      practice. Every slide is reproduced unaltered and carries the author's mark.</p>
+  </div>
+
+  <div class="deck-grid" data-lb-gallery data-reveal>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 1 · Title" href="../../assets/img/critique/sc-01-title.png">
+        <img src="../../assets/img/critique/sc-01-title.png" width="1440" height="810" loading="eager"
+             alt="Title slide reading 'Share and Critique, your way to a Culture of Collaboration' in yellow and black on white, credited to Shalini Raghunathan, Co-Founder, 3 Big Things, February 8 2025.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 1</p>
+        <p class="deck-i__t"><b>The source.</b> The deck's own title slide, carrying its author, her
+          company and the date it was presented.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 2 · Getting the team together" href="../../assets/img/critique/sc-02-team.png">
+        <img src="../../assets/img/critique/sc-02-team.png" width="1440" height="810" loading="lazy"
+             alt="Slide headed 'Making it happen, Getting the team together': a core team of 3 to 10 people, who have shared context or work in related spaces, meeting 2 to 3 times a week.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 2</p>
+        <p class="deck-i__t"><b>The group.</b> Three to ten people with shared context, meeting two or
+          three times a week. Small enough that everyone speaks, frequent enough that work arrives
+          unfinished.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 3 · Choreography" href="../../assets/img/critique/sc-03-choreography.png">
+        <img src="../../assets/img/critique/sc-03-choreography.png" width="1440" height="810" loading="lazy"
+             alt="Slide headed 'Making it happen, Choreography' listing five numbered stages: creator shares work 12 to 15 minutes; collaborators ask clarifications 3 to 5 minutes; collaborators write feedback in silence 7 to 10 minutes; round robin feedback and conversation 15 to 20 minutes; creator records action items 5 minutes. Total 45 to 55 minutes, with a custodian keeping time.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 3</p>
+        <p class="deck-i__t"><b>The choreography, and the reason the method works.</b> Five timed
+          stages across 45 to 55 minutes. Stage three is the important one: feedback is written in
+          silence before anyone speaks, which removes the advantage of whoever thinks fastest out
+          loud.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 5 · What you can bring" href="../../assets/img/critique/sc-04-what.png">
+        <img src="../../assets/img/critique/sc-04-what.png" width="1440" height="810" loading="lazy"
+             alt="Slide headed 'WHAT? Examples of work-in-progress' listing research plans, discussion guides, synthesis, reports, concept sketches, storyboards, wireframes, visual design, portfolios, frameworks, stakeholder decks, workshop and sprint plans and conference talk proposals, beside a list of sharing formats from physical whiteboards to hi-fi digital wireframes.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 5</p>
+        <p class="deck-i__t"><b>What counts as work-in-progress.</b> Deliberately wide: a research plan
+          and a sprint plan both qualify. The breadth is what stops the session becoming a visual
+          design review by default.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 7 · When it is ready" href="../../assets/img/critique/sc-05-when.png">
+        <img src="../../assets/img/critique/sc-05-when.png" width="1440" height="810" loading="lazy"
+             alt="Slide headed 'WHEN?' with a must-have of being able to articulate your ideas visually and verbally, and nice-to-haves of holding strong opinions loosely and having some clarity and some questions about the work.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 7</p>
+        <p class="deck-i__t"><b>The readiness test, which is not &ldquo;when it's finished&rdquo;.</b>
+          The bar is being able to articulate the idea, not having resolved it.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 16 · The 3 C's" href="../../assets/img/critique/sc-06-three-cs.png">
+        <img src="../../assets/img/critique/sc-06-three-cs.png" width="1440" height="810" loading="lazy"
+             alt="Slide headed 'The 3 C's of Share and Critique' showing three words: Contextual, Concise, Curious.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 16</p>
+        <p class="deck-i__t"><b>Contextual, concise, curious.</b> The three words every role is held
+          to, and the spine of the three mindset slides that follow.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 17 · Creator's mindset" href="../../assets/img/critique/sc-07-creator.png">
+        <img src="../../assets/img/critique/sc-07-creator.png" width="1440" height="810" loading="lazy"
+             alt="Slide headed 'Creator's Mindset' in three columns. Contextual: share the problem and who it is for, tell the story of the work, define scope. Concise: what you are seeking feedback on, what you are not, and why now. Curious: do not defend or solve, feedback is a gift, listen to absorb, translate feedback into action items.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 17</p>
+        <p class="deck-i__t"><b>The creator.</b> The line that does the most work is
+          <em>what aspects do you NOT want feedback on</em>. Naming that up front is what keeps a
+          session in scope.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 19 · The collaborator's four roles" href="../../assets/img/critique/sc-08-roles.png">
+        <img src="../../assets/img/critique/sc-08-roles.png" width="1440" height="810" loading="lazy"
+             alt="Slide headed 'Roles of the Collaborator' showing Kantor's 4 Player Model with four roles, Mover, Follower, Opposer and Bystander, and a note that collaborators move through all four.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 19</p>
+        <p class="deck-i__t"><b>Kantor's four player model.</b> Collaborators are expected to move
+          through all four positions rather than settle into one, which is how a group avoids having
+          a permanent critic and a permanent agreer.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 20 · Collaborator's mindset" href="../../assets/img/critique/sc-09-collaborator.png">
+        <img src="../../assets/img/critique/sc-09-collaborator.png" width="1440" height="810" loading="lazy"
+             alt="Slide headed 'Collaborator's Mindset' in three columns. Contextual: frame feedback around user goals, stay within the scope requested. Concise: be specific, objective and tangible, justify opinions, highlight what is working. Curious: state assumptions, ask for clarifications, critique the work not the creator, challenge to contribute not to win, offer insight not solutions.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 20</p>
+        <p class="deck-i__t"><b>The collaborator.</b> <em>Critique the work, not the creator</em> and
+          <em>offer insight, not solutions</em> are the two that change how a review sounds.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="deck-i">
+      <a class="deck-i__shot" data-lb-tile="Slide 22 · Custodian's mindset" href="../../assets/img/critique/sc-10-custodian.png">
+        <img src="../../assets/img/critique/sc-10-custodian.png" width="1440" height="810" loading="lazy"
+             alt="Slide headed 'Custodian's Mindset' in three columns: stay neutral and objective, ensure collaborators move through the four player roles, remind the group of the why, keep time, redirect detours, diffuse tensions, ensure all voices are heard, challenge the group if needed, and critique the critique.">
+      </a>
+      <figcaption class="deck-i__cap">
+        <p class="deck-i__n">Slide 22</p>
+        <p class="deck-i__t"><b>The custodian.</b> The role most teams skip, and the one that makes the
+          other two possible. Neutral, keeps time, and critiques the critique.</p>
+      </figcaption>
+    </figure>
+
+  </div>
+
+  <p class="note" data-reveal><span>The remaining thirteen slides are section dividers, repeated
+    role markers and two further reflection frameworks. They are the author's to publish, so they
+    are not reproduced here.</span></p>
+</section>
+
+<dialog class="lb" data-lb aria-label="Slide, full size">
+  <figure class="lb__fig">
+    <img alt="">
+    <figcaption class="lb__cap" data-lb-cap></figcaption>
+  </figure>
+  <button class="lb__x" type="button" data-lb-close aria-label="Close">&times;</button>
+</dialog>
+</div>
+</main>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__base">
+      <p class="t-label">Arushi Prasad · Design leader</p>
+      <p class="t-label t-dim">Pune, India</p>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/site.js?v=d22fe337" defer></script>
+<script src="../../assets/js/lightbox.js?v=909ce9b8" defer></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" role="presentation">
+  <!-- Systems over silos. Three parts, and the lines that make them one. -->
+  <path d="M22 18h20M17 25l12 15M47 25 35 40" stroke="#E8D49A" stroke-width="1.9" stroke-linecap="round"/>
+  <rect x="6" y="12" width="16" height="12" rx="3.2" fill="#4A5F79" stroke="#EFE9DC" stroke-width="1.8"/>
+  <rect x="42" y="12" width="16" height="12" rx="3.2" fill="#6E5F93" stroke="#EFE9DC" stroke-width="1.8"/>
+  <rect x="24" y="40" width="16" height="12" rx="3.2" fill="#7E9B70" stroke="#EFE9DC" stroke-width="1.8"/>
+</svg>

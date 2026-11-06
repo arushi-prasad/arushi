@@ -1,0 +1,138 @@
+/* ============================================================================
+   FUN — the photo wall.
+
+   Square tiles in a grid, the way a photo app lays them out. The sources are
+   a mix of portrait, landscape and square, so each one is cropped to a square
+   for the wall and every tile links to the uncropped file: the crop is a
+   contact sheet, not the photograph.
+   ========================================================================= */
+
+.fun-wall {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--step-3);
+  margin-top: var(--step-10);
+}
+
+@media (min-width: 40rem) { .fun-wall { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 64rem) { .fun-wall { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--step-4); } }
+
+.fun-tile {
+  display: block;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--ink-5);
+  min-inline-size: 0;
+}
+
+.fun-tile img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  display: block;
+  /* The wall crops every frame square from its middle, which is right for
+     almost all of them. A photograph whose subject sits high or low in the
+     frame sets --pos on its own tile instead; see the badminton one, where
+     the centre crop took the top of her head off. */
+  object-position: var(--pos, 50% 50%);
+}
+
+/* The mark in the corner says which of the things in the line above this
+   photograph belongs to: the same drawing, in the same colour. It sits
+   bottom-right, where the hover mark is top-right, so the two never meet.
+
+   Decorative only — aria-hidden, and the alt text already says what the
+   picture is. pointer-events:none so it cannot eat a click meant for the
+   tile, which is the link that opens the full frame. */
+.fun-tile__k {
+  position: absolute;
+  inset-block-end: .45rem;
+  inset-inline-end: .45rem;
+  inline-size: 1.6rem;
+  block-size: 1.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  /* A plate, because these photographs are every brightness there is and a
+     bare stroke would vanish against half of them. */
+  background: color-mix(in oklab, var(--ink-0) 72%, transparent);
+  color: var(--i, var(--ink-100));
+  pointer-events: none;
+}
+
+/* .ico pins itself to 1rem; the plate is 1.6rem and wants the drawing
+   smaller than that. */
+.fun-tile__k .ico { font-size: .86rem; }
+
+/* The affordance, and the only motion: the picture eases up a little and a
+   corner mark appears to say the full frame is behind it. */
+@media (prefers-reduced-motion: no-preference) {
+  .fun-tile img { transition: transform 420ms var(--ease-out), opacity 220ms var(--ease-out); }
+  .fun-tile::after { transition: opacity 200ms var(--ease-out); }
+  .fun-tile:hover img, .fun-tile:focus-visible img { transform: scale(1.04); }
+}
+
+.fun-tile::after {
+  content: "↗";
+  position: absolute;
+  inset-block-start: .45rem;
+  inset-inline-end: .45rem;
+  inline-size: 1.5rem; block-size: 1.5rem;
+  display: grid; place-items: center;
+  border-radius: var(--radius-sm);
+  background: color-mix(in oklab, var(--ink-0) 70%, transparent);
+  color: var(--ink-100);
+  font-size: .72rem;
+  opacity: 0;
+}
+
+.fun-tile:hover::after, .fun-tile:focus-visible::after { opacity: 1; }
+
+.fun-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+
+/* ===========================================================================
+   THE HERO
+   ========================================================================= */
+
+/* The heading, sized to match Work, Strategy and Leadership rather than the
+   other two-word heroes.
+
+   This page keeps the two-word hero markup, so it would otherwise take
+   .page-hero__title's clamp, which tops out at 7.25rem — a poster size, set
+   for pages whose heading IS the page. Arushi asked for this one to sit with
+   the three section indexes instead, and those use .lede-hero__title. The
+   clamp and the leading below are that rule's, copied exactly.
+
+   Scoped by the stylesheet, not by a selector: fun.css is loaded by this
+   page alone and after components.css, so the other twelve pages using the
+   two-word hero are untouched. If this is ever wanted site-wide, change
+   .page-hero__title in components.css and delete this block. */
+.page-hero__title {
+  line-height: 0.98;
+  font-size: clamp(2.4rem, 1rem + 5.2vw, 4.75rem);
+}
+
+/* The line under the heading runs wider here than --prose-max allows.
+   It is six short clauses, not running prose, and at the default measure it
+   broke into five lines with two of them two words long. */
+.page-hero__tagline { max-width: min(100%, 58rem); }
+
+/* A mark before each of the things it names, the way the About page's
+   "What I use" list marks each item: the drawing takes the colour, the
+   words do not. This replaced a set of filled pills, which at six in one
+   paragraph read as a highlighter rather than a label.
+
+   font-size is reset to 1em because .ico pins itself to 1rem, and this line
+   is set at --text-lg; without it the marks would sit a size small.
+   The icons are inline, not flex items, so a clause still wraps normally. */
+.fun-ico {
+  display: inline-block;
+  font-size: 1em;
+  color: var(--i, var(--text-secondary));
+  margin-inline-end: .3em;
+  vertical-align: -0.13em;
+  opacity: 0.9;
+}

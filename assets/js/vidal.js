@@ -73,18 +73,18 @@
     ],
 
     mapping: [
-      { doc: 'Discharge Summary', clause: 'Clause 3.1 — Hospitalisation, minimum 24 hours',
+      { doc: 'Discharge Summary', clause: 'Clause 3.1 · Hospitalisation, minimum 24 hours',
         state: 'ok',   note: 'Three nights recorded. The minimum stay condition is met.' },
-      { doc: 'Hospital Bills',    clause: 'Clause 4.2 — Room rent, capped at 1% of sum insured per day',
+      { doc: 'Hospital Bills',    clause: 'Clause 4.2 · Room rent, capped at 1% of sum insured per day',
         state: 'warn', note: 'Room billed at ' + INR(8000) + ' a night against an eligible ' +
                              INR(5000) + '. Clause 4.2 prorates the associated charges.' },
-      { doc: 'Investigation Reports', clause: 'Clause 3.4 — Diagnostics during admission',
+      { doc: 'Investigation Reports', clause: 'Clause 3.4 · Diagnostics during admission',
         state: 'ok',   note: 'All reports fall inside the admission window.' },
-      { doc: 'Hospital Bills',    clause: 'Clause 5.6 — Non-medical consumables are not payable',
+      { doc: 'Hospital Bills',    clause: 'Clause 5.6 · Non-medical consumables are not payable',
         state: 'stop', note: 'Nine bill lines fall under the non-payable list in Annexure II.' },
-      { doc: 'Implant Sticker',   clause: 'Clause 4.9 — Implants, invoice and sticker required',
+      { doc: 'Implant Sticker',   clause: 'Clause 4.9 · Implants, invoice and sticker required',
         state: 'stop', note: 'No document to map. The implant line cannot be assessed.' },
-      { doc: 'Member ID Proof',   clause: 'Clause 1.2 — Member is on the policy on the date of admission',
+      { doc: 'Member ID Proof',   clause: 'Clause 1.2 · Member is on the policy on the date of admission',
         state: 'ok',   note: 'Policy active from 01 Apr 2026. Admission 31 Oct 2026.' }
     ],
 
@@ -184,7 +184,7 @@
           r.appendChild(left);
           r.appendChild(tag(m.state, m.state === 'ok' ? 'Matched' :
                                      m.state === 'warn' ? 'Partly matched' : 'No evidence'));
-          r.appendChild(el('small', null, m.doc + ' — ' + m.note));
+          r.appendChild(el('small', null, m.doc + ' · ' + m.note));
           rows.appendChild(r);
         });
         host.appendChild(rows);

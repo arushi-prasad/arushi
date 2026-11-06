@@ -87,7 +87,7 @@
    "year": "2019",
    "size": 2,
    "head": "Two designers. Zero process.",
-   "body": "Reviews were vibes-based. “Does this look okay?” “Yeah… I think so?” Feedback was nodding until the silence ended — nobody wanted to be the bad guy.",
+   "body": "Reviews were vibes-based. “Does this look okay?” “Yeah… I think so?” Feedback was nodding until the silence ended. Nobody wanted to be the bad guy.",
    "kind": "voice",
    "source": "culture"
   },
@@ -95,7 +95,7 @@
    "year": "2020",
    "size": 4,
    "head": "Doubled the team. Chaos doubled faster.",
-   "body": "Onboarding was a Google Doc and a prayer. Three designers redesigning the same component — none of them knew.",
+   "body": "Onboarding was a Google Doc and a prayer. Three designers redesigning the same component, and none of them knew.",
    "note": "“Doubled” is the word in the source; 4 is my reading of it, not a counted figure.",
    "kind": "voice",
    "source": "culture"
@@ -130,7 +130,7 @@
    "year": "2025",
    "size": 23,
    "head": "Reshaped around squads.",
-   "body": "A January roster puts twenty-one in seat and twenty-three planned — product-embedded designers, a central floating team, interns, and single owners for the design system and the AI work.",
+   "body": "A January roster puts twenty-one in seat and twenty-three planned: product-embedded designers, a central floating team, interns, and single owners for the design system and the AI work.",
    "note": "Jan’25 column in Revised_Titles.xlsx: 21 current, 23 planned, interns included.",
    "kind": "snapshot",
    "source": "titles"
@@ -204,7 +204,7 @@
  "model_objectives": {
   "label": "Design Team 2.0",
   "status": "proposal",
-  "status_label": "Proposed model — October 2024",
+  "status_label": "Proposed model, October 2024",
   "source": "dt20",
   "items": [
    [
@@ -236,14 +236,14 @@
    "Designers embedded in a product team for three to six months.",
    "Reviewed quarterly, to rotate or scale up.",
    "Reporting into the squad, dotted line to the UX team for mentoring.",
-   "Some dedicated to DesignOps — design system, AI products, design excellence."
+   "Some dedicated to DesignOps: design system, AI products, design excellence."
   ]
  },
  "rituals": [
   {
    "name": "Weekly crits",
    "cadence": "Every Friday",
-   "line": "Silent sticky notes first. Then talk. No ambushes — honest feedback with a name attached.",
+   "line": "Silent sticky notes first. Then talk. No ambushes, and honest feedback with a name attached.",
    "hue": "copper"
   },
   {
@@ -255,7 +255,7 @@
   {
    "name": "Share & tell",
    "cadence": "Monthly",
-   "line": "Not what you made — what you learned. Failures actively encouraged, and usually the most useful.",
+   "line": "Not what you made, but what you learned. Failures actively encouraged, and usually the most useful.",
    "hue": "sage"
   },
   {
@@ -293,7 +293,7 @@
     "mandatory attendances"
    ]
   ],
-  "rule": "If you figured something out this week — you’re presenting it next month.",
+  "rule": "If you figured something out this week, you’re presenting it next month.",
   "note": "Presenters are named in the source. They are colleagues, so the topics are published and the names are not.",
   "source": "culture",
   "items": [
@@ -424,7 +424,7 @@
  },
  "ladder": {
   "label": "The ladder designers grew through",
-  "attrib": "Career framework operated by the design organisation at Bajaj Finserv Health. Published here in sanitised form — bands and tracks only.",
+  "attrib": "Career framework operated by the design organisation at Bajaj Finserv Health. Published here in sanitised form: bands and tracks only.",
   "source": "ladder, growth",
   "bands": [
    "GB03",
@@ -456,7 +456,7 @@
    {
     "name": "UX Design",
     "hue": "copper",
-    "blurb": "The overall experience — usability, information architecture, content.",
+    "blurb": "The overall experience: usability, information architecture, content.",
     "steps": [
      [
       "Learning UX basics",
@@ -479,7 +479,7 @@
    {
     "name": "UI Design",
     "hue": "ochre",
-    "blurb": "How it looks and how it responds — the visual and interaction surface.",
+    "blurb": "How it looks and how it responds: the visual and interaction surface.",
     "steps": [
      [
       "Mastering the basics",
@@ -502,7 +502,7 @@
    {
     "name": "Product Design",
     "hue": "sage",
-    "blurb": "Design, tech and strategy together — owning the product outcome.",
+    "blurb": "Design, tech and strategy together, owning the product outcome.",
     "steps": [
      [
       "Creating basic designs",
@@ -525,7 +525,7 @@
    {
     "name": "Design Engineering",
     "hue": "teal",
-    "blurb": "Design to code — front-end fundamentals, increasingly AI-assisted.",
+    "blurb": "Design to code: front-end fundamentals, increasingly AI-assisted.",
     "steps": [
      [
       "Mastering principles and tools",
@@ -582,7 +582,7 @@
    ],
    [
     "Assess & align",
-    "Rate against them, one to four — self and manager."
+    "Rate against them, one to four, self and manager."
    ],
    [
     "Plan",
@@ -723,7 +723,7 @@
    "value": "24",
    "unit": "",
    "label": "designers in the function",
-   "qual": "On 17 August 2023 — fifteen UX and nine UI, counted off the org chart.",
+   "qual": "On 17 August 2023: fifteen UX and nine UI, counted off the org chart.",
    "kind": "snapshot",
    "src": "DesignOps Review, 17 Aug 2023",
    "hue": "copper"
@@ -741,7 +741,7 @@
    "value": "3",
    "unit": "",
    "label": "moved into management",
-   "qual": "Individual contributors who became people leaders — a first for the team.",
+   "qual": "Individual contributors who became people leaders, a first for the team.",
    "kind": "recorded",
    "src": "retention-growth-morale.html",
    "hue": "sage"
@@ -768,7 +768,7 @@
    "value": "5",
    "unit": "",
    "label": "tracks a designer could grow along",
-   "qual": "UX, UI, product, design engineering, management — across bands GB03 to GB08.",
+   "qual": "UX, UI, product, design engineering, management, across bands GB03 to GB08.",
    "kind": "recorded",
    "src": "DesignTeam_CareerGrowth 1.2.pdf",
    "hue": "plum"
@@ -776,7 +776,7 @@
  ],
  "numbers_note": "Each of these is countable and traceable to one named file. Attrition and tenure figures exist in my records but disagree with each other, so they are deliberately absent until I can reconcile them.",
  "restricted": {
-  "title": "Detailed leadership data — restricted",
+  "title": "Detailed leadership data, restricted",
   "line": "The team’s roster, competency scores and promotion records sit behind this. They are real, and they are not mine to publish.",
   "rows": [
    [
@@ -787,36 +787,36 @@
     "Next step"
    ],
    [
-    "——————",
+    "······",
     "GB04A",
     "18 mo",
     "22 / 35",
-    "————"
+    "····"
    ],
    [
-    "—————",
+    "·····",
     "GB03",
     "15 mo",
     "11 / 35",
-    "—————"
+    "·····"
    ],
    [
-    "———————",
+    "·······",
     "GB05A",
     "18 mo",
     "31 / 35",
-    "———"
+    "···"
    ],
    [
-    "————",
+    "····",
     "GB04A",
     "18 mo",
     "15 / 35",
-    "——————"
+    "······"
    ]
   ],
   "note": "Illustrative shape only. No real row, name or score is rendered here or sent to your browser.",
-  "status": "This portfolio is a static site, so there is no server to authenticate against. Nothing confidential is published, blurred or otherwise — the preview above is invented shape, not covered-up data."
+  "status": "This portfolio is a static site, so there is no server to authenticate against. Nothing confidential is published, blurred or otherwise. The preview above is invented shape, not covered-up data."
  },
  "principles": [
   {
@@ -839,7 +839,7 @@
    "n": "03",
    "title": "Give the team the spotlight",
    "hue": "sage",
-   "body": "When the team can shine, I stay in the background. Credit gets attributed correctly, and designers present their own work — including to the people who sign it off.",
+   "body": "When the team can shine, I stay in the background. Credit gets attributed correctly, and designers present their own work, including to the people who sign it off.",
    "pull": "If you designed it, you present it.",
    "source": "journey, culture"
   },
@@ -862,7 +862,7 @@
  ],
  "closing": {
   "head": "Still building. Still learning. Still making room.",
-  "body": "What I learned growing this team is the thing I now work on directly: the operating layer underneath design. How work gets planned, how quality gets held, how AI changes what a design team even is. Different problem, same instinct — build the system, then get out of the way.",
+  "body": "What I learned growing this team is the thing I now work on directly: the operating layer underneath design. How work gets planned, how quality gets held, how AI changes what a design team even is. Different problem, same instinct: build the system, then get out of the way.",
   "links": [
    [
     "DesignOps",

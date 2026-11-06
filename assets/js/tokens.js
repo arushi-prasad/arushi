@@ -41,7 +41,7 @@
      state the CSS has no rule for. */
   var OPTIONS = {
     palette: [
-      { id: 'mono',      label: 'Mono',           note: 'Default. No hue — the neutral ramp only.' },
+      { id: 'mono',      label: 'Mono',           note: 'Default. No hue, the neutral ramp only.' },
       { id: 'copper',    label: 'Warm Copper',    note: 'The whole ramp swung to amber.' },
       { id: 'botanical', label: 'Botanical Green',note: 'The whole ramp swung to deep green.' }
     ],

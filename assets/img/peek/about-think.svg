@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560" width="560" height="560" fill="none" role="presentation">
+  <!-- Two of the five drawings from the About page's "How I think" list:
+       progress over perfection, and people before process. It carried all
+       five until 6 Nov 2026, which at this size made each one small; two
+       at 236px read properly. The drawings are not redrawn here — each is
+       the file from assets/img/stickers nested whole, so the peek cannot
+       drift from the page it previews. -->
+  <g transform="rotate(-5 176 230)">
+    <svg x="58" y="112" width="236" height="236" viewBox="0 0 64 64" fill="none" overflow="visible"><path d="M11 25c10-8 22-11 33-13" stroke="#B55C3C" stroke-width="1.9" stroke-linecap="round" stroke-dasharray="1.6 3.6"/>
+  <path d="m38 9.6 8.4 1.8-3 7.6" stroke="#B55C3C" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="9" y="38" width="11" height="14" rx="2.4" fill="#5E9A93" stroke="#EFE9DC" stroke-width="1.7"/>
+  <rect x="26" y="31" width="11" height="21" rx="2.4" fill="#7E9B70" stroke="#EFE9DC" stroke-width="1.7"/>
+  <rect x="43" y="24" width="11" height="28" rx="2.4" fill="#C19A3A" stroke="#EFE9DC" stroke-width="1.7"/></svg>
+  </g>
+  <g transform="rotate(4 386 350)">
+    <svg x="268" y="232" width="236" height="236" viewBox="0 0 64 64" fill="none" overflow="visible"><g stroke="#EFE9DC" stroke-width="1.8" stroke-linejoin="round">
+    <circle cx="15.6" cy="25" r="6.6" fill="#6E5F93"/>
+    <path d="M5 47c0-5.9 4.7-10.6 10.6-10.6S26.2 41.1 26.2 47z" fill="#6E5F93"/>
+    <circle cx="48.4" cy="25" r="6.6" fill="#4A5F79"/>
+    <path d="M37.8 47c0-5.9 4.7-10.6 10.6-10.6S59 41.1 59 47z" fill="#4A5F79"/>
+    <circle cx="32" cy="21" r="7.6" fill="#C07A42"/>
+    <path d="M20 47c0-6.6 5.4-12 12-12s12 5.4 12 12z" fill="#C07A42"/>
+  </g></svg>
+  </g>
+</svg>

@@ -92,7 +92,7 @@
       var html = '';
       ROWS.forEach(function (row) {
         var name = row[0], isColour = row[1];
-        var value = cssVar(name) || '—';
+        var value = cssVar(name) || '·';
         var chip = isColour
           ? '<span class="tokens__chip" style="background:' + value + '"></span>'
           : '';
@@ -332,7 +332,7 @@
       if (reset) reset.disabled = grown === 0;
       if (announce && status) {
         status.textContent = grown >= leaves.length
-          ? 'Fully grown — five leaves.'
+          ? 'Fully grown: five leaves.'
           : 'Leaf ' + grown + ' of ' + leaves.length + '.';
       }
     }

@@ -7,16 +7,16 @@
       "future": "a proposal or an opportunity, not an implemented capability"
     },
     "sources": {
-      "blueprint": "Bajaj-Design-System-Blueprint 2 1.md — v2.0, last updated 2026-04-07. Complete token reference and component construction spec.",
+      "blueprint": "Bajaj-Design-System-Blueprint 2 1.md; v2.0, last updated 2026-04-07. Complete token reference and component construction spec.",
       "figma": "Figma · Documentation file qNHzFFW0IuAhgC2ZloLK4b, page 'Storybook' (node 0:1). Read live on 2026-10-20 through the Figma MCP connector.",
       "resume": "Resume/Arushi-Prasad-Resume.md",
-      "audit": "00.Homepage/md files/01. homepage-audit.md — Arushi's own audit, which already flags the Capsule performance metrics."
+      "audit": "00.Homepage/md files/01. homepage-audit.md; Arushi's own audit, which already flags the Capsule performance metrics."
     },
     "figma_verification": "Spot-checked the blueprint against live Figma variables on node 8285:51565 (Buttons). Confirmed: Rubik is the typeface, Primary/400 = #005dac, Primary/200 = #c9e2f8, Typography Jet Gray #2b2b2b, Gray #575756, Ash Gray #b3b3b3, Surface ExtraLight BluishGray #eff2f4, Borders/Dividers #f2f2f2, Disable/Text #b3b3b3. The variable `--color-primary-400` exists in the file, so a CSS-variable naming convention is real.",
     "figma_divergences": [
       "Figma exposes a FOCUS state for every button type; the blueprint's variant table lists only hover, pressed and disabled.",
       "Figma documents TEN text-input states (default, default-error, active, active-typing, active-error, filled, filled-error, filled-success, disabled, read-only). The blueprint is less granular.",
-      "Figma's `Elements/Icons` resolves to #707070; the blueprint's `icon-gray` is #575756. Not reconciled — the page uses the blueprint value and says so.",
+      "Figma's `Elements/Icons` resolves to #707070; the blueprint's `icon-gray` is #575756. Not reconciled: the page uses the blueprint value and says so.",
       "Figma type styles are named per platform (DWeb/Header/H1 36px, App_MWeb/Header/H3 14px, Heading/xl-semibold 40px). The blueprint uses a single platform-neutral scale (display-lg 56px … label-xs 8px). These are two different naming systems over the same typeface; the page shows the blueprint scale and notes the Figma naming."
     ],
     "privacy": "The Figma text-input documentation uses a real colleague's name as placeholder content. It is not reproduced; the page uses a neutral placeholder.",
@@ -48,7 +48,7 @@
     {
       "v": "5",
       "l": "atoms",
-      "q": "Dividers, avatar, badge, star rating, status dot — the pieces that cannot be broken down further.",
+      "q": "Dividers, avatar, badge, star rating, status dot: the pieces that cannot be broken down further.",
       "s": "blueprint",
       "k": "verified"
     },
@@ -87,7 +87,7 @@
       ],
       [
         "Four platforms, four answers",
-        "App, MWeb, DWeb and PWA each needed their own sizing — but nothing recorded what was deliberately different and what had simply drifted."
+        "App, MWeb, DWeb and PWA each needed their own sizing, but nothing recorded what was deliberately different and what had simply drifted."
       ],
       [
         "Nothing could be changed centrally",
@@ -120,7 +120,7 @@
     ],
     [
       "Light-first",
-      "Design primarily for light mode — white surfaces, subtle grey borders, minimal shadows.",
+      "Design primarily for light mode: white surfaces, subtle grey borders, minimal shadows.",
       "#575756"
     ]
   ],
@@ -348,7 +348,7 @@
           [
             "Blue-400",
             "#005DAC",
-            "Primary brand — buttons, links, active states"
+            "Primary brand: buttons, links, active states"
           ],
           [
             "Blue-500",
@@ -384,7 +384,7 @@
           [
             "Orange-400",
             "#FF5500",
-            "Secondary brand — secondary CTAs, highlights"
+            "Secondary brand: secondary CTAs, highlights"
           ],
           [
             "Orange-500",
@@ -420,7 +420,7 @@
           [
             "YellowOrange-400",
             "#FDA416",
-            "Tertiary — star ratings, warning icons"
+            "Tertiary: star ratings, warning icons"
           ],
           [
             "YellowOrange-500",
@@ -742,7 +742,7 @@
   "icons": [
     [
       "Style",
-      "Outlined — not filled, not two-tone"
+      "Outlined, not filled, not two-tone"
     ],
     [
       "Default size",
@@ -775,7 +775,7 @@
       "24px",
       "no icon",
       "8px / 4px",
-      "—"
+      "·"
     ],
     [
       "App / MWeb",
@@ -843,7 +843,7 @@
     "Press",
     "Disabled"
   ],
-  "button_states_note": "Five states per type, read off the Figma Behaviour frame. The blueprint's variant table lists only hover, pressed and disabled — Figma is the more complete source here.",
+  "button_states_note": "Five states per type, read off the Figma Behaviour frame. The blueprint's variant table lists only hover, pressed and disabled. Figma is the more complete source here.",
   "input_states": [
     [
       "Default",
@@ -1067,7 +1067,7 @@
     ],
     [
       "Platform defaults",
-      "App/MWeb 40px, DWeb 48px, banners 24px — the differences are recorded rather than discovered.",
+      "App/MWeb 40px, DWeb 48px, banners 24px, and the differences are recorded rather than discovered.",
       "verified"
     ],
     [
@@ -1089,7 +1089,7 @@
     ],
     [
       "Per-component usage rules",
-      "Each component section states what is and is not permitted — buttons are never pill-shaped, shadows are never coloured.",
+      "Each component section states what is and is not permitted: buttons are never pill-shaped, shadows are never coloured.",
       "verified"
     ],
     [
@@ -1110,7 +1110,7 @@
   ],
   "dos": [
     "Use Rubik for every piece of text.",
-    "Use the documented radius scale — 4px for small controls, 8px for medium and large.",
+    "Use the documented radius scale: 4px for small controls, 8px for medium and large.",
     "Keep interactive targets at 44px minimum.",
     "Use semantic tokens rather than raw hex values.",
     "Keep shadows subtle and uncoloured."
@@ -1173,13 +1173,13 @@
     ],
     [
       "Consistency against product need",
-      "Four platforms needed four button heights. The system's job was to record which differences were deliberate — not to pretend there were none."
+      "Four platforms needed four button heights. The system's job was to record which differences were deliberate, not to pretend there were none."
     ]
   ],
-  "closing": "A design system is the product behind the products. When it works, nobody mentions it — they just ship faster and argue less, and the things they ship look like they came from the same company.",
+  "closing": "A design system is the product behind the products. When it works, nobody mentions it. They just ship faster and argue less, and the things they ship look like they came from the same company.",
   "contrast": {
-    "note": "Computed with the WCAG 2.1 relative-luminance formula against the documented token pairs — not judged by eye. Normal body text needs 4.5:1; large text and UI boundaries need 3:1.",
-    "claim": "The blueprint states that primary blue on white is 4.65:1. Measured, it is 6.64:1 — the system is more accessible than its own documentation claims.",
+    "note": "Computed with the WCAG 2.1 relative-luminance formula against the documented token pairs, not judged by eye. Normal body text needs 4.5:1; large text and UI boundaries need 3:1.",
+    "claim": "The blueprint states that primary blue on white is 4.65:1. Measured, it is 6.64:1, so the system is more accessible than its own documentation claims.",
     "caveat": "This checks colour contrast only. It is not a full WCAG audit, and the page makes no compliance claim.",
     "rows": [
       [

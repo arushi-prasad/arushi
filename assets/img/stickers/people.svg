@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" role="presentation">
+  <!-- People before process. Three of them, and the one in front is closest. -->
+  <g stroke="#EFE9DC" stroke-width="1.8" stroke-linejoin="round">
+    <circle cx="15.6" cy="25" r="6.6" fill="#6E5F93"/>
+    <path d="M5 47c0-5.9 4.7-10.6 10.6-10.6S26.2 41.1 26.2 47z" fill="#6E5F93"/>
+    <circle cx="48.4" cy="25" r="6.6" fill="#4A5F79"/>
+    <path d="M37.8 47c0-5.9 4.7-10.6 10.6-10.6S59 41.1 59 47z" fill="#4A5F79"/>
+    <circle cx="32" cy="21" r="7.6" fill="#C07A42"/>
+    <path d="M20 47c0-6.6 5.4-12 12-12s12 5.4 12 12z" fill="#C07A42"/>
+  </g>
+</svg>

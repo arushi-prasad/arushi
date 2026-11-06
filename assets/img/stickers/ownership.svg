@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" role="presentation">
+  <!-- Ownership over output. Someone is holding the key. -->
+  <path d="M28.8 32.4 49 45.6" stroke="#EFE9DC" stroke-width="3.6" stroke-linecap="round"/>
+  <path d="m41.4 39.6-3.2 5M47.2 43.4l-3.2 5" stroke="#EFE9DC" stroke-width="2.8" stroke-linecap="round"/>
+  <circle cx="20.4" cy="26" r="10.4" fill="#C07A42" stroke="#EFE9DC" stroke-width="1.9"/>
+  <circle cx="20.4" cy="26" r="3.6" fill="#14130F"/>
+</svg>

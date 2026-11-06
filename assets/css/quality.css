@@ -375,7 +375,7 @@
 }
 .ms td ul{ list-style:none; margin:0; padding:0; display:grid; gap:var(--step-3); }
 .ms td li{ font-size:var(--text-sm); line-height:var(--leading-body); }
-.ms td li::before{ content:"— "; color:var(--text-tertiary); }
+.ms td li::before{ content:"· "; color:var(--text-tertiary); }
 .ms td{ min-width:16rem; }
 
 /* --- feedback frameworks ------------------------------------------------------------ */
